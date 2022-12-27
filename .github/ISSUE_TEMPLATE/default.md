@@ -1,7 +1,7 @@
 ---
 name: default
 about: 기능구현, 리팩토링, 환경설정 등을 포함한 디폴트 템플릿
-title: "[/#] "
+title: "[] "
 labels: ''
 assignees: ''
 
