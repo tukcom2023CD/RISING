@@ -19,8 +19,9 @@ permissions:
 jobs:
   build-backend:
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./backend
+    defaults:
+      run:
+        working-directory: ./backend
     steps:
     - name: checkout
       uses: actions/checkout@v3
@@ -42,8 +43,10 @@ jobs:
     strategy:
       matrix:
         node: [14, 16, 18]
-    env:
-      working-directory: ./frontend
+    defaults:
+      run:
+        working-directory: ./frontend
+        
     steps:
     - name: checkout
       uses: actions/checkout@v3
