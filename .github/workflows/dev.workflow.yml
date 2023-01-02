@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [14, 16, 18]
+        node: [18]
     defaults:
       run:
         working-directory: ./frontend
@@ -55,6 +55,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node }}
+    
     - name: Run test
       run: |
-        npm run build
+        npm install
+        npm run build && npm run test
+      env:
+        CI: true
