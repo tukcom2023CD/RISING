@@ -42,7 +42,6 @@ jib {
         tags = ["${project.version}".toString()]
     }
     container {
-        ports = ["8080"]
         volumes = ["/spring-boot"]
     }
 }
