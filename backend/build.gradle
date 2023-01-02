@@ -36,9 +36,13 @@ tasks.named('test') {
 jib {
     from {
         image = "openjdk:11-jre"
+        auth {
+            username = ${DOCKER_ID}
+            password = ${DOCKER_PASSWORD}
+        }
     }
     to {
-        image = "hlhl/jib-rising"
+        image = project.DOCKER_ID + "/" + project.DOCKER_IMAGE_NAME
         tags = ["${project.version}".toString()]
     }
     container {
