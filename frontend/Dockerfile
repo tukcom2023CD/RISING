@@ -22,7 +22,7 @@ COPY . ./
 
 # 개발
 # docker-compose.yml 파일에 npm start 작성할거면 지워도 됨
-RUN npm start
+RUN #npm start
 
 # 배포
 # RUN yarn run build

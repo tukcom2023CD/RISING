@@ -5,6 +5,8 @@ services:
     image: mysql:latest
     #restart: always
     #volumnes:
+    networks:
+      - app-tier
     environment: # 컨테이너 안의 환경변수 설정
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_HOST=localhost
@@ -20,12 +22,12 @@ services:
   backend:
     container_name: backend_con
     image: ${JIB_IMAGE}
-#    build:
-#      context: .
     ports:
       - "8080:8080"
     depends_on:
       - db
+    networks:
+      - app-tier
     expose:
       - 3306
 #    volumes:
@@ -36,23 +38,26 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
       SPRING_JPA_HIBERNATE_DDL_AUTO: create #운영시는 validate나 none으로 변경
     tty: true #명령어 실행 끝나도 꺼지지 않음
-#
-##  frontend:
-#
-#  nginx:
-#    container_name: nginx
-#    image: nginx:latest
-##    build: ./config/nginx
-#    restart: on_failure
+
+  frontend:
+    container_name: frontend_con
+    build: ./frontend
+    command: ["npm", "start"]
+    ports:
+      - "3000:3000"
+
+  nginx:
+    container_name: nginx_proxy
+    image: nginx:latest
+    ports:
+      - "80:80"
 #    volumes:
-#      - static:/home/app/web/static
-#      - media:/home/app/web/media
-#    ports:
-#      - "80:80"
-#
-#
-#
-#networks:
-## 네트워크 설정
-#volumes:
-## 볼륨 설정
+#      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - backend
+      - frontend
+
+
+networks:
+  app-tier:
+    external: true
