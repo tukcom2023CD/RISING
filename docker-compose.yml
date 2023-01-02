@@ -1,0 +1,58 @@
+version: "3"
+services:
+  db:
+    container_name: mysql
+    image: mysql:latest
+    #restart: always
+    #volumnes:
+    environment: # 컨테이너 안의 환경변수 설정
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_HOST=localhost
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_USER_PASSWORD}
+      - TZ=Asia/Seoul
+
+    ports:
+      - "3307:3306"
+    tty: true
+    
+#  backend:
+#    container_name: spring_boot
+#    image: ${JIB_IMAGE}
+##    build:
+##      context: .
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - mysql
+#    expose:
+#      - 3306
+##    volumes:
+##      - data_mysql:/mysql
+#    environment:
+#      SPRING_DATASOURCE_URL: ${MYSQL_URL}
+##      SPRING_DATASOURCE_USERNAME: ${MYSQL_USERNAME}
+##      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+#      SPRING_JPA_HIBERNATE_DDL_AUTO: create #운영시는 validate나 none으로 변경
+#    tty: true #명령어 실행 끝나도 꺼지지 않음
+#
+##  frontend:
+#
+#  nginx:
+#    container_name: nginx
+#    image: nginx:latest
+##    build: ./config/nginx
+#    restart: on_failure
+#    volumes:
+#      - static:/home/app/web/static
+#      - media:/home/app/web/media
+#    ports:
+#      - "80:80"
+#
+#
+#
+#networks:
+## 네트워크 설정
+#volumes:
+## 볼륨 설정
