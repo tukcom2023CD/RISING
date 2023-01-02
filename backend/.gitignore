@@ -19,6 +19,7 @@ bin/
 
 ### IntelliJ IDEA ###
 .idea
+.idea/*
 *.iws
 *.iml
 *.ipr
@@ -33,5 +34,18 @@ out/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
-.vscode/
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+.env
+gradle.properties
+
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+.idea/workspace.xml
+
