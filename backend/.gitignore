@@ -49,3 +49,6 @@ gradle.properties
 .idea/**/libraries
 .idea/workspace.xml
 
+
+### yml ###
+**/src/main/resources/application-secret.yml
