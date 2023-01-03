@@ -3,8 +3,8 @@ services:
   db:
     container_name: mysql
     image: mysql:latest
-    #restart: always
-    #volumnes:
+    volumes:
+      - ./volume/mysql/data:/var/lib/mysql
     networks:
       - app-tier
     environment: # 컨테이너 안의 환경변수 설정
@@ -30,8 +30,6 @@ services:
       - app-tier
     expose:
       - 3306
-#    volumes:
-#      - data_mysql:/mysql
     environment:
       SPRING_DATASOURCE_URL: ${MYSQL_URL}
       SPRING_DATASOURCE_USERNAME: ${MYSQL_USERNAME}
