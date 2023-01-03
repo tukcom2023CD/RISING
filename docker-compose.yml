@@ -3,8 +3,8 @@ services:
   db:
     container_name: mysql
     image: mysql:latest
-    volumes:
-      - ./volume/mysql/data:/var/lib/mysql
+#    volumes:
+#      - ./volume/mysql/data:/var/lib/mysql
     networks:
       - app-tier
     environment: # 컨테이너 안의 환경변수 설정
