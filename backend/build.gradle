@@ -48,7 +48,7 @@ jib {
     from {
         image = "openjdk:11-jre"
         auth {
-            username = project.DOCKER_USER
+            username = project.DOCKER_ID
             password = project.DOCKER_PASSWORD
         }
     }
