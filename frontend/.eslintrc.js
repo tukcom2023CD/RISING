@@ -7,16 +7,19 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier'],
   extends: [
+    // 다른 config를 사용하더라도 prettier를 맨 마지막에 넣어야 모든 중복 규칙을 비활성화 시킬 수 있다.
     'airbnb',
+    'prettier/react',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
     'eslint:recommended',
     'plugin:react/jsx-runtime', // >> 이거 추가. (안하면 컴포넌트 내부에 react 자동사용을 하는 것 같음)
     // 'prettier/@typescript-eslint', >> 주석처리하고
+    'plugin:prettier/recommended',
   ],
   rules: {
+    'no-console': 0,
     'no-undef': 'off',
     'no-unused-vars': 'off',
     'linebreak-style': 0,
