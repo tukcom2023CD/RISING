@@ -28,11 +28,11 @@ public class Post extends BaseEntity {
     private String title;
 
     @NotBlank
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 1000)
     private String content;
 
 
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 1000)
     private String memo;
 
     @Column(length = 255)

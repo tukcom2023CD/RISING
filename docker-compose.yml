@@ -9,7 +9,6 @@ services:
       - app-tier
     environment: # 컨테이너 안의 환경변수 설정
       - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_HOST=localhost
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_USER_PASSWORD}
@@ -28,13 +27,6 @@ services:
       - db
     networks:
       - app-tier
-    expose:
-      - 3306
-    environment:
-      SPRING_DATASOURCE_URL: ${MYSQL_URL}
-      SPRING_DATASOURCE_USERNAME: ${MYSQL_USERNAME}
-      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
-      SPRING_JPA_HIBERNATE_DDL_AUTO: create #운영시는 validate나 none으로 변경
     tty: true #명령어 실행 끝나도 꺼지지 않음
 
   frontend:
