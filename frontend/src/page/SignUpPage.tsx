@@ -1,12 +1,12 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 
-function SignupPage() {
+function SignUpPage() {
   return (
     <div>
-      <p>SignupPage</p>
+      <p>SignUpPage</p>
     </div>
   );
 }
 
-export default SignupPage;
+export default SignUpPage;
