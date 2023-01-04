@@ -17,7 +17,6 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @NotBlank
     @Column(unique = true, length = 20)
     private String username;
@@ -32,4 +31,9 @@ public class User extends BaseEntity {
 
     @Column(length = 255)
     private String profileUrl;
+
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.password = encryptedPassword;
+    }
+
 }
