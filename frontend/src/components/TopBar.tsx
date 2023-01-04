@@ -4,7 +4,7 @@ import rogo from 'images/rogo.png';
 function TopBar() {
   return (
     <div
-      className="w-full h-30"
+      className="w-full h-30 border-b-2"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       <div className="flex">
