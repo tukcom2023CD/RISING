@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SignUpPage from 'page/SignUpPage';
 import LoginPage from 'page/LoginPage';
 import MyPage from 'page/MyPage';
-import QuesListPage from 'page/QuestListPage';
+import QuesListPage from 'page/QuesListPage';
 import QuesPage from 'page/QuesPage';
 import AnsPage from 'page/AnsPage';
 import PrivateQuesPage from 'page/PrivateQuesPage';
