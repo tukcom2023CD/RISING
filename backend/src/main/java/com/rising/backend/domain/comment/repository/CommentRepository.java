@@ -1,8 +1,8 @@
-package com.rising.backend.domain.user.repository;
+package com.rising.backend.domain.comment.repository;
 
-import com.rising.backend.domain.user.domain.User;
+import com.rising.backend.domain.comment.domain.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    boolean existsByUsername(String username);
+public interface CommentRepository extends JpaRepository<Comment, Long> {
+
 }
