@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {},
-      colors: { 'text-color': '#54547D' },
+      colors: { 'text-color': '#54547D', 'border-line': '#DDDCFB' },
     },
   },
   variants: {
