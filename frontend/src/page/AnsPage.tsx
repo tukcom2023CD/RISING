@@ -3,9 +3,9 @@ import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import NavBar from 'components/NavBar';
 import Tag from 'components/Tag';
-import TitleIndex from 'components/TitleIndex';
-import ContentIndex from 'components/ContentIndex';
-import AnswerIndex from 'components/AnswerIndex';
+import TitleIndex from 'components/Index/TitleIndex';
+import ContentIndex from 'components/Index/ContentIndex';
+import AnswerIndex from 'components/Index/AnswerIndex';
 import Btn from 'components/Btn';
 import Ans from 'components/Ans';
 
