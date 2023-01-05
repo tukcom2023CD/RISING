@@ -5,10 +5,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 
-@Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserRequest {
 
     @Builder
