@@ -8,7 +8,7 @@ function Btn({ text }: Props) {
       type="button"
       className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
     >
-      <span className="text-white text-bold text-xs">{text}</span>
+      <span className="text-white text-xs">{text}</span>
     </button>
   );
 }

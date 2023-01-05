@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import NavBar from 'components/NavBar';
+import QuesNavBar from 'components/QuesNavBar';
 import Tag from 'components/Tag';
 import TitleIndex from 'components/Index/TitleIndex';
 import MemoIndex from 'components/Index/MemoIndex';
@@ -17,7 +17,7 @@ function PrivateAnsPage() {
       className="h-full"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
-      <NavBar />
+      <QuesNavBar />
       {/* Title */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">

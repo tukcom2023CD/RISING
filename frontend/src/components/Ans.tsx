@@ -11,7 +11,7 @@ function Ans({ ans, person, date }: Props) {
       <div className="h-9 w-9 m-2 rounded-lg bg-violet-100 hover:bg-violet-300" />
       {/* 답변자와 답변 */}
       <div className="flex flex-col">
-        <span className="font-bold text-xs text-bold">{person}</span>
+        <span className="font-bold text-xs">{person}</span>
         <span className="text-xs">{ans}</span>
       </div>
       {/* 날짜 */}
