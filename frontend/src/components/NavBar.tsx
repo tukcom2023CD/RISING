@@ -3,10 +3,7 @@ import rogo from 'images/rogo.png';
 
 function TopBar() {
   return (
-    <div
-      className="w-full h-30 border-b-2"
-      style={{ backgroundColor: ColorSystem.MainColor.Primary }}
-    >
+    <div className="w-full h-30 border-b-2 bg-white">
       <div className="flex flex-row">
         <img className="left-0 w-48 pl-12 pr-8 py-8" src={rogo} alt="rogo" />
         <button type="button" className="text-xl  pl-10 pr-8 py-8 my-2">
