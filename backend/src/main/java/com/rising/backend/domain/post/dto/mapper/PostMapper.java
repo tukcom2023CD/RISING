@@ -16,7 +16,7 @@ public class PostMapper {
 
     public Post toPostEntity(PostCreateRequestDto dto) {
         return Post.builder()
-                .user(userService.getUser(dto.getUserId()))
+                .user(userService.findUserById(dto.getUserId()))
                 .content(dto.getContent())
                 .title(dto.getTitle())
                 .memo(null)

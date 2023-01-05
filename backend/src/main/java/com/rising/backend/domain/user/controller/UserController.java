@@ -35,4 +35,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("사용자 등록 성공");
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody @Valid UserRequest.LoginDto loginRequest) {
+
+    }
+
 }
