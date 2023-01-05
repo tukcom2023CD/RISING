@@ -1,7 +1,7 @@
 package com.rising.backend.domain.post.mapper;
 
 import com.rising.backend.domain.post.domain.Post;
-import com.rising.backend.domain.post.dto.PostRequest;
+import com.rising.backend.domain.post.dto.PostDto;
 import com.rising.backend.domain.post.repository.PostRepository;
 import com.rising.backend.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public class PostMapper {
     private final PostRepository postRepository;
     private final UserService userService;
 
-    public Post toPostEntity(PostRequest.CreateDto postCreate) {
+    public Post toPostEntity(PostDto.PostCreateRequest postCreate) {
         return Post.builder()
                 .user(userService.findUserById(postCreate.getUserId()))
                 .content(postCreate.getContent())

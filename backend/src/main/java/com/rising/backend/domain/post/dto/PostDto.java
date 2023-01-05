@@ -6,13 +6,13 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 
-public class PostRequest {
+public class PostDto {
 
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @NoArgsConstructor(access =  AccessLevel.PRIVATE)
     @Getter
     @Data
-    public static class CreateDto {
+    public static class PostCreateRequest {
         @NotEmpty
         private Long userId;
 
@@ -26,5 +26,4 @@ public class PostRequest {
         @NotEmpty
         private PostType type;
     }
-
 }

@@ -1,6 +1,6 @@
 package com.rising.backend.domain.post.controller;
 
-import com.rising.backend.domain.post.dto.PostRequest;
+import com.rising.backend.domain.post.dto.PostDto;
 import com.rising.backend.domain.post.service.PostService;
 import com.rising.backend.global.result.ResultCode;
 import com.rising.backend.global.result.ResultResponse;
@@ -21,7 +21,7 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public ResponseEntity<ResultResponse> create(@RequestBody PostRequest.CreateDto postCreate) {
+    public ResponseEntity<ResultResponse> create(@RequestBody PostDto.PostCreateRequest postCreate) {
         postService.createPost(postCreate);
 
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_CREATE_SUCCESS));

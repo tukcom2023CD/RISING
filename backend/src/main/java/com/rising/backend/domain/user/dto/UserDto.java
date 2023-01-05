@@ -6,13 +6,13 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotEmpty;
 
 @Getter
-public class UserRequest {
+public class UserDto {
 
     @Builder
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
-    public static class CreateDto {
+    public static class UserCreateRequest {
         @NotEmpty
         @Length(min = 2, max = 20)
         private String username;
@@ -29,7 +29,7 @@ public class UserRequest {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
-    public static class LoginDto {
+    public static class UserLoginRequest {
 
         @NotEmpty
         private String username;

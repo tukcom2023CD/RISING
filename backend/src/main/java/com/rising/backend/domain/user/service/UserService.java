@@ -2,7 +2,7 @@ package com.rising.backend.domain.user.service;
 
 import com.rising.backend.domain.user.domain.User;
 import com.rising.backend.domain.user.mapper.UserMapper;
-import com.rising.backend.domain.user.dto.UserRequest;
+import com.rising.backend.domain.user.dto.UserDto;
 import com.rising.backend.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +21,7 @@ public class UserService {
         return userRepository.existsByUsername(username);
     }
 
-    public User register(UserRequest.CreateDto requestDto) {
+    public User register(UserDto.UserCreateRequest requestDto) {
         User user = userMapper.toUserEntity(requestDto);
         user.setEncryptedPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);

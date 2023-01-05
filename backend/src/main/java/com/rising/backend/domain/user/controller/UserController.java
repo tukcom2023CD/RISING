@@ -2,7 +2,7 @@ package com.rising.backend.domain.user.controller;
 
 
 import com.rising.backend.domain.user.domain.User;
-import com.rising.backend.domain.user.dto.UserRequest;
+import com.rising.backend.domain.user.dto.UserDto;
 import com.rising.backend.domain.user.service.LoginService;
 import com.rising.backend.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,7 +25,7 @@ public class UserController {
     private final LoginService loginService;
 
     @PostMapping
-    public ResponseEntity<String> registration(@RequestBody @Valid UserRequest.CreateDto createRequest) {
+    public ResponseEntity<String> registration(@RequestBody @Valid UserDto.UserCreateRequest createRequest) {
         if (userService.isDuplicatedUsername(createRequest.getUsername())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("회원 아이디 중복");
@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @Valid UserRequest.LoginDto loginRequest, HttpServletRequest request) {
+    public ResponseEntity<String> login(@RequestBody @Valid UserDto.UserLoginRequest loginRequest, HttpServletRequest request) {
 
         User member = userService.findUserByUsername(loginRequest.getUsername());
         if (!loginService.checkPassword(member.getUsername(), loginRequest.getPassword())) {
