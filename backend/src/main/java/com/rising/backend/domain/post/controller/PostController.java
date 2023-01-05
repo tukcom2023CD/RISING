@@ -3,6 +3,7 @@ package com.rising.backend.domain.post.controller;
 import com.rising.backend.domain.post.dto.PostDto;
 import com.rising.backend.domain.post.service.PostService;
 import com.rising.backend.domain.user.domain.User;
+import com.rising.backend.global.annotation.LoginRequired;
 import com.rising.backend.global.annotation.LoginUser;
 import com.rising.backend.global.result.ResultCode;
 import com.rising.backend.global.result.ResultResponse;
@@ -27,11 +28,14 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
+    @LoginRequired
     public ResponseEntity<ResultResponse> create(
             @RequestBody PostDto.PostCreateRequest createRequest,
-            @Parameter(hidden = true) @LoginUser User user ) {
-        postService.createPost(createRequest);
-        log.info("로그인된 유저: " + user.getName());
+            @Parameter(hidden = true) @LoginUser User loginUser ) {
+
+        postService.createPost(createRequest, loginUser);
+        log.info("로그인 유저: " + loginUser.getName());
+        
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_CREATE_SUCCESS));
     }
 

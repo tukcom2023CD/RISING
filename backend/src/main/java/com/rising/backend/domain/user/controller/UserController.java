@@ -5,6 +5,7 @@ import com.rising.backend.domain.user.domain.User;
 import com.rising.backend.domain.user.dto.UserDto;
 import com.rising.backend.domain.user.service.LoginService;
 import com.rising.backend.domain.user.service.UserService;
+import com.rising.backend.global.annotation.LoginRequired;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -53,6 +54,7 @@ public class UserController {
     }
 
     @GetMapping("/logout")
+    @LoginRequired
     public ResponseEntity<String> logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null){

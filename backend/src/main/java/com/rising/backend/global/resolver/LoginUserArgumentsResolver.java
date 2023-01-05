@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 public class LoginUserArgumentsResolver implements HandlerMethodArgumentResolver {
     //메소드 파라미터를 인자값들에 주입
     private final LoginService loginService;
-
     private final HttpSession session;
 
     @Override
@@ -28,6 +27,7 @@ public class LoginUserArgumentsResolver implements HandlerMethodArgumentResolver
 
     @Override
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
+        //@LoginUser가 달려있으면 로그인된 User객체 주입
         return loginService.getLoginUser(session);
     }
 }

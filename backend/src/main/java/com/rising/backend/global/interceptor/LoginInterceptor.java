@@ -1,6 +1,6 @@
 package com.rising.backend.global.interceptor;
 
-import com.rising.backend.global.annotation.LoginUser;
+import com.rising.backend.global.annotation.LoginRequired;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -17,25 +17,24 @@ import static com.rising.backend.global.constant.Attribute.USER_ID;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
+    private HttpSession session;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws HttpClientErrorException.Unauthorized {
 
-        log.info("로그인 인터셉터 실행");
-
         HttpSession session = request.getSession();
-        Long loginId = (Long)session.getAttribute(USER_ID);
+        Long loginId = (Long) session.getAttribute(USER_ID);
 
-        if (handler instanceof HandlerMethod && ((HandlerMethod) handler).hasMethodAnnotation(LoginUser.class)) {
-            if(isEmpty(session) || loginId == null) {
-                log.info("미인증 사용자 요청");
-                // + 로그인 정보 없을때 처리 (ex.Redirect)
-                return false;
-            }
+        if (isLoginRequiredMethod(handler) && loginId == null) {
+            log.info("로그인 필요한데 id 없음");
+            throw new RuntimeException(); //추후 수정
         }
-        return true; //정상적으로 다음 인터셉터나 컨트롤러 호출
+        return true; //다음 interceptor나 Controller로 넘어감
     }
-    public boolean isEmpty(HttpSession session) {
-        return session == null;
+
+    private boolean isLoginRequiredMethod(Object handler) {
+        return handler instanceof HandlerMethod
+                && ((HandlerMethod) handler).hasMethodAnnotation(LoginRequired.class);
     }
 }
