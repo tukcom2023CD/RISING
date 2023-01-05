@@ -5,10 +5,6 @@ import ColorSystem from 'utils/ColorSystem';
 import NavBar from 'components/NavBar';
 import Tag from 'components/Tag';
 
-interface Props {
-  text: Text;
-}
-
 // 질문 답변 및 확인 페이지
 function AnsPage() {
   return (
