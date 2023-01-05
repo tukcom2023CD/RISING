@@ -2,7 +2,7 @@ package com.rising.backend.domain.user.controller;
 
 
 import com.rising.backend.domain.user.domain.User;
-import com.rising.backend.domain.user.dto.request.UserCreateRequestDto;
+import com.rising.backend.domain.user.dto.UserRequest;
 import com.rising.backend.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +24,13 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<String> registration(@RequestBody @Valid UserCreateRequestDto dto) {
-        if (userService.isDuplicatedUsername(dto.getUsername())) {
+    public ResponseEntity<String> registration(@RequestBody @Valid UserRequest.CreateDto createRequest) {
+        if (userService.isDuplicatedUsername(createRequest.getUsername())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("회원 아이디 중복");
         }
 
-        User entity = userService.register(dto);
+        User entity = userService.register(createRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("사용자 등록 성공");
