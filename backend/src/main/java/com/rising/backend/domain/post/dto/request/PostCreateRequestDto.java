@@ -22,5 +22,4 @@ public class PostCreateRequestDto {
     @NotEmpty
     private PostType type;
 
-
 }
