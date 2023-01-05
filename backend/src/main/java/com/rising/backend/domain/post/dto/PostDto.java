@@ -11,7 +11,6 @@ public class PostDto {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @NoArgsConstructor(access =  AccessLevel.PRIVATE)
     @Getter
-    @Data
     public static class PostCreateRequest {
         @NotEmpty
         private Long userId;

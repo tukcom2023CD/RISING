@@ -1,7 +1,8 @@
 package com.rising.backend.global.result;
 
-import org.springframework.http.HttpStatus;
+import lombok.Getter;
 
+@Getter
 public class ResultResponse {
 
 
