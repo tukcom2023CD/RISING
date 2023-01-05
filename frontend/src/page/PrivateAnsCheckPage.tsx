@@ -42,7 +42,7 @@ function PrivateAnsCheckPage() {
           </div>
           {/* Record video index */}
           <RecordIndex />
-          <span className="pl-3 text-text-color text-2xl">CONTENT</span>
+          <span className="pl-3 text-text-color text-2xl">RECORDED VIDEO</span>
         </div>
       </div>
       {/* Memo */}
