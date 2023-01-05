@@ -1,7 +1,7 @@
 import ColorSystem from 'utils/ColorSystem';
 import rogo from 'images/rogo.png';
 
-function NavBar() {
+function QuesNavBar() {
   return (
     <div className="w-full h-30 border-b-2 bg-white">
       <div className="flex flex-row">
@@ -12,7 +12,10 @@ function NavBar() {
         <button type="button" className="text-xl pl-10 pr-8 py-8 my-2">
           멘토링 구경하기
         </button>
-        <button type="button" className="text-xl pl-10 pr-8 py-8 my-2">
+        <button
+          type="button"
+          className="text-xl font-bold text-purple-600 pl-10 pr-8 py-8 my-2"
+        >
           질문게시판
         </button>
         <button type="button" className="text-xl pl-10 pr-8 py-8 my-2">
@@ -39,4 +42,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default QuesNavBar;

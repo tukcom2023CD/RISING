@@ -9,6 +9,7 @@ import QuesPage from 'page/QuesPage';
 import AnsPage from 'page/AnsPage';
 import PrivateQuesPage from 'page/PrivateQuesPage';
 import PrivateAnsPage from 'page/PrivateAnsPage';
+import PrivateAnsCheckPage from 'page/PrivateAnsCheckPage';
 import MainPage from './page/MainPage';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/anspage" element={<AnsPage />} />
         <Route path="/privatequespage" element={<PrivateQuesPage />} />
         <Route path="/privateanspage" element={<PrivateAnsPage />} />
+        <Route path="/privateanscheckpage" element={<PrivateAnsCheckPage />} />
       </Routes>
     </Router>
   );
