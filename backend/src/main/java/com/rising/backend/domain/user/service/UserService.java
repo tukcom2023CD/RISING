@@ -26,8 +26,12 @@ public class UserService {
         user.setEncryptedPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
-
-    public User getUser(Long userId) {
+    public User findUserById(Long userId) {
         return userRepository.findById(userId).orElseThrow();
+    }
+
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() ->
+                new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
     }
 }
