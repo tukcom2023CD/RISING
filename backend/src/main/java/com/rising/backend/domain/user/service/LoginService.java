@@ -31,16 +31,16 @@ public class LoginService {
         return passwordEncoder.matches(checkPassword, realPassword);
     }
 
-    public User getLoginUser() {
-        Long memberId = (Long) httpSession.getAttribute(USER_ID);
+    public User getLoginUser(HttpSession session) {
+        Long memberId = (Long) session.getAttribute(USER_ID);
         return userService.findUserById(memberId);
     }
 
-    public Long getLoginUserId() {
-        return (Long) httpSession.getAttribute(USER_ID);
+    public Long getLoginUserId(HttpSession session) {
+        return (Long) session.getAttribute(USER_ID);
     }
 
-    public boolean isUserLogin() {
-        return getLoginUser() != null;
+    public boolean isUserLogin(HttpSession session) {
+        return getLoginUser(session) != null;
     }
 }
