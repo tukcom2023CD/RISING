@@ -14,7 +14,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
 
-    public Post createPost(PostDto.PostCreateRequest dto) {
-        return postRepository.save(postMapper.toPostEntity(dto));
+    public Post createPost(PostDto.PostCreateRequest createRequest) {
+        return postRepository.save(postMapper.toPostEntity(createRequest));
     }
 }

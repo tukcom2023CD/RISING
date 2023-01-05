@@ -25,4 +25,19 @@ public class PostDto {
         @NotEmpty
         private PostType type;
     }
+
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access =  AccessLevel.PRIVATE)
+    @Getter
+    public static class TestRequest {
+        @NotEmpty
+        @Length(max = 100)
+        private String title;
+
+        @NotEmpty
+        private String content;
+
+        @NotEmpty
+        private PostType type;
+    }
 }

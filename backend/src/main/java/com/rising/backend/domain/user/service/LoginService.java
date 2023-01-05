@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
+import static com.rising.backend.global.constant.Attribute.USER_ID;
+
 @Service
 @RequiredArgsConstructor
 public class LoginService {
     private final UserService userService;
 
     private final PasswordEncoder passwordEncoder;
-
-    public static final String USER_ID = "USER_ID";
 
     public void login(Long id, HttpSession session) {
         session.setAttribute(USER_ID, id);
