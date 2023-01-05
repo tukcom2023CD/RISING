@@ -21,7 +21,7 @@ function TopBar() {
         <button type="button" className="text-xl  pl-10 pr-8 py-8 my-2">
           커뮤니티
         </button>
-        <div className="absolute top-0 right-0 mr-28">
+        <div className="absolute top-0 right-0 mr-20">
           <button
             type="button"
             className="rounded-3xl border-none h-10 w-20 mx-1 my-8"
