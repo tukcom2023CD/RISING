@@ -7,8 +7,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity
@@ -33,13 +31,6 @@ public class Comment extends BaseEntity {
     @JoinColumn(name ="user_id", nullable = false)
     private User user;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
-    private Comment parent;
-
-    @Builder.Default
-    @OneToMany(mappedBy = "parent")
-    private List<Comment> children =  new ArrayList<>();
+    private Long parentId;
 
 }
