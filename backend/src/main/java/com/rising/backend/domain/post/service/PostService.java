@@ -18,4 +18,8 @@ public class PostService {
     public Post createPost(PostDto.PostCreateRequest createRequest, User loginUser) {
         return postRepository.save(postMapper.toPostEntity(createRequest, loginUser));
     }
+
+    public Post findPostById(Long postId) {
+        return postRepository.findById(postId).orElseThrow();
+    }
 }
