@@ -10,7 +10,7 @@ function Btn({ text, onClick }: Props) {
       className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
       onClick={onClick}
     >
-      <span className="text-white text-xs">{text}</span>
+      <span className="text-white text-sm">{text}</span>
     </button>
   );
 }

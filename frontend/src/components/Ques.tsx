@@ -3,11 +3,12 @@ import Tag from 'components/Tag';
 interface Props {
   count: number;
   title: string;
+  date: string;
 }
 
-function Ques({ count, title }: Props) {
+function Ques({ count, title, date }: Props) {
   return (
-    <div className="relative flex flex-row h-22 items-center m-0.5 w-full bg-white border-2 border-gray rounded-lg">
+    <div className="relative flex flex-row h-22 items-center w-full bg-white border-2 border-gray rounded-lg">
       {/* 답변 수 */}
       <div className="h-14 w-14 my-4 ml-4 mr-2 rounded-lg bg-violet-100 hover:bg-violet-300">
         <div className="flex justify-center item-center">
@@ -28,7 +29,7 @@ function Ques({ count, title }: Props) {
       </div>
       {/* 날짜 */}
       <div className="absolute top-2 right-4">
-        <Tag text="2023-01-04" />
+        <Tag text={date} />
       </div>
     </div>
   );
