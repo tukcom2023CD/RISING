@@ -37,7 +37,7 @@ function QuesChatPage() {
           <div className="">
             <img
               // 이미지가 어떤지 확인이 잘 안되서 외곽선 만들어둠
-              className="object-cover w-10 h-10 m-2
+              className="object-cover w-12 h-12 m-2
               rounded-full border-2 border-violet-300 
               bg-white"
               src={profile}
