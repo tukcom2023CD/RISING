@@ -4,12 +4,13 @@ import ColorSystem from 'utils/ColorSystem';
 import MentoNavBar from 'components/MentoNavBar';
 import Tag from 'components/Tag';
 import send from 'images/send.png';
+import profile from 'images/profile.png';
 
 function QuesChatPage() {
   return (
     // 배경색
     <div
-      className="h-screen"
+      className="h-full"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
@@ -30,10 +31,26 @@ function QuesChatPage() {
           </div>
         </div>
       </div>
+      {/* 채팅 상대 */}
+      <div className="flex justify-center item-center mt-8">
+        <div className="w-3/5 h-20 bg-white flex justify-center">
+          <div className="">
+            <img
+              // 이미지가 어떤지 확인이 잘 안되서 외곽선 만들어둠
+              className="object-cover w-10 h-10 m-2
+              rounded-full border-2 border-violet-300 
+              bg-white"
+              src={profile}
+              alt="profile"
+            />
+          </div>
+          <span className="mt-4">상대방 이름</span>
+        </div>
+      </div>
       {/* 채팅방 */}
-      <div className="flex justify-center item-center my-8">
-        <div className="relative flex-row w-3/5 h-96 rounded-xl bg-white">
-          <div className="absolute bottom-1 left-1 bg-gray-200 w-full">
+      <div className="flex justify-center item-center">
+        <div className="relative flex-row w-3/5 h-[40rem] rounded-xl bg-white">
+          <div className="absolute bottom-1 left-1 pl-6 bg-gray-200 w-full">
             <input
               className="absolute bottom-1 left-1 w-full h-10 pr-6"
               type="text"
@@ -41,7 +58,11 @@ function QuesChatPage() {
             />
           </div>
           <button type="button">
-            <img className="absolute bottom-1 right-1" src={send} alt="send" />
+            <img
+              className="w-9 absolute bottom-3 right-1"
+              src={send}
+              alt="send"
+            />
           </button>
         </div>
       </div>
