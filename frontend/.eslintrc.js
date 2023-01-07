@@ -19,6 +19,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
+    'global-require': 0,
     'no-console': 0,
     'no-undef': 'off',
     'no-unused-vars': 'off',
