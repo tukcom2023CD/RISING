@@ -21,7 +21,7 @@ function QuesChatPage() {
           <div className="flex flex-col rounded-xl h-32 w-full mx-1 my-2 bg-white border-4 border-violet-300">
             {/* 질문 제목 텍스트로 가져와야함 */}
             <span className="text-text-color text-xl m-4">질문 제목</span>
-            <div className="flex flex-row relative">
+            <div className="flex flex-row relative ml-4">
               <Tag text="# JavaScript" />
               <Tag text="# python" />
               <div className="absolute top-0 right-3">
