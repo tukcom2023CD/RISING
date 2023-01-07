@@ -11,6 +11,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import profile from 'images/profile.png';
 import pencil from 'images/pencil.png';
+import Tag from 'components/Tag';
 
 function MyPage() {
   const [value, setValue] = React.useState('1');
@@ -54,7 +55,25 @@ function MyPage() {
                   <Tab label="멘토 채팅방" value="3" />
                 </TabList>
               </Box>
-              <TabPanel value="1">Item One</TabPanel>
+              <TabPanel value="1">
+                <div className="relative flex flex-col w-full">
+                  <div className="flex flex-col rounded-xl h-64 w-full bg-white border-4 border-violet-300">
+                    {/* 질문 제목 텍스트로 가져와야함 */}
+                    <div className="flex flex-col m-3 mb-4">
+                      <span className="font-bold mb-3">학력</span>
+                      <span>한국공학대학교</span>
+                      <span>2020.03 ~ 2024.02</span>
+                    </div>
+                    <div className="m-3">
+                      <span className="font-bold">주요 사용 언어</span>
+                      <div className="flex flex-row">
+                        <Tag text="Java" />
+                        <Tag text="Spring" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </TabPanel>
               <TabPanel value="2">Item Two</TabPanel>
               <TabPanel value="3">Item Three</TabPanel>
             </TabContext>
