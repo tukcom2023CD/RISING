@@ -64,12 +64,12 @@ function MyPage() {
                       <span>한국공학대학교</span>
                       <span>2020.03 ~ 2024.02</span>
                     </div>
-                    <div className="m-3">
+                    <div className="mx-3 mt-3">
                       <span className="font-bold">주요 사용 언어</span>
-                      <div className="flex flex-row">
-                        <Tag text="Java" />
-                        <Tag text="Spring" />
-                      </div>
+                    </div>
+                    <div className="flex flex-row ml-1 mt-1">
+                      <Tag text="Java" />
+                      <Tag text="Spring" />
                     </div>
                   </div>
                 </div>
