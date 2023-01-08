@@ -3,6 +3,7 @@ import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import MentoNavBar from 'components/MentoNavBar';
 import KeywordSelect from 'components/Select/KeywordSelect';
+import Btn from 'components/Btn';
 import TitleIndex from 'components/Index/QuesTitleIndex';
 import ContentIndex from 'components/Index/MemoIndex';
 import KeywordIndex from 'components/Index/KeywordIndex';
@@ -12,7 +13,7 @@ function QuesPage() {
   return (
     // 배경색
     <div
-      className="h-screen"
+      className="h-full"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
@@ -60,6 +61,10 @@ function QuesPage() {
           <ContentIndex />
           <span className="pl-3 text-text-color text-2xl">CONTENT</span>
         </div>
+      </div>
+      {/* Submit */}
+      <div className="flex justify-center item-center my-8">
+        <Btn text="SUBMIT" />
       </div>
     </div>
   );
