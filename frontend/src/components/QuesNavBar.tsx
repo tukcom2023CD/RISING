@@ -1,7 +1,12 @@
 import ColorSystem from 'utils/ColorSystem';
 import rogo from 'images/rogo.png';
+import { useNavigate } from 'react-router-dom';
 
 function QuesNavBar() {
+  const navigate = useNavigate();
+  const goToQueslistPage = () => {
+    navigate('/queslistpage');
+  };
   return (
     <div className="w-full h-30 border-b-2 bg-white">
       <div className="flex flex-row">
@@ -15,6 +20,7 @@ function QuesNavBar() {
         <button
           type="button"
           className="text-xl font-bold text-purple-600 pl-10 pr-8 py-8 my-2"
+          onClick={goToQueslistPage}
         >
           질문게시판
         </button>

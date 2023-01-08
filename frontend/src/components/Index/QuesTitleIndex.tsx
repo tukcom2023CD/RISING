@@ -2,21 +2,21 @@ import title1 from 'images/title1.png';
 import title2 from 'images/title2.png';
 import title3 from 'images/title3.png';
 
-function TitleIndex() {
+function QuesTitleIndex() {
   return (
     <div>
       <img
-        className="absolute bottom-32 right-20 py-1 w-6"
+        className="absolute bottom-16 right-20 py-1 w-6"
         src={title1}
         alt="index1"
       />
       <img
-        className="absolute bottom-32 right-12 py-2 w-6"
+        className="absolute bottom-16 right-12 py-2 w-6"
         src={title2}
         alt="index1"
       />
       <img
-        className="absolute bottom-32 right-4 py-2 w-6"
+        className="absolute bottom-16 right-4 py-2 w-6"
         src={title3}
         alt="index1"
       />
@@ -24,4 +24,4 @@ function TitleIndex() {
   );
 }
 
-export default TitleIndex;
+export default QuesTitleIndex;

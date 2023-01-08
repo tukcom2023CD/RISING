@@ -3,7 +3,7 @@ import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import QuesNavBar from 'components/QuesNavBar';
 import Tag from 'components/Tag';
-import TitleIndex from 'components/Index/TitleIndex';
+import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/MiddleIndex';
 import AnswerIndex from 'components/Index/AnswerIndex';
 import Btn from 'components/Btn';
@@ -61,8 +61,14 @@ function AnsPage() {
                   className="absolute top-1 left-4 w-full h-10 rounded-lg focus:shadow focus:outline-none"
                   placeholder="Answer"
                 />
+                {/* 답변 제출, 밑에 전달 */}
                 <div className="absolute top-2 right-0">
-                  <Btn text="SUBMIT" />
+                  <button
+                    type="button"
+                    className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
+                  >
+                    <span className="text-white text-xs">SUBMIT</span>
+                  </button>
                 </div>
               </div>
             </div>

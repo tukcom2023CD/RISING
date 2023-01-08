@@ -2,7 +2,7 @@ import end1 from 'images/end1.png';
 import end2 from 'images/end2.png';
 import end3 from 'images/end3.png';
 
-function MemoIndex() {
+function EndIndex() {
   return (
     <div>
       <img
@@ -24,4 +24,4 @@ function MemoIndex() {
   );
 }
 
-export default MemoIndex;
+export default EndIndex;

@@ -3,15 +3,20 @@ import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import QuesNavBar from 'components/QuesNavBar';
 import Tag from 'components/Tag';
-import TitleIndex from 'components/Index/TitleIndex';
-import MemoIndex from 'components/Index/MemoIndex';
+import TitleIndex from 'components/Index/AnsTitleIndex';
+import MemoIndex from 'components/Index/EndIndex';
 import Btn from 'components/Btn';
 import voice from 'images/voice.png';
 import screen from 'images/screen.png';
 import record from 'images/record.png';
+import { useNavigate } from 'react-router-dom';
 
 // 과외 질문 답변 및 확인 페이지
 function PrivateAnsPage() {
+  const navigate = useNavigate();
+  const goToMain = () => {
+    navigate('/mainpage');
+  };
   return (
     <div
       className="h-full"
@@ -83,7 +88,7 @@ function PrivateAnsPage() {
       </div>
       <div className="flex justify-center item-center my-8 pb-8">
         {/* save 버튼 */}
-        <Btn text="SAVE" />
+        <Btn text="SAVE" onClick={goToMain} />
       </div>
     </div>
   );
