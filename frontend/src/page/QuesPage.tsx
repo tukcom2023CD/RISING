@@ -64,7 +64,7 @@ function QuesPage() {
               <input
                 type="text"
                 className="absolute top-1 left-2 w-full h-10 rounded-lg focus:shadow focus:outline-none"
-                placeholder="content.."
+                placeholder="Content.."
               />
             </div>
           </div>
