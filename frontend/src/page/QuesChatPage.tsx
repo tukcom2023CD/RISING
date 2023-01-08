@@ -21,10 +21,10 @@ function QuesChatPage() {
           <div className="flex flex-col rounded-xl h-32 w-full mx-1 my-2 bg-white border-4 border-violet-300">
             {/* 질문 제목 텍스트로 가져와야함 */}
             <span className="text-text-color text-xl m-4">질문 제목</span>
-            <div className="flex flex-row relative">
+            <div className="flex flex-row relative ml-2">
               <Tag text="# JavaScript" />
               <Tag text="# python" />
-              <div className="absolute top-0 right-3">
+              <div className="absolute top-0 right-2">
                 <Tag text="2023-01-04" />
               </div>
             </div>
@@ -37,7 +37,7 @@ function QuesChatPage() {
           <div className="">
             <img
               // 이미지가 어떤지 확인이 잘 안되서 외곽선 만들어둠
-              className="object-cover w-10 h-10 m-2
+              className="object-cover w-12 h-12 m-2
               rounded-full border-2 border-violet-300 
               bg-white"
               src={profile}

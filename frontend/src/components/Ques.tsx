@@ -22,7 +22,7 @@ function Ques({ count, title, date }: Props) {
       <div className="relative flex flex-col">
         <span className="text-xl ml-4">{title}</span>
         {/* 태그 */}
-        <div className="flex flex-row">
+        <div className="flex flex-row ml-2">
           <Tag text="# JavaScript" />
           <Tag text="# python" />
         </div>

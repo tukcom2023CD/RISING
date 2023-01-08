@@ -6,7 +6,6 @@ import Tag from 'components/Tag';
 import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/MiddleIndex';
 import AnswerIndex from 'components/Index/AnswerIndex';
-import Btn from 'components/Btn';
 import Ans from 'components/Ans';
 
 // 질문 답변 및 확인 페이지
@@ -25,10 +24,10 @@ function AnsPage() {
           <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-3 bg-white border-4 border-violet-300">
             {/* 질문 제목 텍스트로 가져와야함 */}
             <span className="text-text-color text-xl mt-4 mx-4">질문 제목</span>
-            <div className="my-2 flex flex-row relative">
+            <div className="my-2 pl-2 flex flex-row relative">
               <Tag text="# JavaScript" />
               <Tag text="# python" />
-              <div className="absolute top-0 right-3">
+              <div className="absolute top-0 right-">
                 <Tag text="2023-01-04" />
               </div>
             </div>
