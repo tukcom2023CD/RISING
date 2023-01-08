@@ -3,6 +3,9 @@ import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import QuesNavBar from 'components/QuesNavBar';
 import Ques from 'components/Ques';
+import LanguageSelect from 'components/Select/LanguageSelect';
+import FrameWorkSelect from 'components/Select/FrameWorkSelect';
+import OptionSelect from 'components/Select/OptionSelect';
 
 // 질문 리스트 페이지
 function QuesListPage() {
@@ -14,21 +17,18 @@ function QuesListPage() {
     >
       {/* 상단바 */}
       <QuesNavBar />
-      <div className="flex justify-center item-center my-8">
+      <div className="flex justify-center item-center my-8 pt-3">
         <div className="relative flex flex-col my-6 w-4/5 h-[33rem]">
           {/* 필터링 버튼 */}
-          <div className="absolute -top-6 right-4 mx-1 p-1">
-            {/* <QuesModal
-              openinit={modalOC}
-              closeModal={() => setModalOC(false)}
-            /> */}
-            <button
-              type="button"
-              className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
-            >
-              <span className="text-white text-sm">FILTER</span>
-            </button>
-            {/* 아코디언 */}
+          <div className="absolute flex flex-row -top-11 right-1 mx-1 p-1 h-10">
+            {/* 필터 */}
+            <div className="mr-2">
+              <LanguageSelect />
+            </div>
+            <div className="mr-2">
+              <FrameWorkSelect />
+            </div>
+            <OptionSelect />
           </div>
           {/* 질문 리스트 */}
           <div className="my-4  w-full h-[35rem]">
