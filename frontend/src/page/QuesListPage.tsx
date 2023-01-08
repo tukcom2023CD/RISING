@@ -31,7 +31,7 @@ function QuesListPage() {
             <OptionSelect />
           </div>
           {/* 질문 리스트 */}
-          <div className="my-4  w-full h-[35rem]">
+          <div className="my-4 w-full h-[35rem]">
             <div
               className="w-full h-[32rem] scrollbar-thin 
             scrollbar-thumb-scroll-bar scrollbar-track-slate-100

@@ -12,6 +12,8 @@ import TabPanel from '@mui/lab/TabPanel';
 import profile from 'images/profile.png';
 import pencil from 'images/pencil.png';
 import Tag from 'components/Tag';
+import Ques from 'components/Ques';
+import ChatBox from 'components/ChatBox';
 
 function MyPage() {
   const [value, setValue] = React.useState('1');
@@ -55,6 +57,7 @@ function MyPage() {
                   <Tab label="멘토 채팅방" value="3" />
                 </TabList>
               </Box>
+              {/* 유저정보 */}
               <TabPanel value="1">
                 <div className="relative flex flex-col w-full">
                   <div className="flex flex-col rounded-xl h-64 w-full bg-white border-4 border-violet-300">
@@ -74,8 +77,89 @@ function MyPage() {
                   </div>
                 </div>
               </TabPanel>
-              <TabPanel value="2">Item Two</TabPanel>
-              <TabPanel value="3">Item Three</TabPanel>
+              {/* 내가 작성한 질문 -> api 받으면 수정할 예정 */}
+              <TabPanel value="2">
+                <div className="w-full h-[32rem]">
+                  <div
+                    className="w-full h-[28rem] scrollbar-thin 
+                    scrollbar-thumb-scroll-bar scrollbar-track-slate-100
+                    scrollbar-thumb-rounded-full scrollbar-track-rounded-full
+                    overflow-y-scroll"
+                  >
+                    <div className="h-64">
+                      <div className="flex flex-col p-1">
+                        <Ques count={2} title="질문 제목1" date="2023-01-04" />
+                        <Ques count={1} title="질문 제목2" date="2023-01-05" />
+                        <Ques count={4} title="질문 제목3" date="2023-01-06" />
+                        <Ques count={3} title="질문 제목4" date="2023-01-07" />
+                        <Ques count={6} title="질문 제목5" date="2023-01-08" />
+                        <Ques count={2} title="질문 제목6" date="2023-01-08" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </TabPanel>
+              {/* 멘토 채팅방 */}
+              <TabPanel value="3">
+                <div className="w-full h-[32rem]">
+                  <div
+                    className="w-full h-[28rem] scrollbar-thin 
+                    scrollbar-thumb-scroll-bar scrollbar-track-slate-100
+                    scrollbar-thumb-rounded-full scrollbar-track-rounded-full
+                    overflow-y-scroll"
+                  >
+                    <div className="h-64">
+                      <div className="flex flex-col p-1">
+                        <ChatBox
+                          person="퇴근하고싶어요"
+                          chat="고생하셨습니다~!"
+                          count={0}
+                        />
+                        <ChatBox
+                          person="퇴근"
+                          chat="고생하셨습니다~!"
+                          count={0}
+                        />
+                        <ChatBox
+                          person="다물어보시죠"
+                          chat="그럼 3시쯤 가능하신가요?"
+                          count={3}
+                        />
+                        <ChatBox
+                          person="퇴근하고싶어요"
+                          chat="고생하셨습니다~!"
+                          count={0}
+                        />
+                        <ChatBox
+                          person="퇴근하고싶어요"
+                          chat="고생하셨습니다~!"
+                          count={0}
+                        />
+                        <ChatBox
+                          person="퇴근하고싶어요"
+                          chat="고생하셨습니다~!"
+                          count={0}
+                        />
+                        <ChatBox
+                          person="퇴근하고싶어요"
+                          chat="고생하셨습니다~!"
+                          count={0}
+                        />
+                        <ChatBox
+                          person="퇴근하고싶어요"
+                          chat="고생하셨습니다~!"
+                          count={0}
+                        />
+                        <ChatBox
+                          person="퇴근하고싶어요"
+                          chat="고생하셨습니다~!"
+                          count={0}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </TabPanel>
             </TabContext>
           </Box>
         </div>
