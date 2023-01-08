@@ -4,35 +4,27 @@ import ColorSystem from 'utils/ColorSystem';
 import QuesNavBar from 'components/QuesNavBar';
 import Tag from 'components/Tag';
 import TitleIndex from 'components/Index/AnsTitleIndex';
+import RecordIndex from 'components/Index/MiddleIndex';
 import MemoIndex from 'components/Index/EndIndex';
-import Btn from 'components/Btn';
-import voice from 'images/voice.png';
-import screen from 'images/screen.png';
-import record from 'images/record.png';
-import { useNavigate } from 'react-router-dom';
 
-// 과외 질문 답변 및 확인 페이지
-function PrivateAnsPage() {
-  const navigate = useNavigate();
-  const goToMain = () => {
-    navigate('/mainpage');
-  };
+// 과외 질문의 답변 확인 페이지
+function PrivateAnsCheckPage() {
   return (
     <div
-      className="h-full"
+      className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       <QuesNavBar />
       {/* Title */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
-          <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
+          <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-3 bg-white border-4 border-violet-300">
             {/* 질문 제목 텍스트로 가져와야함 */}
             <span className="text-text-color text-xl mt-4 mx-4">질문 제목</span>
             <div className="my-2 pl-2 flex flex-row relative">
               <Tag text="# JavaScript" />
               <Tag text="# python" />
-              <div className="absolute top-0 right-1">
+              <div className="absolute top-0 right-2">
                 <Tag text="2023-01-04" />
               </div>
             </div>
@@ -43,27 +35,14 @@ function PrivateAnsPage() {
         </div>
       </div>
       {/* Record video */}
-      <div className="flex justify-center item-center my-">
-        {/* 음성 채팅, 화면 공유, 기록 */}
-        <div>
-          <button type="button">
-            <img className="w-13 h-10" src={voice} alt="Record" />
-          </button>
-          <button type="button">
-            <img className="w-13 h-10" src={screen} alt="Record" />
-          </button>
-          <button type="button">
-            <img className="w-13 h-10" src={record} alt="Record" />
-          </button>
-        </div>
-      </div>
-      {/* 코드 에디터 */}
-      {/* Content */}
-      <div className="flex justify-center item-center mb-8">
+      <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-64 w-full mx-1 my-2 bg-white border-4 border-violet-300">
-            <span className="text-text-color text-xl m-4">코드 에디터</span>
+            <span className="text-text-color text-xl m-4">기록된 영상</span>
           </div>
+          {/* Record video index */}
+          <RecordIndex />
+          <span className="pl-3 text-text-color text-2xl">RECORDED VIDEO</span>
         </div>
       </div>
       {/* Memo */}
@@ -86,12 +65,8 @@ function PrivateAnsPage() {
           <span className="pl-3 text-text-color text-2xl">MENTORING MEMO</span>
         </div>
       </div>
-      <div className="flex justify-center item-center my-8 pb-8">
-        {/* save 버튼 */}
-        <Btn text="SAVE" onClick={goToMain} />
-      </div>
     </div>
   );
 }
 
-export default PrivateAnsPage;
+export default PrivateAnsCheckPage;
