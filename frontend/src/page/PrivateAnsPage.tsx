@@ -4,7 +4,7 @@ import ColorSystem from 'utils/ColorSystem';
 import QuesNavBar from 'components/QuesNavBar';
 import Tag from 'components/Tag';
 import TitleIndex from 'components/Index/AnsTitleIndex';
-import MemoIndex from 'components/Index/MemoIndex';
+import MemoIndex from 'components/Index/EndIndex';
 import Btn from 'components/Btn';
 import voice from 'images/voice.png';
 import screen from 'images/screen.png';

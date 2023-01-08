@@ -5,7 +5,7 @@ import QuesNavBar from 'components/QuesNavBar';
 import Tag from 'components/Tag';
 import TitleIndex from 'components/Index/AnsTitleIndex';
 import RecordIndex from 'components/Index/MiddleIndex';
-import MemoIndex from 'components/Index/MemoIndex';
+import MemoIndex from 'components/Index/EndIndex';
 
 // 과외 질문의 답변 확인 페이지
 function PrivateAnsCheckPage() {
