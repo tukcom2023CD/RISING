@@ -13,7 +13,7 @@ function QuesPage() {
   return (
     // 배경색
     <div
-      className="h-full"
+      className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
