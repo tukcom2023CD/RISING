@@ -1,6 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
+import { useNavigate } from 'react-router-dom';
 import MentoNavBar from 'components/MentoNavBar';
 import KeywordSelect from 'components/Select/KeywordSelect';
 import Btn from 'components/Btn';
@@ -10,6 +11,10 @@ import KeywordIndex from 'components/Index/KeywordIndex';
 
 // 질문 작성 페이지
 function QuesPage() {
+  const navigate = useNavigate();
+  const goToMain = () => {
+    navigate('/mainpage');
+  };
   return (
     // 배경색
     <div
@@ -70,7 +75,7 @@ function QuesPage() {
       </div>
       {/* Submit */}
       <div className="flex justify-center item-center my-8">
-        <Btn text="SUBMIT" />
+        <Btn text="SUBMIT" onClick={goToMain} />
       </div>
     </div>
   );
