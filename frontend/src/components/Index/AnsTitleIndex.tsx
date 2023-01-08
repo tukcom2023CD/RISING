@@ -2,7 +2,7 @@ import title1 from 'images/title1.png';
 import title2 from 'images/title2.png';
 import title3 from 'images/title3.png';
 
-function TitleIndex() {
+function AnsTitleIndex() {
   return (
     <div>
       <img
@@ -24,4 +24,4 @@ function TitleIndex() {
   );
 }
 
-export default TitleIndex;
+export default AnsTitleIndex;

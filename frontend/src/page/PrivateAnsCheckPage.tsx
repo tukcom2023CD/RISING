@@ -3,7 +3,7 @@ import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import QuesNavBar from 'components/QuesNavBar';
 import Tag from 'components/Tag';
-import TitleIndex from 'components/Index/TitleIndex';
+import TitleIndex from 'components/Index/AnsTitleIndex';
 import RecordIndex from 'components/Index/MiddleIndex';
 import MemoIndex from 'components/Index/MemoIndex';
 
