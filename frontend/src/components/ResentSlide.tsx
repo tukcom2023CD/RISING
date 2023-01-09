@@ -1,13 +1,13 @@
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import ColorSystem from '../utils/ColorSystem';
 import img1 from "../images/dog.png"
-import img2 from "../images/dog.png"
-import img3 from "../images/dog.png"
-import img4 from "../images/dog.png"
-import img5 from "../images/dog.png"
-import img6 from "../images/dog.png"
+// import img2 from "../images/dog.png"
+// import img3 from "../images/dog.png"
+// import img4 from "../images/dog.png"
+// import img5 from "../images/dog.png"
+// import img6 from "../images/dog.png"
 
 const settings = {
   dots: true,
