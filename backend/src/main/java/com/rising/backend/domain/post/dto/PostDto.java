@@ -24,12 +24,13 @@ public class PostDto {
         private PostType type;
     }
 
+    @Builder
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @NoArgsConstructor(access =  AccessLevel.PRIVATE)
     @Getter
-    public static class TestRequest {
-        @NotEmpty
-        @Length(max = 100)
+    public static class PostGetListResponse {
+        private Long id;
+
         private String title;
 
         @NotEmpty
