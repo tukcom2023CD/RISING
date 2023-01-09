@@ -52,3 +52,5 @@ gradle.properties
 
 ### yml ###
 **/src/main/resources/application-secret.yml
+
+./gradle.properties

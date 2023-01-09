@@ -5,11 +5,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {},
-      colors: { 'text-color': '#54547D' },
+      colors: {
+        'text-color': '#54547D',
+        'scroll-bar': '#9D9CD2',
+      },
     },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
+  variants: {},
+  plugins: [require('tailwind-scrollbar')],
 };
