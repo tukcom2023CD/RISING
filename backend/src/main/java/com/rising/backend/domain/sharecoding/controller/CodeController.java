@@ -6,7 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import static com.rising.backend.global.constant.RabbitMQ.CODE_EXCHANGE_NAME;
@@ -19,6 +21,8 @@ public class CodeController {
     private final RabbitTemplate rabbitTemplate;
 
     @MessageMapping("/code/message")
+    @PostMapping("/code/message")
+    @SendTo("/topic/code")
     public Operation send(@RequestBody Operation operation) {
         rabbitTemplate.convertAndSend(CODE_EXCHANGE_NAME, "code.share", operation);
         return operation;
