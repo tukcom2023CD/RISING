@@ -30,7 +30,7 @@ function PrivateAnsPage() {
 
   return (
     <div
-      className="h-full"
+      className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       <QuesNavBar />

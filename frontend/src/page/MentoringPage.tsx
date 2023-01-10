@@ -21,7 +21,7 @@ function MentoringPage() {
 
   return (
     <div
-      className="h-full"
+      className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
@@ -46,9 +46,9 @@ function MentoringPage() {
         </div>
       </div>
       {/* Record video */}
-      <div className="flex justify-center item-center my-">
-        {/* 음성 채팅, 화면 공유, 기록 -> 추가 기능 */}
-        {/* <div>
+      {/* <div className="flex justify-center item-center my-8"> */}
+      {/* 음성 채팅, 화면 공유, 기록 -> 추가 기능 */}
+      {/* <div>
           <button type="button">
             <img className="w-13 h-10" src={voice} alt="Record" />
           </button>
@@ -59,7 +59,7 @@ function MentoringPage() {
             <img className="w-13 h-10" src={record} alt="Record" />
           </button>
         </div> */}
-      </div>
+      {/* </div> */}
       {/* Content */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
