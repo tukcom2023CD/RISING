@@ -10,6 +10,7 @@ import voice from 'images/voice.png';
 import screen from 'images/screen.png';
 import record from 'images/record.png';
 import { useNavigate } from 'react-router-dom';
+import ToastEditor from 'components/ToastEditor';
 
 // 과외 질문 답변 및 확인 페이지
 function PrivateAnsPage() {
@@ -61,8 +62,8 @@ function PrivateAnsPage() {
       {/* Content */}
       <div className="flex justify-center item-center mb-8">
         <div className="relative flex flex-col-reverse w-3/5">
-          <div className="flex flex-col rounded-xl h-64 w-full mx-1 my-2 bg-white border-4 border-violet-300">
-            <span className="text-text-color text-xl m-4">코드 에디터</span>
+          <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
+            <ToastEditor />
           </div>
         </div>
       </div>
