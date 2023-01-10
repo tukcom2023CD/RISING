@@ -24,6 +24,17 @@ public class PostMapper {
                 .type(postCreate.getType()).build();
     }
 
+    public PostDto.PostDetailResponse toPostDto(Post post) {
+        return PostDto.PostDetailResponse.builder()
+                .userId(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .memo(post.getMemo())
+                .videoUrl(post.getVideoUrl())
+                .type(post.getType())
+                .build();
+    }
+
     public Page<PostGetListResponse> toDtoList(Page<Post> studyList) {
         return studyList.map(this::toPostListResponse);
     }

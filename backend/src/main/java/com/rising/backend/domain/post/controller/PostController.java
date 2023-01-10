@@ -47,8 +47,10 @@ public class PostController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_PAGINATION_SUCCESS, list));
     }
 
-    @GetMapping("{postId}/session")
-    public ResponseEntity<ResultResponse> getSession() {
-        
+    @GetMapping("/{postId}")
+    public ResponseEntity<ResultResponse> getPostById(@PathVariable Long postId) {
+        PostDto.PostDetailResponse post = postService.getPostDtoById(postId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_FIND_SUCCESS, post));
     }
+
 }

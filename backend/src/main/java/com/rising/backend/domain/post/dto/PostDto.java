@@ -31,6 +31,7 @@ public class PostDto {
     public static class PostGetListResponse {
         private Long id;
 
+        @NotEmpty
         private String title;
 
         @NotEmpty
@@ -40,11 +41,23 @@ public class PostDto {
         private PostType type;
     }
 
+    @Builder
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access =  AccessLevel.PRIVATE)
+    @Getter
     public static class PostDetailResponse {
         private Long userId;
+
+        @NotEmpty
+        private String title;
+
+        @NotEmpty
         private String content; //추후 사진 삽입 가능하도록 수정
+
         private String memo;
+
         private String videoUrl;
+
         private PostType type;
     }
 }

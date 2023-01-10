@@ -2,6 +2,7 @@ package com.rising.backend.domain.post.service;
 
 import com.rising.backend.domain.post.domain.Post;
 import com.rising.backend.domain.post.domain.Session;
+import com.rising.backend.domain.post.dto.PostDto;
 import com.rising.backend.domain.post.mapper.PostMapper;
 import com.rising.backend.domain.post.repository.PostRepository;
 import com.rising.backend.domain.user.domain.User;
@@ -40,5 +41,10 @@ public class PostService {
         Post post = postRepository.findById(postId).orElseThrow();
 //        return postRepository.save(postMapper.toSessionEntity(post));
         return null;
+    }
+
+    public PostDto.PostDetailResponse getPostDtoById(Long postId) {
+        Post post = findPostById(postId);
+        return postMapper.toPostDto(post);
     }
 }
