@@ -7,7 +7,7 @@ import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import AnswerIndex from 'components/Index/AnswerIndex';
 import Ans from 'components/Ans';
-import ToastEditor from 'components/Code/ToastEditor';
+import ToastEditor from 'components/Editor/ToastEditor';
 
 // 질문 답변 및 확인 페이지
 function AnsPage() {

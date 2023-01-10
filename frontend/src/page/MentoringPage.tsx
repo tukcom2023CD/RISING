@@ -5,7 +5,7 @@ import QuesNavBar from 'components/QuesNavBar';
 import Tag from 'components/Tag';
 import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
-import ToastEditor from 'components/Code/ToastEditor';
+import ToastEditor from 'components/Editor/ToastEditor';
 import Btn from 'components/Btn';
 import { useNavigate } from 'react-router-dom';
 // import voice from 'images/voice.png';

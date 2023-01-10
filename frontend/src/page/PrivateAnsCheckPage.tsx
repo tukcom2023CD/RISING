@@ -4,7 +4,7 @@ import ColorSystem from 'utils/ColorSystem';
 import QuesNavBar from 'components/QuesNavBar';
 import Tag from 'components/Tag';
 import TitleIndex from 'components/Index/AnsTitleIndex';
-import ToastEditor from 'components/Code/ToastEditor';
+import ToastEditor from 'components/Editor/ToastEditor';
 import ContentIndex from 'components/Index/ContentIndex';
 import EndIndex from 'components/Index/EndIndex';
 

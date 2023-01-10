@@ -8,7 +8,7 @@ import TitleIndex from 'components/Index/QuesTitleIndex';
 import ContentIndex from 'components/Index/EndIndex';
 import KeywordIndex from 'components/Index/KeywordIndex';
 import { useNavigate } from 'react-router-dom';
-import ToastEditor from 'components/Code/ToastEditor';
+import ToastEditor from 'components/Editor/ToastEditor';
 
 // 질문 작성 페이지
 function PrivateQuesPage() {

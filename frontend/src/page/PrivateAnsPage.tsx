@@ -7,7 +7,7 @@ import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import Btn from 'components/Btn';
 import { useNavigate } from 'react-router-dom';
-import ToastEditor from 'components/Code/ToastEditor';
+import ToastEditor from 'components/Editor/ToastEditor';
 import useCopyClipBoard from 'utils/useCopyClipBoard';
 
 // 과외 질문에 채팅과 링크 보낼 수 있는 페이지
