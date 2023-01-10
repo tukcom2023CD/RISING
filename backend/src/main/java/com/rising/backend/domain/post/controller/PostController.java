@@ -46,4 +46,9 @@ public class PostController {
         List<PostDto.PostGetListResponse> list = postService.pageList(pageable);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_PAGINATION_SUCCESS, list));
     }
+
+    @GetMapping("{postId}/session")
+    public ResponseEntity<ResultResponse> getSession() {
+        
+    }
 }
