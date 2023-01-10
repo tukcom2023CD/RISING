@@ -39,4 +39,12 @@ public class PostDto {
         @NotEmpty
         private PostType type;
     }
+
+    public static class PostDetailResponse {
+        private Long userId;
+        private String content; //추후 사진 삽입 가능하도록 수정
+        private String memo;
+        private String videoUrl;
+        private PostType type;
+    }
 }
