@@ -5,9 +5,9 @@ import QuesNavBar from 'components/QuesNavBar';
 import Tag from 'components/Tag';
 import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
-import ToastEditor from 'components/Editor/ToastEditor';
 import Btn from 'components/Btn';
 import { useNavigate } from 'react-router-dom';
+import PrivateCodeEditor from 'components/Editor/CodeEditor';
 // import voice from 'images/voice.png';
 // import screen from 'images/screen.png';
 // import record from 'images/record.png';
@@ -45,9 +45,8 @@ function MentoringPage() {
           <span className="pl-3 text-text-color text-2xl">TITLE</span>
         </div>
       </div>
-      {/* Record video */}
-      {/* <div className="flex justify-center item-center my-8"> */}
       {/* 음성 채팅, 화면 공유, 기록 -> 추가 기능 */}
+      {/* <div className="flex justify-center item-center my-8"> */}
       {/* <div>
           <button type="button">
             <img className="w-13 h-10" src={voice} alt="Record" />
@@ -66,8 +65,8 @@ function MentoringPage() {
           {/* 코드 에디터 */}
           <div className="flex justify-center item-center mb-8">
             <div className="relative flex flex-col-reverse w-full">
-              <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
-                <ToastEditor />
+              <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
+                <PrivateCodeEditor />
               </div>
             </div>
           </div>

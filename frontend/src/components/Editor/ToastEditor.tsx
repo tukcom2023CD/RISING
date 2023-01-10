@@ -4,7 +4,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 // import { useRef } from 'react';
 
 export default function ToastEditor() {
-  // const editorRef = useRef();
+  const editorRef = useRef(null);
 
   // const btnClickListener = () => {
   //   const editorInstance = editorRef.current.getInstance();
@@ -20,7 +20,7 @@ export default function ToastEditor() {
         previewStyle="vertical" // 미리보기 스타일 지정
         height="300px" // 에디터 창 높이
         initialValue="코드블럭 버튼을 눌러 코드를 작성하세요."
-        // ref={editorRef}
+        ref={editorRef}
         language="ko-KR"
         toolbarItems={[
           // 툴바 옵션 설정
