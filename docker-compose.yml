@@ -2,7 +2,7 @@ version: "3"
 services:
   db:
     container_name: mysql
-    image: mysql:latest
+    image: mysql:8.0
 #    volumes:
 #      - ./volume/mysql/data:/var/lib/mysql
     networks:
@@ -38,7 +38,7 @@ services:
       - "3000:3000"
 
   nginx:
-    container_name: nginx_proxy
+    container_name: nginx_con
     image: nginx:latest
     ports:
       - "80:80"

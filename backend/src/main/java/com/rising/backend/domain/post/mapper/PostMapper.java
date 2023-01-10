@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.rising.backend.domain.post.dto.PostDto.PostCreateRequest;
 import static com.rising.backend.domain.post.dto.PostDto.PostGetListResponse;
 
@@ -35,8 +38,13 @@ public class PostMapper {
                 .build();
     }
 
-    public Page<PostGetListResponse> toDtoList(Page<Post> studyList) {
+    public Page<PostGetListResponse> toDtoPageList(Page<Post> studyList) {
         return studyList.map(this::toPostListResponse);
+    }
+
+    public List<PostDto.PostDetailResponse> toDtoList(List<Post> postList) {
+        return postList.stream().map(p -> toPostDto(p))
+                .collect(Collectors.toList());
     }
 
     public PostGetListResponse toPostListResponse(Post post) {
