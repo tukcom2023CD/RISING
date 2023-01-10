@@ -6,17 +6,17 @@ function AnsTitleIndex() {
   return (
     <div>
       <img
-        className="absolute bottom-28 right-20 py-2 w-6"
+        className="absolute bottom-28 right-20 py-1 w-6"
         src={title1}
         alt="index1"
       />
       <img
-        className="absolute bottom-28 right-12 py-3 w-6"
+        className="absolute bottom-28 right-12 py-2 w-6"
         src={title2}
         alt="index1"
       />
       <img
-        className="absolute bottom-28 right-4 py-3 w-6"
+        className="absolute bottom-28 right-4 py-2 w-6"
         src={title3}
         alt="index1"
       />
