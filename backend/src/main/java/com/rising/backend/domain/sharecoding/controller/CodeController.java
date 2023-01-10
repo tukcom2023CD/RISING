@@ -22,10 +22,10 @@ public class CodeController {
 
     @MessageMapping("code.message.{postId}") //웹소켓으로 들어오는 메세지 발행 요청 처리. 클라이언트는 (/pub)/code/message/10 이런식으로 전송
     @PostMapping("/code/message/{postId}")
-    @SendTo("/topic/code/{postId}") //브로커
+    @SendTo("/sub/code/{postId}") //브로커
     // 채널에 전달할 엔드포인트 - topic을 달고 들어오는 것들은
     public Operation send(@DestinationVariable Long postId, @RequestBody Operation operation) {
-        rabbitTemplate.convertAndSend(CODE_EXCHANGE_NAME, ROUTING_KEY, operation); //클라이언트로 전송
+        rabbitTemplate.convertAndSend(CODE_EXCHANGE_NAME, "code."+postId, operation); //클라이언트로 전송
         return operation;
     }
 
