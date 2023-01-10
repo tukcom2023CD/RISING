@@ -10,7 +10,7 @@ import voice from 'images/voice.png';
 import screen from 'images/screen.png';
 import record from 'images/record.png';
 import { useNavigate } from 'react-router-dom';
-import ToastEditor from 'components/ToastEditor';
+import ToastEditor from 'components/Code/ToastEditor';
 
 // 과외 질문 답변 및 확인 페이지
 function PrivateAnsPage() {
