@@ -34,7 +34,7 @@ public class PostService {
 
     public List<PostGetListResponse> pageList(Pageable pageable) {
         Page<Post> postList = postRepository.findAll(pageable);
-        return postMapper.toDtoList(postList).getContent();
+        return postMapper.toDtoPageList(postList).getContent();
     }
 
     public Session createSession(Long postId) {
@@ -46,5 +46,10 @@ public class PostService {
     public PostDto.PostDetailResponse getPostDtoById(Long postId) {
         Post post = findPostById(postId);
         return postMapper.toPostDto(post);
+    }
+
+    public List<PostDto.PostDetailResponse> getPostListByUserId(Long userId) {
+        List<Post> postList = postRepository.findByUserId(userId);
+        return postMapper.toDtoList(postList);
     }
 }
