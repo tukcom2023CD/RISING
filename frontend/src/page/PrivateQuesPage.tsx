@@ -8,12 +8,13 @@ import TitleIndex from 'components/Index/QuesTitleIndex';
 import ContentIndex from 'components/Index/EndIndex';
 import KeywordIndex from 'components/Index/KeywordIndex';
 import { useNavigate } from 'react-router-dom';
+import ToastEditor from 'components/Code/ToastEditor';
 
 // 질문 작성 페이지
 function PrivateQuesPage() {
   const navigate = useNavigate();
-  const goToChatPage = () => {
-    navigate('/queschatpage');
+  const goToMain = () => {
+    navigate('/mainpage');
   };
   return (
     // 배경색
@@ -58,14 +59,12 @@ function PrivateQuesPage() {
       {/* Content */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
-          <div className="flex flex-col rounded-xl h-64 w-full pr-4 mx-1 my-2 bg-white border-4 border-violet-300">
-            {/* 질문할 내용 작성 */}
-            <div className="relative">
-              <input
-                type="text"
-                className="absolute top-1 left-2 w-full h-10 rounded-lg focus:shadow focus:outline-none"
-                placeholder="Content.."
-              />
+          {/* Content */}
+          <div className="flex justify-center item-center mb-8">
+            <div className="relative flex flex-col-reverse w-full">
+              <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
+                <ToastEditor />
+              </div>
             </div>
           </div>
           {/* Record video index */}
@@ -75,7 +74,7 @@ function PrivateQuesPage() {
       </div>
       {/* Submit */}
       <div className="flex justify-center item-center my-8">
-        <Btn text="CHAT" onClick={goToChatPage} />
+        <Btn text="SUBMIT" onClick={goToMain} />
       </div>
     </div>
   );

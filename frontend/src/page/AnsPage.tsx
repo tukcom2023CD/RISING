@@ -4,9 +4,10 @@ import ColorSystem from 'utils/ColorSystem';
 import QuesNavBar from 'components/QuesNavBar';
 import Tag from 'components/Tag';
 import TitleIndex from 'components/Index/AnsTitleIndex';
-import ContentIndex from 'components/Index/MiddleIndex';
+import ContentIndex from 'components/Index/ContentIndex';
 import AnswerIndex from 'components/Index/AnswerIndex';
 import Ans from 'components/Ans';
+import ToastEditor from 'components/Code/ToastEditor';
 
 // 질문 답변 및 확인 페이지
 function AnsPage() {
@@ -21,13 +22,13 @@ function AnsPage() {
       {/* Title */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
-          <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-3 bg-white border-4 border-violet-300">
+          <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
             {/* 질문 제목 텍스트로 가져와야함 */}
             <span className="text-text-color text-xl mt-4 mx-4">질문 제목</span>
             <div className="my-2 pl-2 flex flex-row relative">
               <Tag text="# JavaScript" />
               <Tag text="# python" />
-              <div className="absolute top-0 right-">
+              <div className="absolute top-0 right-0">
                 <Tag text="2023-01-04" />
               </div>
             </div>
@@ -40,8 +41,13 @@ function AnsPage() {
       {/* Content */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
-          <div className="flex flex-col rounded-xl h-64 w-full mx-1 my-2 bg-white border-4 border-violet-300">
-            <span className="text-text-color text-xl m-4">질문 내용</span>
+          <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
+            {/* 코드 에디터 */}
+            <div className="flex justify-center item-center mb-8">
+              <div className="relative flex flex-col-reverse w-full">
+                <ToastEditor />
+              </div>
+            </div>
           </div>
           {/* content index */}
           <ContentIndex />
