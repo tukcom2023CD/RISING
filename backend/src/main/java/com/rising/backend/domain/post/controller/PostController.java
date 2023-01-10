@@ -46,4 +46,11 @@ public class PostController {
         List<PostDto.PostGetListResponse> list = postService.pageList(pageable);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_PAGINATION_SUCCESS, list));
     }
+
+    @GetMapping("/{postId}")
+    public ResponseEntity<ResultResponse> getPostById(@PathVariable Long postId) {
+        PostDto.PostDetailResponse post = postService.getPostDtoById(postId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_FIND_SUCCESS, post));
+    }
+
 }
