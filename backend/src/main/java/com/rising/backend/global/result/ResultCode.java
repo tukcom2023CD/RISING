@@ -16,6 +16,7 @@ public enum ResultCode {
 
     //SESSION
     SESSION_CREATE_SUCCESS(201, "세션 생성 성공"),
+    SESSION_GET_SUCCESS(201, "세션 반환 성공"),
     USER_NOT_POST_AUTHOR(400, "사용자가 게시글의 작성자가 아님"),
 
 

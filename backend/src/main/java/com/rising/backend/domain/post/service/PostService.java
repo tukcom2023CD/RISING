@@ -6,6 +6,7 @@ import com.rising.backend.domain.post.mapper.PostMapper;
 import com.rising.backend.domain.post.repository.PostRepository;
 import com.rising.backend.domain.post.repository.SessionRepository;
 import com.rising.backend.domain.user.domain.User;
+import com.rising.backend.global.util.UuidConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final SessionRepository sessionRepository;
     private final PostMapper postMapper;
-
+    private final UuidConverter uuidConverter;
 
     public Post createPost(PostCreateRequest createRequest, User loginUser) {
         return postRepository.save(postMapper.toPostEntity(createRequest, loginUser));
@@ -45,10 +46,12 @@ public class PostService {
 
     public Session createSession(Post post) {
         Session entity = postMapper.toSessionEntity(post);
+        Session savedEntity = sessionRepository.save(entity);
+        savedEntity.setUrl(uuidConverter.toBase64(savedEntity.getId()));
         return sessionRepository.save(entity);
     }
 
     public Session findSessionByPostId(Long postId) {
-        sessionRepository.findByPostId(postId);
+        return sessionRepository.findByPost_Id(postId).orElseThrow();
     }
 }
