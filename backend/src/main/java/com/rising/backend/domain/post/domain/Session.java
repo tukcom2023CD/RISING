@@ -26,4 +26,8 @@ public class Session extends BaseEntity {
     private Post post;
 
     private String url;
+
+    public void setUrl(String convertedUuid) {
+        this.url = convertedUuid;
+    }
 }
