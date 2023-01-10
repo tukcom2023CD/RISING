@@ -8,6 +8,6 @@ public class Operation {
 
     private Long lineNumber;
 
-    private String text;
+    private String text; //해당 라인의 데이터
 
 }

@@ -43,7 +43,7 @@ public class RabbitConfig {
     @Bean
     public RabbitTemplate rabbitTemplate(){
         RabbitTemplate rabbitTemplate = new RabbitTemplate(cachingConnectionFactory);
-        rabbitTemplate.setMessageConverter(messageConverter());
+        rabbitTemplate.setMessageConverter(messageConverter()); //json을 사용할 수 있도록 함
         return rabbitTemplate;
     }
 
