@@ -22,17 +22,15 @@ public class PostMapper {
                 .user(loginUser)
                 .content(postCreate.getContent())
                 .title(postCreate.getTitle())
-                .memo(null)
                 .videoUrl(null)
                 .type(postCreate.getType()).build();
     }
 
     public PostDto.PostDetailResponse toPostDto(Post post) {
         return PostDto.PostDetailResponse.builder()
-                .userId(post.getId())
+                .userId(post.getUser().getId())
                 .title(post.getTitle())
                 .content(post.getContent())
-                .memo(post.getMemo())
                 .videoUrl(post.getVideoUrl())
                 .type(post.getType())
                 .build();
