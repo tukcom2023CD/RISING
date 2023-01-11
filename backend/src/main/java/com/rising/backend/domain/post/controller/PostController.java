@@ -50,7 +50,7 @@ public class PostController {
 
 
     @LoginRequired
-    @GetMapping("{postId}/session")
+    @GetMapping("/{postId}/session")
     public ResponseEntity<ResultResponse> getSession(
             @PathVariable Long postId,
             @Parameter(hidden = true) @LoginUser User loginUser) {
@@ -61,6 +61,7 @@ public class PostController {
         }
 
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SESSION_GET_SUCCESS, sessionUrl));
+    }
 
     @GetMapping("/{postId}")
     public ResponseEntity<ResultResponse> getPostById(@PathVariable Long postId) {
