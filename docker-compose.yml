@@ -3,8 +3,8 @@ services:
   db:
     container_name: mysql
     image: mysql:8.0
-#    volumes:
-#      - ./volume/mysql/data:/var/lib/mysql
+    volumes:
+      - ./volume/mysql/data:/var/lib/mysql
     networks:
       - app-tier
     environment: # 컨테이너 안의 환경변수 설정
@@ -40,10 +40,13 @@ services:
   nginx:
     container_name: nginx_con
     image: nginx:latest
+    build:
+      dockerfile: dockerfile
+      context: ./nginx
     ports:
       - "80:80"
-#    volumes:
-#      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - backend
       - frontend
