@@ -5,8 +5,88 @@ import MentoNavBar from 'components/MentoNavBar';
 import Tag from 'components/Tag';
 import send from 'images/send.png';
 import profile from 'images/profile.png';
+import { Client, IMessage } from '@stomp/stompjs';
+import { useEffect, useRef, useState } from 'react';
+import OthersMessage from 'components/Chat/OthersMessage';
+import MyMessage from 'components/Chat/MyMessage';
+import { useLocation } from 'react-router-dom';
+import useStomp from 'utils/useStomp';
+import useInput from 'utils/useInput';
+
+interface ChatMessage {
+  sender: string;
+  content: string;
+}
+
+const DUMMY_CHAT: ChatMessage[] = [
+  {
+    sender: '나',
+    content: '안녕하세요',
+  },
+  {
+    sender: '너',
+    content: '안녕하세요~~~!!',
+  },
+  {
+    sender: '나',
+    content: '안녕하십니까 !!',
+  },
+  {
+    sender: '너',
+    content: '반가워요 !',
+  },
+];
 
 function QuesChatPage() {
+  const [content, onChatInput, setContent] = useInput('');
+  const [chatList, setChatList] = useState(DUMMY_CHAT);
+  const chatListRef = useRef<HTMLUListElement>(null);
+  const sender= "나";
+  const client = useRef<Client>();
+  
+    /** 응답받은 body를 채팅 목록 배열에 push */
+  const handleSub = (body: IMessage) => {
+    const jsonBody = JSON.parse(body.body);
+    setChatList((_chatList: ChatMessage[]) => [..._chatList, jsonBody]);
+  };
+
+  /** 채팅 데이터를 destination에 publish */
+  const handlePub = () => {
+    if (!client.current?.connected) return;
+    client.current.publish({
+      destination: 'pub/chat/message/1',
+      body: JSON.stringify({
+        sender: '나',
+        content: '안녕 나야'
+      }),
+    });
+    setContent('');
+  };
+
+  const [connect, disconnect] = useStomp(client, '/sub/chat/1', handleSub);
+
+
+  /** 엔터 버튼을 통한 채팅 보내기 함수 */
+  const onKeyDownEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (
+        e.currentTarget.value.length !== 0 &&
+        e.key === 'Enter' &&
+        !e.shiftKey &&
+        e.nativeEvent.isComposing === false
+    ) {
+      e.preventDefault();
+      handlePub();
+    }
+  };
+
+
+
+  useEffect(() => {
+    connect();
+    return () => disconnect();
+  }, []);
+
+
   return (
     // 배경색
     <div
@@ -50,10 +130,24 @@ function QuesChatPage() {
       {/* 채팅방 */}
       <div className="flex justify-center item-center">
         <div className="relative flex-row w-3/5 h-[40rem] rounded-xl bg-white">
+          <ul ref={chatListRef} className="">
+            {chatList.map((chat) => (
+              <li>
+                {chat.sender === sender ? (
+                  <MyMessage
+                    content={chat.content}
+                  />
+                ) : (
+                  <OthersMessage
+                    content={chat.content}
+                  />
+                )}
+              </li>
+            ))}
+          </ul>
           <div className="absolute bottom-1 left-1 pl-6 bg-gray-200 w-full">
-            <input
+            <textarea
               className="absolute bottom-1 left-1 w-full h-10 pr-6"
-              type="text"
               placeholder="Chat"
             />
           </div>
