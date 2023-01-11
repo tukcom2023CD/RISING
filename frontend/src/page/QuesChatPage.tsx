@@ -148,10 +148,12 @@ function QuesChatPage() {
           <div className="absolute bottom-1 left-1 pl-6 bg-gray-200 w-full">
             <textarea
               className="absolute bottom-1 left-1 w-full h-10 pr-6"
-              placeholder="Chat"
+              value={content}
+              onChange={onChatInput}
+              onKeyDown={onKeyDownEnter}
             />
           </div>
-          <button type="button">
+          <button type="button" onClick={handlePub}>
             <img
               className="w-9 absolute bottom-3 right-1"
               src={send}
