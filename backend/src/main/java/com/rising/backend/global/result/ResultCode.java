@@ -22,7 +22,10 @@ public enum ResultCode {
 
 
     //COMMENT
-    COMMENT_CREATE_SUCCESS(201, "댓글 등록 성공");
+    COMMENT_CREATE_SUCCESS(201, "댓글 등록 성공"),
+
+    //CHAT
+    CHATROOM_CREATE_SUCCESS(201, "채팅방 생성 성공");
 
     private final int status;
     private final String message;
