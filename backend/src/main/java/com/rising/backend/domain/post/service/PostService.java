@@ -1,6 +1,8 @@
 package com.rising.backend.domain.post.service;
 
 import com.rising.backend.domain.post.domain.Post;
+import com.rising.backend.domain.post.dto.PostDto;
+
 import com.rising.backend.domain.post.mapper.PostMapper;
 import com.rising.backend.domain.post.repository.PostRepository;
 import com.rising.backend.domain.user.domain.User;
@@ -38,7 +40,7 @@ public class PostService {
 
     public List<PostGetListResponse> pageList(Pageable pageable) {
         Page<Post> postList = postRepository.findAll(pageable);
-        return postMapper.toDtoList(postList).getContent();
+        return postMapper.toDtoPageList(postList).getContent();
     }
 
     public String getSessionUrl(Long postId, User user) {
@@ -48,6 +50,17 @@ public class PostService {
         }
 
         return post.getSessionUrl();
+    }
+
+
+    public PostDto.PostDetailResponse getPostDtoById(Long postId) {
+        Post post = findPostById(postId);
+        return postMapper.toPostDto(post);
+    }
+
+    public List<PostDto.PostDetailResponse> getPostListByUserId(Long userId) {
+        List<Post> postList = postRepository.findByUserId(userId);
+        return postMapper.toDtoList(postList);
     }
 
 }

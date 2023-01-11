@@ -4,17 +4,27 @@ import ColorSystem from 'utils/ColorSystem';
 import QuesNavBar from 'components/QuesNavBar';
 import Tag from 'components/Tag';
 import TitleIndex from 'components/Index/AnsTitleIndex';
-import ToastEditor from 'components/Editor/ToastEditor';
 import ContentIndex from 'components/Index/ContentIndex';
-import EndIndex from 'components/Index/EndIndex';
+import ToastEditor from 'components/Editor/ToastEditor';
+import Btn from 'components/Btn';
+import { useNavigate } from 'react-router-dom';
+// import voice from 'images/voice.png';
+// import screen from 'images/screen.png';
+// import record from 'images/record.png';
 
-// 과외 질문 멘토링 이후 결과 확인하는 페이지
-function PrivateAnsCheckPage() {
+// 과외 질문 멘토링 중인 페이지
+function MentoringPage() {
+  const navigate = useNavigate();
+  const goToAnsCheckPage = () => {
+    navigate('/privateanscheckpage');
+  };
+
   return (
     <div
-      className="h-full"
+      className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
+      {/* 상단바 */}
       <QuesNavBar />
       {/* Title */}
       <div className="flex justify-center item-center my-8">
@@ -35,6 +45,21 @@ function PrivateAnsCheckPage() {
           <span className="pl-3 text-text-color text-2xl">TITLE</span>
         </div>
       </div>
+      {/* Record video */}
+      {/* <div className="flex justify-center item-center my-8"> */}
+      {/* 음성 채팅, 화면 공유, 기록 -> 추가 기능 */}
+      {/* <div>
+          <button type="button">
+            <img className="w-13 h-10" src={voice} alt="Record" />
+          </button>
+          <button type="button">
+            <img className="w-13 h-10" src={screen} alt="Record" />
+          </button>
+          <button type="button">
+            <img className="w-13 h-10" src={record} alt="Record" />
+          </button>
+        </div> */}
+      {/* </div> */}
       {/* Content */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
@@ -46,27 +71,17 @@ function PrivateAnsCheckPage() {
               </div>
             </div>
           </div>
-          {/* Record video index */}
+          {/* contnet index */}
           <ContentIndex />
           <span className="pl-3 text-text-color text-2xl">CONTENT</span>
         </div>
       </div>
-      {/* Recorded video */}
+      {/* finish button */}
       <div className="flex justify-center item-center my-8">
-        <div className="relative flex flex-col-reverse w-3/5">
-          <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 bg-white border-4 border-violet-300">
-            {/* 추후 구현 예정 */}
-            <span className="text-text-color text-xl mt-4 mx-4">
-              기록된 영상이 업로드 될 예정입니다.
-            </span>
-          </div>
-          {/* recorded index */}
-          <EndIndex />
-          <span className="pl-3 text-text-color text-2xl">RECORDED VIDEO</span>
-        </div>
+        <Btn text="FINISH" onClick={goToAnsCheckPage} />
       </div>
     </div>
   );
 }
 
-export default PrivateAnsCheckPage;
+export default MentoringPage;

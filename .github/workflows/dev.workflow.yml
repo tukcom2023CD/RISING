@@ -68,7 +68,7 @@ jobs:
     
     - name: Run test
       run: |
-        npm install
+        npm install --force
         npm run build
       env:
         CI: true

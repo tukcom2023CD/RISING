@@ -48,6 +48,7 @@ public class PostController {
     }
 
 
+
     @LoginRequired
     @GetMapping("{postId}/session")
     public ResponseEntity<ResultResponse> getSession(
@@ -60,5 +61,17 @@ public class PostController {
         }
 
         return ResponseEntity.ok(ResultResponse.of(ResultCode.SESSION_GET_SUCCESS, sessionUrl));
+
+    @GetMapping("/{postId}")
+    public ResponseEntity<ResultResponse> getPostById(@PathVariable Long postId) {
+        PostDto.PostDetailResponse post = postService.getPostDtoById(postId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_FIND_SUCCESS, post));
+    }
+
+    @GetMapping("/mypages/{userId}")
+    public ResponseEntity<ResultResponse> getPostListByUserId(@PathVariable Long userId) {
+        List<PostDto.PostDetailResponse> postList = postService.getPostListByUserId(userId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POSTLIST_FIND_BY_USERID_SUCCESS, postList));
+
     }
 }

@@ -28,11 +28,8 @@ public class Post extends BaseEntity {
     private String title;
 
     @NotBlank
-    @Column(length = 1000)
+    @Column(columnDefinition = "TEXT")
     private String content;
-
-    @Column(length = 1000)
-    private String memo;
 
     @Column(length = 255)
     private String videoUrl;

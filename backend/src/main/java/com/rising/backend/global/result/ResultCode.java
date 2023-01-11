@@ -13,9 +13,10 @@ public enum ResultCode {
     //POST
     POST_CREATE_SUCCESS(201, "게시글 등록 성공"),
     POST_PAGINATION_SUCCESS(200, "게시글 리스트 조회 성공"),
+    POST_FIND_SUCCESS(200, "게시글 id로 단일 게시글 조회 성공"),
+    POSTLIST_FIND_BY_USERID_SUCCESS(200, "유저 id로 게시글 리스트 조회 성공"),
 
     //SESSION
-    SESSION_CREATE_SUCCESS(201, "세션 생성 성공"),
     SESSION_GET_SUCCESS(201, "세션 반환 성공"),
     USER_NOT_POST_AUTHOR(400, "사용자가 게시글의 작성자가 아님"),
 
