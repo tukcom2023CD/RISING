@@ -1,7 +1,5 @@
 package com.rising.backend.domain.post.controller;
 
-import com.rising.backend.domain.post.domain.Post;
-import com.rising.backend.domain.post.domain.Session;
 import com.rising.backend.domain.post.dto.PostDto;
 import com.rising.backend.domain.post.service.PostService;
 import com.rising.backend.domain.user.domain.User;
@@ -49,25 +47,18 @@ public class PostController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_PAGINATION_SUCCESS, list));
     }
 
-    @LoginRequired
-    @PostMapping("{postId}/session")
-    public ResponseEntity<ResultResponse> createSession(
-            @PathVariable Long postId,
-            @Parameter(hidden = true) @LoginUser User loginUser) {
-        Post post = postService.findPostById(postId);
-        if (!postService.checkIsAuthor(post, loginUser)) {
-            return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_NOT_POST_AUTHOR));
-        }
-        Session session = postService.createSession(post);
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.SESSION_CREATE_SUCCESS, session.getUrl()));
-    }
 
     @LoginRequired
     @GetMapping("{postId}/session")
     public ResponseEntity<ResultResponse> getSession(
             @PathVariable Long postId,
             @Parameter(hidden = true) @LoginUser User loginUser) {
-        Session session = postService.findSessionByPostId(postId);
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.SESSION_GET_SUCCESS, session.getUrl()));
+        String sessionUrl = postService.getSessionUrl(postId, loginUser);
+
+        if (sessionUrl == null) {
+            return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_NOT_POST_AUTHOR));
+        }
+
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SESSION_GET_SUCCESS, sessionUrl));
     }
 }

@@ -31,12 +31,14 @@ public class Post extends BaseEntity {
     @Column(length = 1000)
     private String content;
 
-
     @Column(length = 1000)
     private String memo;
 
     @Column(length = 255)
     private String videoUrl;
+
+    @Column(length = 255)
+    private String sessionUrl;
 
     @NotNull
     @Enumerated(EnumType.STRING)

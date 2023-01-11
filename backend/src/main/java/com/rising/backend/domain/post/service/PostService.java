@@ -1,10 +1,8 @@
 package com.rising.backend.domain.post.service;
 
 import com.rising.backend.domain.post.domain.Post;
-import com.rising.backend.domain.post.domain.Session;
 import com.rising.backend.domain.post.mapper.PostMapper;
 import com.rising.backend.domain.post.repository.PostRepository;
-import com.rising.backend.domain.post.repository.SessionRepository;
 import com.rising.backend.domain.user.domain.User;
 import com.rising.backend.global.util.UuidConverter;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +20,6 @@ import static com.rising.backend.domain.post.dto.PostDto.PostGetListResponse;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final SessionRepository sessionRepository;
     private final PostMapper postMapper;
     private final UuidConverter uuidConverter;
 
@@ -44,14 +41,13 @@ public class PostService {
         return postMapper.toDtoList(postList).getContent();
     }
 
-    public Session createSession(Post post) {
-        Session entity = postMapper.toSessionEntity(post);
-        Session savedEntity = sessionRepository.save(entity);
-        savedEntity.setUrl(uuidConverter.toBase64(savedEntity.getId()));
-        return sessionRepository.save(entity);
+    public String getSessionUrl(Long postId, User user) {
+        Post post = findPostById(postId);
+        if (!checkIsAuthor(post, user)) {
+            return null;
+        }
+
+        return post.getSessionUrl();
     }
 
-    public Session findSessionByPostId(Long postId) {
-        return sessionRepository.findByPost_Id(postId).orElseThrow();
-    }
 }
