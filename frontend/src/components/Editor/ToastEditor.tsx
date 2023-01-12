@@ -1,7 +1,7 @@
 // Toast 에디터
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-// import { useRef } from 'react';
+import { useRef } from 'react';
 
 export default function ToastEditor() {
   const editorRef = useRef(null);

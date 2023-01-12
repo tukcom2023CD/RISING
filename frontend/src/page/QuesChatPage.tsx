@@ -75,8 +75,8 @@ function QuesChatPage() {
         console.log('5 unhandled Message', msg);
       },
     });
-  }
-  
+  };
+
   /** 채팅 데이터를 destination에 publish */
   const handlePub = () => {
     if (!client.current?.connected) return;
@@ -84,21 +84,19 @@ function QuesChatPage() {
       destination: `/pub/chat.message.${2}`,
       body: JSON.stringify({
         sender: `${sender}`,
-        content: `${content}`
+        content: `${content}`,
       }),
     });
     setContent('');
   };
 
-
-
   /** 엔터 버튼을 통한 채팅 보내기 함수 */
   const onKeyDownEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (
-        e.currentTarget.value.length !== 0 &&
-        e.key === 'Enter' &&
-        !e.shiftKey &&
-        e.nativeEvent.isComposing === false
+      e.currentTarget.value.length !== 0 &&
+      e.key === 'Enter' &&
+      !e.shiftKey &&
+      e.nativeEvent.isComposing === false
     ) {
       e.preventDefault();
       handlePub();
@@ -106,12 +104,12 @@ function QuesChatPage() {
     }
   };
 
-
-
   useEffect(() => {
     connect();
     client.current?.activate();
-    return () => {client.current?.deactivate();};
+    return () => {
+      client.current?.deactivate();
+    };
   }, []);
 
   const onReset = () => {
@@ -159,8 +157,10 @@ function QuesChatPage() {
             />
           </div>
           <span className="mt-4">상대방 이름</span>
-          <input value={text} onChange={onChange} className='text-black'/>
-          <button type='button' onClick={onReset}>이름 설정</button>
+          <input value={text} onChange={onChange} className="text-black" />
+          <button type="button" onClick={onReset}>
+            이름 설정
+          </button>
         </div>
       </div>
       {/* 채팅방 */}
@@ -170,13 +170,9 @@ function QuesChatPage() {
             {chatList.map((chat) => (
               <li>
                 {chat.sender === sender ? (
-                  <MyMessage
-                    content={chat.content}
-                  />
+                  <MyMessage content={chat.content} />
                 ) : (
-                  <OthersMessage
-                    content={chat.content}
-                  />
+                  <OthersMessage content={chat.content} />
                 )}
               </li>
             ))}
