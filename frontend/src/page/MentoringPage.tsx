@@ -33,13 +33,12 @@ function MentoringPage() {
   useEffect(() => {
     if (textRef.current) {
       const obj = new SelectionText(textRef.current);
-      console.log('obj:', obj.value);
+      console.log('obj:', obj.value.split('\n'));
     }
-  });
+  }, [code]);
 
   // 웹소켓
   const [content, onChatInput, setContent] = useInput('');
-  // const [chatList, setChatList] = useState(DUMMY_CHAT);
   const [line, setLline] = useState(''); // 코드 라인
   const chatListRef = useRef<HTMLUListElement>(null);
   const client = useRef<Client>();
