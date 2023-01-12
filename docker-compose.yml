@@ -34,9 +34,10 @@ services:
   rabbitmq:
     image: rabbitmq:3.7.14-management-alpine # 웹 UI management 툴 포함
     command: rabbitmq-server
-    expose:
-      - "5672" #rabbitmq
-      - "15672" #rabbitmq GUI
+    ports:
+      - "5672:5672"
+      - "15672:15672" # GUI management
+
 #    healthcheck:
 #      test: [ "CMD", "nc", "-z", "localhost", "5672" ]
 #      interval: 10s
