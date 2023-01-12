@@ -21,9 +21,9 @@ function MainPage() {
               src={MainImage} alt = "메인이미지"
               />
         </div>
-          <span className="mx-12 pl-6 text-text-color text-lg">분야별 멘토링</span>
+          <span className="mx-12 pl-6 font-bold text-text-color text-lg">분야별 멘토링</span>
             <MainMenu/>
-          <span className="mx-12 pl-6 text-text-color text-lg">최근에 해결된 질문</span>
+          <span className="mx-12 pl-6 font-bold text-text-color text-lg">최근에 해결된 질문</span>
             <ResentSlide />
       </div>
     </div>
