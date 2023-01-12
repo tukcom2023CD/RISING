@@ -9,9 +9,7 @@ import { Client, IMessage } from '@stomp/stompjs';
 import { useEffect, useRef, useState } from 'react';
 import OthersMessage from 'components/Chat/OthersMessage';
 import MyMessage from 'components/Chat/MyMessage';
-import useStompClient from 'utils/useStomp';
 import useInput from 'utils/useInput';
-import { text } from 'stream/consumers';
 
 interface ChatMessage {
   sender: string;
