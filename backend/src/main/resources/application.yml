@@ -14,4 +14,3 @@ spring:
         show_sql: true
         format_sql: true
     generate-ddl: false
-

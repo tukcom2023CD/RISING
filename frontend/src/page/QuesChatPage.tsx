@@ -9,9 +9,9 @@ import { Client, IMessage } from '@stomp/stompjs';
 import { useEffect, useRef, useState } from 'react';
 import OthersMessage from 'components/Chat/OthersMessage';
 import MyMessage from 'components/Chat/MyMessage';
-import { useLocation } from 'react-router-dom';
-import useStomp from 'utils/useStomp';
+import useStompClient from 'utils/useStomp';
 import useInput from 'utils/useInput';
+import { text } from 'stream/consumers';
 
 interface ChatMessage {
   sender: string;
@@ -40,30 +40,57 @@ const DUMMY_CHAT: ChatMessage[] = [
 function QuesChatPage() {
   const [content, onChatInput, setContent] = useInput('');
   const [chatList, setChatList] = useState(DUMMY_CHAT);
+  const [sender, setSender] = useState('');
   const chatListRef = useRef<HTMLUListElement>(null);
-  const sender= "나";
   const client = useRef<Client>();
-  
-    /** 응답받은 body를 채팅 목록 배열에 push */
+  const [text, setText] = useState('');
+
   const handleSub = (body: IMessage) => {
     const jsonBody = JSON.parse(body.body);
     setChatList((_chatList: ChatMessage[]) => [..._chatList, jsonBody]);
   };
 
+  const connect = () => {
+    client.current = new Client({
+      brokerURL: 'ws://localhost:8080/stomp',
+      reconnectDelay: 200000,
+      heartbeatIncoming: 16000,
+      heartbeatOutgoing: 16000,
+      debug: (str) => {
+        console.log(str);
+      },
+      onConnect: () => {
+        console.log('0 stomp onConnect : ');
+        client.current?.subscribe(`/sub/chat/${2}`, handleSub);
+      },
+      onStompError: (frame) => {
+        console.error('1 stomp error : ', frame);
+      },
+      onDisconnect: (frame) => {
+        console.log('2 disconnect : ', frame);
+      },
+      onWebSocketClose: (frame) => {
+        console.log('3 Stomp WebSocket Closed', frame);
+      },
+      onUnhandledMessage: (msg) => {
+        console.log('5 unhandled Message', msg);
+      },
+    });
+  }
+  
   /** 채팅 데이터를 destination에 publish */
   const handlePub = () => {
     if (!client.current?.connected) return;
     client.current.publish({
-      destination: 'pub/chat/message/1',
+      destination: `/pub/chat/${2}`,
       body: JSON.stringify({
-        sender: '나',
-        content: '안녕 나야'
+        sender: `${sender}`,
+        content: `${content}`
       }),
     });
     setContent('');
   };
 
-  const [connect, disconnect] = useStomp(client, '/sub/chat/1', handleSub);
 
 
   /** 엔터 버튼을 통한 채팅 보내기 함수 */
@@ -76,6 +103,7 @@ function QuesChatPage() {
     ) {
       e.preventDefault();
       handlePub();
+      console.log(chatList);
     }
   };
 
@@ -83,10 +111,16 @@ function QuesChatPage() {
 
   useEffect(() => {
     connect();
-    return () => disconnect();
+    client.current?.activate();
+    return () => {client.current?.deactivate();};
   }, []);
 
-
+  const onReset = () => {
+    setSender(text);
+  };
+  const onChange = (e: any) => {
+    setText(e.target.value);
+  };
   return (
     // 배경색
     <div
@@ -125,6 +159,8 @@ function QuesChatPage() {
             />
           </div>
           <span className="mt-4">상대방 이름</span>
+          <input value={text} onChange={onChange} className='text-black'/>
+          <button type='button' onClick={onReset}>이름 설정</button>
         </div>
       </div>
       {/* 채팅방 */}

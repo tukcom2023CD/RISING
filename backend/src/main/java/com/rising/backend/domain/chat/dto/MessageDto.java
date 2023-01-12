@@ -13,9 +13,8 @@ public class MessageDto {
     @Getter
     public static class ChatMessageDto {
 
-        private Long roomId;
-        private String message;
-        private String username;
+        private String content;
+        private String sender;
 
     }
 
