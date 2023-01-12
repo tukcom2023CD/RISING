@@ -34,6 +34,9 @@ public class Post extends BaseEntity {
     @Column(length = 255)
     private String videoUrl;
 
+    @Column(length = 255)
+    private String sessionUrl;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private PostType type;

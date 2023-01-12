@@ -47,6 +47,22 @@ public class PostController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_PAGINATION_SUCCESS, list));
     }
 
+
+
+    @LoginRequired
+    @GetMapping("/{postId}/session")
+    public ResponseEntity<ResultResponse> getSession(
+            @PathVariable Long postId,
+            @Parameter(hidden = true) @LoginUser User loginUser) {
+        String sessionUrl = postService.getSessionUrl(postId, loginUser);
+
+        if (sessionUrl == null) {
+            return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_NOT_POST_AUTHOR));
+        }
+
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.SESSION_GET_SUCCESS, sessionUrl));
+    }
+
     @GetMapping("/{postId}")
     public ResponseEntity<ResultResponse> getPostById(@PathVariable Long postId) {
         PostDto.PostDetailResponse post = postService.getPostDtoById(postId);
@@ -57,5 +73,6 @@ public class PostController {
     public ResponseEntity<ResultResponse> getPostListByUserId(@PathVariable Long userId) {
         List<PostDto.PostDetailResponse> postList = postService.getPostListByUserId(userId);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POSTLIST_FIND_BY_USERID_SUCCESS, postList));
+
     }
 }

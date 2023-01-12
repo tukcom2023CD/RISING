@@ -6,8 +6,7 @@ WORKDIR /frontend
 COPY . /frontend
 
 # 개발
-RUN npm install
-RUN npm install -D prettier
+RUN npm install --force
 
 # 배포
 # RUN yarn 
