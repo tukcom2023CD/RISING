@@ -43,19 +43,19 @@ services:
 #      interval: 10s
 #      timeout: 10s
 #      retries: 5
+
     environment:
-#      RABBITMQ_ERLANG_COOKIE: "RabbitMQ-My-Cookies"
-      RABBITMQ_DEFAULT_USER: "guest"
-      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASSWORD}
     networks:
       - app-tier
 
-#  frontend:
-#    container_name: frontend_con
-#    build: ./frontend
-#    command: ["npm", "start"]
-#    ports:
-#      - "3000:3000"
+  frontend:
+    container_name: frontend_con
+    build: ./frontend
+    command: ["npm", "start"]
+    ports:
+      - "3000:3000"
 
 #  nginx:
 #    container_name: nginx_con
