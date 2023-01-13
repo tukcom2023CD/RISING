@@ -16,7 +16,7 @@ import static com.rising.backend.global.constant.RabbitMQ.CHAT_QUEUE_NAME;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class ChatController {
+public class WebSocketChatController {
     private final RabbitTemplate rabbitTemplate;
 
     @MessageMapping("chat.message.{postId}") // 클라이언트에서 '/pub' 붙여 메세지 보내는 경로
