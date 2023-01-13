@@ -29,7 +29,8 @@ function MentoringPage() {
     return answer`,
   );
   const textRef = React.useRef(null);
-  // [] 원래 이거 있었음, 수정되자마자 바로바로 콘솔에 찍히게 이렇게 수정함
+
+  // 수정되자마자 바로바로 콘솔에 찍힘
   useEffect(() => {
     if (textRef.current) {
       const obj = new SelectionText(textRef.current);
@@ -37,19 +38,28 @@ function MentoringPage() {
     }
   }, [code]);
 
-  // 웹소켓
-  const [content, onChatInput, setContent] = useInput('');
-  const [line, setLline] = useState(''); // 코드 라인
-  const chatListRef = useRef<HTMLUListElement>(null);
-  const client = useRef<Client>();
-  // const [text, setText] = useState('');
+  /** 코드 데이터를 destination에 publish(이벤트 발행, 전송) */
+  useEffect(() => {
+    if (!client.current?.connected) return;
+    client.current.publish({
+      // STOMP 서버에서 메시지를 받기 위해 @MessageMapping 으로 연결해둔 주소
+      destination: `/pub/code/message`,
+      // STOMP 서버에서 정의하고 있는 형식에 맞게 가공
+      body: JSON.stringify({
+        code: `${code}`,
+      }),
+    });
+    // 메시지를 보내면 setContent('');을 통해 입력란을 초기화한다
+    // setContent('');
+  }, [code]);
 
-  // 채팅 리스트
-  const handleSub = (body: IMessage) => {
-    const jsonBody = JSON.parse(body.body);
-    // 새로운 채팅도 추가해서 보여주기
-    // setChatList((_chatList: ChatMessage[]) => [..._chatList, jsonBody]);
+  // 바뀐코드 보내기
+  const handleSub = (body: any) => {
+    console.log(body);
+    setCode(body);
   };
+
+  const client = useRef<Client>();
 
   // 웹소켓 클라이인트 생성
   const connect = () => {
@@ -66,7 +76,7 @@ function MentoringPage() {
       onConnect: () => {
         console.log('0 stomp onConnect : ');
         // 구독한 대상에 대해 메세지를 받기 위해 subscribe 메서드
-        client.current?.subscribe(`/sub/chat/${2}`, handleSub);
+        client.current?.subscribe(`/sub/chat/message`, handleSub);
       },
       onStompError: (frame) => {
         console.error('1 stomp error : ', frame);
@@ -81,22 +91,6 @@ function MentoringPage() {
         console.log('4 unhandled Message', msg);
       },
     });
-  };
-
-  /** 코드 데이터를 destination에 publish(이벤트 발행, 전송) */
-  const handlePub = () => {
-    if (!client.current?.connected) return;
-    client.current.publish({
-      // STOMP 서버에서 메시지를 받기 위해 @MessageMapping 으로 연결해둔 주소
-      destination: `/pub/code/message`,
-      // STOMP 서버에서 정의하고 있는 형식에 맞게 가공
-      body: JSON.stringify({
-        line: `${line}`,
-        content: `${content}`,
-      }),
-    });
-    // 메시지를 보내면 setContent('');을 통해 입력란을 초기화한다
-    // setContent('');
   };
 
   // 페이지가 렌더링 될 때 실행, 페이지 벗어나면 웹소켓 연결 종료
