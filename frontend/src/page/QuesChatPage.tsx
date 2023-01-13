@@ -117,6 +117,7 @@ function QuesChatPage() {
   const onReset = () => {
     setSender(text);
   };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChange = (e: any) => {
     setText(e.target.value);
   };

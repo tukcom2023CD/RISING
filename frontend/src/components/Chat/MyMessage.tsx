@@ -1,6 +1,4 @@
-import React from 'react';
-
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function MyMessage( {content} : any) {
   return (
     <div className="flex flex-col text-base mb-5">
