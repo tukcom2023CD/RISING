@@ -26,4 +26,5 @@ public class ChatMessage {
 
     @CreatedDate
     private LocalDateTime sendDate;
+
 }
