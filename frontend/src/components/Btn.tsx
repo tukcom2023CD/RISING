@@ -6,7 +6,7 @@ interface Props {
 function Btn({ text, onClick }: Props) {
   return (
     <button
-      type="button"
+      type="submit"
       className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
       onClick={onClick}
     >
