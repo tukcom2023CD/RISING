@@ -24,22 +24,22 @@ public class RabbitConfig {
     //Queue 등록
     @Bean
     public Queue queue() {
-        return new Queue(CODE_QUEUE_NAME, true);
+        return new Queue(CHAT_QUEUE_NAME, true);
     }
 
     //Exchange 등록
     @Bean
     public TopicExchange exchange() {
-        return new TopicExchange(CODE_EXCHANGE_NAME);
+        return new TopicExchange(EXCHANGE_NAME);
     }
 
     //Exchange와 Queue 바인딩
     @Bean
     public Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
+        return BindingBuilder.bind(queue).to(exchange).with(CHAT_ROUTING_KEY);
     }
 
-
+    // 바이트-자바 Object간 변환
     @Bean
     public RabbitTemplate rabbitTemplate(){
         RabbitTemplate rabbitTemplate = new RabbitTemplate(cachingConnectionFactory);
@@ -51,5 +51,4 @@ public class RabbitConfig {
     MessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter();
     }
-
 }
