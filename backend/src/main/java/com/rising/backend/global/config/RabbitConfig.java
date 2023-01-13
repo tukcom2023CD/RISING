@@ -36,7 +36,7 @@ public class RabbitConfig {
     //Exchange와 Queue 바인딩
     @Bean
     public Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
+        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY); //ROUTING_KEY가 code.*인데 이걸 가지고 queue와 exchange 바인딩 -> exchange가 받은 code.어쩌고 메세지들 전부 이 큐로 집어넣음
     }
 
 
@@ -51,5 +51,19 @@ public class RabbitConfig {
     MessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter();
     }
+
+
+    //Spring에서 자동생성해주는 ConnectionFactory는 SimpleConnectionFactory인가? 그건데
+    //여기서 사용하는 건 CachingConnectionFacotry라 새로 등록해줌
+//    @Bean
+//    public ConnectionFactory connectionFactory(){
+//        CachingConnectionFactory factory = new CachingConnectionFactory();
+//        factory.setHost("localhost");
+//        factory.setUsername("guest");
+//        factory.setPassword("guest");
+//        return factory;
+//    }
+
+
 
 }
