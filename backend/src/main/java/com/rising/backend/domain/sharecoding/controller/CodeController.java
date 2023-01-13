@@ -3,7 +3,6 @@ package com.rising.backend.domain.sharecoding.controller;
 import com.rising.backend.domain.sharecoding.domain.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import static com.rising.backend.global.constant.RabbitMQ.CODE_EXCHANGE_NAME;
-import static com.rising.backend.global.constant.RabbitMQ.CODE_QUEUE_NAME;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,10 +32,10 @@ public class CodeController {
     }
 
     //메세지가 큐에 도착할 때 실행되는 메소드
-    @RabbitListener(queues = CODE_QUEUE_NAME) //단순히 소비만 하는 용도. 큐에 들어오는 메세지를 소비하는 소비자가 되겠다는 어노테이션
-    public void receive(Operation operation) {
-        log.info("operation.getText = {}", operation.getText());
-        //
-
-    }
+//    @RabbitListener(queues = CODE_QUEUE_NAME) //단순히 소비만 하는 용도. 큐에 들어오는 메세지를 소비하는 소비자가 되겠다는 어노테이션
+//    public void receive(Operation operation) {
+//        log.info("operation.getText = {}", operation.getText());
+//        //
+//
+//    }
 }

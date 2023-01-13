@@ -45,6 +45,7 @@ function QuesChatPage() {
 
   const handleSub = (body: IMessage) => {
     const jsonBody = JSON.parse(body.body);
+    console.log(jsonBody);
     setChatList((_chatList: ChatMessage[]) => [..._chatList, jsonBody]);
   };
 
@@ -60,7 +61,7 @@ function QuesChatPage() {
       onConnect: () => {
         console.log('0 stomp onConnect : ');
         // client.current?.subscribe(`/sub/chat/${2}`, handleSub);
-        client.current?.subscribe(`/exchange/code.exchange/code.${2}}`, handleSub);
+        client.current?.subscribe(`/exchange/code.exchange/code.${2}`, handleSub); // '/exchange/exchange명/패턴 code.*') - exchange큐와 code.*로 연결된 큐 구독
       },
       onStompError: (frame) => {
         console.error('1 stomp error : ', frame);

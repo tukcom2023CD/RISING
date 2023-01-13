@@ -39,7 +39,6 @@ public class ChatController {
 
     public void receive(MessageDto.ChatMessageDto msg) {
         log.info("operation.getText = {}", msg.getContent());
-        rabbitTemplate.receiveAndConvert(CODE_QUEUE_NAME); //메세지를 수신하고 변환기로 메세지를 도메인객체로 변환 후 반환
         //
 
     }
