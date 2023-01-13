@@ -59,7 +59,7 @@ function QuesChatPage() {
       },
       onConnect: () => {
         console.log('0 stomp onConnect : ');
-        client.current?.subscribe(`/sub/chat/${2}`, handleSub);
+        client.current?.subscribe(`/exchange/code.exchange/${2}`, handleSub);
       },
       onStompError: (frame) => {
         console.error('1 stomp error : ', frame);
@@ -80,7 +80,7 @@ function QuesChatPage() {
   const handlePub = () => {
     if (!client.current?.connected) return;
     client.current.publish({
-      destination: `/pub/chat/${2}`,
+      destination: `/pub/chat/messages/${2}`,
       body: JSON.stringify({
         sender: `${sender}`,
         content: `${content}`

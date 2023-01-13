@@ -18,7 +18,9 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.setApplicationDestinationPrefixes("/pub");
-        config.enableSimpleBroker("/sub");
+        config.enableStompBrokerRelay("/queue", "/topic", "/exchange", "/amq/queue");
+
+//        config.enableStompBrokerRelay("/sub");
     }
 }
 
