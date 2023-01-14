@@ -23,13 +23,13 @@ function LoginPage() {
           <div className="mt-8 flex flex-col rounded-xl h-14 w-full mx-1 my-3 bg-white border-4 border-violet-300">
             <input
               className="h-9 m-1 placeholder-[#9CA6C5]"
-              placeholder="email address"
+              placeholder="Email Address"
             />
           </div>
           <div className="mt-8 flex flex-col rounded-xl h-14 w-full mx-1 my-3 bg-white border-4 border-violet-300">
             <input
               className="h-9 m-1 placeholder-[#9CA6C5]"
-              placeholder="password"
+              placeholder="Password"
             />
           </div>
           <div className="mt-6 grid place-items-center">
