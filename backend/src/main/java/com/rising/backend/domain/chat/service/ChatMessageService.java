@@ -25,4 +25,8 @@ public class ChatMessageService {
 
         return chatMessageRepository.save(msg);
     }
+    public List<MessageDto.ChatMessageListResponse> getChatMessageList(Long chatRoomId, Pageable page) {
+        List<ChatMessage> messages = chatMessageRepository.findByChatRoom_Id(chatRoomId,page);
+        return chatMessageMapper.toDtoList(messages);
+    }
 }

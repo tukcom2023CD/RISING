@@ -20,4 +20,15 @@ public class ChatMessageMapper {
 
         return msg;
     }
+    public MessageDto.ChatMessageListResponse toChatMessageDto(ChatMessage message) {
+        return MessageDto.ChatMessageListResponse.builder()
+                .sender(message.getSender())
+                .message(message.getMessage())
+                .sendDate(message.getSendDate())
+                .build();
+    }
+    public List<MessageDto.ChatMessageListResponse> toDtoList(List<ChatMessage> messageList) {
+        return messageList.stream().map(p -> toChatMessageDto(p))
+                .collect(Collectors.toList());
+    }
 }
