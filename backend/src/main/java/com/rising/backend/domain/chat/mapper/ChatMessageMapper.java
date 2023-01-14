@@ -5,6 +5,9 @@ import com.rising.backend.domain.chat.domain.ChatRoom;
 import com.rising.backend.domain.chat.dto.MessageDto;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.time.LocalDateTime.now;
 
 @Component
