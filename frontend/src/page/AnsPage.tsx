@@ -45,7 +45,7 @@ function AnsPage() {
             {/* 코드 에디터 */}
             <div className="flex justify-center item-center mb-8">
               <div className="relative flex flex-col-reverse w-full">
-                <ToastEditor />
+                {/* <ToastEditor /> */}
               </div>
             </div>
           </div>
