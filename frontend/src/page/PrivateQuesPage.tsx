@@ -30,7 +30,7 @@ function PrivateQuesPage() {
   const [text, setText] = useState('');
   const [quesContext, setQuesContext] = useState('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault(); // 새로고침 방지
     const editorIns = ref?.current?.getInstance();
     // 에디터 작성 내용 markdown으로 저장
@@ -41,7 +41,6 @@ function PrivateQuesPage() {
       type: 'MENTORING',
     };
     console.log(privateQuesData);
-    console.log(contentMark);
     (async () => {
       await axios
         .post(`http://localhost:8080/api/v1/posts`, privateQuesData, {
