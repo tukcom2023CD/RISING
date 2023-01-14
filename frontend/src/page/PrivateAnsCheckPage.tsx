@@ -42,7 +42,7 @@ function PrivateAnsCheckPage() {
           <div className="flex justify-center item-center mb-8">
             <div className="relative flex flex-col-reverse w-full">
               <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
-                <ToastEditor />
+                {/* <ToastEditor /> */}
               </div>
             </div>
           </div>
