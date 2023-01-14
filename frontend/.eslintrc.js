@@ -5,7 +5,7 @@ module.exports = {
     es6: true,
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint', 'prettier', 'react'],
   extends: [
     // 다른 config를 사용하더라도 prettier를 맨 마지막에 넣어야 모든 중복 규칙을 비활성화 시킬 수 있다.
     'airbnb',
@@ -19,6 +19,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
+    'no-param-reassign': 0,
     'global-require': 0,
     'no-console': 0,
     'no-undef': 'off',
