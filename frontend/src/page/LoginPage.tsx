@@ -18,16 +18,22 @@ function LoginPage() {
       {/* 상단바 */}
       <NavBar />
       {/* 로그인 틀 */}
-      <div className=" mt-36 flex justify-center item-center my-8 mt- h-2/5">
-        <div className="w-2/5 bg-white drop-shadow-lg item-center pr-2">
-          <div className="mt-16 flex flex-col rounded-xl h-14 w-full mx-1 my-3 bg-white border-4 border-violet-300">
-            {}
+      <div className="mt-52 flex justify-center item-center my-8 h-64">
+        <div className="w-2/5 bg-white drop-shadow-lg item-center px-4 pr-5">
+          <div className="mt-8 flex flex-col rounded-xl h-14 w-full mx-1 my-3 bg-white border-4 border-violet-300">
+            <input
+              className="h-9 m-1 placeholder-[#9CA6C5]"
+              placeholder="email address"
+            />
           </div>
           <div className="mt-8 flex flex-col rounded-xl h-14 w-full mx-1 my-3 bg-white border-4 border-violet-300">
-            {}
+            <input
+              className="h-9 m-1 placeholder-[#9CA6C5]"
+              placeholder="password"
+            />
           </div>
-          <div className='mt-6 grid place-items-center'>
-            <Button text="Login" onClick={goToMain}/>
+          <div className="mt-6 grid place-items-center">
+            <Button text="Login" onClick={goToMain} />
           </div>
         </div>
       </div>
