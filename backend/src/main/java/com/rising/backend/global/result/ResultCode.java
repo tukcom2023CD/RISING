@@ -9,6 +9,7 @@ public enum ResultCode {
 
     //USER
     USER_NOT_LOGIN(201, "로그인 필요"),
+    USER_LOGIN_SUCCESS(200, "로그인 성공"),
 
     //POST
     POST_CREATE_SUCCESS(201, "게시글 등록 성공"),
