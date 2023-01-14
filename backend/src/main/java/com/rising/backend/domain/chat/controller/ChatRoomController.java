@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "CHATROOM API")
+@Tag(name = "CHAT-ROOM API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/chatrooms")
