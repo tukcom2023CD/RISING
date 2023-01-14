@@ -9,13 +9,13 @@ import ContentIndex from 'components/Index/EndIndex';
 import KeywordIndex from 'components/Index/KeywordIndex';
 import { useNavigate } from 'react-router-dom';
 import ToastEditor from 'components/Editor/ToastEditor';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import axios from 'axios';
 
 interface privateQuesForm {
   title: string;
-  context: string | undefined;
-  type: any | null;
+  context: string | null;
+  type: string;
 }
 
 // 질문 작성 페이지
@@ -25,22 +25,28 @@ function PrivateQuesPage() {
     // navigate('/mainpage');
   };
 
+  const ref = useRef<any>(null);
+
   const [text, setText] = useState('');
   const [quesContext, setQuesContext] = useState('');
 
-  const privateQuesData: privateQuesForm = {
-    title: text,
-    context: quesContext,
-    type: 'MENTORING',
-  };
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault(); // 새로고침 방지
+    const editorIns = ref?.current?.getInstance();
+    // 에디터 작성 내용 markdown으로 저장
+    const contentMark = editorIns.getMarkdown();
+    const privateQuesData: privateQuesForm = {
+      title: text,
+      context: contentMark,
+      type: 'MENTORING',
+    };
+    console.log(privateQuesData);
+    console.log(contentMark);
     (async () => {
       await axios
-        .post(`/posts`, privateQuesData, {
+        .post(`http://localhost:8080/api/v1/posts`, privateQuesData, {
           headers: {
-            'Content-Type': `application/json`,
+            'Content-Type': 'application/json',
           },
         })
         .then((res) => {
@@ -49,7 +55,7 @@ function PrivateQuesPage() {
           setQuesContext(res.data);
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error.response.data);
         });
     })();
   };
@@ -73,6 +79,9 @@ function PrivateQuesPage() {
                   type="text"
                   className="absolute top-1 left-2 w-full h-10 rounded-lg focus:shadow focus:outline-none"
                   placeholder="Title.."
+                  onChange={(e) => {
+                    setText(e.target.value);
+                  }}
                 />
               </div>
             </div>
@@ -102,7 +111,8 @@ function PrivateQuesPage() {
             <div className="flex justify-center item-center mb-8">
               <div className="relative flex flex-col-reverse w-full">
                 <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
-                  <ToastEditor />
+                  {/* 텍스트 편집기 */}
+                  <ToastEditor editorRef={ref} />
                 </div>
               </div>
             </div>

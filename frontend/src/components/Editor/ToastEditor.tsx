@@ -1,17 +1,11 @@
-// Toast 에디터
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { useRef } from 'react';
 
-export default function ToastEditor() {
-  const editorRef = useRef(null);
+interface Props {
+  editorRef: React.MutableRefObject<any>;
+}
 
-  // const btnClickListener = () => {
-  //   const editorInstance = editorRef.current.getInstance();
-  //   const getContent_md = editorInstance.getMarkdown();
-  //   console.log('--마크다운--');
-  //   console.log(getContent_md);
-  // };
+export default function ToastEditor({ editorRef }: Props) {
   return (
     <div>
       {/* 코드 에디터 */}
