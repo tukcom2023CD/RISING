@@ -24,7 +24,7 @@ public class ChatRoomService {
     }
 
     public boolean isUserChatted(Long userId) {
-        return true; // 수정
+        return false; // 수정
     }
 
 }

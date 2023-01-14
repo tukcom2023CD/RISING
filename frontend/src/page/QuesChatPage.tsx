@@ -60,7 +60,7 @@ function QuesChatPage() {
       },
       onConnect: () => {
         console.log('0 stomp onConnect : ');
-        client.current?.subscribe(`/exchange/rising.exchange/chat.${2}`, handleSub); // '/exchange/exchange명/패턴 code.*') - exchange큐와 code.*로 연결된 큐 구독
+        client.current?.subscribe(`/exchange/rising.exchange/chat.${1}`, handleSub); // '/exchange/exchange명/패턴 code.*') - exchange큐와 code.*로 연결된 큐 구독
       },
       onStompError: (frame) => {
         console.error('1 stomp error : ', frame);
@@ -81,7 +81,7 @@ function QuesChatPage() {
   const handlePub = () => {
     if (!client.current?.connected) return;
     client.current.publish({
-      destination: `/pub/chat.message.${2}`,
+      destination: `/pub/chat.message.${1}`,
       body: JSON.stringify({
         sender: `${sender}`,
         content: `${content}`
