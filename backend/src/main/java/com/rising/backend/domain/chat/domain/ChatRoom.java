@@ -1,6 +1,7 @@
 package com.rising.backend.domain.chat.domain;
 
 import com.rising.backend.domain.post.domain.Post;
+import com.rising.backend.domain.user.domain.User;
 import com.rising.backend.global.domain.BaseEntity;
 import lombok.*;
 
@@ -19,5 +20,11 @@ public class ChatRoom extends BaseEntity {
 
     @ManyToOne
     private Post post;
+
+    @ManyToOne
+    private User mentor;
+
+    @ManyToOne
+    private User mentee;
 
 }

@@ -1,7 +1,6 @@
 package com.rising.backend.domain.chat.domain;
 
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,7 +22,7 @@ public class ChatMessage {
     private String sender;
 
     private String message;
-
-    @CreatedDate
+    
     private LocalDateTime sendDate;
+
 }
