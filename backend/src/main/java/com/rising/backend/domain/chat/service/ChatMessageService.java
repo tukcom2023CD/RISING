@@ -7,7 +7,10 @@ import com.rising.backend.domain.chat.mapper.ChatMessageMapper;
 import com.rising.backend.domain.chat.repository.ChatMessageRepository;
 import com.rising.backend.domain.chat.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,5 +27,9 @@ public class ChatMessageService {
         ChatMessage msg = chatMessageMapper.toChatMessageEntity(msgDto, chatRoom);
 
         return chatMessageRepository.save(msg);
+    }
+    public List<MessageDto.ChatMessageListResponse> getChatMessageList(Long chatRoomId, Pageable page) {
+        List<ChatMessage> messages = chatMessageRepository.findByChatRoom_Id(chatRoomId,page);
+        return chatMessageMapper.toDtoList(messages);
     }
 }
