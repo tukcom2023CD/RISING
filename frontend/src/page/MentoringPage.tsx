@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import CodeEditor, { SelectionText } from '@uiw/react-textarea-code-editor';
 import React, { useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
-import useInput from 'utils/useInput';
+import axios from 'axios';
 // import voice from 'images/voice.png';
 // import screen from 'images/screen.png';
 // import record from 'images/record.png';
@@ -21,6 +21,27 @@ function MentoringPage() {
   const goToAnsCheckPage = () => {
     navigate('/privateanscheckpage');
   };
+
+  // 질문제목 api 연결
+  const [title, setTitle] = useState('');
+  const [userId, setUserId] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      await axios
+        // 특정 게시글 조회
+        // 질문 게시글에서 질문 아이디 받아와야함.
+        .get(`http://localhost:8080/api/v1/posts/${1}`)
+        .then((res) => {
+          console.log(res.data.data);
+          setTitle(res.data.data.title);
+          setUserId(res.data.data.userId);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })();
+  }, []);
 
   // code editor
   const [code, setCode] = React.useState(
@@ -116,7 +137,7 @@ function MentoringPage() {
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
             {/* 질문 제목 텍스트로 가져와야함 */}
-            <span className="text-text-color text-xl mt-4 mx-4">질문 제목</span>
+            <span className="text-text-color text-xl mt-4 mx-4">{title}</span>
             <div className="my-2 pl-2 flex flex-row relative">
               <Tag text="# JavaScript" />
               <Tag text="# python" />
