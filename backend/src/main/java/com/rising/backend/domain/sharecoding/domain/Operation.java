@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 public class Operation {
 
-    private Long postId;
     private String text;
 
 }

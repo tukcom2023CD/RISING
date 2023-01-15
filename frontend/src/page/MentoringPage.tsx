@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import CodeEditor, { SelectionText } from '@uiw/react-textarea-code-editor';
 import React, { useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
-import useInput from 'utils/useInput';
+import axios from 'axios';
 // import voice from 'images/voice.png';
 // import screen from 'images/screen.png';
 // import record from 'images/record.png';
@@ -22,21 +22,30 @@ function MentoringPage() {
     navigate('/privateanscheckpage');
   };
 
-  // code editor
-  const [code, setCode] = React.useState(
-    `def solution():
-    answer = 0
-    return answer`,
-  );
-  const textRef = React.useRef(null);
+  // 질문제목 api 연결
+  const [title, setTitle] = useState('');
+  const [userId, setUserId] = useState(0);
 
-  // 수정되자마자 바로바로 콘솔에 찍힘
   useEffect(() => {
-    if (textRef.current) {
-      const obj = new SelectionText(textRef.current);
-      console.log('obj:', obj.value.split('\n'));
-    }
-  }, [code]);
+    (async () => {
+      await axios
+        // 특정 게시글 조회
+        // 질문 게시글에서 질문 아이디 받아와야함.
+        .get(`http://localhost:8080/api/v1/posts/${1}`)
+        .then((res) => {
+          console.log(res.data.data);
+          setTitle(res.data.data.title);
+          setUserId(res.data.data.userId);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })();
+  }, []);
+
+  // code editor
+  const [codeList, setCodeList] = React.useState(`print(hello world)`);
+  const textRef = React.useRef(null);
 
   /** 코드 데이터를 destination에 publish(이벤트 발행, 전송) */
   useEffect(() => {
@@ -47,17 +56,18 @@ function MentoringPage() {
       // pub=전송 prefix, code.message.{postId}
       // STOMP 서버에서 정의하고 있는 형식에 맞게 가공
       body: JSON.stringify({
-        code: `${code}`,
+        text: `${codeList}`,
       }),
     });
     // 메시지를 보내면 setContent('');을 통해 입력란을 초기화한다
     // setContent('');
-  }, [code]);
+  }, [codeList]);
 
   // 바뀐코드 보내기
-  const handleSub = (body: any) => {
-    console.log(body);
-    setCode(body);
+  const handleSub = (body: IMessage) => {
+    const jsonBody = JSON.parse(body.body);
+    console.log(jsonBody.text);
+    setCodeList(jsonBody.text);
   };
 
   const client = useRef<Client>();
@@ -77,7 +87,11 @@ function MentoringPage() {
       onConnect: () => {
         console.log('0 stomp onConnect : ');
         // 구독한 대상에 대해 메세지를 받기 위해 subscribe 메서드
-        client.current?.subscribe(`/exchange/rising.exchange/code.${1}`, handleSub);
+        // ${postId}
+        client.current?.subscribe(
+          `/exchange/rising.exchange/code.${1}`,
+          handleSub,
+        );
       },
       onStompError: (frame) => {
         console.error('1 stomp error : ', frame);
@@ -116,7 +130,7 @@ function MentoringPage() {
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
             {/* 질문 제목 텍스트로 가져와야함 */}
-            <span className="text-text-color text-xl mt-4 mx-4">질문 제목</span>
+            <span className="text-text-color text-xl mt-4 mx-4">{title}</span>
             <div className="my-2 pl-2 flex flex-row relative">
               <Tag text="# JavaScript" />
               <Tag text="# python" />
@@ -153,11 +167,13 @@ function MentoringPage() {
               <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
                 <div data-color-mode="dark">
                   <CodeEditor
-                    value={code}
+                    value={codeList}
                     ref={textRef}
                     language="py"
                     placeholder="Please enter Python code."
-                    onChange={(evn: { target: { value: React.SetStateAction<string>; }; }) => setCode(evn.target.value)}
+                    onChange={(evn: {
+                      target: { value: React.SetStateAction<string> };
+                    }) => setCodeList(evn.target.value)}
                     padding={15}
                     style={{
                       fontFamily:
