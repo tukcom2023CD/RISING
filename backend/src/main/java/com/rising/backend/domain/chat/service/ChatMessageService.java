@@ -7,7 +7,10 @@ import com.rising.backend.domain.chat.mapper.ChatMessageMapper;
 import com.rising.backend.domain.chat.repository.ChatMessageRepository;
 import com.rising.backend.domain.chat.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
