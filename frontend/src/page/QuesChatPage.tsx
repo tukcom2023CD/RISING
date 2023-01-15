@@ -6,10 +6,11 @@ import Tag from 'components/Tag';
 import send from 'images/send.png';
 import profile from 'images/profile.png';
 import { Client, IMessage } from '@stomp/stompjs';
-import { useEffect, useRef, useState } from 'react';
+import { SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import OthersMessage from 'components/Chat/OthersMessage';
 import MyMessage from 'components/Chat/MyMessage';
 import useInput from 'utils/useInput';
+import useFetch from 'utils/useFetch';
 
 export interface ChatMessage {
   sender: string;
@@ -42,6 +43,21 @@ function QuesChatPage() {
   const chatListRef = useRef<HTMLUListElement>(null);
   const client = useRef<Client>();
   const [text, setText] = useState('');
+  const [query, setQuery] = useState("");
+  const [page, setPage] = useState(0);
+  const {loading, error, list } = useFetch(query, page);
+
+  const handleChange = (e: { target: { value: SetStateAction<string>; }; }) => {
+    setQuery(e.target.value);
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleObserver = useCallback((entries: any[]) => {
+    const target = entries[0];
+    if (target.isIntersecting) {
+      setPage((prev) => prev + 1);
+    }
+  }, []);
 
   const handleSub = (body: IMessage) => {
     const jsonBody = JSON.parse(body.body);
