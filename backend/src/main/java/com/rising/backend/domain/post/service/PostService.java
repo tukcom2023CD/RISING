@@ -62,10 +62,11 @@ public class PostService {
 
     public PostDto.PostDetailResponse getPostDtoById(Long postId) {
         Post post = findPostById(postId);
-        return postMapper.toPostDto(post);
+        List<String> tags = postMapper.TagtoString(post.getTag());
+        return postMapper.toPostDto(post, tags);
     }
 
-    public List<PostDto.PostDetailResponse> getPostListByUserId(Long userId) {
+    public List<PostDto.PostGetListResponse> getPostListByUserId(Long userId) {
         List<Post> postList = postRepository.findByUserId(userId);
         return postMapper.toDtoList(postList);
     }
@@ -73,4 +74,5 @@ public class PostService {
     public Tag getTagByContent(String content) {
         return tagRepository.findByContent(content);
     }
+
 }

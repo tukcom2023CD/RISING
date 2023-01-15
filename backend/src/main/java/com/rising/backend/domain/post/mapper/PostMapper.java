@@ -1,6 +1,7 @@
 package com.rising.backend.domain.post.mapper;
 
 import com.rising.backend.domain.post.domain.Post;
+import com.rising.backend.domain.post.domain.Tag;
 import com.rising.backend.domain.post.dto.PostDto;
 import com.rising.backend.domain.user.domain.User;
 import com.rising.backend.global.util.UuidConverter;
@@ -29,13 +30,14 @@ public class PostMapper {
                 .type(postCreate.getType()).build();
     }
 
-    public PostDto.PostDetailResponse toPostDto(Post post) {
+    public PostDto.PostDetailResponse toPostDto(Post post, List<String> tags) {
         return PostDto.PostDetailResponse.builder()
                 .userId(post.getUser().getId())
                 .title(post.getTitle())
                 .content(post.getContent())
                 .videoUrl(post.getVideoUrl())
                 .type(post.getType())
+                .tags(tags)
                 .build();
     }
 
@@ -43,8 +45,8 @@ public class PostMapper {
         return studyList.map(this::toPostListResponse);
     }
 
-    public List<PostDto.PostDetailResponse> toDtoList(List<Post> postList) {
-        return postList.stream().map(p -> toPostDto(p))
+    public List<PostDto.PostGetListResponse> toDtoList(List<Post> postList) {
+        return postList.stream().map(p -> toPostListResponse(p))
                 .collect(Collectors.toList());
     }
 
@@ -55,6 +57,11 @@ public class PostMapper {
                 .title(post.getTitle())
                 .type(post.getType())
                 .build();
+    }
+
+    public List<String> TagtoString(List<Tag> tags) {
+        return tags.stream().map(tag -> tag.getContent())
+                .collect(Collectors.toList());
     }
 
 }

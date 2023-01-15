@@ -63,5 +63,7 @@ public class PostDto {
         private String videoUrl;
 
         private PostType type;
+
+        private List<String> tags;
     }
 }
