@@ -65,12 +65,24 @@ function SignUpPage() {
                   setName(event.target.value);
                 }}
                 required
+                type="name"
+                value={name}
+                onChange={(event) => {
+                  setName(event.target.value);
+                }}
+                required
               />
             </div>
             <div className="mt-2 rounded-xl h-12 w-full pr-2 mx-1 my-3 bg-white border-4 border-violet-300">
               <input
                 className="h-9 m-1 w-full placeholder-[#9CA6C5]"
                 placeholder="Email Address"
+                type="username"
+                value={username}
+                onChange={(event) => {
+                  setUsername(event.target.value);
+                }}
+                required
                 type="username"
                 value={username}
                 onChange={(event) => {
@@ -89,12 +101,24 @@ function SignUpPage() {
                   setPassword(event.target.value);
                 }}
                 required
+                type="password"
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
+                required
               />
             </div>
             <div className="mt-2 rounded-xl h-12 w-full pr-2 mx-1 my-3 bg-white border-4 border-violet-300">
               <input
                 className="h-9 m-1 w-full placeholder-[#9CA6C5]"
                 placeholder="Check Password"
+                type="password"
+                value={passwordConfirm}
+                onChange={(event) => {
+                  setPasswordConfirm(event.target.value);
+                }}
+                required
                 type="password"
                 value={passwordConfirm}
                 onChange={(event) => {
