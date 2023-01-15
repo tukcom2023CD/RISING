@@ -11,7 +11,7 @@ import OthersMessage from 'components/Chat/OthersMessage';
 import MyMessage from 'components/Chat/MyMessage';
 import useInput from 'utils/useInput';
 
-interface ChatMessage {
+export interface ChatMessage {
   sender: string;
   content: string;
 }
