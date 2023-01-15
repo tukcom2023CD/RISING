@@ -3,13 +3,13 @@ import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import NavBar from 'components/NavBar';
 import Button from 'components/LoginBtn';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import BasicProfile from 'images/BasicProfile.png';
 import axios from 'axios';
 
 function SignUpPage() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // const goToLogin = () => {
   //   navigate('/login');
   // };
@@ -21,7 +21,7 @@ function SignUpPage() {
 
   const user = () => {
     axios
-  .post('http://127.0.0.1:8000/api/v1/users', {
+  .post('http://127.0.0.1:8080/api/v1/users', {
     name,
     username,
     password,
