@@ -6,13 +6,17 @@ import Tag from 'components/Tag';
 import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import Btn from 'components/Btn';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useCopyClipBoard from 'utils/useCopyClipBoard';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 // 과외 질문에 채팅과 링크 보낼 수 있는 페이지
 function PrivateAnsPage() {
+  const location = useLocation();
+  const state = location.state as { id: number };
+  const postId = state.id;
+
   const navigate = useNavigate();
   const goToChatPage = () => {
     navigate('/queschatpage');
@@ -38,7 +42,7 @@ function PrivateAnsPage() {
       await axios
         // 특정 게시글 조회
         // 질문 게시글에서 질문 아이디 받아와야함.
-        .get(`http://localhost:8080/api/v1/posts/${1}`)
+        .get(`http://localhost:8080/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
