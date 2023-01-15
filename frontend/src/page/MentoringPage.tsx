@@ -15,6 +15,18 @@ import axios from 'axios';
 // import screen from 'images/screen.png';
 // import record from 'images/record.png';
 
+interface Props {
+  code: any;
+}
+
+const DUMMY_CODE: Props[] = [
+  {
+    code: `def solution():
+    answer = 0
+    return answer`,
+  },
+];
+
 // 과외 질문 멘토링 중인 페이지
 function MentoringPage() {
   const navigate = useNavigate();
@@ -44,7 +56,7 @@ function MentoringPage() {
   }, []);
 
   // code editor
-  const [code, setCode] = React.useState(
+  const [codeList, setCodeList] = React.useState(
     `def solution():
     answer = 0
     return answer`,
@@ -57,7 +69,7 @@ function MentoringPage() {
       const obj = new SelectionText(textRef.current);
       console.log('obj:', obj.value.split('\n'));
     }
-  }, [code]);
+  }, [codeList]);
 
   /** 코드 데이터를 destination에 publish(이벤트 발행, 전송) */
   useEffect(() => {
@@ -68,17 +80,18 @@ function MentoringPage() {
       // pub=전송 prefix, code.message.{postId}
       // STOMP 서버에서 정의하고 있는 형식에 맞게 가공
       body: JSON.stringify({
-        code: `${code}`,
+        text: `${codeList}`,
       }),
     });
     // 메시지를 보내면 setContent('');을 통해 입력란을 초기화한다
     // setContent('');
-  }, [code]);
+  }, [codeList]);
 
   // 바뀐코드 보내기
-  const handleSub = (body: any) => {
-    console.log(body);
-    setCode(body);
+  const handleSub = (body: IMessage) => {
+    const jsonBody = JSON.parse(body.body);
+    console.log(jsonBody.text);
+    setCodeList(jsonBody.text);
   };
 
   const client = useRef<Client>();
@@ -98,7 +111,10 @@ function MentoringPage() {
       onConnect: () => {
         console.log('0 stomp onConnect : ');
         // 구독한 대상에 대해 메세지를 받기 위해 subscribe 메서드
-        client.current?.subscribe(`/exchange/rising.exchange/code.${1}`, handleSub);
+        client.current?.subscribe(
+          `/exchange/rising.exchange/code.${1}`,
+          handleSub,
+        );
       },
       onStompError: (frame) => {
         console.error('1 stomp error : ', frame);
@@ -174,11 +190,13 @@ function MentoringPage() {
               <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
                 <div data-color-mode="dark">
                   <CodeEditor
-                    value={code}
+                    value={codeList}
                     ref={textRef}
                     language="py"
                     placeholder="Please enter Python code."
-                    onChange={(evn: { target: { value: React.SetStateAction<string>; }; }) => setCode(evn.target.value)}
+                    onChange={(evn: {
+                      target: { value: React.SetStateAction<string> };
+                    }) => setCodeList(evn.target.value)}
                     padding={15}
                     style={{
                       fontFamily:
