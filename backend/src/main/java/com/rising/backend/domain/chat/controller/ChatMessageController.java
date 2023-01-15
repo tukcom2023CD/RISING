@@ -27,9 +27,8 @@ public class ChatMessageController {
 
     @GetMapping("/{chatRoomId}")
     public ResponseEntity<ResultResponse> getMessages(@PathVariable Long chatRoomId,
-                                                      @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) final Pageable pageable) {
+                                                      @PageableDefault(size = 10, sort = "sendDate", direction = Sort.Direction.DESC) final Pageable pageable) {
         List<MessageDto.ChatMessageListResponse> messages = chatMessageService.getChatMessageList(chatRoomId, pageable);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATMESSAGE_FIND_SUCCESS, messages));
     }
-
 }
