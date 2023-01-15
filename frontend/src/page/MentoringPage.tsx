@@ -15,18 +15,6 @@ import axios from 'axios';
 // import screen from 'images/screen.png';
 // import record from 'images/record.png';
 
-interface Props {
-  code: any;
-}
-
-const DUMMY_CODE: Props[] = [
-  {
-    code: `def solution():
-    answer = 0
-    return answer`,
-  },
-];
-
 // 과외 질문 멘토링 중인 페이지
 function MentoringPage() {
   const navigate = useNavigate();
@@ -56,20 +44,8 @@ function MentoringPage() {
   }, []);
 
   // code editor
-  const [codeList, setCodeList] = React.useState(
-    `def solution():
-    answer = 0
-    return answer`,
-  );
+  const [codeList, setCodeList] = React.useState(`print(hello world)`);
   const textRef = React.useRef(null);
-
-  // 수정되자마자 바로바로 콘솔에 찍힘
-  useEffect(() => {
-    if (textRef.current) {
-      const obj = new SelectionText(textRef.current);
-      console.log('obj:', obj.value.split('\n'));
-    }
-  }, [codeList]);
 
   /** 코드 데이터를 destination에 publish(이벤트 발행, 전송) */
   useEffect(() => {
@@ -111,6 +87,7 @@ function MentoringPage() {
       onConnect: () => {
         console.log('0 stomp onConnect : ');
         // 구독한 대상에 대해 메세지를 받기 위해 subscribe 메서드
+        // ${postId}
         client.current?.subscribe(
           `/exchange/rising.exchange/code.${1}`,
           handleSub,
