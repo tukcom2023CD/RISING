@@ -7,6 +7,8 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -40,4 +42,16 @@ public class Post extends BaseEntity {
     @NotNull
     @Enumerated(EnumType.STRING)
     private PostType type;
+
+    @ManyToMany
+    @JoinTable(name = "POST_TAG",
+            joinColumns = @JoinColumn(name = "POST_ID"),
+            inverseJoinColumns = @JoinColumn(name = "TAG_ID")
+    )
+    private List<Tag> tag = new ArrayList<>();
+
+
+    public void setTags(List<Tag> tags) {
+        this.tag = tags;
+    }
 }

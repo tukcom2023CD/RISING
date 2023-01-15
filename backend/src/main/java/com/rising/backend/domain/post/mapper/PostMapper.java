@@ -8,10 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-
-import java.util.UUID;
-
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.rising.backend.domain.post.dto.PostDto.PostCreateRequest;
@@ -58,4 +56,5 @@ public class PostMapper {
                 .type(post.getType())
                 .build();
     }
+
 }
