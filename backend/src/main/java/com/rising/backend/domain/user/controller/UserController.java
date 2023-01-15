@@ -8,6 +8,7 @@ import com.rising.backend.domain.user.service.UserService;
 import com.rising.backend.global.annotation.LoginRequired;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
+@Slf4j
 public class UserController {
 
     private final UserService userService;
@@ -42,11 +44,11 @@ public class UserController {
     public ResponseEntity<String> login(@RequestBody @Valid UserDto.UserLoginRequest loginRequest, HttpServletRequest request) {
 
         User member = userService.findUserByUsername(loginRequest.getUsername());
-        if (!loginService.checkPassword(member.getUsername(), loginRequest.getPassword())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("아이디 또는 비밀번호가 일치하지 않습니다.");
-        }
 
+        if (!loginService.checkPassword(member.getUsername(), loginRequest.getPassword())) {
+            log.info("로그인 정보 일치하지 않음");
+            throw new RuntimeException(); //추후 에러 처리 수정
+        }
         loginService.login(member.getId(), request.getSession());
 
         return ResponseEntity.status(HttpStatus.OK)
