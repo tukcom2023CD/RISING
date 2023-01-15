@@ -23,9 +23,12 @@ public class RabbitConfig {
     private final CachingConnectionFactory cachingConnectionFactory;
     //Queue 등록
     @Bean
-    public Queue queue() {
+    public Queue chatQueue() {
         return new Queue(CHAT_QUEUE_NAME, true);
     }
+
+    @Bean
+    public Queue codeQueue() { return new Queue(CODE_QUEUE_NAME, true);}
 
     //Exchange 등록
     @Bean
@@ -33,10 +36,16 @@ public class RabbitConfig {
         return new TopicExchange(EXCHANGE_NAME);
     }
 
-    //Exchange와 Queue 바인딩
+    //Exchange - chat Queue 바인딩
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(CHAT_ROUTING_KEY);
+    public Binding binding(Queue chatQueue, TopicExchange exchange) {
+        return  BindingBuilder.bind(chatQueue).to(exchange).with(CHAT_ROUTING_KEY);
+    }
+
+    //Exchange - code Queue 바인딩
+    @Bean
+public Binding codeBinding(Queue codeQueue, TopicExchange exchange) {
+        return  BindingBuilder.bind(codeQueue).to(exchange).with(CODE_ROUTING_KEY);
     }
 
     // 바이트-자바 Object간 변환

@@ -26,7 +26,7 @@ public class WebSocketChatController {
     public void send(@RequestBody MessageDto.ChatMessageDto msg, @DestinationVariable Long chatRoomId) {
 
         log.info("chatRoomId = {}", chatRoomId);
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "chat."+ chatRoomId, msg); //code.*로 바인딩된 큐로 보냄
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "chat."+ chatRoomId, msg); //chat.*로 바인딩된 큐로 보냄
         chatMessageService.saveChatMessage(msg, chatRoomId);
     }
 
