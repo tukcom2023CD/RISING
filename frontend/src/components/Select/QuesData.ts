@@ -24,5 +24,5 @@ export const TagOptions: readonly SelectOption[] = [
 
 export const Options: readonly SelectOption[] = [
   { value: '텍스트', color: '#835FEE', label: 'text' },
-  { value: '과외', color: '#835FEE', label: 'private' },
+  { value: '멘토링', color: '#835FEE', label: 'private' },
 ];

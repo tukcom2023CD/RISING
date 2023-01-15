@@ -1,8 +1,8 @@
 import Select, { StylesConfig } from 'react-select';
 import chroma from 'chroma-js';
-import { ColourOption, colourOptions } from 'components/Select/KeywordData';
+import { keywordOption, keywordOptions } from 'components/Select/KeywordData';
 
-const colourStyles: StylesConfig<ColourOption, true> = {
+const colourStyles: StylesConfig<keywordOption, true> = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
   multiValue: (styles, { data }) => {
     const color = chroma(data.color);
@@ -26,12 +26,17 @@ const colourStyles: StylesConfig<ColourOption, true> = {
 };
 
 export default function KeywordSelect() {
+  const changeValue = (target: any) => {
+    console.log(target);
+  };
+  console.log(keywordOptions);
   return (
     <Select
       closeMenuOnSelect={false}
       isMulti
-      options={colourOptions}
+      options={keywordOptions}
       styles={colourStyles}
+      onChange={changeValue}
     />
   );
 }
