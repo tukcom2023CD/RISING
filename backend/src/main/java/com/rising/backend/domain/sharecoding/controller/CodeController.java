@@ -19,7 +19,7 @@ public class CodeController {
 
     private final RabbitTemplate rabbitTemplate;
 
-    @MessageMapping("code.message.{code}")
+    @MessageMapping("code.message.{postId}")
     public void send(@RequestBody Operation operation, @DestinationVariable Long postId) {
 
         log.info("postId = {}", postId);

@@ -43,7 +43,8 @@ function MentoringPage() {
     if (!client.current?.connected) return;
     client.current.publish({
       // STOMP 서버에서 메시지를 받기 위해 @MessageMapping 으로 연결해둔 주소
-      destination: `/pub/code/message`,
+      destination: `/pub/code.message.${1}`,
+      // pub=전송 prefix, code.message.{postId}
       // STOMP 서버에서 정의하고 있는 형식에 맞게 가공
       body: JSON.stringify({
         code: `${code}`,
@@ -76,7 +77,7 @@ function MentoringPage() {
       onConnect: () => {
         console.log('0 stomp onConnect : ');
         // 구독한 대상에 대해 메세지를 받기 위해 subscribe 메서드
-        client.current?.subscribe(`/sub/chat/message`, handleSub);
+        client.current?.subscribe(`/exchange/rising.exchange/code.${1}`, handleSub);
       },
       onStompError: (frame) => {
         console.error('1 stomp error : ', frame);
@@ -156,7 +157,7 @@ function MentoringPage() {
                     ref={textRef}
                     language="py"
                     placeholder="Please enter Python code."
-                    onChange={(evn) => setCode(evn.target.value)}
+                    onChange={(evn: { target: { value: React.SetStateAction<string>; }; }) => setCode(evn.target.value)}
                     padding={15}
                     style={{
                       fontFamily:
