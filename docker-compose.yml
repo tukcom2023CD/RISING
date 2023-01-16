@@ -6,7 +6,7 @@ services:
 #    volumes:
 #      - ./volume/mysql/data:/var/lib/mysql
     networks:
-      - app-tier
+      - backend-net
     environment: # 컨테이너 안의 환경변수 설정
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
@@ -15,7 +15,7 @@ services:
       - TZ=Asia/Seoul
 
     ports:
-      - "3307:3306"
+      - "3307:3306" # 배포 후 외부 포트 막고 expose로 설정
     tty: true
     
   backend:
@@ -28,7 +28,7 @@ services:
       - db
       - rabbitmq
     networks:
-      - app-tier
+      - backend-net
     tty: true #명령어 실행 끝나도 꺼지지 않음
 
   rabbitmq:
@@ -37,18 +37,16 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672" # GUI management
-
 #    healthcheck:
 #      test: [ "CMD", "nc", "-z", "localhost", "5672" ]
 #      interval: 10s
 #      timeout: 10s
 #      retries: 5
-
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASSWORD}
     networks:
-      - app-tier
+      - backend-net
 
   frontend:
     container_name: frontend_con
@@ -56,22 +54,30 @@ services:
     command: ["npm", "start"]
     ports:
       - "3000:3000"
+    networks:
+      - frontend-net
 
-#  nginx:
-#    container_name: nginx_con
-#    image: nginx:latest
-#    build:
-#      dockerfile: dockerfile
-#      context: ./nginx
-#    ports:
-#      - "80:80"
-#    volumes:
-#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-#    depends_on:
-#      - backend
-#      - frontend
+  nginx:
+    container_name: nginx_con
+    image: nginx:latest
+    restart: on-failure
+    build:
+      dockerfile: dockerfile
+      context: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - backend-net
+      - frontend-net
 
-#
+
 networks:
-  app-tier:
-    external: true
+  backend-net: # 이후 backend-net은 모두 expose로 변경
+    driver: bridge
+  frontend-net:
+    driver: bridge
