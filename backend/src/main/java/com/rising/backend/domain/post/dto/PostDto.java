@@ -43,6 +43,8 @@ public class PostDto {
 
         @NotEmpty
         private PostType type;
+
+        private List<String> tags;
     }
 
     @Builder

@@ -56,6 +56,7 @@ public class PostMapper {
                 .content(post.getContent())
                 .title(post.getTitle())
                 .type(post.getType())
+                .tags(TagtoString(post.getTag()))
                 .build();
     }
 
