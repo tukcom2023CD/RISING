@@ -14,7 +14,7 @@ import axios from 'axios';
 
 interface privateQuesForm {
   title: string;
-  context: string | null;
+  content: string | null;
   type: string;
 }
 
@@ -37,13 +37,13 @@ function PrivateQuesPage() {
     const contentMark = editorIns.getMarkdown();
     const privateQuesData: privateQuesForm = {
       title: text,
-      context: contentMark,
+      content: contentMark,
       type: 'MENTORING',
     };
     console.log(privateQuesData);
     (async () => {
       await axios
-        .post(`http://localhost:8080/api/v1/posts`, privateQuesData, {
+        .post(`/posts`, privateQuesData, {
           headers: {
             'Content-Type': 'application/json',
           },
