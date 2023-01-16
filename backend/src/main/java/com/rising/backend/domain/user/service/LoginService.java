@@ -2,6 +2,7 @@ package com.rising.backend.domain.user.service;
 
 import com.rising.backend.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +12,16 @@ import static com.rising.backend.global.constant.Attribute.USER_ID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class LoginService {
     private final UserService userService;
 
     private final PasswordEncoder passwordEncoder;
 
     public void login(Long id, HttpSession session) {
+
         session.setAttribute(USER_ID, id);
+
     }
 
     public void logout(HttpSession session) {

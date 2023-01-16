@@ -27,7 +27,8 @@ axios
 .post('http://127.0.0.1:8080/api/v1/users/login', {
   username,
   password,
-})
+},
+{withCredentials: true})
 .then(response => {
   // Handle success.
   console.log('로그인 완료!');

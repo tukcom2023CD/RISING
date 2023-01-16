@@ -26,6 +26,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         Long loginId = (Long) session.getAttribute(USER_ID);
 
+        log.info("prehandle : request header cookie = {}", request.getHeader("Cookie"));
+
         if (isLoginRequiredMethod(handler) && loginId == null) {
             log.info("로그인 필요한데 id 없음");
             throw new RuntimeException(); //추후 수정

@@ -17,6 +17,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static com.rising.backend.domain.post.dto.PostDto.PostCreateRequest;
@@ -38,6 +39,8 @@ public class PostController {
             @Parameter(hidden = true) @LoginUser User loginUser ) {
 
         postService.createPost(createRequest, loginUser);
+
+
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_CREATE_SUCCESS));
     }
 
@@ -64,9 +67,12 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<ResultResponse> getPostById(@PathVariable Long postId) {
+    public ResponseEntity<ResultResponse> getPostById(@PathVariable Long postId, HttpServletRequest request) {
+        log.info("login : post get api header cookie = {}", request.getHeader("Cookie"));
         PostDto.PostDetailResponse post = postService.getPostDtoById(postId);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_FIND_SUCCESS, post));
+
+
     }
 
     @GetMapping("/mypages/{userId}")

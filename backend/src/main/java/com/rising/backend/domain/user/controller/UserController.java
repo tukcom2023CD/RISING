@@ -49,7 +49,10 @@ public class UserController {
             log.info("로그인 정보 일치하지 않음");
             throw new RuntimeException(); //추후 에러 처리 수정
         }
+
         loginService.login(member.getId(), request.getSession());
+
+        log.info("login : login header cookie = {}", request.getHeader("Cookie"));
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body("로그인 성공");
