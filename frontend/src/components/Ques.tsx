@@ -1,7 +1,5 @@
 import Tag from 'components/Tag';
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 interface Props {
   count: number;
