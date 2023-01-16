@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,12 @@ public class PostDto {
         @NotEmpty
         private PostType type;
 
+        @NotEmpty
+        private LocalDateTime created_at;
+
+        @NotEmpty
+        private Long commentCount;
+
         private List<String> tags;
     }
 
@@ -60,11 +67,13 @@ public class PostDto {
         @NotEmpty
         private String content; //추후 사진 삽입 가능하도록 수정
 
-        private String memo;
+        private Long commentCount;
 
         private String videoUrl;
 
         private PostType type;
+
+        private LocalDateTime created_at;
 
         private List<String> tags;
     }
