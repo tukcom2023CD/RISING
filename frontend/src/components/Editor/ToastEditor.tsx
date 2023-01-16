@@ -1,7 +1,5 @@
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-// import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
-// import Prism from 'prismjs';
 
 interface Props {
   editorRef: React.MutableRefObject<any>;
@@ -18,7 +16,6 @@ export default function ToastEditor({ editorRef }: Props) {
         initialValue="코드블럭 버튼을 눌러 코드를 작성하세요."
         ref={editorRef}
         language="ko-KR"
-        // plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
         toolbarItems={[
           // 툴바 옵션 설정
           ['heading', 'bold', 'italic', 'strike'],
