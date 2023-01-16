@@ -5,7 +5,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class PostDto {
         private PostType type;
 
         @NotEmpty
-        private LocalDateTime created_at;
+        private LocalDate created_at;
 
         @NotEmpty
         private Long commentCount;
@@ -73,7 +73,7 @@ public class PostDto {
 
         private PostType type;
 
-        private LocalDateTime created_at;
+        private LocalDate created_at;
 
         private List<String> tags;
     }
