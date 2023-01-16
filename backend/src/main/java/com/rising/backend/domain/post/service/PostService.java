@@ -1,10 +1,11 @@
 package com.rising.backend.domain.post.service;
 
 import com.rising.backend.domain.post.domain.Post;
+import com.rising.backend.domain.post.domain.Tag;
 import com.rising.backend.domain.post.dto.PostDto;
-
 import com.rising.backend.domain.post.mapper.PostMapper;
 import com.rising.backend.domain.post.repository.PostRepository;
+import com.rising.backend.domain.post.repository.TagRepository;
 import com.rising.backend.domain.user.domain.User;
 import com.rising.backend.global.util.UuidConverter;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.rising.backend.domain.post.dto.PostDto.PostCreateRequest;
 import static com.rising.backend.domain.post.dto.PostDto.PostGetListResponse;
@@ -24,9 +26,14 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
     private final UuidConverter uuidConverter;
+    private final TagRepository tagRepository;
 
     public Post createPost(PostCreateRequest createRequest, User loginUser) {
-        return postRepository.save(postMapper.toPostEntity(createRequest, loginUser));
+        Post postEntity = postMapper.toPostEntity(createRequest, loginUser);
+        List<Tag> tags = createRequest.getTag().stream().map(t -> getTagByContent(t))
+                .collect(Collectors.toList());
+        postEntity.setTags(tags);
+        return postRepository.save(postEntity);
     }
 
     public Post findPostById(Long postId) {
@@ -55,12 +62,17 @@ public class PostService {
 
     public PostDto.PostDetailResponse getPostDtoById(Long postId) {
         Post post = findPostById(postId);
-        return postMapper.toPostDto(post);
+        List<String> tags = postMapper.TagtoString(post.getTag());
+        return postMapper.toPostDto(post, tags);
     }
 
-    public List<PostDto.PostDetailResponse> getPostListByUserId(Long userId) {
+    public List<PostDto.PostGetListResponse> getPostListByUserId(Long userId) {
         List<Post> postList = postRepository.findByUserId(userId);
         return postMapper.toDtoList(postList);
+    }
+
+    public Tag getTagByContent(String content) {
+        return tagRepository.findByContent(content);
     }
 
 }

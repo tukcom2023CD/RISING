@@ -5,6 +5,8 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostDto {
 
@@ -22,6 +24,8 @@ public class PostDto {
 
         @NotEmpty
         private PostType type;
+
+        private List<String> tag = new ArrayList<>();
     }
 
     @Builder
@@ -39,6 +43,8 @@ public class PostDto {
 
         @NotEmpty
         private PostType type;
+
+        private List<String> tags;
     }
 
     @Builder
@@ -59,5 +65,7 @@ public class PostDto {
         private String videoUrl;
 
         private PostType type;
+
+        private List<String> tags;
     }
 }

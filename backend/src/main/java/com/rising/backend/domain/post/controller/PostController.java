@@ -71,8 +71,7 @@ public class PostController {
 
     @GetMapping("/mypages/{userId}")
     public ResponseEntity<ResultResponse> getPostListByUserId(@PathVariable Long userId) {
-        List<PostDto.PostDetailResponse> postList = postService.getPostListByUserId(userId);
+        List<PostDto.PostGetListResponse> postList = postService.getPostListByUserId(userId);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POSTLIST_FIND_BY_USERID_SUCCESS, postList));
-
     }
 }
