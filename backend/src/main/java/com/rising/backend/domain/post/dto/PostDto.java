@@ -25,7 +25,7 @@ public class PostDto {
         @NotEmpty
         private PostType type;
 
-        private List<String> tag = new ArrayList<>();
+        private List<String> tags = new ArrayList<>();
     }
 
     @Builder

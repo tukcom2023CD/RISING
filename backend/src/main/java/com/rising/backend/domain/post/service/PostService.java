@@ -30,7 +30,7 @@ public class PostService {
 
     public Post createPost(PostCreateRequest createRequest, User loginUser) {
         Post postEntity = postMapper.toPostEntity(createRequest, loginUser);
-        List<Tag> tags = createRequest.getTag().stream().map(t -> getTagByContent(t))
+        List<Tag> tags = createRequest.getTags().stream().map(t -> getTagByContent(t))
                 .collect(Collectors.toList());
         postEntity.setTags(tags);
         return postRepository.save(postEntity);
