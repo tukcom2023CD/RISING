@@ -9,23 +9,9 @@ import OptionSelect from 'components/Select/OptionSelect';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-interface Info {
-  title: string;
-}
-
 // 질문 리스트 페이지
 function QuesListPage() {
-  const [postId, setPostId] = useState(0);
-  const [title, setTitle] = useState('');
-  const [type, setType] = useState(null);
-
-  const DUMMY_QUES_INFO: Info[] = [
-    {
-      title: '예시 질문입니다.',
-    },
-  ];
-
-  const [quesInfo, setQuesInfo] = useState();
+  const [quesInfo, setQuesInfo] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -34,10 +20,6 @@ function QuesListPage() {
         .then((res) => {
           console.log(res.data.data);
           setQuesInfo(res.data.data);
-          console.log(res.data.data[0]);
-          setPostId(res.data.data[0].id);
-          setTitle(res.data.data[0].title);
-          setType(res.data.data[0].type);
         })
         .catch((error) => {
           console.log(error);
@@ -76,14 +58,16 @@ function QuesListPage() {
             >
               <div className="h-64">
                 <div className="flex flex-col p-1">
-                  {/* {quesInfo.map((title: string) => {
-                  })} */}
-                  <Ques count={2} title={title} date="2023-01-04" />
-                  {/* <Ques count={1} title="질문 제목2" date="2023-01-05" />
-                  <Ques count={4} title="질문 제목3" date="2023-01-06" />
-                  <Ques count={3} title="질문 제목4" date="2023-01-07" />
-                  <Ques count={6} title="질문 제목5" date="2023-01-08" />
-                  <Ques count={2} title="질문 제목6" date="2023-01-08" /> */}
+                  {quesInfo.map((data: any) => (
+                    <Ques
+                      key={data.id}
+                      count={2}
+                      title={data.title}
+                      type={data.type}
+                      postId={data.id}
+                      date="2023-01-04"
+                    />
+                  ))}
                 </div>
               </div>
             </div>

@@ -7,26 +7,11 @@ interface Props {
   count: number;
   title: string;
   date: string;
+  type: string;
+  postId: number;
 }
 
-function Ques({ count, title, date }: Props) {
-  const [postId, setPostId] = useState(0);
-  const [type, setType] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      await axios
-        .get(`http://localhost:8080/api/v1/posts?page=0`)
-        .then((res) => {
-          setPostId(res.data.data[0].id);
-          setType(res.data.data[0].type);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    })();
-  }, []);
-
+function Ques({ count, title, date, type, postId }: Props) {
   const navigate = useNavigate();
   const goToAnsPage = () => {
     if (type === 'QUESTION') {
@@ -35,6 +20,7 @@ function Ques({ count, title, date }: Props) {
       navigate('/privateanspage', { state: { id: postId } });
     }
   };
+
   return (
     <button type="button" onClick={goToAnsPage}>
       <div className="relative flex flex-row h-22 items-center w-full bg-white border-2 border-gray rounded-lg">
