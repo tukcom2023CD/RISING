@@ -1,6 +1,6 @@
 import Select, { StylesConfig } from 'react-select';
 import chroma from 'chroma-js';
-import { SelectOption, LanguageOptions } from 'components/Select/QuesData';
+import { SelectOption, KeyWordOptions } from 'components/Select/QuesData';
 
 const colourStyles: StylesConfig<SelectOption, true> = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -25,12 +25,12 @@ const colourStyles: StylesConfig<SelectOption, true> = {
   }),
 };
 
-export default function LanguageSelect() {
+export default function KeyWordOptionsSelect() {
   return (
     <Select
       closeMenuOnSelect={false}
       isMulti
-      options={LanguageOptions}
+      options={KeyWordOptions}
       styles={colourStyles}
     />
   );
