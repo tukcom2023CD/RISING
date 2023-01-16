@@ -11,17 +11,15 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "COMMENT API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/comments")
 public class CommentController {
-
     private final CommentService commentService;
     @PostMapping
     @LoginRequired
@@ -29,5 +27,11 @@ public class CommentController {
                                                  @Parameter(hidden = true) @LoginUser User loginUser) {
         commentService.createComment(createRequest, loginUser.getId());
         return ResponseEntity.ok(ResultResponse.of(ResultCode.COMMENT_CREATE_SUCCESS));
+    }
+
+    @GetMapping("/{postId}")
+    public ResponseEntity<ResultResponse> getComments(@RequestParam Long postId) {
+        List<CommentDto.CommentListResponse> comments = commentService.findByPostId(postId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.COMMENT_CREATE_SUCCESS, comments));
     }
 }
