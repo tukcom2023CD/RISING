@@ -2,7 +2,7 @@ import ColorSystem from 'utils/ColorSystem';
 import rogo from 'images/rogo.png';
 import { useNavigate } from 'react-router-dom';
 
-function NavBar() {
+function QuesNavBar() {
   const navigate = useNavigate();
   const goToQueslistPage = () => {
     navigate('/queslistpage');
@@ -30,7 +30,7 @@ function NavBar() {
         </button>
         <button
           type="button"
-          className="text-xl pl-10 pr-8 py-8 my-2"
+          className="text-xl pl-10 pr-8 py-8 my-2 font-bold text-purple-600"
           onClick={goToQues}
         >
           질문 작성
@@ -72,4 +72,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default QuesNavBar;

@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import QuesNavBar from 'components/QuesNavBar';
+import QuesListNavBar from 'components/NavBar/QuesListNavBar';
 import Ques from 'components/Ques';
 import KeyWordOptionSelect from 'components/Select/KeyWordOptionSelect';
 import OptionSelect from 'components/Select/OptionSelect';
@@ -36,7 +36,7 @@ function QuesListPage() {
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
-      <QuesNavBar />
+      <QuesListNavBar />
       <div className="flex justify-center item-center my-8 pt-3">
         <div className="relative flex flex-col my-6 w-4/5 h-[33rem]">
           {/* 필터링 버튼 */}

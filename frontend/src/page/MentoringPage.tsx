@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import QuesNavBar from 'components/QuesNavBar';
+import NavBar from 'components/NavBar/NavBar';
 import Tag from 'components/Tags/Tag';
 import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
@@ -134,7 +134,7 @@ function MentoringPage() {
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
-      <QuesNavBar />
+      <NavBar />
       {/* Title */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">

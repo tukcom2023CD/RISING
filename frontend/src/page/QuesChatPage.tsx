@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import MentoNavBar from 'components/NavBar/MentoNavBar';
+import NavBar from 'components/NavBar/NavBar';
 import Tag from 'components/Tags/Tag';
 import Date from 'components/Tags/Date';
 import send from 'images/send.png';
@@ -161,7 +161,7 @@ function QuesChatPage() {
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
-      <MentoNavBar />
+      <NavBar />
       <div className="flex justify-center item-center my-8">
         {/* Title */}
         <div className="relative flex flex-col w-3/5">

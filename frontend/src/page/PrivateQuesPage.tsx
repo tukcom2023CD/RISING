@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import MentoNavBar from 'components/NavBar/MentoNavBar';
+import PrivateQuesNavBar from 'components/NavBar/PrivateQuesNavBar';
 import KeywordSelect from 'components/Select/KeywordSelect';
 import Btn from 'components/Btn';
 import TitleIndex from 'components/Index/QuesTitleIndex';
@@ -72,7 +72,7 @@ function PrivateQuesPage() {
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
-      <MentoNavBar />
+      <PrivateQuesNavBar />
       <form onSubmit={handleSubmit}>
         {/* Title */}
         <div className="flex justify-center item-center my-8">

@@ -2,7 +2,7 @@ import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import { useNavigate } from 'react-router-dom';
-import MentoNavBar from 'components/NavBar/MentoNavBar';
+import QuesNavBar from 'components/NavBar/QuesNavBar';
 import KeywordSelect from 'components/Select/KeywordSelect';
 import Btn from 'components/Btn';
 import TitleIndex from 'components/Index/QuesTitleIndex';
@@ -22,7 +22,7 @@ function QuesPage() {
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
-      <MentoNavBar />
+      <QuesNavBar />
       {/* Title */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
