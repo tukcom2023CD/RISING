@@ -11,7 +11,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import profile from 'images/profile.png';
 import pencil from 'images/pencil.png';
-import Tag from 'components/Tag';
+import Tag from 'components/Tags/Tag';
 import Ques from 'components/Ques';
 import ChatBox from 'components/ChatBox';
 

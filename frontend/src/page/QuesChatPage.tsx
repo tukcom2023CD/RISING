@@ -2,7 +2,7 @@ import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import MentoNavBar from 'components/MentoNavBar';
-import Tag from 'components/Tag';
+import Tag from 'components/Tags/Tag';
 import send from 'images/send.png';
 import profile from 'images/profile.png';
 import { Client, IMessage } from '@stomp/stompjs';

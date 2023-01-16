@@ -2,7 +2,8 @@ import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import QuesNavBar from 'components/QuesNavBar';
-import Tag from 'components/Tag';
+import Tag from 'components/Tags/Tag';
+import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import Btn from 'components/Btn';
@@ -27,15 +28,12 @@ function PrivateAnsPage() {
   const handleCopyClipBoard = (text: string) => {
     onCopy(text);
     console.log(isCopy);
-    // 지금 여기로 들어감 수정 필요
-    if (isCopy === false) {
-      navigate(`/mentoringpage`);
-    }
   };
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState(0);
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -48,12 +46,14 @@ function PrivateAnsPage() {
           setTitle(res.data.data.title);
           setContent(res.data.data.content);
           setUserId(res.data.data.userId);
+          setTags(res.data.data.tags);
         })
         .catch((error) => {
           console.log(error);
         });
     })();
   }, []);
+  console.log(tags);
 
   return (
     <div
@@ -68,10 +68,11 @@ function PrivateAnsPage() {
             {/* 질문 제목 텍스트로 가져와야함 */}
             <span className="text-text-color text-xl mt-4 mx-4">{title}</span>
             <div className="my-2 pl-2 flex flex-row relative">
-              <Tag text="# JavaScript" />
-              <Tag text="# python" />
+              {tags.map((tag: any) => (
+                <Tag text={tag} />
+              ))}
               <div className="absolute top-0 right-1">
-                <Tag text="2023-01-04" />
+                <Date date="2023-01-04" />
               </div>
             </div>
           </div>

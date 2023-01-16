@@ -1,4 +1,4 @@
-import Tag from 'components/Tag';
+import Tag from 'components/Tags/Tag';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {

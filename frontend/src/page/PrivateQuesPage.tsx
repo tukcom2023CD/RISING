@@ -60,7 +60,6 @@ function PrivateQuesPage() {
     })();
   };
   const onChangeKeyWord = async (e: any) => {
-    console.log(e);
     const keyWordList: any = e;
     const result: any = keyWordList.map((data: any) => data.value);
     setKeyWord(result);

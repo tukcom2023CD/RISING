@@ -2,7 +2,7 @@ import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import QuesNavBar from 'components/QuesNavBar';
-import Tag from 'components/Tag';
+import Tag from 'components/Tags/Tag';
 import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import Btn from 'components/Btn';
