@@ -22,9 +22,6 @@ interface privateQuesForm {
 // 질문 작성 페이지
 function PrivateQuesPage() {
   const navigate = useNavigate();
-  const goToMain = () => {
-    navigate('/mainpage');
-  };
 
   const ref = useRef<any>(null);
 
@@ -51,6 +48,7 @@ function PrivateQuesPage() {
           },
         })
         .then((res) => {
+          navigate('/mainpage');
           console.log(res.data);
           console.log(keyWord);
         })
@@ -101,7 +99,15 @@ function PrivateQuesPage() {
             <div className="flex flex-col rounded-xl h-14 w-full mx-1 my-2 bg-white border-4 border-violet-300">
               {/* 키워드 작성 */}
               <div className="pt-1 px-1">
-                <KeywordSelect onChange={onChangeKeyWord} />
+                <KeywordSelect
+                  onChange={(e: any) => {
+                    const keyWordList: any = e;
+                    const result: any = keyWordList.map(
+                      (data: any) => data.value,
+                    );
+                    setKeyWord(result);
+                  }}
+                />
               </div>
             </div>
             {/* keyword index */}
@@ -128,7 +134,12 @@ function PrivateQuesPage() {
         </div>
         {/* Submit */}
         <div className="flex justify-center item-center my-8">
-          <Btn text="SUBMIT" onClick={goToMain} />
+          <button
+            type="submit"
+            className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
+          >
+            <span className="text-white text-sm">SUBMIT</span>
+          </button>
         </div>
       </form>
     </div>

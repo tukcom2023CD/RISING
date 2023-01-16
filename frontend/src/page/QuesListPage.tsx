@@ -60,7 +60,7 @@ function QuesListPage() {
                   {quesInfo.slice(offset, offset + limit).map((data: any) => (
                     <Ques
                       key={data.id}
-                      count={2}
+                      count={data.commentCount}
                       title={data.title}
                       type={data.type}
                       postId={data.id}

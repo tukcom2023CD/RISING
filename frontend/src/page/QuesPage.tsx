@@ -73,7 +73,12 @@ function QuesPage() {
       </div>
       {/* Submit */}
       <div className="flex justify-center item-center my-8">
-        <Btn text="SUBMIT" onClick={goToMain} />
+        <button
+          type="submit"
+          className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
+        >
+          <span className="text-white text-sm">SUBMIT</span>
+        </button>
       </div>
     </div>
   );
