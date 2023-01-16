@@ -1,4 +1,5 @@
 import Tag from 'components/Tags/Tag';
+import Date from 'components/Tags/Date';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
@@ -7,9 +8,10 @@ interface Props {
   date: string;
   type: string;
   postId: number;
+  tags: string[];
 }
 
-function Ques({ count, title, date, type, postId }: Props) {
+function Ques({ count, title, date, type, postId, tags }: Props) {
   const navigate = useNavigate();
   const goToAnsPage = () => {
     if (type === 'QUESTION') {
@@ -36,13 +38,14 @@ function Ques({ count, title, date, type, postId }: Props) {
           <span className="text-xl ml-4">{title}</span>
           {/* 태그 */}
           <div className="flex flex-row ml-2">
-            <Tag text="# JavaScript" />
-            <Tag text="# python" />
+            {tags.map((tag: any) => (
+              <Tag text={tag} />
+            ))}
           </div>
         </div>
         {/* 날짜 */}
         <div className="absolute top-2 right-4">
-          <Tag text={date} />
+          <Date date={date} />
         </div>
       </div>
     </button>

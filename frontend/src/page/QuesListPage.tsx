@@ -3,12 +3,10 @@ import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import QuesNavBar from 'components/QuesNavBar';
 import Ques from 'components/Ques';
-import LanguageSelect from 'components/Select/LanguageSelect';
-import FrameWorkSelect from 'components/Select/FrameWorkSelect';
+import KeyWordOptionSelect from 'components/Select/KeyWordOptionSelect';
 import OptionSelect from 'components/Select/OptionSelect';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-// import Pagination from 'components/Pagination/Pagination';
 
 // 질문 리스트 페이지
 function QuesListPage() {
@@ -45,10 +43,7 @@ function QuesListPage() {
           <div className="absolute flex flex-row -top-11 right-1 mx-1 p-1 h-10">
             {/* 필터 */}
             <div className="mr-2">
-              <LanguageSelect />
-            </div>
-            <div className="mr-2">
-              <FrameWorkSelect />
+              <KeyWordOptionSelect />
             </div>
             <OptionSelect />
           </div>
@@ -69,7 +64,8 @@ function QuesListPage() {
                       title={data.title}
                       type={data.type}
                       postId={data.id}
-                      date="2023-01-04"
+                      tags={data.tags}
+                      date={data.created_at}
                     />
                   ))}
                 </div>

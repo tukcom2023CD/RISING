@@ -6,6 +6,7 @@ import Tag from 'components/Tags/Tag';
 import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
+import EditorViewer from 'components/Editor/EditorViewer';
 import Btn from 'components/Btn';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useCopyClipBoard from 'utils/useCopyClipBoard';
@@ -20,7 +21,7 @@ function PrivateAnsPage() {
 
   const navigate = useNavigate();
   const goToChatPage = () => {
-    navigate('/queschatpage');
+    navigate('/queschatpage', { state: { id: postId } });
   };
 
   const [isCopy, onCopy] = useCopyClipBoard();
@@ -28,12 +29,14 @@ function PrivateAnsPage() {
   const handleCopyClipBoard = (text: string) => {
     onCopy(text);
     console.log(isCopy);
+    navigate('/mentoringpage', { state: { id: postId } });
   };
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState(0);
   const [tags, setTags] = useState([]);
+  const [date, setDate] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -47,13 +50,13 @@ function PrivateAnsPage() {
           setContent(res.data.data.content);
           setUserId(res.data.data.userId);
           setTags(res.data.data.tags);
+          setDate(res.data.data.created_at);
         })
         .catch((error) => {
           console.log(error);
         });
     })();
   }, []);
-  console.log(tags);
 
   return (
     <div
@@ -72,7 +75,7 @@ function PrivateAnsPage() {
                 <Tag text={tag} />
               ))}
               <div className="absolute top-0 right-1">
-                <Date date="2023-01-04" />
+                <Date date={date} />
               </div>
             </div>
           </div>
@@ -88,7 +91,9 @@ function PrivateAnsPage() {
           <div className="flex justify-center item-center mb-8">
             <div className="relative flex flex-col-reverse w-full">
               <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
-                <div className="p-3">{content}</div>
+                <div className="pl-3 pt-2">
+                  <EditorViewer content={content} />
+                </div>
               </div>
             </div>
           </div>
