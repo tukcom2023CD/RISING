@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import MentoNavBar from 'components/MentoNavBar';
+import MentoNavBar from 'components/NavBar/MentoNavBar';
 import KeywordSelect from 'components/Select/KeywordSelect';
 import Btn from 'components/Btn';
 import TitleIndex from 'components/Index/QuesTitleIndex';

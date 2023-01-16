@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import NavBar from 'components/NavBar';
+import NavBar from 'components/NavBar/NavBar';
 // MUI
 import * as React from 'react';
 import Box from '@mui/material/Box';

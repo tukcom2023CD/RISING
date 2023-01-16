@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import NavBar from 'components/NavBar';
+import NavBar from 'components/NavBar/NavBar';
 import Button from 'components/LoginBtn';
 // import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
