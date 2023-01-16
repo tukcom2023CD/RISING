@@ -1,13 +1,13 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import QuesNavBar from 'components/QuesNavBar';
-import Tag from 'components/Tag';
+import QuesNavBar from 'components/NavBar/QuesNavBar';
+import Tag from 'components/Tags/Tag';
+import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import AnswerIndex from 'components/Index/AnswerIndex';
 import Ans from 'components/Ans';
-import ToastEditor from 'components/Editor/ToastEditor';
 
 // 질문 답변 및 확인 페이지
 function AnsPage() {
@@ -29,7 +29,7 @@ function AnsPage() {
               <Tag text="# JavaScript" />
               <Tag text="# python" />
               <div className="absolute top-0 right-0">
-                <Tag text="2023-01-04" />
+                <Date date="2023-01-04" />
               </div>
             </div>
           </div>

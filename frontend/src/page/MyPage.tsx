@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import NavBar from 'components/NavBar';
+import NavBar from 'components/NavBar/NavBar';
 // MUI
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -11,7 +11,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import profile from 'images/profile.png';
 import pencil from 'images/pencil.png';
-import Tag from 'components/Tag';
+import Tag from 'components/Tags/Tag';
 import Ques from 'components/Ques';
 import ChatBox from 'components/ChatBox';
 
@@ -88,12 +88,13 @@ function MyPage() {
                   >
                     <div className="h-64">
                       <div className="flex flex-col p-1">
-                        <Ques count={2} title="질문 제목1" date="2023-01-04" />
+                        {/* 내가 작성한 질문 리스트 */}
+                        {/* <Ques count={2} title="질문 제목1" date="2023-01-04" />
                         <Ques count={1} title="질문 제목2" date="2023-01-05" />
                         <Ques count={4} title="질문 제목3" date="2023-01-06" />
                         <Ques count={3} title="질문 제목4" date="2023-01-07" />
                         <Ques count={6} title="질문 제목5" date="2023-01-08" />
-                        <Ques count={2} title="질문 제목6" date="2023-01-08" />
+                        <Ques count={2} title="질문 제목6" date="2023-01-08" /> */}
                       </div>
                     </div>
                   </div>

@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import MentoNavBar from 'components/MentoNavBar';
+import PrivateQuesNavBar from 'components/NavBar/PrivateQuesNavBar';
 import KeywordSelect from 'components/Select/KeywordSelect';
 import Btn from 'components/Btn';
 import TitleIndex from 'components/Index/QuesTitleIndex';
@@ -13,22 +13,23 @@ import { useRef, useState } from 'react';
 import axios from 'axios';
 
 interface privateQuesForm {
-  title: string;
-  context: string | null;
   type: string;
+  title: string;
+  tags: string[];
+  content: string | null;
 }
 
 // 질문 작성 페이지
 function PrivateQuesPage() {
   const navigate = useNavigate();
   const goToMain = () => {
-    // navigate('/mainpage');
+    navigate('/mainpage');
   };
 
   const ref = useRef<any>(null);
 
   const [text, setText] = useState('');
-  const [quesContext, setQuesContext] = useState('');
+  const [keyWord, setKeyWord] = useState([]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault(); // 새로고침 방지
@@ -36,27 +37,32 @@ function PrivateQuesPage() {
     // 에디터 작성 내용 markdown으로 저장
     const contentMark = editorIns.getMarkdown();
     const privateQuesData: privateQuesForm = {
-      title: text,
-      context: contentMark,
       type: 'MENTORING',
+      title: text,
+      tags: keyWord,
+      content: contentMark,
     };
     console.log(privateQuesData);
     (async () => {
       await axios
-        .post(`http://localhost:8080/api/v1/posts`, privateQuesData, {
+        .post(`/posts`, privateQuesData, {
           headers: {
             'Content-Type': 'application/json',
           },
         })
         .then((res) => {
           console.log(res.data);
-          setText(res.data.text);
-          setQuesContext(res.data);
+          console.log(keyWord);
         })
         .catch((error) => {
           console.log(error.response.data);
         });
     })();
+  };
+  const onChangeKeyWord = async (e: any) => {
+    const keyWordList: any = e;
+    const result: any = keyWordList.map((data: any) => data.value);
+    setKeyWord(result);
   };
 
   return (
@@ -66,7 +72,7 @@ function PrivateQuesPage() {
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
-      <MentoNavBar />
+      <PrivateQuesNavBar />
       <form onSubmit={handleSubmit}>
         {/* Title */}
         <div className="flex justify-center item-center my-8">
@@ -95,7 +101,7 @@ function PrivateQuesPage() {
             <div className="flex flex-col rounded-xl h-14 w-full mx-1 my-2 bg-white border-4 border-violet-300">
               {/* 키워드 작성 */}
               <div className="pt-1 px-1">
-                <KeywordSelect />
+                <KeywordSelect onChange={onChangeKeyWord} />
               </div>
             </div>
             {/* keyword index */}

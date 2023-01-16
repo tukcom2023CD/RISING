@@ -1,21 +1,27 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import QuesNavBar from 'components/QuesNavBar';
-import Tag from 'components/Tag';
+import QuesNavBar from 'components/NavBar/QuesNavBar';
+import Tag from 'components/Tags/Tag';
+import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
+import EditorViewer from 'components/Editor/EditorViewer';
 import Btn from 'components/Btn';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useCopyClipBoard from 'utils/useCopyClipBoard';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 // 과외 질문에 채팅과 링크 보낼 수 있는 페이지
 function PrivateAnsPage() {
+  const location = useLocation();
+  const state = location.state as { id: number };
+  const postId = state.id;
+
   const navigate = useNavigate();
   const goToChatPage = () => {
-    navigate('/queschatpage');
+    navigate('/queschatpage', { state: { id: postId } });
   };
 
   const [isCopy, onCopy] = useCopyClipBoard();
@@ -23,27 +29,28 @@ function PrivateAnsPage() {
   const handleCopyClipBoard = (text: string) => {
     onCopy(text);
     console.log(isCopy);
-    // 지금 여기로 들어감 수정 필요
-    if (isCopy === false) {
-      navigate(`/mentoringpage`);
-    }
+    navigate('/mentoringpage', { state: { id: postId } });
   };
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState(0);
+  const [tags, setTags] = useState([]);
+  const [date, setDate] = useState('');
 
   useEffect(() => {
     (async () => {
       await axios
         // 특정 게시글 조회
         // 질문 게시글에서 질문 아이디 받아와야함.
-        .get(`http://localhost:8080/api/v1/posts/${1}`)
+        .get(`/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
           setContent(res.data.data.content);
           setUserId(res.data.data.userId);
+          setTags(res.data.data.tags);
+          setDate(res.data.data.created_at);
         })
         .catch((error) => {
           console.log(error);
@@ -64,10 +71,11 @@ function PrivateAnsPage() {
             {/* 질문 제목 텍스트로 가져와야함 */}
             <span className="text-text-color text-xl mt-4 mx-4">{title}</span>
             <div className="my-2 pl-2 flex flex-row relative">
-              <Tag text="# JavaScript" />
-              <Tag text="# python" />
+              {tags.map((tag: any) => (
+                <Tag text={tag} />
+              ))}
               <div className="absolute top-0 right-1">
-                <Tag text="2023-01-04" />
+                <Date date={date} />
               </div>
             </div>
           </div>
@@ -83,7 +91,9 @@ function PrivateAnsPage() {
           <div className="flex justify-center item-center mb-8">
             <div className="relative flex flex-col-reverse w-full">
               <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
-                <div className="p-3">{content}</div>
+                <div className="pl-3 pt-2">
+                  <EditorViewer content={content} />
+                </div>
               </div>
             </div>
           </div>

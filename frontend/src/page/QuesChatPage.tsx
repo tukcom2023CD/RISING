@@ -1,8 +1,9 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import MentoNavBar from 'components/MentoNavBar';
-import Tag from 'components/Tag';
+import NavBar from 'components/NavBar/NavBar';
+import Tag from 'components/Tags/Tag';
+import Date from 'components/Tags/Date';
 import send from 'images/send.png';
 import profile from 'images/profile.png';
 import { Client, IMessage } from '@stomp/stompjs';
@@ -10,6 +11,8 @@ import { useEffect, useRef, useState } from 'react';
 import OthersMessage from 'components/Chat/OthersMessage';
 import MyMessage from 'components/Chat/MyMessage';
 import useInput from 'utils/useInput';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 interface ChatMessage {
   sender: string;
@@ -122,6 +125,35 @@ function QuesChatPage() {
   const onChange = (e: any) => {
     setText(e.target.value);
   };
+
+  const location = useLocation();
+  const state = location.state as { id: number };
+  const postId = state.id;
+
+  const [title, setTitle] = useState('');
+  const [userId, setUserId] = useState(0);
+  const [tags, setTags] = useState([]);
+  const [date, setDate] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      await axios
+        // 특정 게시글 조회
+        // 질문 게시글에서 질문 아이디 받아와야함.
+        .get(`/posts/${postId}`)
+        .then((res) => {
+          console.log(res.data.data);
+          setTitle(res.data.data.title);
+          setUserId(res.data.data.userId);
+          setTags(res.data.data.tags);
+          setDate(res.data.data.created_at);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })();
+  }, []);
+
   return (
     // 배경색
     <div
@@ -129,18 +161,19 @@ function QuesChatPage() {
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
-      <MentoNavBar />
+      <NavBar />
       <div className="flex justify-center item-center my-8">
         {/* Title */}
         <div className="relative flex flex-col w-3/5">
           <div className="flex flex-col rounded-xl h-32 w-full mx-1 my-2 bg-white border-4 border-violet-300">
             {/* 질문 제목 텍스트로 가져와야함 */}
-            <span className="text-text-color text-xl m-4">질문 제목</span>
+            <span className="text-text-color text-xl m-4">{title}</span>
             <div className="flex flex-row relative ml-2">
-              <Tag text="# JavaScript" />
-              <Tag text="# python" />
+              {tags.map((tag: any) => (
+                <Tag text={tag} />
+              ))}
               <div className="absolute top-0 right-2">
-                <Tag text="2023-01-04" />
+                <Date date={date} />
               </div>
             </div>
           </div>

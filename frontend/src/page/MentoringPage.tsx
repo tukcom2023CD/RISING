@@ -1,13 +1,14 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import QuesNavBar from 'components/QuesNavBar';
-import Tag from 'components/Tag';
+import NavBar from 'components/NavBar/NavBar';
+import Tag from 'components/Tags/Tag';
+import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import Btn from 'components/Btn';
-import { useNavigate } from 'react-router-dom';
-import CodeEditor, { SelectionText } from '@uiw/react-textarea-code-editor';
+import { useLocation, useNavigate } from 'react-router-dom';
+import CodeEditor from '@uiw/react-textarea-code-editor';
 import React, { useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
 import axios from 'axios';
@@ -17,27 +18,36 @@ import axios from 'axios';
 
 // 과외 질문 멘토링 중인 페이지
 function MentoringPage() {
+  document.documentElement.setAttribute('data-color-mode', 'light');
+  const location = useLocation();
+  const state = location.state as { id: number };
+  const postId = state.id;
+
   const navigate = useNavigate();
   const goToAnsCheckPage = () => {
-    navigate('/privateanscheckpage');
+    navigate('/privateanscheckpage', { state: { id: postId } });
   };
 
-  // 질문제목 api 연결
   const [title, setTitle] = useState('');
   const [userId, setUserId] = useState(0);
+  const [tags, setTags] = useState([]);
+  const [date, setDate] = useState('');
 
   useEffect(() => {
     (async () => {
       await axios
         // 특정 게시글 조회
         // 질문 게시글에서 질문 아이디 받아와야함.
-        .get(`http://localhost:8080/api/v1/posts/${1}`)
+        .get(`/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
           setUserId(res.data.data.userId);
+          setTags(res.data.data.tags);
+          setDate(res.data.data.created_at);
         })
         .catch((error) => {
+          console.log(tags);
           console.log(error);
         });
     })();
@@ -124,7 +134,7 @@ function MentoringPage() {
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
-      <QuesNavBar />
+      <NavBar />
       {/* Title */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
@@ -132,10 +142,11 @@ function MentoringPage() {
             {/* 질문 제목 텍스트로 가져와야함 */}
             <span className="text-text-color text-xl mt-4 mx-4">{title}</span>
             <div className="my-2 pl-2 flex flex-row relative">
-              <Tag text="# JavaScript" />
-              <Tag text="# python" />
+              {tags.map((tag: any) => (
+                <Tag text={tag} />
+              ))}
               <div className="absolute top-0 right-1">
-                <Tag text="2023-01-04" />
+                <Date date={date} />
               </div>
             </div>
           </div>
@@ -165,23 +176,21 @@ function MentoringPage() {
           <div className="flex justify-center item-center mb-8">
             <div className="relative flex flex-col-reverse w-full">
               <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
-                <div data-color-mode="dark">
-                  <CodeEditor
-                    value={codeList}
-                    ref={textRef}
-                    language="py"
-                    placeholder="Please enter Python code."
-                    onChange={(evn: {
-                      target: { value: React.SetStateAction<string> };
-                    }) => setCodeList(evn.target.value)}
-                    padding={15}
-                    style={{
-                      fontFamily:
-                        'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-                      fontSize: 12,
-                    }}
-                  />
-                </div>
+                <CodeEditor
+                  value={codeList}
+                  ref={textRef}
+                  language="py"
+                  placeholder="Please enter Python code."
+                  onChange={(evn: {
+                    target: { value: React.SetStateAction<string> };
+                  }) => setCodeList(evn.target.value)}
+                  padding={15}
+                  style={{
+                    fontFamily:
+                      'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+                    fontSize: 12,
+                  }}
+                />
               </div>
             </div>
           </div>
