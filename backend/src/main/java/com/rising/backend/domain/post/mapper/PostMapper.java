@@ -1,5 +1,6 @@
 package com.rising.backend.domain.post.mapper;
 
+import com.rising.backend.domain.comment.repository.CommentRepository;
 import com.rising.backend.domain.post.domain.Post;
 import com.rising.backend.domain.post.domain.Tag;
 import com.rising.backend.domain.post.dto.PostDto;
@@ -20,6 +21,8 @@ import static com.rising.backend.domain.post.dto.PostDto.PostGetListResponse;
 @RequiredArgsConstructor
 public class PostMapper {
     private final UuidConverter uuidConverter;
+
+    private final CommentRepository commentRepository;
     public Post toPostEntity(PostCreateRequest postCreate, User loginUser) {
         return Post.builder()
                 .user(loginUser)
@@ -38,6 +41,7 @@ public class PostMapper {
                 .videoUrl(post.getVideoUrl())
                 .type(post.getType())
                 .tags(tags)
+                .created_at(post.getCreatedAt())
                 .build();
     }
 
@@ -54,9 +58,11 @@ public class PostMapper {
         return PostDto.PostGetListResponse.builder()
                 .id(post.getId())
                 .content(post.getContent())
+                .created_at(post.getCreatedAt())
                 .title(post.getTitle())
                 .type(post.getType())
                 .tags(TagtoString(post.getTag()))
+                .commentCount(commentRepository.countByPost_Id(post.getId()))
                 .build();
     }
 
