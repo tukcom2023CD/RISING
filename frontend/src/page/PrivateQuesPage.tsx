@@ -11,9 +11,6 @@ import { useNavigate } from 'react-router-dom';
 import ToastEditor from 'components/Editor/ToastEditor';
 import { useRef, useState } from 'react';
 import axios from 'axios';
-import { type } from 'os';
-
-axios.defaults.withCredentials = true;
 
 interface privateQuesForm {
   type: string;
@@ -26,7 +23,7 @@ interface privateQuesForm {
 function PrivateQuesPage() {
   const navigate = useNavigate();
   const goToMain = () => {
-    // navigate('/mainpage');
+    navigate('/mainpage');
   };
 
   const ref = useRef<any>(null);
@@ -55,9 +52,7 @@ function PrivateQuesPage() {
         })
         .then((res) => {
           console.log(res.data);
-          // setText(res.data.text);
           console.log(keyWord);
-          console.log(typeof keyWord[0]);
         })
         .catch((error) => {
           console.log(error.response.data);
@@ -69,7 +64,6 @@ function PrivateQuesPage() {
     const keyWordList: any = e;
     const result: any = keyWordList.map((data: any) => data.value);
     setKeyWord(result);
-    console.log(keyWord);
   };
 
   return (
