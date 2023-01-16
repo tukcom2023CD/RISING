@@ -8,15 +8,19 @@ import FrameWorkSelect from 'components/Select/FrameWorkSelect';
 import OptionSelect from 'components/Select/OptionSelect';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+// import Pagination from 'components/Pagination/Pagination';
 
 // 질문 리스트 페이지
 function QuesListPage() {
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const offset = (page - 1) * limit;
   const [quesInfo, setQuesInfo] = useState([]);
 
   useEffect(() => {
     (async () => {
       await axios
-        .get(`http://localhost:8080/api/v1/posts?page=0`)
+        .get(`/posts?page=0`)
         .then((res) => {
           console.log(res.data.data);
           setQuesInfo(res.data.data);
@@ -58,7 +62,7 @@ function QuesListPage() {
             >
               <div className="h-64">
                 <div className="flex flex-col p-1">
-                  {quesInfo.map((data: any) => (
+                  {quesInfo.slice(offset, offset + limit).map((data: any) => (
                     <Ques
                       key={data.id}
                       count={2}
@@ -71,6 +75,14 @@ function QuesListPage() {
                 </div>
               </div>
             </div>
+            {/* <footer>
+              <Pagination
+                total={quesInfo.length}
+                limit={limit}
+                page={page}
+                setPage={setPage}
+              />
+            </footer> */}
           </div>
         </div>
       </div>

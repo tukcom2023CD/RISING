@@ -9,7 +9,6 @@ export const LanguageOptions: readonly SelectOption[] = [
   { value: 'Python', color: '#835FEE', label: 'Python' },
   { value: 'JavaScript', color: '#835FEE', label: 'JavaScript' },
   { value: 'TypeScript', color: '#835FEE', label: 'TypeScript' },
-  { value: 'JavaScript', color: '#835FEE', label: 'JavaScript' },
 ];
 
 export const FrameWorkOptions: readonly SelectOption[] = [

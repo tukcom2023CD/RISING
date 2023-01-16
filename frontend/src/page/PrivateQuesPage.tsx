@@ -12,6 +12,8 @@ import ToastEditor from 'components/Editor/ToastEditor';
 import { useRef, useState } from 'react';
 import axios from 'axios';
 
+axios.defaults.withCredentials = true;
+
 interface privateQuesForm {
   title: string;
   content: string | null;
