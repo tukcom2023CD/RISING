@@ -46,9 +46,7 @@ function QuesPage() {
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-14 w-full mx-1 my-2 bg-white border-4 border-violet-300">
             {/* 키워드 작성 */}
-            <div className="pt-1 px-1">
-              <KeywordSelect />
-            </div>
+            <div className="pt-1 px-1">{/* <KeywordSelect /> */}</div>
           </div>
           {/* keyword index */}
           <KeywordIndex />

@@ -25,18 +25,18 @@ const colourStyles: StylesConfig<keywordOption, true> = {
   }),
 };
 
-export default function KeywordSelect() {
-  const changeValue = (target: any) => {
-    console.log(target);
-  };
-  console.log(keywordOptions);
+interface Props {
+  onChange: any;
+}
+
+export default function KeywordSelect({ onChange }: Props) {
   return (
     <Select
       closeMenuOnSelect={false}
       isMulti
       options={keywordOptions}
       styles={colourStyles}
-      onChange={changeValue}
+      onChange={onChange}
     />
   );
 }

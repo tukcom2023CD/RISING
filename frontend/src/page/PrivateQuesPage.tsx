@@ -11,13 +11,15 @@ import { useNavigate } from 'react-router-dom';
 import ToastEditor from 'components/Editor/ToastEditor';
 import { useRef, useState } from 'react';
 import axios from 'axios';
+import { type } from 'os';
 
 axios.defaults.withCredentials = true;
 
 interface privateQuesForm {
-  title: string;
-  content: string | null;
   type: string;
+  title: string;
+  tags: string[];
+  content: string | null;
 }
 
 // 질문 작성 페이지
@@ -30,7 +32,7 @@ function PrivateQuesPage() {
   const ref = useRef<any>(null);
 
   const [text, setText] = useState('');
-  const [quesContext, setQuesContext] = useState('');
+  const [keyWord, setKeyWord] = useState([]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault(); // 새로고침 방지
@@ -38,9 +40,10 @@ function PrivateQuesPage() {
     // 에디터 작성 내용 markdown으로 저장
     const contentMark = editorIns.getMarkdown();
     const privateQuesData: privateQuesForm = {
-      title: text,
-      content: contentMark,
       type: 'MENTORING',
+      title: text,
+      tags: keyWord,
+      content: contentMark,
     };
     console.log(privateQuesData);
     (async () => {
@@ -52,13 +55,21 @@ function PrivateQuesPage() {
         })
         .then((res) => {
           console.log(res.data);
-          setText(res.data.text);
-          setQuesContext(res.data);
+          // setText(res.data.text);
+          console.log(keyWord);
+          console.log(typeof keyWord[0]);
         })
         .catch((error) => {
           console.log(error.response.data);
         });
     })();
+  };
+  const onChangeKeyWord = async (e: any) => {
+    console.log(e);
+    const keyWordList: any = e;
+    const result: any = keyWordList.map((data: any) => data.value);
+    setKeyWord(result);
+    console.log(keyWord);
   };
 
   return (
@@ -97,7 +108,7 @@ function PrivateQuesPage() {
             <div className="flex flex-col rounded-xl h-14 w-full mx-1 my-2 bg-white border-4 border-violet-300">
               {/* 키워드 작성 */}
               <div className="pt-1 px-1">
-                <KeywordSelect />
+                <KeywordSelect onChange={onChangeKeyWord} />
               </div>
             </div>
             {/* keyword index */}
