@@ -19,7 +19,6 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.setApplicationDestinationPrefixes("/pub"); // 메세지 전송시 prefix
         config.setPathMatcher(new AntPathMatcher("."));
-         config.enableStompBrokerRelay("/queue", "/topic", "/exchange", "/amq/queue");
+        config.enableStompBrokerRelay("/queue", "/topic", "/exchange", "/amq/queue").setRelayHost("rabbitmq");
     }
-
 }

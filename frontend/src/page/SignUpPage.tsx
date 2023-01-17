@@ -39,6 +39,26 @@ const user = () => {
   });
 }
 
+  const user = () => {
+    axios
+      .post('http://localhost:8080/api/v1/users', {
+        name,
+        username,
+        password,
+      })
+      .then((response) => {
+        // Handle success.
+        console.log('회원가입 완료!');
+        console.log('유저 이름', response.data.name);
+        console.log('유저 이메일', response.data.username);
+        sessionStorage.setItem('유저 세션 아이디', response.data.session);
+      })
+      .catch((error) => {
+        // Handle error.
+        console.log('에러가 발생했어요!:', error.response);
+      });
+  };
+
   return (
     <div
       className="h-screen"

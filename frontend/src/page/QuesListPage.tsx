@@ -20,7 +20,7 @@ function QuesListPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/posts?page=1`)
+        .get(`http://localhost:8080/api/v1/posts?page=0`)
         .then((res) => {
           setSumId(res.data.data[0].id);
           setPageCount(Math.ceil(sumId / 10));
