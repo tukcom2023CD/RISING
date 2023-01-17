@@ -7,38 +7,55 @@ import Button from 'components/LoginBtn';
 import { useState } from 'react';
 import BasicProfile from 'images/BasicProfile.png';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function SignUpPage() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // const goToLogin = () => {
   //   navigate('/login');
   // };
 
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  
 
+  // // eslint-disable-next-line consistent-return
+  // const onSubmit = (event: { preventDefault: () => void; }) => {
+  //   event.preventDefault()
+  //   if(password !== passwordConfirm) {
+  //     // eslint-disable-next-line no-alert
+  //     return alert('비밀번호와 비밀번호확인은 같아야 합니다.')
+  //   }
+  // }
+  // eslint-disable-next-line consistent-return
   const user = () => {
     axios
-      .post('/users', {
-        name,
-        username,
-        password,
-      })
-      .then((response) => {
-        // Handle success.
-        console.log('회원가입 완료!');
-        console.log('유저 이름', response.data.name);
-        console.log('유저 이메일', response.data.username);
-        sessionStorage.setItem('유저 세션 아이디', response.data.session);
-      })
-      .catch((error) => {
-        // Handle error.
-        console.log('에러가 발생했어요!:', error.response);
-      });
-  };
+  .post('http://127.0.0.1:8080/api/v1/users', {
+    name,
+    username,
+    password,
+  })
+  .then(response => {
+    // Handle success.
+    console.log('회원가입 완료!');
+    console.log('유저 이름 :', name);
+    console.log('유저 이메일 :', username);
+    // eslint-disable-next-line no-alert
+    alert('회원가입 성공!')
+    navigate('/login');
+  })
+  .catch(error => {
+    // Handle error.
+    console.log('에러가 발생했어요!:', error.response);
+    // eslint-disable-next-line no-alert
+    alert('회원가입을 실패했어요.');
+  });
 
+
+}
+    
   return (
     <div
       className="h-screen"
@@ -101,10 +118,16 @@ function SignUpPage() {
                   setPasswordConfirm(event.target.value);
                 }}
                 required
+                
               />
             </div>
             <div className="mt-4 mb-2 grid absolute bottom-4 right-0">
-              <Button text="다음" onClick={user} />
+            <div className='mt-2  h-12 w-full pr-2 mx-1 my-3 text-text-color'>
+            {password !== passwordConfirm && <p> 비밀번호가 일치하지 않습니다!</p>}
+            {password === passwordConfirm && <p >비밀번호 일치!</p>}
+            </div>
+              <Button 
+              text="다음" onClick={user} />
             </div>
           </div>
         </div>
