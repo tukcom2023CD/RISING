@@ -1,5 +1,5 @@
 import ColorSystem from 'utils/ColorSystem';
-import rogo from 'images/rogo.png';
+import logo from 'images/logo.png';
 import { useNavigate } from 'react-router-dom';
 
 function QuesNavBar() {
@@ -26,7 +26,7 @@ function QuesNavBar() {
     <div className="w-full h-30 border-b-2 bg-white">
       <div className="flex flex-row">
         <button type="button" onClick={goToMain}>
-          <img className="left-0 w-48 pl-12 pr-8 py-8" src={rogo} alt="rogo" />
+          <img className="left-0 w-48 pl-12 pr-8 py-8" src={logo} alt="logo" />
         </button>
         <button
           type="button"

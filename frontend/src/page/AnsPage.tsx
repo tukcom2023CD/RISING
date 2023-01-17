@@ -7,7 +7,8 @@ import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import AnswerIndex from 'components/Index/AnswerIndex';
-import Ans from 'components/Ans';
+import Ans from 'components/Ans/Ans';
+import ReAns from 'components/Ans/ReAns';
 
 // 질문 답변 및 확인 페이지
 function AnsPage() {
@@ -87,6 +88,7 @@ function AnsPage() {
       <div className="flex justify-center item-center mt-8">
         <div className="flex flex-col w-3/5">
           <Ans person="사람1" ans="첫번째 답변입니다." date="2023-01-04" />
+          <ReAns person="사람3" ans="첫번째 대댓글입니다." date="2023-01-04" />
           <Ans person="사람2" ans="비공개 답변입니다." date="2023-01-05" />
         </div>
       </div>
