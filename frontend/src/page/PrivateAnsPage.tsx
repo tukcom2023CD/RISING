@@ -30,11 +30,10 @@ function PrivateAnsPage() {
   };
 
   const [isCopy, onCopy] = useCopyClipBoard();
-  // 버튼 클릭시 백엔드로 게시글 id에 맞는 url api 요청해야함.
   const handleCopyClipBoard = (text: string) => {
     onCopy(text);
     console.log(isCopy);
-    navigate('/mentoringpage', { state: { id: postId } });
+    navigate(`/mentoringpage`, { state: { id: postId } });
   };
 
   const [title, setTitle] = useState('');
@@ -110,14 +109,13 @@ function PrivateAnsPage() {
         <div className="w-3/5 flex flex-row-reverse">
           <div className="mx-1">
             <Btn
-              text="LINK"
+              text="MENTORING"
               onClick={() => {
                 handleCopyClipBoard(`http://localhost:3000/mentoringpage`);
               }}
             />
           </div>
           <div className="mr-2">
-            {/* 유저 아이디 받아서 채팅페이지에서 자신으로 설정해야함 */}
             <Btn text="CHAT" onClick={goToChatPage} />
           </div>
         </div>

@@ -169,6 +169,7 @@ function QuesChatPage() {
         });
     })();
   }, []);
+
   useEffect(() => {
     if (userId === menteeId) {
       setPartner(mentor);
