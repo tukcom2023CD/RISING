@@ -53,7 +53,7 @@ function MyPage() {
                   indicatorColor="secondary"
                 >
                   <Tab label="유저 정보" value="1" />
-                  <Tab label="내가 작성한 질문" value="2" />
+                  <Tab label="내 질문" value="2" />
                   <Tab label="멘토 채팅방" value="3" />
                 </TabList>
               </Box>

@@ -180,7 +180,7 @@ function QuesChatPage() {
   return (
     // 배경색
     <div
-      className="h-full"
+      className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
@@ -204,7 +204,7 @@ function QuesChatPage() {
       </div>
       {/* 채팅 상대 */}
       <div className="flex justify-center item-center mt-8">
-        <div className="w-3/5 h-20 bg-white flex justify-center">
+        <div className="w-3/5 h-16 bg-white flex justify-center">
           <div className="">
             <img
               // 이미지가 어떤지 확인이 잘 안되서 외곽선 만들어둠
@@ -224,7 +224,7 @@ function QuesChatPage() {
       </div>
       {/* 채팅방 */}
       <div className="flex justify-center item-center">
-        <div className="relative flex-row w-3/5 h-[40rem] rounded-xl bg-white">
+        <div className="relative flex-row w-3/5 h-[40rem] rounded-b-xl bg-white">
           <ul ref={chatListRef} className="">
             {chatList.map((chat) => (
               <li>
@@ -236,17 +236,18 @@ function QuesChatPage() {
               </li>
             ))}
           </ul>
-          <div className="absolute bottom-1 left-1 pl-6 bg-gray-200 w-full">
+          <div className="absolute bottom-1 left-1 w-11/12">
             <textarea
-              className="absolute bottom-1 left-1 w-full h-10 pr-6"
+              className="absolute bottom-0 left-0 w-full h-8 text-lg rounded-lg focus:outline-none"
               value={content}
               onChange={onChatInput}
               onKeyDown={onKeyDownEnter}
+              placeholder="Chat.."
             />
           </div>
           <button type="button" onClick={handlePub}>
             <img
-              className="w-9 absolute bottom-3 right-1"
+              className="w-9 absolute bottom-1 right-0"
               src={send}
               alt="send"
             />
