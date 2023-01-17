@@ -3,35 +3,20 @@ import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import NavBar from 'components/NavBar';
 import Button from 'components/LoginBtn';
-// import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import BasicProfile from 'images/BasicProfile.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function SignUpPage() {
-  const navigate = useNavigate();
-  // const goToLogin = () => {
-  //   navigate('/login');
-  // };
 
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  
-
-  // // eslint-disable-next-line consistent-return
-  // const onSubmit = (event: { preventDefault: () => void; }) => {
-  //   event.preventDefault()
-  //   if(password !== passwordConfirm) {
-  //     // eslint-disable-next-line no-alert
-  //     return alert('비밀번호와 비밀번호확인은 같아야 합니다.')
-  //   }
-  // }
-  // eslint-disable-next-line consistent-return
-  const user = () => {
-    axios
+const navigate = useNavigate();
+const [name, setName] = useState("");
+const [username, setUsername] = useState("");
+const [password, setPassword] = useState("");
+const [passwordConfirm, setPasswordConfirm] = useState("");
+const user = () => {
+  axios
   .post('http://127.0.0.1:8080/api/v1/users', {
     name,
     username,
@@ -52,10 +37,8 @@ function SignUpPage() {
     // eslint-disable-next-line no-alert
     alert('회원가입을 실패했어요.');
   });
-
-
 }
-    
+
   return (
     <div
       className="h-screen"
@@ -118,13 +101,12 @@ function SignUpPage() {
                   setPasswordConfirm(event.target.value);
                 }}
                 required
-                
               />
             </div>
             <div className="mt-4 mb-2 grid absolute bottom-4 right-0">
-            <div className='mt-2  h-12 w-full pr-2 mx-1 my-3 text-text-color'>
-            {password !== passwordConfirm && <p> 비밀번호가 일치하지 않습니다!</p>}
-            {password === passwordConfirm && <p >비밀번호 일치!</p>}
+            <div className='mt-2 h-12 w-full pr-2 mx-1 my-3 text-xs text-text-color'>
+            {password !== passwordConfirm && <div >비밀번호가 일치하지 않습니다!</div>}
+            {password === passwordConfirm && <div>비밀번호 일치!</div>}
             </div>
               <Button 
               text="다음" onClick={user} />
