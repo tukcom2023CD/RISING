@@ -3,7 +3,6 @@ import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import PrivateQuesNavBar from 'components/NavBar/PrivateQuesNavBar';
 import KeywordSelect from 'components/Select/KeywordSelect';
-import Btn from 'components/Btn';
 import TitleIndex from 'components/Index/QuesTitleIndex';
 import ContentIndex from 'components/Index/EndIndex';
 import KeywordIndex from 'components/Index/KeywordIndex';
