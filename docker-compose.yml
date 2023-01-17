@@ -5,6 +5,8 @@ services:
     image: mysql:8.0
 #    volumes:
 #      - ./volume/mysql/data:/var/lib/mysql
+  #  expose:
+  #    - 3306
     networks:
       - backend-net
     environment: # 컨테이너 안의 환경변수 설정
@@ -24,6 +26,8 @@ services:
     restart: on-failure
     ports:
       - "8080:8080"
+#    expose:
+#      - 8080
     depends_on:
       - db
       - rabbitmq
@@ -42,6 +46,9 @@ services:
 #      interval: 10s
 #      timeout: 10s
 #      retries: 5
+#    expose:
+#      - 5672
+#      - 15672
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASSWORD}
@@ -54,6 +61,8 @@ services:
     command: ["npm", "start"]
     ports:
       - "3000:3000"
+    expose:
+      - 3000
     networks:
       - frontend-net
 
