@@ -39,7 +39,7 @@ function Ques({ count, title, date, type, postId, tags }: Props) {
           {/* 태그 */}
           <div className="flex flex-row ml-2">
             {tags.map((tag: any) => (
-              <Tag text={tag} />
+              <Tag key={Math.random() * 500} text={tag} />
             ))}
           </div>
         </div>

@@ -99,15 +99,7 @@ function PrivateQuesPage() {
             <div className="flex flex-col rounded-xl h-14 w-full mx-1 my-2 bg-white border-4 border-violet-300">
               {/* 키워드 작성 */}
               <div className="pt-1 px-1">
-                <KeywordSelect
-                  onChange={(e: any) => {
-                    const keyWordList: any = e;
-                    const result: any = keyWordList.map(
-                      (data: any) => data.value,
-                    );
-                    setKeyWord(result);
-                  }}
-                />
+                <KeywordSelect onChange={onChangeKeyWord} />
               </div>
             </div>
             {/* keyword index */}
