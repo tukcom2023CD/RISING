@@ -32,6 +32,7 @@ export default function OptionSelect() {
       isMulti
       options={Options}
       styles={colourStyles}
+      placeholder="Option.."
     />
   );
 }

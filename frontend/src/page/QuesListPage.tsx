@@ -63,12 +63,12 @@ function QuesListPage() {
     >
       {/* 상단바 */}
       <QuesListNavBar />
-      <div className="flex justify-center item-center my-8 pt-3">
+      <div className="flex justify-center my-8 pt-3">
         <div className="relative flex flex-col my-6 w-4/5 h-[33rem]">
           {/* 필터링 버튼 */}
           <div className="absolute flex flex-row -top-11 right-1 mx-1 p-1 h-10">
             {/* 필터 */}
-            <div className="mr-2">
+            <div className="mr-3">
               <KeyWordOptionSelect />
             </div>
             <OptionSelect />
