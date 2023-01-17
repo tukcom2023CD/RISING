@@ -32,6 +32,7 @@ export default function KeyWordOptionsSelect() {
       isMulti
       options={KeyWordOptions}
       styles={colourStyles}
+      placeholder="KeyWords.."
     />
   );
 }

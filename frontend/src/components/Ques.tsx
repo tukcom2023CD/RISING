@@ -23,7 +23,7 @@ function Ques({ count, title, date, type, postId, tags }: Props) {
 
   return (
     <button type="button" onClick={goToAnsPage}>
-      <div className="relative flex flex-row h-22 items-center w-full bg-white border-2 border-gray rounded-lg">
+      <div className="relative flex flex-row h-22 w-full bg-white border-2 border-gray rounded-lg">
         {/* 답변 수 */}
         <div className="h-14 w-14 my-4 ml-4 mr-2 rounded-lg bg-violet-100">
           <div className="flex justify-center item-center">
@@ -34,12 +34,12 @@ function Ques({ count, title, date, type, postId, tags }: Props) {
           </div>
         </div>
         {/* 질문 제목 */}
-        <div className="relative flex flex-col">
-          <span className="text-xl ml-4">{title}</span>
+        <div className="flex flex-col mt-3 items-start">
+          <span className="text-xl ml-5">{title}</span>
           {/* 태그 */}
           <div className="flex flex-row ml-2">
             {tags.map((tag: any) => (
-              <Tag text={tag} />
+              <Tag key={Math.random() * 500} text={tag} />
             ))}
           </div>
         </div>

@@ -170,7 +170,7 @@ function QuesChatPage() {
             <span className="text-text-color text-xl m-4">{title}</span>
             <div className="flex flex-row relative ml-2">
               {tags.map((tag: any) => (
-                <Tag text={tag} />
+                <Tag key={Math.random() * 500} text={tag} />
               ))}
               <div className="absolute top-0 right-2">
                 <Date date={date} />

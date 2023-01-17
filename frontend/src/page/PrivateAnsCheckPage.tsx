@@ -57,7 +57,7 @@ function PrivateAnsCheckPage() {
             <span className="text-text-color text-xl mt-4 mx-4">{title}</span>
             <div className="my-2 pl-2 flex flex-row relative">
               {tags.map((tag: any) => (
-                <Tag text={tag} />
+                <Tag key={Math.random() * 500} text={tag} />
               ))}
               <div className="absolute top-0 right-1">
                 <Date date={date} />
