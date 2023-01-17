@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
@@ -16,12 +17,16 @@ import axios from 'axios';
 // 과외 질문에 채팅과 링크 보낼 수 있는 페이지
 function PrivateAnsPage() {
   const location = useLocation();
-  const state = location.state as { id: number };
+  const state = location.state as {
+    id: number;
+  };
   const postId = state.id;
 
   const navigate = useNavigate();
   const goToChatPage = () => {
-    navigate('/queschatpage', { state: { id: postId } });
+    navigate('/queschatpage', {
+      state: { id: postId },
+    });
   };
 
   const [isCopy, onCopy] = useCopyClipBoard();
@@ -41,9 +46,7 @@ function PrivateAnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        // 특정 게시글 조회
-        // 질문 게시글에서 질문 아이디 받아와야함.
-        .get(`http://localhost:8080/api/v1/posts/${postId}`)
+        .get(`/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);

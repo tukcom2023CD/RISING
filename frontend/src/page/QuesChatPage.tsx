@@ -134,13 +134,15 @@ function QuesChatPage() {
   const [userId, setUserId] = useState(0);
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
+  const [mentee, setMentee] = useState('');
+  const [mentor, setMentor] = useState('');
+  const [menteeId, setMenteeId] = useState(0);
+  const [partner, setPartner] = useState('');
 
   useEffect(() => {
     (async () => {
       await axios
-        // 특정 게시글 조회
-        // 질문 게시글에서 질문 아이디 받아와야함.
-        .get(`http://localhost:8080/api/v1/posts/${postId}`)
+        .get(`/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -152,7 +154,28 @@ function QuesChatPage() {
           console.log(error);
         });
     })();
+
+    (async () => {
+      await axios
+        .post(`/chatrooms/${postId}`)
+        .then((res) => {
+          console.log(res.data.data);
+          setMentee(res.data.data.mentee.name);
+          setMentor(res.data.data.mentor.name);
+          setMenteeId(res.data.data.mentor.id);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })();
   }, []);
+  useEffect(() => {
+    if (userId === menteeId) {
+      setPartner(mentor);
+    } else {
+      setPartner(mentee);
+    }
+  }, [menteeId]);
 
   return (
     // 배경색
@@ -192,7 +215,7 @@ function QuesChatPage() {
               alt="profile"
             />
           </div>
-          <span className="mt-4">상대방 이름</span>
+          <span className="mt-4">{partner}</span>
           <input value={text} onChange={onChange} className="text-black" />
           <button type="button" onClick={onReset}>
             이름 설정
