@@ -5,6 +5,10 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
   jpa:
     hibernate:
       ddl-auto: update
