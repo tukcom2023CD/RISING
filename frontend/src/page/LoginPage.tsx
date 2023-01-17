@@ -3,50 +3,41 @@ import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import NavBar from 'components/NavBar';
 import Button from 'components/LoginBtn';
-// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
-
-// axios.defaults.withCredentials = true;
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const [username, setUsername] = useState("");
+const [password, setPassword] = useState("");
+const navigate = useNavigate();
 
-  // const navigate = useNavigate();
-  // const goToMain = () => {
-  //   navigate('/mainpage');
-  // };
-  const checkUser = () => {
-    if (username === '' || password === '') {
-      // eslint-disable-next-line no-alert
-      alert('아이디와 비밀번호를 입력해주세요!');
-    }
-    // else{
-    //   navigate("/afterlogin");
-    // }
-  };
-  axios
-    .post('/users/login', {
-      username,
-      password,
-    })
-    .then((response) => {
-      // Handle success.
-      console.log('로그인 완료!');
-      console.log('유저 네임:', username);
-      console.log('유저 세션', response.data.session);
-      console.log('유저 프로필', response.data.user);
-      console.log('유저 아이디', response.data.user.id);
+const checkUser = () => {
+  if (username === "" || password === "") {
+    // eslint-disable-next-line no-alert
+    alert("아이디와 비밀번호를 입력해주세요!");
+}
+axios
+  .post('http://127.0.0.1:8080/api/v1/users/login', {
+    username,
+    password,
+  })
 
-      sessionStorage.setItem('username', username);
-      sessionStorage.setItem('session', response.data.session.access);
-      sessionStorage.setItem('user_id', response.data.user.id);
-    })
-    .catch((error) => {
-      // Handle error.
-      console.log('에러 발생!', error.response);
-    });
+  .then(response => {
+    // eslint-disable-next-line no-alert
+    alert('로그인 성공!')
+    console.log(response.data);
+    console.log('유저 아이디 :', username);
+    navigate('/mainpage')
+    sessionStorage.setItem('username', username);
+  })
+
+  .catch(error => {
+    // eslint-disable-next-line no-alert
+    alert('아이디와 비밀번호가 일치하지 않습니다!')
+    console.log('에러 내용: ', error.response);
+  });
+}
 
   return (
     <div
@@ -62,8 +53,8 @@ function LoginPage() {
             <input
               className="h-9 m-1 placeholder-[#9CA6C5]"
               placeholder="Email Address"
-              type="email"
-              value={username}
+              type='email'
+              value={username} 
               required
               onChange={(event) => {
                 setUsername(event.target.value);
@@ -74,17 +65,18 @@ function LoginPage() {
             <input
               className="h-9 m-1 placeholder-[#9CA6C5]"
               placeholder="Password"
-              type="password"
-              value={password}
+              type='password'
+              value={password} 
               required
               onChange={(event) => {
                 setPassword(event.target.value);
               }}
             />
           </div>
-          <div className="mt-6 grid place-items-center">
-            <Button text="Login" onClick={checkUser} />
-          </div>
+            <div className="mt-6 grid place-items-center">
+              <Button 
+              text="Login" onClick={checkUser}/>
+            </div>
         </div>
       </div>
     </div>
