@@ -18,7 +18,7 @@ const checkUser = () => {
     alert("아이디와 비밀번호를 입력해주세요!");
 }
 axios
-  .post('http://127.0.0.1:8080/api/v1/users/login', {
+  .post('/users/login', {
     username,
     password,
   })
