@@ -12,31 +12,16 @@ const [username, setUsername] = useState("");
 const [password, setPassword] = useState("");
 const navigate = useNavigate();
 
-  // const navigate = useNavigate();
-  // const goToMain = () => {
-  //   navigate('/mainpage');
-  // };
-  const checkUser = () => {
-    if (username === '' || password === '') {
-      // eslint-disable-next-line no-alert
-      alert('아이디와 비밀번호를 입력해주세요!');
-    }
-    // else{
-    //   navigate("/afterlogin");
-    // }
-  };
-  axios
-    .post('http://localhost:8080/api/v1/users/login', {
-      username,
-      password,
-    })
-    .then((response) => {
-      // Handle success.
-      console.log('로그인 완료!');
-      console.log('유저 네임:', username);
-      console.log('유저 세션', response.data.session);
-      console.log('유저 프로필', response.data.user);
-      console.log('유저 아이디', response.data.user.id);
+const checkUser = () => {
+  if (username === "" || password === "") {
+    // eslint-disable-next-line no-alert
+    alert("아이디와 비밀번호를 입력해주세요!");
+}
+axios
+  .post('http://localhost:8080/api/v1/users/login', {
+    username,
+    password,
+  })
 
   .then(response => {
     // eslint-disable-next-line no-alert
