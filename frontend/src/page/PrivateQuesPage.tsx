@@ -15,7 +15,7 @@ interface privateQuesForm {
   type: string;
   title: string;
   tags: string[];
-  content: string | null;
+  content: string;
 }
 
 // 질문 작성 페이지
@@ -41,7 +41,7 @@ function PrivateQuesPage() {
     console.log(privateQuesData);
     (async () => {
       await axios
-        .post(`/posts`, privateQuesData, {
+        .post('/posts', privateQuesData, {
           headers: {
             'Content-Type': 'application/json',
           },

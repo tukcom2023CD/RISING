@@ -35,7 +35,7 @@ function QuesPage() {
   console.log(QuesData);
   (async () => {
     await axios
-      .post('http://localhost:8080/api/v1/posts', QuesData, {
+      .post('/posts', QuesData, {
         headers: {
           'Content-Type': 'application/json',
         },
