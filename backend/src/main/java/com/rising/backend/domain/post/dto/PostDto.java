@@ -77,4 +77,17 @@ public class PostDto {
 
         private List<String> tags;
     }
+
+    @Builder
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access =  AccessLevel.PRIVATE)
+    @Getter
+    public static class PostChatRoomResponse {
+
+        @NotEmpty
+        private Long postId;
+
+        @NotEmpty
+        private Long userId; //작성자
+    }
 }

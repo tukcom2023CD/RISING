@@ -1,6 +1,7 @@
 package com.rising.backend.domain.chat.controller;
 
 import com.rising.backend.domain.chat.domain.ChatRoom;
+import com.rising.backend.domain.chat.dto.ChatRoomDto;
 import com.rising.backend.domain.chat.service.ChatRoomService;
 import com.rising.backend.domain.user.domain.User;
 import com.rising.backend.global.annotation.LoginRequired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Tag(name = "CHATROOM API")
 @Slf4j
@@ -42,5 +45,16 @@ public class ChatRoomController {
         ChatRoom createdChatRoom = chatRoomService.createChatRoom(postId, loginUser); // loginUser = mentor
 
         return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_CREATE_SUCCESS, createdChatRoom));
+    }
+
+
+    @LoginRequired
+    @PostMapping("/mentee")
+    public ResponseEntity<ResultResponse> findMenteeChatRoom (
+            @Parameter(hidden = true) @LoginUser User loginUser) {
+
+        List<ChatRoomDto.ChatRoomResponse> menteeChatRoom = chatRoomService.findMenteeChatRoom(loginUser.getId());
+
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_FIND_BY_MENTEE, menteeChatRoom));
     }
 }

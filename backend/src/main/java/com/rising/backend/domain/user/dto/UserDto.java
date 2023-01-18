@@ -37,4 +37,19 @@ public class UserDto {
         @NotEmpty
         private String password;
     }
+
+    @Builder
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public static class UserChatRoomResponse {
+
+        @NotEmpty
+        private Long userId;
+
+        @NotEmpty
+        private String name;
+
+        private String profileUrl;
+    }
 }

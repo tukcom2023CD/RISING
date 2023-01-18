@@ -45,6 +45,14 @@ public class PostMapper {
                 .build();
     }
 
+    //ChatRoom 조회시 보이는 Post정보
+    public PostDto.PostChatRoomResponse toPostChatRoomResponse(Post post) {
+        return PostDto.PostChatRoomResponse.builder()
+                .postId(post.getId())
+                .userId(post.getUser().getId())
+                .build();
+    }
+
     public Page<PostGetListResponse> toDtoPageList(Page<Post> studyList) {
         return studyList.map(this::toPostListResponse);
     }
