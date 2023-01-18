@@ -20,4 +20,13 @@ public class UserMapper {
                 .profileUrl("")
                 .build();
     }
+
+    //채팅방 조회시 보이는 user 정보
+    public UserDto.UserChatRoomResponse toUserDto(User user) {
+        return UserDto.UserChatRoomResponse.builder()
+                .userId(user.getId())
+                .name(user.getName())
+                .profileUrl(user.getProfileUrl())
+                .build();
+    }
 }

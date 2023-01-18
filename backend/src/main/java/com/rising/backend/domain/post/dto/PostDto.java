@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,5 +77,18 @@ public class PostDto {
         private LocalDate created_at;
 
         private List<String> tags;
+    }
+
+    @Builder
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access =  AccessLevel.PRIVATE)
+    @Getter
+    public static class PostChatRoomResponse {
+
+        @NotNull
+        private Long postId;
+
+        @NotNull
+        private Long userId; //작성자
     }
 }

@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 public class UserDto {
@@ -36,5 +37,20 @@ public class UserDto {
 
         @NotEmpty
         private String password;
+    }
+
+    @Builder
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public static class UserChatRoomResponse {
+
+        @NotNull
+        private Long userId;
+
+        @NotEmpty
+        private String name;
+
+        private String profileUrl;
     }
 }
