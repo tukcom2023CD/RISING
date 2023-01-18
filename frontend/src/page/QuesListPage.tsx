@@ -32,7 +32,7 @@ function QuesListPage() {
     const pageNumber = searchParams.get('page');
     (async () => {
       await axios
-        .get(`/posts?page=${pageNumber}`)
+        .get(`http://localhost:8080/api/v1/posts?page=${pageNumber}`)
         .then((res) => {
           setQuesInfo(res.data.data);
         })
@@ -45,7 +45,7 @@ function QuesListPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/posts?page=1`)
+        .get(`http://localhost:8080/api/v1/posts?page=1`)
         .then((res) => {
           setPageCount(Math.ceil(sumId / 10));
         })
