@@ -26,44 +26,44 @@ function AnsPage() {
 
   const location = useLocation();
   const state = location.state as { id: number };
-// 내용 관련
+  // 내용 관련
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
 
-// 댓글 관련
+  // 댓글 관련
   const [userId, setUserId] = useState('');
   const postId = state.id;
   const [comment, setComment] = useState('');
   const [parentComment, setParentComment] = useState();
 
   const handleSubmit = (e: any) => {
-  e.preventDefault();
-  const CommentData: CommentForm = {
-    userId,
-    postId , // (대댓글이면 null)
-    parentId: null, // (대댓글 아니면 null)
-    content: comment,
+    e.preventDefault();
+    const CommentData: CommentForm = {
+      userId,
+      postId, // (대댓글이면 null)
+      parentId: null, // (대댓글 아니면 null)
+      content: comment,
+    };
+    console.log(CommentData);
+    (async () => {
+      await axios
+        .post('/comments', CommentData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          console.log(comment);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    })();
   };
-  console.log(CommentData);
-  (async () => {
-    await axios
-      .post('/comments', CommentData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        console.log(comment);
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
-  })();
-}
-// 내용 관련 get
+  // 내용 관련 get
   useEffect(() => {
     (async () => {
       await axios
@@ -84,7 +84,7 @@ function AnsPage() {
     })();
   }, []);
 
-// 댓글 관련 get
+  // 댓글 관련 get
 
   useEffect(() => {
     (async () => {
@@ -92,7 +92,7 @@ function AnsPage() {
         // 특정 게시글 조회
         // 질문 게시글에서 질문 아이디 받아와야함.
         // 아래 postid --> name 으로 변경해야함.
-        .get(`/comments/${postId}`)
+        .get(`/comments/${postId}?postId=${postId}`)
         .then((res) => {
           setAnsInfo(res.data.data);
           console.log(res.data.data);
@@ -102,7 +102,7 @@ function AnsPage() {
         });
     })();
   }, []);
-  
+
   return (
     // 배경색
     <div
@@ -134,16 +134,16 @@ function AnsPage() {
       {/* Content */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
-            {/* 코드 에디터 */}
-            <div className="flex justify-center item-center mb-8">
-              <div className="relative flex flex-col-reverse w-full">
-                <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
-                  <div className="pl-3 pt-2">
-                    <EditorViewer content={content} />
-                  </div>
+          {/* 코드 에디터 */}
+          <div className="flex justify-center item-center mb-8">
+            <div className="relative flex flex-col-reverse w-full">
+              <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
+                <div className="pl-3 pt-2">
+                  <EditorViewer content={content} />
                 </div>
               </div>
             </div>
+          </div>
           {/* content index */}
           <ContentIndex />
           <span className="pl-3 text-text-color text-2xl">CONTENT</span>
@@ -156,27 +156,25 @@ function AnsPage() {
             <div className="pr-8 w-full items-center">
               {/* 답변 작성 */}
               <form onSubmit={handleSubmit}>
-              <div className="relative">
-                <input
-                  type="text"
-                  className="absolute top-1 left-4 w-full h-10 rounded-lg focus:shadow focus:outline-none"
-                  placeholder="Answer"
-                  onChange={(e) => {
-                    setComment(e.target.value);
-                  }}
-                />
-                {/* 답변 제출, 밑에 전달 */}
-                <div className="absolute top-2 right-0">
-                
-                  <button
-                    type="submit"
-                    className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
-                  >
-                    <span className="text-white text-xs">SUBMIT</span>
-                  </button>
-              
+                <div className="relative">
+                  <input
+                    type="text"
+                    className="absolute top-1 left-4 w-full h-10 rounded-lg focus:shadow focus:outline-none"
+                    placeholder="Answer"
+                    onChange={(e) => {
+                      setComment(e.target.value);
+                    }}
+                  />
+                  {/* 답변 제출, 밑에 전달 */}
+                  <div className="absolute top-2 right-0">
+                    <button
+                      type="submit"
+                      className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
+                    >
+                      <span className="text-white text-xs">SUBMIT</span>
+                    </button>
+                  </div>
                 </div>
-              </div>
               </form>
             </div>
           </div>
@@ -188,13 +186,9 @@ function AnsPage() {
       {/* 답변 댓글들 */}
       <div className="flex justify-center item-center mt-8">
         <div className="flex flex-col w-3/5">
-        {ansInfo.map((data: any) => (
-                    <Ans
-                      person={data.userId}
-                      ans={data.content}
-                      date={data.created_at}
-                    />
-                  ))}
+          {ansInfo.map((data: any) => (
+            <Ans person={data.user} ans={data.content} date="2023-01-05" />
+          ))}
           {/* <Ans person="사람2" ans="비공개 답변입니다." date="2023-01-05" /> */}
         </div>
       </div>
@@ -204,5 +198,3 @@ function AnsPage() {
 }
 
 export default AnsPage;
-
-
