@@ -1,6 +1,6 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import ColorSystem from 'utils/ColorSystem';
 import { useNavigate } from 'react-router-dom';
 import QuesNavBar from 'components/NavBar/QuesNavBar';
@@ -8,17 +8,19 @@ import KeywordSelect from 'components/Select/KeywordSelect';
 import TitleIndex from 'components/Index/QuesTitleIndex';
 import ContentIndex from 'components/Index/EndIndex';
 import KeywordIndex from 'components/Index/KeywordIndex';
+import ToastEditor from 'components/Editor/ToastEditor';
 import axios from 'axios';
 
 interface QuesForm {
   type: string;
   title: string;
   tags: string[];
-  content: string;
+  content: string | null ;
 }
 // 질문 작성 페이지
 function QuesPage() {
 
+  const ref = useRef<any>(null);
   const navigate = useNavigate();
   const [titletext, setTitletext] = useState('');
   const [keyWord, setKeyWord] = useState([]);
@@ -26,11 +28,14 @@ function QuesPage() {
 
   const handleSubmit = (e: any) => {
   e.preventDefault();
+  const editorIns = ref?.current?.getInstance();
+  // 에디터 작성 내용 markdown으로 저장
+  const contentMark = editorIns.getMarkdown();
   const QuesData: QuesForm = {
     type: 'QUESTION',
     title: titletext,
     tags: keyWord,
-    content: text,
+    content: contentMark,
   };
   console.log(QuesData);
   (async () => {
@@ -105,9 +110,10 @@ function QuesPage() {
       {/* Content */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
-          <div className="flex flex-col rounded-xl h-64 w-full pr-4 mx-1 my-2 bg-white border-4 border-violet-300">
-            {/* 질문할 내용 작성 */}
-            <div className="relative">
+          <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
+              {/* 텍스트 편집기 */}
+              <ToastEditor editorRef={ref} />
+            {/* <div className="relative">
               <input
                 type="text"
                 className="absolute top-1 left-2 w-full h-10 rounded-lg focus:shadow focus:outline-none"
@@ -116,7 +122,7 @@ function QuesPage() {
                   setText(e.target.value);
                 }}
               />
-            </div>
+            </div> */}
           </div>
           {/* Record video index */}
           <ContentIndex />

@@ -15,7 +15,7 @@ interface privateQuesForm {
   type: string;
   title: string;
   tags: string[];
-  content: string;
+  content: string | null;
 }
 
 // 질문 작성 페이지
