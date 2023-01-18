@@ -11,7 +11,6 @@ import ContentIndex from 'components/Index/ContentIndex';
 import EditorViewer from 'components/Editor/EditorViewer';
 import Btn from 'components/Btn';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useCopyClipBoard from 'utils/useCopyClipBoard';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Overlay from 'react-bootstrap/Overlay';
@@ -30,10 +29,7 @@ function PrivateAnsPage() {
     navigate('/queschatpage', { state: { id: postId } });
   };
 
-  const [isCopy, onCopy] = useCopyClipBoard();
-  const handleCopyClipBoard = (text: string) => {
-    onCopy(text);
-    console.log(isCopy);
+  const handleCopyClipBoard = () => {
     navigate(`/mentoringpage`);
     window.localStorage.setItem('postId', `${postId}`);
   };
@@ -113,12 +109,7 @@ function PrivateAnsPage() {
       <div className="flex justify-center item-center my-4">
         <div className="w-3/5 flex flex-row-reverse">
           <div className="mr-2">
-            <Btn
-              text="MENTORING"
-              onClick={() => {
-                navigate(`/mentoringpage`);
-              }}
-            />
+            <Btn text="MENTORING" onClick={handleCopyClipBoard} />
           </div>
           <div className="mr-2">
             <button
