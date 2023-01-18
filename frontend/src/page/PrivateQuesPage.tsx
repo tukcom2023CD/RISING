@@ -41,7 +41,7 @@ function PrivateQuesPage() {
     console.log(privateQuesData);
     (async () => {
       await axios
-        .post(`http://localhost:8080/api/v1/posts`, privateQuesData, {
+        .post('/posts', privateQuesData, {
           headers: {
             'Content-Type': 'application/json',
           },
