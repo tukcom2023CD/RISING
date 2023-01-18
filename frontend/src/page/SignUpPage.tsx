@@ -17,7 +17,7 @@ const [password, setPassword] = useState("");
 const [passwordConfirm, setPasswordConfirm] = useState("");
 const user = () => {
   axios
-  .post('/users', {
+  .post('http://localhost:8080/api/v1/users', {
     name,
     username,
     password,

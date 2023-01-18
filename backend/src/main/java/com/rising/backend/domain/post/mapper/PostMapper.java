@@ -41,7 +41,7 @@ public class PostMapper {
                 .videoUrl(post.getVideoUrl())
                 .type(post.getType())
                 .tags(tags)
-                .created_at(post.getCreatedAt())
+                .created_at(post.getCreatedAt().toLocalDate())
                 .build();
     }
 
@@ -58,7 +58,7 @@ public class PostMapper {
         return PostDto.PostGetListResponse.builder()
                 .id(post.getId())
                 .content(post.getContent())
-                .created_at(post.getCreatedAt())
+                .created_at(post.getCreatedAt().toLocalDate())
                 .title(post.getTitle())
                 .type(post.getType())
                 .tags(TagtoString(post.getTag()))
