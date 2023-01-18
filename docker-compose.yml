@@ -83,6 +83,7 @@ services:
       context: ./nginx
     ports:
       - "80:80"
+      - "8081:8081"
     expose:
       - "61613"
     volumes:
@@ -94,6 +95,43 @@ services:
 #      - backend-net
 #      - frontend-net
 
+  prometheus:
+    image: prom/prometheus #docker Hub에서 가져와서 사용
+    container_name: prom_con #컨테이너 이름 설정
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      # - ./prometheus/volume:/prometheus
+    ports:
+      - 9090:9090 #외부:내부포트
+    command: # 컨테이너 실행 완료 후 컨테이너의 쉘에서 실행시킬 쉘명령어를 지정할 수 있다.
+      - '--web.enable-lifecycle' #구성된 규칙 파일 다시 로드
+      - '--config.file=/etc/prometheus/prometheus.yml' #로드할 구성 파일 지정
+    # restart: always #컨테이너가 다운될 경우 항상 재실행
+    depends_on:
+      - node-exporter
+
+  node-exporter:
+    image: nginx/nginx-prometheus-exporter
+    container_name: node-exporter
+    ports:                                                                                                            
+    - "9113:9113"                                                                                                     
+    command:                                                                                                          
+    - -nginx.scrape-uri=http://nginx:80/metrics
+    - -web.telemetry-path=/prometheus
+    depends_on:
+      - nginx
+    restart: on-failure
+    
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
 
 #networks:
 #  backend-net: # 이후 backend-net은 모두 expose로 변경

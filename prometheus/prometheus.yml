@@ -1,0 +1,26 @@
+# 기본적인 전역 설정
+global:
+  scrape_interval:     15s # 15초마다 매트릭을 수집한다. 기본은 1분이다.
+  evaluation_interval: 15s # 15초마다 매트릭을 수집한다. 기본은 1분이다.
+
+rule_files:
+  - "rules.yml"
+
+
+scrape_configs:
+  # 이 설정에서 수집한 타임시리즈에 'job=<job_name>'으로 잡의 이름을 설정한다.
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+
+    static_configs:
+      - targets: ['prometheus:9090']
+
+  - job_name: 'nginx-prometheus-exporter'
+
+    scrape_interval: 5s
+
+    static_configs:
+
+      - targets: ['node-exporter:9113']
+    
+    # scheme: https
