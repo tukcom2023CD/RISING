@@ -126,9 +126,8 @@ function QuesChatPage() {
     setText(e.target.value);
   };
 
-  const location = useLocation();
-  const state = location.state as { id: number };
-  const postId = state.id;
+  localStorage.getItem('postId');
+  const postId = localStorage.getItem('postId');
 
   const [title, setTitle] = useState('');
   const [userId, setUserId] = useState(0);

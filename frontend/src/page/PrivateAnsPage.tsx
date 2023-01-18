@@ -25,13 +25,13 @@ function PrivateAnsPage() {
   const postId = state.id;
 
   const navigate = useNavigate();
+  window.localStorage.setItem('postId', `${postId}`);
   const goToChatPage = () => {
-    navigate('/queschatpage', { state: { id: postId } });
+    navigate('/queschatpage');
   };
 
   const handleCopyClipBoard = () => {
     navigate(`/mentoringpage`);
-    window.localStorage.setItem('postId', `${postId}`);
   };
 
   const [title, setTitle] = useState('');
