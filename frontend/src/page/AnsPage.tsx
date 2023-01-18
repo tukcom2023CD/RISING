@@ -14,18 +14,54 @@ import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import EditorViewer from 'components/Editor/EditorViewer';
 
+interface CommentForm {
+  userId: string;
+  postId: number; // (대댓글이면 null)
+  parentId: null;
+  content: string;
+}
 // 질문 답변 및 확인 페이지
 function AnsPage() {
   const location = useLocation();
   const state = location.state as { id: number };
-  const postId = state.id;
-
+// 내용 관련
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [userId, setUserId] = useState(0);
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
 
+// 댓글 관련
+  const [userId, setUserId] = useState('');
+  const postId = state.id;
+  const [comment, setComment] = useState('');
+  const [parentComment, setParentComment] = useState();
+
+  const handleSubmit = (e: any) => {
+  e.preventDefault();
+  const CommentData: CommentForm = {
+    userId,
+    postId , // (대댓글이면 null)
+    parentId: null, // (대댓글 아니면 null)
+    content: comment,
+  };
+  console.log(CommentData);
+  (async () => {
+    await axios
+      .post('/comments', CommentData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        console.log(comment);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  })();
+}
+// 내용 관련 get
   useEffect(() => {
     (async () => {
       await axios
@@ -46,6 +82,26 @@ function AnsPage() {
     })();
   }, []);
 
+// 댓글 관련 get
+
+  useEffect(() => {
+    (async () => {
+      await axios
+        // 특정 게시글 조회
+        // 질문 게시글에서 질문 아이디 받아와야함.
+        .get(`/comments/${postId}`)
+        .then((res) => {
+          console.log(res.data.data);
+          setComment(res.data.data.content);
+          setUserId(res.data.data.userId);
+          setDate(res.data.data.created_at);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })();
+  }, []);
+  
   return (
     // 배경색
     <div
@@ -98,22 +154,29 @@ function AnsPage() {
           <div className="flex flex-col rounded-xl h-14 w-full mx-1 my-2 bg-white border-4 border-violet-300">
             <div className="pr-8 w-full items-center">
               {/* 답변 작성 */}
+              <form onSubmit={handleSubmit}>
               <div className="relative">
                 <input
                   type="text"
                   className="absolute top-1 left-4 w-full h-10 rounded-lg focus:shadow focus:outline-none"
                   placeholder="Answer"
+                  onChange={(e) => {
+                    setComment(e.target.value);
+                  }}
                 />
                 {/* 답변 제출, 밑에 전달 */}
                 <div className="absolute top-2 right-0">
+                
                   <button
-                    type="button"
+                    type="submit"
                     className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
                   >
                     <span className="text-white text-xs">SUBMIT</span>
                   </button>
+              
                 </div>
               </div>
+              </form>
             </div>
           </div>
           {/* answer index */}
@@ -124,7 +187,7 @@ function AnsPage() {
       {/* 답변 댓글들 */}
       <div className="flex justify-center item-center mt-8">
         <div className="flex flex-col w-3/5">
-          <Ans person="사람1" ans="첫번째 답변입니다." date="2023-01-04" />
+          <Ans person={userId} ans={comment} date={date} />
           <ReAns person="사람3" ans="첫번째 대댓글입니다." date="2023-01-04" />
           <Ans person="사람2" ans="비공개 답변입니다." date="2023-01-05" />
         </div>
