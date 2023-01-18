@@ -6,6 +6,7 @@ import com.rising.backend.domain.user.dto.UserDto;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class ChatRoomDto {
@@ -16,13 +17,16 @@ public class ChatRoomDto {
     @Builder
     public static class ChatRoomResponse {
 
-        @NotEmpty
+        @NotNull
         Long roomId;
 
+        @NotNull
         UserDto.UserChatRoomResponse mentee;
 
+        @NotNull
         UserDto.UserChatRoomResponse mentor;
 
+        @NotNull
         PostDto.PostChatRoomResponse post;
     }
 }

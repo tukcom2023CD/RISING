@@ -46,7 +46,7 @@ public class PostMapper {
     }
 
     //ChatRoom 조회시 보이는 Post정보
-    public PostDto.PostChatRoomResponse toPostChatRoomResponse(Post post) {
+    public PostDto.PostChatRoomResponse toChatRoomPostDto(Post post) {
         return PostDto.PostChatRoomResponse.builder()
                 .postId(post.getId())
                 .userId(post.getUser().getId())

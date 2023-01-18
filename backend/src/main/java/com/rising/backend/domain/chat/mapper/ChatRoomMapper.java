@@ -32,7 +32,7 @@ public class ChatRoomMapper {
                 .roomId(chatRoom.getId())
                 .mentee(userMapper.toUserDto(chatRoom.getMentee()))
                 .mentor(userMapper.toUserDto(chatRoom.getMentor()))
-                .post(postMapper.toPostChatRoomResponse(chatRoom.getPost()))
+                .post(postMapper.toChatRoomPostDto(chatRoom.getPost()))
                 .build();
     }
     public List<ChatRoomDto.ChatRoomResponse> toChatRoomDtoList(List<ChatRoom> chatRooms) {

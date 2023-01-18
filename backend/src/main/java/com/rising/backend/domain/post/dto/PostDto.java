@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,10 +85,10 @@ public class PostDto {
     @Getter
     public static class PostChatRoomResponse {
 
-        @NotEmpty
+        @NotNull
         private Long postId;
 
-        @NotEmpty
+        @NotNull
         private Long userId; //작성자
     }
 }
