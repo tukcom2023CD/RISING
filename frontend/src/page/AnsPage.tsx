@@ -22,6 +22,8 @@ interface CommentForm {
 }
 // 질문 답변 및 확인 페이지
 function AnsPage() {
+  const [ansInfo, setAnsInfo] = useState([]);
+
   const location = useLocation();
   const state = location.state as { id: number };
 // 내용 관련
@@ -89,12 +91,11 @@ function AnsPage() {
       await axios
         // 특정 게시글 조회
         // 질문 게시글에서 질문 아이디 받아와야함.
+        // 아래 postid --> name 으로 변경해야함.
         .get(`/comments/${postId}`)
         .then((res) => {
+          setAnsInfo(res.data.data);
           console.log(res.data.data);
-          setComment(res.data.data.content);
-          setUserId(res.data.data.userId);
-          setDate(res.data.data.created_at);
         })
         .catch((error) => {
           console.log(error);
@@ -187,9 +188,14 @@ function AnsPage() {
       {/* 답변 댓글들 */}
       <div className="flex justify-center item-center mt-8">
         <div className="flex flex-col w-3/5">
-          <Ans person={userId} ans={comment} date={date} />
-          <ReAns person="사람3" ans="첫번째 대댓글입니다." date="2023-01-04" />
-          <Ans person="사람2" ans="비공개 답변입니다." date="2023-01-05" />
+        {ansInfo.map((data: any) => (
+                    <Ans
+                      person={data.userId}
+                      ans={data.content}
+                      date={data.created_at}
+                    />
+                  ))}
+          {/* <Ans person="사람2" ans="비공개 답변입니다." date="2023-01-05" /> */}
         </div>
       </div>
       {/* 답변 댓글 끝 */}
