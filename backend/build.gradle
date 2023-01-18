@@ -2,6 +2,8 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.7'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'com.google.cloud.tools.jib' version '3.1.2'
+    id 'com.epages.restdocs-api-spec' version '0.16.2'
 }
 
 group = 'com.rising'
@@ -18,10 +20,23 @@ repositories {
     mavenCentral()
 }
 
+openapi3 {
+    setServer("http://localhost:8080")
+    title = "restdocs-swagger API Documentation"
+    description = "Spring REST Docs with SwaggerUI."
+    version = "0.0.1"
+    format = "yaml"
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.14'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework.boot:spring-boot-starter-reactor-netty'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
@@ -30,4 +45,21 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+jib {
+    from {
+        image = "openjdk:11-jre"
+        auth {
+            username = project.DOCKER_ID
+            password = project.DOCKER_PASSWORD
+        }
+    }
+    to {
+        image = project.DOCKER_ID + "/" + project.DOCKER_IMAGE_NAME
+        tags = ["${project.version}".toString()]
+    }
+    container {
+        volumes = ["/spring-boot"]
+    }
 }
