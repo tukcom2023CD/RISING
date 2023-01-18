@@ -7,8 +7,6 @@ import com.rising.backend.domain.chat.repository.ChatRoomRepository;
 import com.rising.backend.domain.post.domain.Post;
 import com.rising.backend.domain.post.repository.PostRepository;
 import com.rising.backend.domain.user.domain.User;
-import com.rising.backend.domain.user.dto.UserDto;
-import com.rising.backend.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
