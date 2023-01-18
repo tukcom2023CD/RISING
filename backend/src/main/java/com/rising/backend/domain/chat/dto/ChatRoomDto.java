@@ -1,13 +1,10 @@
 package com.rising.backend.domain.chat.dto;
 
 import com.rising.backend.domain.post.dto.PostDto;
-import com.rising.backend.domain.user.domain.User;
 import com.rising.backend.domain.user.dto.UserDto;
 import lombok.*;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 public class ChatRoomDto {
 
