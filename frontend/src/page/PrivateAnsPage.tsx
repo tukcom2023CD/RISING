@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable object-shorthand */
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
@@ -11,8 +12,10 @@ import EditorViewer from 'components/Editor/EditorViewer';
 import Btn from 'components/Btn';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useCopyClipBoard from 'utils/useCopyClipBoard';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import Overlay from 'react-bootstrap/Overlay';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 // 과외 질문에 채팅과 링크 보낼 수 있는 페이지
 function PrivateAnsPage() {
@@ -59,6 +62,9 @@ function PrivateAnsPage() {
     })();
   }, []);
 
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
+
   return (
     <div
       className="h-screen"
@@ -86,7 +92,7 @@ function PrivateAnsPage() {
         </div>
       </div>
       {/* Content */}
-      <div className="flex justify-center item-center my-8">
+      <div className="flex justify-center item-center mt-8">
         <div className="relative flex flex-col-reverse w-3/5">
           {/* 코드 에디터 */}
           <div className="flex justify-center item-center mb-8">
@@ -104,15 +110,34 @@ function PrivateAnsPage() {
         </div>
       </div>
       {/* 채팅, 링크 버튼 */}
-      <div className="flex justify-center item-center my-8">
+      <div className="flex justify-center item-center my-4">
         <div className="w-3/5 flex flex-row-reverse">
-          <div className="mx-1">
+          <div className="mr-2">
             <Btn
               text="MENTORING"
               onClick={() => {
-                handleCopyClipBoard(`http://localhost:3000/mentoringpage`);
+                navigate(`/mentoringpage`);
               }}
             />
+          </div>
+          <div className="mr-2">
+            <button
+              type="button"
+              className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
+              ref={target}
+              onClick={() => setShow(!show)}
+            >
+              <span className="text-white text-sm mx-4">LINK</span>
+            </button>
+            <Overlay target={target.current} show={show} placement="bottom">
+              {(props) => (
+                <Tooltip id="overlay-example" {...props}>
+                  <p className="text-violet-400">
+                    http://localhost:3000/mentoringpage
+                  </p>
+                </Tooltip>
+              )}
+            </Overlay>
           </div>
           <div className="mr-2">
             <Btn text="CHAT" onClick={goToChatPage} />
