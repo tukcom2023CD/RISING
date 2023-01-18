@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 public class UserDto {
@@ -44,7 +45,7 @@ public class UserDto {
     @Getter
     public static class UserChatRoomResponse {
 
-        @NotEmpty
+        @NotNull
         private Long userId;
 
         @NotEmpty

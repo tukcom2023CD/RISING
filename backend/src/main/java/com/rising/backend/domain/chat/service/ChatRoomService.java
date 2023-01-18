@@ -29,9 +29,8 @@ public class ChatRoomService {
     }
 
     public List<ChatRoomDto.ChatRoomResponse> findMenteeChatRoom(Long menteeId) {
-
         List<ChatRoom> chatRooms = chatRoomRepository.findByMentee_Id(menteeId);
-        List<ChatRoomDto.ChatRoomResponse> chatRoomsDto = chatRoomMapper.toMenteeChatRoomEntity(chatRooms);
+        List<ChatRoomDto.ChatRoomResponse> chatRoomsDto = chatRoomMapper.toChatRoomDtoList(chatRooms);
         return chatRoomsDto;
     }
     public boolean isUserChatted(Long userId) {

@@ -48,6 +48,7 @@ public class ChatRoomController {
     }
 
 
+    // 현재 로그인된 user가 mentee인 채팅방 조회
     @LoginRequired
     @PostMapping("/mentee")
     public ResponseEntity<ResultResponse> findMenteeChatRoom (
