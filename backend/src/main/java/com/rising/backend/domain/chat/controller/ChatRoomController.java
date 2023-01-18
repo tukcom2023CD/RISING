@@ -45,7 +45,7 @@ public class ChatRoomController {
     }
 
 
-    // 현재 로그인된 user가 mentee인 채팅방 조회
+
     @LoginRequired
     @GetMapping("/mentee")
     public ResponseEntity<ResultResponse> findMenteeChatRoom (
@@ -54,5 +54,15 @@ public class ChatRoomController {
         List<ChatRoomDto.ChatRoomResponse> menteeChatRoom = chatRoomService.findMenteeChatRoom(loginUser.getId());
 
         return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_FIND_BY_MENTEE, menteeChatRoom));
+    }
+
+    @LoginRequired
+    @GetMapping("/mentor")
+    public ResponseEntity<ResultResponse> findMentorChatRoom (
+            @Parameter(hidden = true) @LoginUser User loginUser) {
+
+        List<ChatRoomDto.ChatRoomResponse> mentorChatRoom = chatRoomService.findMentorChatRoom(loginUser.getId());
+
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_FIND_BY_MENTOR, mentorChatRoom));
     }
 }

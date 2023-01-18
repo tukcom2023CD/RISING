@@ -31,6 +31,13 @@ public class ChatRoomService {
         List<ChatRoomDto.ChatRoomResponse> chatRoomsDto = chatRoomMapper.toChatRoomDtoList(chatRooms);
         return chatRoomsDto;
     }
+
+    public List<ChatRoomDto.ChatRoomResponse> findMentorChatRoom(Long mentorId) {
+        List<ChatRoom> chatRooms = chatRoomRepository.findByMentor_Id(mentorId);
+        List<ChatRoomDto.ChatRoomResponse> chatRoomsDto = chatRoomMapper.toChatRoomDtoList(chatRooms);
+        return chatRoomsDto;
+    }
+
     public boolean isUserChatted(Long userId) {
         return false; // 수정
     }
