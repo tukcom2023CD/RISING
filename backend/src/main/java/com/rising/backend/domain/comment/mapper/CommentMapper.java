@@ -31,9 +31,8 @@ public class CommentMapper {
                 .user(comment.getUser().getName())
                 .children(children)
                 .content(comment.getContent())
-                .createdAt(comment.getCreatedAt())
+                .createdDate(comment.getCreatedAt().toLocalDate())
+                .createdTime(comment.getCreatedAt().toLocalTime())
                 .build();
     }
-
-
 }
