@@ -67,10 +67,10 @@ services:
     container_name: frontend_con
     build: ./frontend
     command: ["npm", "start"]
-    ports:
-      - "3000:3000"
-    expose:
-      - 3000
+    # ports:
+    #   - "3000:3000"
+    # expose:
+    #   - 3000
 #    networks:
 #      - frontend-net
 
@@ -114,10 +114,9 @@ services:
     image: nginx/nginx-prometheus-exporter
     container_name: node-exporter
     ports:                                                                                                            
-    - "9113:9113"                                                                                                     
+    - 9113:9113                                                                                                    
     command:                                                                                                          
     - -nginx.scrape-uri=http://nginx:80/metrics
-    - -web.telemetry-path=/prometheus
     depends_on:
       - nginx
     restart: on-failure
@@ -126,7 +125,7 @@ services:
     container_name: grafana
     image: grafana/grafana:latest
     ports:
-      - "3001:3001"
+      - 3000:3000
     volumes:
       - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
     environment:
