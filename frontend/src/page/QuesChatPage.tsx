@@ -12,7 +12,6 @@ import OthersMessage from 'components/Chat/OthersMessage';
 import MyMessage from 'components/Chat/MyMessage';
 import useInput from 'utils/useInput';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
 
 interface ChatMessage {
   sender: string;
@@ -21,27 +20,15 @@ interface ChatMessage {
 
 const DUMMY_CHAT: ChatMessage[] = [
   {
-    sender: '나',
-    content: '안녕하세요',
-  },
-  {
-    sender: '너',
-    content: '안녕하세요~~~!!',
-  },
-  {
-    sender: '나',
-    content: '안녕하십니까 !!',
-  },
-  {
-    sender: '너',
-    content: '반가워요 !',
+    sender: '멘토',
+    content: '안녕하세요~~~!(예시 채팅)',
   },
 ];
 
 function QuesChatPage() {
   const [content, onChatInput, setContent] = useInput('');
   const [chatList, setChatList] = useState(DUMMY_CHAT);
-  const [sender, setSender] = useState('');
+
   const chatListRef = useRef<HTMLUListElement>(null);
   const client = useRef<Client>();
   const [text, setText] = useState('');
@@ -118,29 +105,18 @@ function QuesChatPage() {
     };
   }, []);
 
-  const onReset = () => {
-    setSender(text);
-  };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onChange = (e: any) => {
-    setText(e.target.value);
-  };
-
-  const location = useLocation();
-  const state = location.state as { id: number };
-  const postId = state.id;
+  localStorage.getItem('postId');
+  const postId = localStorage.getItem('postId');
 
   const [title, setTitle] = useState('');
-  const [userId, setUserId] = useState(0);
+  const [userId, setUserId] = useState();
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
 
   useEffect(() => {
     (async () => {
       await axios
-        // 특정 게시글 조회
-        // 질문 게시글에서 질문 아이디 받아와야함.
-        .get(`http://localhost:8080/api/v1/posts/${postId}`)
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -154,10 +130,20 @@ function QuesChatPage() {
     })();
   }, []);
 
+  localStorage.getItem('menteeId');
+  localStorage.getItem('mentorId');
+  const menteeId = localStorage.getItem('menteeId');
+  const mentorId = localStorage.getItem('mentorId');
+  const mentee = localStorage.getItem('mentee');
+  const mentor = localStorage.getItem('mentor');
+  const [partner, setPartner] = useState<any>('상대방');
+
+  const sender = localStorage.getItem('sender');
+
   return (
     // 배경색
     <div
-      className="h-full"
+      className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
@@ -181,7 +167,7 @@ function QuesChatPage() {
       </div>
       {/* 채팅 상대 */}
       <div className="flex justify-center item-center mt-8">
-        <div className="w-3/5 h-20 bg-white flex justify-center">
+        <div className="w-3/5 h-16 bg-white flex justify-center">
           <div className="">
             <img
               // 이미지가 어떤지 확인이 잘 안되서 외곽선 만들어둠
@@ -192,16 +178,16 @@ function QuesChatPage() {
               alt="profile"
             />
           </div>
-          <span className="mt-4">상대방 이름</span>
-          <input value={text} onChange={onChange} className="text-black" />
+          <span className="mt-4">{sender}</span>
+          {/* <input value={text} onChange={onChange} className="text-black" />
           <button type="button" onClick={onReset}>
             이름 설정
-          </button>
+          </button> */}
         </div>
       </div>
       {/* 채팅방 */}
       <div className="flex justify-center item-center">
-        <div className="relative flex-row w-3/5 h-[40rem] rounded-xl bg-white">
+        <div className="relative flex-row w-3/5 h-[40rem] rounded-b-xl bg-white">
           <ul ref={chatListRef} className="">
             {chatList.map((chat) => (
               <li>
@@ -213,17 +199,18 @@ function QuesChatPage() {
               </li>
             ))}
           </ul>
-          <div className="absolute bottom-1 left-1 pl-6 bg-gray-200 w-full">
+          <div className="absolute bottom-1 left-1 w-11/12">
             <textarea
-              className="absolute bottom-1 left-1 w-full h-10 pr-6"
+              className="absolute bottom-0 left-0 w-full h-8 text-lg rounded-lg focus:outline-none"
               value={content}
               onChange={onChatInput}
               onKeyDown={onKeyDownEnter}
+              placeholder="Chat.."
             />
           </div>
           <button type="button" onClick={handlePub}>
             <img
-              className="w-9 absolute bottom-3 right-1"
+              className="w-9 absolute bottom-1 right-0"
               src={send}
               alt="send"
             />

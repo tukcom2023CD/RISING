@@ -1,0 +1,13 @@
+
+
+groups:
+- name: prometheus_nginxlog_exporter
+  # ...
+  
+  - alert: ErrorStatus4xxGreaterThan5 # rule이 만들어내는 알람 세트 이름
+  # 알람 조건 - 분당 10개 넘는 응답이 발생하면 알람
+    expr: nginx_http_response_count_total[1m]>10
+    for: 10s # 보류시간 10s가 지나면 pending->firing 상태로 변경 후 prometheus가 alertmanager로 알람 전송
+    
+
+# ...

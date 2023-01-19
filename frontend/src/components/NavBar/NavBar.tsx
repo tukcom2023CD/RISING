@@ -16,6 +16,9 @@ function NavBar() {
   const goToPrivateQues = () => {
     navigate('/privatequespage');
   };
+  const goToMypage = () => {
+    navigate('/mypage');
+  };
   const goToLogin = () => {
     navigate('/login');
   };
@@ -48,6 +51,13 @@ function NavBar() {
           onClick={goToQueslistPage}
         >
           질문게시판
+        </button>
+        <button
+          type="button"
+          className="text-xl pl-10 pr-8 py-8 my-2"
+          onClick={goToMypage}
+        >
+          마이페이지
         </button>
         <div className="absolute top-0 right-0 mr-20">
           <button

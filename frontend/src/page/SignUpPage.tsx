@@ -9,35 +9,34 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function SignUpPage() {
-
-const navigate = useNavigate();
-const [name, setName] = useState("");
-const [username, setUsername] = useState("");
-const [password, setPassword] = useState("");
-const [passwordConfirm, setPasswordConfirm] = useState("");
-const user = () => {
-  axios
-  .post('http://localhost:8080/api/v1/users', {
-    name,
-    username,
-    password,
-  })
-  .then(response => {
-    // Handle success.
-    console.log('회원가입 완료!');
-    console.log('유저 이름 :', name);
-    console.log('유저 이메일 :', username);
-    // eslint-disable-next-line no-alert
-    alert('회원가입 성공!')
-    navigate('/login');
-  })
-  .catch(error => {
-    // Handle error.
-    console.log('에러가 발생했어요!:', error.response);
-    // eslint-disable-next-line no-alert
-    alert('회원가입을 실패했어요.');
-  });
-}
+  const navigate = useNavigate();
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const user = () => {
+    axios
+      .post(`http://${process.env.REACT_APP_HOST}/api/v1/users`, {
+        name,
+        username,
+        password,
+      })
+      .then((response) => {
+        // Handle success.
+        console.log('회원가입 완료!');
+        console.log('유저 이름 :', name);
+        console.log('유저 이메일 :', username);
+        // eslint-disable-next-line no-alert
+        alert('회원가입 성공!');
+        navigate('/login');
+      })
+      .catch((error) => {
+        // Handle error.
+        console.log('에러가 발생했어요!:', error.response);
+        // eslint-disable-next-line no-alert
+        alert('회원가입을 실패했어요.');
+      });
+  };
 
   return (
     <div
@@ -104,12 +103,13 @@ const user = () => {
               />
             </div>
             <div className="mt-4 mb-2 grid absolute bottom-4 right-0">
-            <div className='mt-2 h-12 w-full pr-2 mx-1 my-3 text-xs text-text-color'>
-            {password !== passwordConfirm && <div >비밀번호가 일치하지 않습니다!</div>}
-            {password === passwordConfirm && <div>비밀번호 일치!</div>}
-            </div>
-              <Button 
-              text="다음" onClick={user} />
+              <div className="mt-2 h-12 w-full pr-2 mx-1 my-3 text-xs text-text-color">
+                {password !== passwordConfirm && (
+                  <div>비밀번호가 일치하지 않습니다!</div>
+                )}
+                {password === passwordConfirm && <div>비밀번호 일치!</div>}
+              </div>
+              <Button text="다음" onClick={user} />
             </div>
           </div>
         </div>

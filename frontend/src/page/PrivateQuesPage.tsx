@@ -28,9 +28,8 @@ function PrivateQuesPage() {
   const [keyWord, setKeyWord] = useState([]);
 
   const handleSubmit = (e: any) => {
-    e.preventDefault(); // 새로고침 방지
+    e.preventDefault();
     const editorIns = ref?.current?.getInstance();
-    // 에디터 작성 내용 markdown으로 저장
     const contentMark = editorIns.getMarkdown();
     const privateQuesData: privateQuesForm = {
       type: 'MENTORING',
@@ -41,11 +40,15 @@ function PrivateQuesPage() {
     console.log(privateQuesData);
     (async () => {
       await axios
-        .post('/posts', privateQuesData, {
-          headers: {
-            'Content-Type': 'application/json',
+        .post(
+          `http://${process.env.REACT_APP_HOST}/api/v1/posts`,
+          privateQuesData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-        })
+        )
         .then((res) => {
           navigate('/mainpage');
           console.log(res.data);

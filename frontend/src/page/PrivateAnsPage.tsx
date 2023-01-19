@@ -1,3 +1,6 @@
+/* eslint-disable no-alert */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable object-shorthand */
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
@@ -9,27 +12,47 @@ import ContentIndex from 'components/Index/ContentIndex';
 import EditorViewer from 'components/Editor/EditorViewer';
 import Btn from 'components/Btn';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useCopyClipBoard from 'utils/useCopyClipBoard';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import Overlay from 'react-bootstrap/Overlay';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 // 과외 질문에 채팅과 링크 보낼 수 있는 페이지
 function PrivateAnsPage() {
   const location = useLocation();
-  const state = location.state as { id: number };
+  const state = location.state as {
+    id: number;
+  };
   const postId = state.id;
 
   const navigate = useNavigate();
+  window.localStorage.setItem('postId', `${postId}`);
   const goToChatPage = () => {
-    navigate('/queschatpage', { state: { id: postId } });
+    navigate(`/queschatpage`);
+
+    (async () => {
+      await axios
+        .post(`/chatrooms/${postId}`)
+        .then((res) => {
+          console.log(res.data.data);
+          if (res.data.data === false) {
+            alert('멘티입니다.');
+          } else {
+            setMentee(res.data.data.mentee.name);
+            setMentor(res.data.data.mentor.name);
+            setMenteeId(res.data.data.mentee.id);
+            setMentorId(res.data.data.mentor.id);
+            setRoomId(res.data.data.id);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })();
   };
 
-  const [isCopy, onCopy] = useCopyClipBoard();
-  // 버튼 클릭시 백엔드로 게시글 id에 맞는 url api 요청해야함.
-  const handleCopyClipBoard = (text: string) => {
-    onCopy(text);
-    console.log(isCopy);
-    navigate('/mentoringpage', { state: { id: postId } });
+  const goToMentoring = () => {
+    navigate(`/mentoringpage`);
   };
 
   const [title, setTitle] = useState('');
@@ -38,12 +61,23 @@ function PrivateAnsPage() {
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
 
+  const [mentee, setMentee] = useState('');
+  const [mentor, setMentor] = useState('');
+  const [menteeId, setMenteeId] = useState(0);
+  const [mentorId, setMentorId] = useState(0);
+  const [roomId, setRoomId] = useState(0);
+
+  console.log(mentee);
+  localStorage.setItem('mentee', `${mentee}`);
+  localStorage.setItem('mentor', `${mentor}`);
+  localStorage.setItem('menteeId', `${menteeId}`);
+  localStorage.setItem('mentorId', `${mentorId}`);
+  localStorage.setItem('sender', `${userId}`);
+
   useEffect(() => {
     (async () => {
       await axios
-        // 특정 게시글 조회
-        // 질문 게시글에서 질문 아이디 받아와야함.
-        .get(`http://localhost:8080/api/v1/posts/${postId}`)
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -57,6 +91,9 @@ function PrivateAnsPage() {
         });
     })();
   }, []);
+
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
 
   return (
     <div
@@ -85,7 +122,7 @@ function PrivateAnsPage() {
         </div>
       </div>
       {/* Content */}
-      <div className="flex justify-center item-center my-8">
+      <div className="flex justify-center item-center mt-8">
         <div className="relative flex flex-col-reverse w-3/5">
           {/* 코드 에디터 */}
           <div className="flex justify-center item-center mb-8">
@@ -103,18 +140,31 @@ function PrivateAnsPage() {
         </div>
       </div>
       {/* 채팅, 링크 버튼 */}
-      <div className="flex justify-center item-center my-8">
+      <div className="flex justify-center item-center my-4">
         <div className="w-3/5 flex flex-row-reverse">
-          <div className="mx-1">
-            <Btn
-              text="LINK"
-              onClick={() => {
-                handleCopyClipBoard(`http://localhost:3000/mentoringpage`);
-              }}
-            />
+          <div className="mr-2">
+            <Btn text="MENTORING" onClick={goToMentoring} />
           </div>
           <div className="mr-2">
-            {/* 유저 아이디 받아서 채팅페이지에서 자신으로 설정해야함 */}
+            <button
+              type="button"
+              className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
+              ref={target}
+              onClick={() => setShow(!show)}
+            >
+              <span className="text-white text-sm mx-4">LINK</span>
+            </button>
+            <Overlay target={target.current} show={show} placement="bottom">
+              {(props) => (
+                <Tooltip id="overlay-example" {...props}>
+                  <p className="text-violet-400">
+                    http://localhost:3000/mentoringpage
+                  </p>
+                </Tooltip>
+              )}
+            </Overlay>
+          </div>
+          <div className="mr-2">
             <Btn text="CHAT" onClick={goToChatPage} />
           </div>
         </div>

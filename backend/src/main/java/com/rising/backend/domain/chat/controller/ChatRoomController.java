@@ -1,6 +1,7 @@
 package com.rising.backend.domain.chat.controller;
 
 import com.rising.backend.domain.chat.domain.ChatRoom;
+import com.rising.backend.domain.chat.dto.ChatRoomDto;
 import com.rising.backend.domain.chat.service.ChatRoomService;
 import com.rising.backend.domain.user.domain.User;
 import com.rising.backend.global.annotation.LoginRequired;
@@ -12,10 +13,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "CHATROOM API")
 @Slf4j
@@ -33,14 +33,35 @@ public class ChatRoomController {
             @PathVariable Long postId,
             @Parameter(hidden = true) @LoginUser User loginUser) {
 
-        //채팅 신청 기록이 있을 경우 생성 실패
-        if(chatRoomService.isUserChatted(loginUser.getId())) {
-            log.error("이미 채팅 기록이 있음 -> 채팅방으로 리다이렉트시키면 좋을듯");
-            throw new RuntimeException();
-        }
-
         ChatRoom createdChatRoom = chatRoomService.createChatRoom(postId, loginUser); // loginUser = mentor
+        if (createdChatRoom == null) {
+            return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_CREATE_SUCCESS, false));
+        }
 
         return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_CREATE_SUCCESS, createdChatRoom));
     }
+
+
+
+    // 현재 로그인된 user가 mentee인 채팅방 조회
+    @LoginRequired
+    @GetMapping("/mentee")
+    public ResponseEntity<ResultResponse> findMenteeChatRoom (
+            @Parameter(hidden = true) @LoginUser User loginUser) {
+
+        List<ChatRoomDto.ChatRoomResponse> menteeChatRoom = chatRoomService.findMenteeChatRoom(loginUser.getId());
+
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_FIND_BY_MENTEE, menteeChatRoom));
+    }
+
+    @LoginRequired
+    @GetMapping("/mentor")
+    public ResponseEntity<ResultResponse> findMentorChatRoom (
+            @Parameter(hidden = true) @LoginUser User loginUser) {
+
+        List<ChatRoomDto.ChatRoomResponse> mentorChatRoom = chatRoomService.findMentorChatRoom(loginUser.getId());
+
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_FIND_BY_MENTOR, mentorChatRoom));
+    }
+
 }

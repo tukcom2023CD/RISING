@@ -26,8 +26,14 @@ public enum ResultCode {
     COMMENT_CREATE_SUCCESS(201, "댓글 등록 성공"),
     COMMENT_GET_SUCCESS(200, "댓글 조회 성공"),
 
-    //CHAT
+    //CHATROOM
     CHATROOM_CREATE_SUCCESS(201, "채팅방 생성 성공"),
+    CHATROOM_FIND_BY_MENTEE(200, "로그인된 유저가 멘티인 채팅방 조회 성공"),
+    CHATROOM_FIND_BY_MENTOR(200, "로그인된 유저가 멘토인 채팅방 조회 성공"),
+
+
+
+    //CHATMESSAGE
     CHATMESSAGE_FIND_SUCCESS(200, "채팅 메시지 반환 성공");
 
     private final int status;
