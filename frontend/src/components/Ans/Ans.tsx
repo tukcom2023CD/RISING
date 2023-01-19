@@ -2,9 +2,10 @@ interface Props {
   ans: string;
   person: number;
   date: string;
+  time: string;
 }
 
-function Ans({ ans, person, date }: Props) {
+function Ans({ ans, person, date, time }: Props) {
   return (
     <div className="relative flex flex-row h-14 items-center m-0.5 w-full border-2 border-gray rounded-lg">
       {/* 프로필 사진 */}
@@ -15,7 +16,8 @@ function Ans({ ans, person, date }: Props) {
         <span className="text-xs">{ans}</span>
       </div>
       {/* 날짜 */}
-      <div className="absolute top-3 right-3">{date}</div>
+      <div className="absolute top-3 right-3 text-xs">{date} {time}</div>
+
     </div>
   );
 }

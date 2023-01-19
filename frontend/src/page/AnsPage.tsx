@@ -8,10 +8,9 @@ import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import AnswerIndex from 'components/Index/AnswerIndex';
 import Ans from 'components/Ans/Ans';
-import ReAns from 'components/Ans/ReAns';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 import EditorViewer from 'components/Editor/EditorViewer';
 
 interface CommentForm {
@@ -32,11 +31,13 @@ function AnsPage() {
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
 
+
   // 댓글 관련
   const [userId, setUserId] = useState('');
   const postId = state.id;
   const [comment, setComment] = useState('');
-  const [parentComment, setParentComment] = useState();
+  const [createdDate, setCreatedDate] = useState('');
+  const [createdTime, setCreatedTime] = useState('');
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -57,6 +58,8 @@ function AnsPage() {
         .then((res) => {
           console.log(res.data);
           console.log(comment);
+          console.log(createdDate);
+          console.log(createdTime);
         })
         .catch((error) => {
           console.log(error.response.data);
@@ -90,11 +93,11 @@ function AnsPage() {
     (async () => {
       await axios
         // 특정 게시글 조회
-        // 질문 게시글에서 질문 아이디 받아와야함.
-        // 아래 postid --> name 으로 변경해야함.
         .get(`/comments/${postId}?postId=${postId}`)
         .then((res) => {
           setAnsInfo(res.data.data);
+          setCreatedDate(res.data.data.createdDate);
+          setCreatedTime(res.data.data.createdTime);
           console.log(res.data.data);
         })
         .catch((error) => {
@@ -187,9 +190,8 @@ function AnsPage() {
       <div className="flex justify-center item-center mt-8">
         <div className="flex flex-col w-3/5">
           {ansInfo.map((data: any) => (
-            <Ans person={data.user} ans={data.content} date="2023-01-05" />
+            <Ans person={data.user} ans={data.content} date={data.createdDate} time={data.createdTime} />
           ))}
-          {/* <Ans person="사람2" ans="비공개 답변입니다." date="2023-01-05" /> */}
         </div>
       </div>
       {/* 답변 댓글 끝 */}
