@@ -1,6 +1,6 @@
 interface Props {
   ans: string;
-  person: string;
+  person: number;
   date: string;
 }
 
