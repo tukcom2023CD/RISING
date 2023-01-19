@@ -40,7 +40,8 @@ function PrivateAnsPage() {
           } else {
             setMentee(res.data.data.mentee.name);
             setMentor(res.data.data.mentor.name);
-            setMenteeId(res.data.data.mentor.id);
+            setMenteeId(res.data.data.mentee.id);
+            setMentorId(res.data.data.mentor.id);
             setRoomId(res.data.data.id);
           }
         })
@@ -63,20 +64,15 @@ function PrivateAnsPage() {
   const [mentee, setMentee] = useState('');
   const [mentor, setMentor] = useState('');
   const [menteeId, setMenteeId] = useState(0);
-  const [partner, setPartner] = useState('');
+  const [mentorId, setMentorId] = useState(0);
   const [roomId, setRoomId] = useState(0);
 
-  // useEffect(() => {
-  //   if (userId === menteeId) {
-  //     setPartner(mentor);
-  //   } else {
-  //     setPartner(mentee);
-  //   }
-  // }, [menteeId]);
-  useEffect(() => {
-    console.log(mentee);
-    localStorage.setItem('mentee', `${mentee}`);
-  }, [mentee]);
+  console.log(mentee);
+  localStorage.setItem('mentee', `${mentee}`);
+  localStorage.setItem('mentor', `${mentor}`);
+  localStorage.setItem('menteeId', `${menteeId}`);
+  localStorage.setItem('mentorId', `${mentorId}`);
+  localStorage.setItem('sender', `${userId}`);
 
   useEffect(() => {
     (async () => {
@@ -94,20 +90,6 @@ function PrivateAnsPage() {
           console.log(error);
         });
     })();
-
-    // (async () => {
-    //   await axios
-    //     .post(`/chatrooms/${postId}`)
-    //     .then((res) => {
-    //       console.log(res.data.data);
-    //       setMentee(res.data.data.mentee.name);
-    //       setMentor(res.data.data.mentor.name);
-    //       setMenteeId(res.data.data.mentor.id);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // })();
   }, []);
 
   const [show, setShow] = useState(false);

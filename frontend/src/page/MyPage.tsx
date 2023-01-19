@@ -26,6 +26,7 @@ function MyPage() {
   const [mentor, setMentor] = useState('');
 
   window.localStorage.setItem('partner', `${mentor}`);
+  localStorage.setItem('sender', '멘토');
 
   useEffect(() => {
     (async () => {

@@ -20,19 +20,19 @@ interface ChatMessage {
 
 const DUMMY_CHAT: ChatMessage[] = [
   {
-    sender: '나',
+    sender: '멘토',
     content: '안녕하세요',
   },
   {
-    sender: '너',
+    sender: '멘티',
     content: '안녕하세요~~~!!',
   },
   {
-    sender: '나',
+    sender: '멘토',
     content: '안녕하십니까 !!',
   },
   {
-    sender: '너',
+    sender: '멘티',
     content: '반가워요 !',
   },
 ];
@@ -40,7 +40,7 @@ const DUMMY_CHAT: ChatMessage[] = [
 function QuesChatPage() {
   const [content, onChatInput, setContent] = useInput('');
   const [chatList, setChatList] = useState(DUMMY_CHAT);
-  const [sender, setSender] = useState('');
+
   const chatListRef = useRef<HTMLUListElement>(null);
   const client = useRef<Client>();
   const [text, setText] = useState('');
@@ -117,25 +117,13 @@ function QuesChatPage() {
     };
   }, []);
 
-  const onReset = () => {
-    setSender(text);
-  };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onChange = (e: any) => {
-    setText(e.target.value);
-  };
-
   localStorage.getItem('postId');
   const postId = localStorage.getItem('postId');
 
   const [title, setTitle] = useState('');
-  const [userId, setUserId] = useState(0);
+  const [userId, setUserId] = useState();
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
-  // const [mentee, setMentee] = useState('');
-  // const [mentor, setMentor] = useState('');
-  // const [menteeId, setMenteeId] = useState(0);
-  // const [partner, setPartner] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -152,31 +140,17 @@ function QuesChatPage() {
           console.log(error);
         });
     })();
-
-    // (async () => {
-    //   await axios
-    //     .post(`/chatrooms/${postId}`)
-    //     .then((res) => {
-    //       console.log(res.data.data);
-    //       setMentee(res.data.data.mentee.name);
-    //       setMentor(res.data.data.mentor.name);
-    //       setMenteeId(res.data.data.mentor.id);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // })();
   }, []);
 
-  localStorage.getItem('partner');
-  const partner = localStorage.getItem('partner');
-  // useEffect(() => {
-  //   if (userId === menteeId) {
-  //     setPartner(mentor);
-  //   } else {
-  //     setPartner(mentee);
-  //   }
-  // }, []);
+  localStorage.getItem('menteeId');
+  localStorage.getItem('mentorId');
+  const menteeId = localStorage.getItem('menteeId');
+  const mentorId = localStorage.getItem('mentorId');
+  const mentee = localStorage.getItem('mentee');
+  const mentor = localStorage.getItem('mentor');
+  const [partner, setPartner] = useState<any>('상대방');
+
+  const sender = localStorage.getItem('sender');
 
   return (
     // 배경색
@@ -216,11 +190,11 @@ function QuesChatPage() {
               alt="profile"
             />
           </div>
-          <span className="mt-4">{partner}</span>
-          <input value={text} onChange={onChange} className="text-black" />
+          <span className="mt-4">{sender}</span>
+          {/* <input value={text} onChange={onChange} className="text-black" />
           <button type="button" onClick={onReset}>
             이름 설정
-          </button>
+          </button> */}
         </div>
       </div>
       {/* 채팅방 */}
