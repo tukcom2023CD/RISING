@@ -65,12 +65,14 @@ services:
 
   frontend:
     container_name: frontend_con
-    build: ./frontend
+    build: 
+        context: ./frontend
+        dockerfile: Dockerfile
     command: ["npm", "start"]
-    # ports:
-    #   - "3000:3000"
-    # expose:
-    #   - 3000
+    ports:
+      - "3001:3001"
+    expose:
+      - 3000
 #    networks:
 #      - frontend-net
 
@@ -79,7 +81,7 @@ services:
     image: nginx:latest
     restart: on-failure
     build:
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
       context: ./nginx
     ports:
       - "80:80"
