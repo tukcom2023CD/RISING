@@ -28,9 +28,8 @@ function PrivateQuesPage() {
   const [keyWord, setKeyWord] = useState([]);
 
   const handleSubmit = (e: any) => {
-    e.preventDefault(); // 새로고침 방지
+    e.preventDefault();
     const editorIns = ref?.current?.getInstance();
-    // 에디터 작성 내용 markdown으로 저장
     const contentMark = editorIns.getMarkdown();
     const privateQuesData: privateQuesForm = {
       type: 'MENTORING',

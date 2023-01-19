@@ -8,36 +8,36 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
-const [username, setUsername] = useState("");
-const [password, setPassword] = useState("");
-const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-const checkUser = () => {
-  if (username === "" || password === "") {
-    // eslint-disable-next-line no-alert
-    alert("아이디와 비밀번호를 입력해주세요!");
-}
-axios
-  .post('http://localhost:8080/api/v1/users/login', {
-    username,
-    password,
-  })
+  const checkUser = () => {
+    if (username === '' || password === '') {
+      // eslint-disable-next-line no-alert
+      alert('아이디와 비밀번호를 입력해주세요!');
+    }
+    axios
+      .post('/users/login', {
+        username,
+        password,
+      })
 
-  .then(response => {
-    // eslint-disable-next-line no-alert
-    alert('로그인 성공!')
-    console.log(response.data);
-    console.log('유저 아이디 :', username);
-    navigate('/mainpage')
-    sessionStorage.setItem('username', username);
-  })
+      .then((response) => {
+        // eslint-disable-next-line no-alert
+        alert('로그인 성공!');
+        console.log(response.data);
+        console.log('유저 아이디 :', username);
+        navigate('/mainpage');
+        sessionStorage.setItem('username', username);
+      })
 
-  .catch(error => {
-    // eslint-disable-next-line no-alert
-    alert('아이디와 비밀번호가 일치하지 않습니다!')
-    console.log('에러 내용: ', error.response);
-  });
-}
+      .catch((error) => {
+        // eslint-disable-next-line no-alert
+        alert('아이디와 비밀번호가 일치하지 않습니다!');
+        console.log('에러 내용: ', error.response);
+      });
+  };
 
   return (
     <div
@@ -53,8 +53,8 @@ axios
             <input
               className="h-9 m-1 placeholder-[#9CA6C5]"
               placeholder="Email Address"
-              type='email'
-              value={username} 
+              type="email"
+              value={username}
               required
               onChange={(event) => {
                 setUsername(event.target.value);
@@ -65,18 +65,17 @@ axios
             <input
               className="h-9 m-1 placeholder-[#9CA6C5]"
               placeholder="Password"
-              type='password'
-              value={password} 
+              type="password"
+              value={password}
               required
               onChange={(event) => {
                 setPassword(event.target.value);
               }}
             />
           </div>
-            <div className="mt-6 grid place-items-center">
-              <Button 
-              text="Login" onClick={checkUser}/>
-            </div>
+          <div className="mt-6 grid place-items-center">
+            <Button text="Login" onClick={checkUser} />
+          </div>
         </div>
       </div>
     </div>

@@ -9,14 +9,12 @@ import ContentIndex from 'components/Index/ContentIndex';
 import EndIndex from 'components/Index/EndIndex';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
 import EditorViewer from 'components/Editor/EditorViewer';
 
 // 과외 질문 멘토링 이후 결과 확인하는 페이지
 function PrivateAnsCheckPage() {
-  const location = useLocation();
-  const state = location.state as { id: number };
-  const postId = state.id;
+  localStorage.getItem('postId');
+  const postId = localStorage.getItem('postId');
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -27,9 +25,7 @@ function PrivateAnsCheckPage() {
   useEffect(() => {
     (async () => {
       await axios
-        // 특정 게시글 조회
-        // 질문 게시글에서 질문 아이디 받아와야함. /${postid}
-        .get(`http://localhost:8080/api/v1/posts/${postId}`)
+        .get(`/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);

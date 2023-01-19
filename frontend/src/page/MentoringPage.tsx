@@ -7,7 +7,7 @@ import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import Btn from 'components/Btn';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import React, { useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
@@ -19,13 +19,13 @@ import axios from 'axios';
 // 과외 질문 멘토링 중인 페이지
 function MentoringPage() {
   document.documentElement.setAttribute('data-color-mode', 'light');
-  const location = useLocation();
-  const state = location.state as { id: number };
-  const postId = state.id;
+
+  localStorage.getItem('postId');
+  const postId = localStorage.getItem('postId');
 
   const navigate = useNavigate();
   const goToAnsCheckPage = () => {
-    navigate('/privateanscheckpage', { state: { id: postId } });
+    navigate('/privateanscheckpage');
   };
 
   const [title, setTitle] = useState('');
@@ -36,9 +36,7 @@ function MentoringPage() {
   useEffect(() => {
     (async () => {
       await axios
-        // 특정 게시글 조회
-        // 질문 게시글에서 질문 아이디 받아와야함.
-        .get(`http://localhost:8080/api/v1/posts/${postId}`)
+        .get(`/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
