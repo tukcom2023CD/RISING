@@ -21,19 +21,7 @@ interface ChatMessage {
 const DUMMY_CHAT: ChatMessage[] = [
   {
     sender: '멘토',
-    content: '안녕하세요',
-  },
-  {
-    sender: '멘티',
-    content: '안녕하세요~~~!!',
-  },
-  {
-    sender: '멘토',
-    content: '안녕하십니까 !!',
-  },
-  {
-    sender: '멘티',
-    content: '반가워요 !',
+    content: '안녕하세요~~~!(예시 채팅)',
   },
 ];
 
