@@ -77,7 +77,7 @@ function PrivateAnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/posts/${postId}`)
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);

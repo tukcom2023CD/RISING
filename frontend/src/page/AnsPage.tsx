@@ -10,7 +10,7 @@ import AnswerIndex from 'components/Index/AnswerIndex';
 import Ans from 'components/Ans/Ans';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import EditorViewer from 'components/Editor/EditorViewer';
 
 interface CommentForm {
@@ -31,7 +31,6 @@ function AnsPage() {
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
 
-
   // 댓글 관련
   const [userId, setUserId] = useState('');
   const postId = state.id;
@@ -50,11 +49,15 @@ function AnsPage() {
     console.log(CommentData);
     (async () => {
       await axios
-        .post('/comments', CommentData, {
-          headers: {
-            'Content-Type': 'application/json',
+        .post(
+          `http://${process.env.REACT_APP_HOST}/api/v1/comments`,
+          CommentData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-        })
+        )
         .then((res) => {
           console.log(res.data);
           console.log(comment);
@@ -72,7 +75,7 @@ function AnsPage() {
       await axios
         // 특정 게시글 조회
         // 질문 게시글에서 질문 아이디 받아와야함.
-        .get(`/posts/${postId}`)
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -93,7 +96,9 @@ function AnsPage() {
     (async () => {
       await axios
         // 특정 게시글 조회
-        .get(`/comments/${postId}?postId=${postId}`)
+        .get(
+          `http://${process.env.REACT_APP_HOST}/api/v1/comments/${postId}?postId=${postId}`,
+        )
         .then((res) => {
           setAnsInfo(res.data.data);
           setCreatedDate(res.data.data.createdDate);
@@ -190,7 +195,12 @@ function AnsPage() {
       <div className="flex justify-center item-center mt-8">
         <div className="flex flex-col w-3/5">
           {ansInfo.map((data: any) => (
-            <Ans person={data.user} ans={data.content} date={data.createdDate} time={data.createdTime} />
+            <Ans
+              person={data.user}
+              ans={data.content}
+              date={data.createdDate}
+              time={data.createdTime}
+            />
           ))}
         </div>
       </div>

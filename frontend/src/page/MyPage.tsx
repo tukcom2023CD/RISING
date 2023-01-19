@@ -8,7 +8,7 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import profile from 'images/profile.png';
+import BasicProfile from 'images/BasicProfile.png';
 import pencil from 'images/pencil.png';
 import Tag from 'components/Tags/Tag';
 import ChatBox from 'components/ChatBox';
@@ -31,7 +31,7 @@ function MyPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get('/chatrooms/mentee')
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/chatrooms/mentee`)
         .then((res) => {
           console.log(res.data.data);
           console.log(res.data.data[0].mentor.name);
@@ -56,7 +56,7 @@ function MyPage() {
         <div className="m-2">
           <img
             className="w-44 h-44 rounded-xl m-2"
-            src={profile}
+            src={BasicProfile}
             alt="profile"
           />
           <div className="flex flex-row justify-center item-center">
@@ -75,17 +75,17 @@ function MyPage() {
                   textColor="secondary"
                   indicatorColor="secondary"
                 >
-                  <Tab label="유저 정보" value="1" />
+                  <Tab label="내 채팅방" value="1" />
                   <Tab label="내 질문" value="2" />
-                  <Tab label="내 채팅방" value="3" />
+                  <Tab label="유저 정보" value="3" />
                 </TabList>
               </Box>
               {/* 유저정보 */}
-              <TabPanel value="1">
+              <TabPanel value="3">
                 <div className="relative flex flex-col w-full">
                   <div className="flex flex-col rounded-xl h-64 w-full bg-white border-4 border-violet-300">
                     {/* 질문 제목 텍스트로 가져와야함 */}
-                    <div className="flex flex-col m-3 mb-4">
+                    {/* <div className="flex flex-col m-3 mb-4">
                       <span className="font-bold mb-3">학력</span>
                       <span>한국공학대학교</span>
                       <span>2020.03 ~ 2024.02</span>
@@ -96,7 +96,8 @@ function MyPage() {
                     <div className="flex flex-row ml-1 mt-1">
                       <Tag text="Java" />
                       <Tag text="Spring" />
-                    </div>
+                    </div> */}
+                    추후 업데이트 될 예정입니다.
                   </div>
                 </div>
               </TabPanel>
@@ -118,7 +119,7 @@ function MyPage() {
                 </div>
               </TabPanel>
               {/* 멘토 채팅방 */}
-              <TabPanel value="3">
+              <TabPanel value="1">
                 <div className="w-full h-[32rem]">
                   <div
                     className="w-full h-[28rem] scrollbar-thin 
