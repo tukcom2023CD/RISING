@@ -33,19 +33,17 @@ public class ChatRoomController {
             @PathVariable Long postId,
             @Parameter(hidden = true) @LoginUser User loginUser) {
 
-        //채팅 신청 기록이 있을 경우 생성 실패
-        if(chatRoomService.isUserChatted(loginUser.getId())) {
-            log.error("이미 채팅 기록이 있음 -> 채팅방으로 리다이렉트시키면 좋을듯");
-            throw new RuntimeException();
-        }
-
         ChatRoom createdChatRoom = chatRoomService.createChatRoom(postId, loginUser); // loginUser = mentor
+        if (createdChatRoom == null) {
+            return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_CREATE_SUCCESS, false));
+        }
 
         return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_CREATE_SUCCESS, createdChatRoom));
     }
 
 
 
+    // 현재 로그인된 user가 mentee인 채팅방 조회
     @LoginRequired
     @GetMapping("/mentee")
     public ResponseEntity<ResultResponse> findMenteeChatRoom (
@@ -65,4 +63,5 @@ public class ChatRoomController {
 
         return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_FIND_BY_MENTOR, mentorChatRoom));
     }
+
 }

@@ -63,34 +63,35 @@ services:
 #    networks:
 #      - backend-net
 
-  frontend:
-    container_name: frontend_con
-    build: ./frontend
-    command: ["npm", "start"]
-    # ports:
-    #   - "3000:3000"
-    # expose:
-    #   - 3000
-#    networks:
-#      - frontend-net
+#   frontend:
+#     container_name: frontend_con
+#     build: 
+#         context: ./frontend
+#         dockerfile: Dockerfile
+#     command: ["npm", "start"]
+#     ports:
+#       - "3001:3001"
+#     expose:
+#       - 3000
+# #    networks:
+# #      - frontend-net
 
   nginx:
     container_name: nginx_con
-    image: nginx:latest
     restart: on-failure
     build:
-      dockerfile: dockerfile
-      context: ./nginx
+      dockerfile: Dockerfile
+      context: ./frontend
     ports:
       - "80:80"
       - "8081:8081"
     expose:
       - "61613"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./frontend:/client
     depends_on:
       - backend
-      - frontend
+
 #    networks:
 #      - backend-net
 #      - frontend-net
