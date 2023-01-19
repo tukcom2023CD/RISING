@@ -1,9 +1,11 @@
 package com.rising.backend.domain.comment.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,9 @@ public class CommentDto {
 
         private List<CommentListResponse> children = new ArrayList<>();
 
-        private LocalDateTime createdAt;
+        private LocalDate createdDate;
+
+        @JsonFormat(pattern = "HH:mm:ss")
+        private LocalTime createdTime;
     }
 }
