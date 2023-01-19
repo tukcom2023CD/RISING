@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable object-shorthand */
 import 'tailwindcss/tailwind.css';
@@ -27,10 +28,29 @@ function PrivateAnsPage() {
   const navigate = useNavigate();
   window.localStorage.setItem('postId', `${postId}`);
   const goToChatPage = () => {
-    navigate('/queschatpage');
+    navigate(`/queschatpage`);
+
+    (async () => {
+      await axios
+        .post(`/chatrooms/${postId}`)
+        .then((res) => {
+          console.log(res.data.data);
+          if (res.data.data === false) {
+            alert('멘티입니다.');
+          } else {
+            setMentee(res.data.data.mentee.name);
+            setMentor(res.data.data.mentor.name);
+            setMenteeId(res.data.data.mentor.id);
+            setRoomId(res.data.data.id);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })();
   };
 
-  const handleCopyClipBoard = () => {
+  const goToMentoring = () => {
     navigate(`/mentoringpage`);
   };
 
@@ -39,6 +59,24 @@ function PrivateAnsPage() {
   const [userId, setUserId] = useState(0);
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
+
+  const [mentee, setMentee] = useState('');
+  const [mentor, setMentor] = useState('');
+  const [menteeId, setMenteeId] = useState(0);
+  const [partner, setPartner] = useState('');
+  const [roomId, setRoomId] = useState(0);
+
+  // useEffect(() => {
+  //   if (userId === menteeId) {
+  //     setPartner(mentor);
+  //   } else {
+  //     setPartner(mentee);
+  //   }
+  // }, [menteeId]);
+  useEffect(() => {
+    console.log(mentee);
+    localStorage.setItem('mentee', `${mentee}`);
+  }, [mentee]);
 
   useEffect(() => {
     (async () => {
@@ -56,6 +94,20 @@ function PrivateAnsPage() {
           console.log(error);
         });
     })();
+
+    // (async () => {
+    //   await axios
+    //     .post(`/chatrooms/${postId}`)
+    //     .then((res) => {
+    //       console.log(res.data.data);
+    //       setMentee(res.data.data.mentee.name);
+    //       setMentor(res.data.data.mentor.name);
+    //       setMenteeId(res.data.data.mentor.id);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // })();
   }, []);
 
   const [show, setShow] = useState(false);
@@ -109,7 +161,7 @@ function PrivateAnsPage() {
       <div className="flex justify-center item-center my-4">
         <div className="w-3/5 flex flex-row-reverse">
           <div className="mr-2">
-            <Btn text="MENTORING" onClick={handleCopyClipBoard} />
+            <Btn text="MENTORING" onClick={goToMentoring} />
           </div>
           <div className="mr-2">
             <button

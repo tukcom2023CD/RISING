@@ -12,7 +12,6 @@ import OthersMessage from 'components/Chat/OthersMessage';
 import MyMessage from 'components/Chat/MyMessage';
 import useInput from 'utils/useInput';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
 
 interface ChatMessage {
   sender: string;
@@ -133,10 +132,10 @@ function QuesChatPage() {
   const [userId, setUserId] = useState(0);
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
-  const [mentee, setMentee] = useState('');
-  const [mentor, setMentor] = useState('');
-  const [menteeId, setMenteeId] = useState(0);
-  const [partner, setPartner] = useState('');
+  // const [mentee, setMentee] = useState('');
+  // const [mentor, setMentor] = useState('');
+  // const [menteeId, setMenteeId] = useState(0);
+  // const [partner, setPartner] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -154,28 +153,30 @@ function QuesChatPage() {
         });
     })();
 
-    (async () => {
-      await axios
-        .post(`/chatrooms/${postId}`)
-        .then((res) => {
-          console.log(res.data.data);
-          setMentee(res.data.data.mentee.name);
-          setMentor(res.data.data.mentor.name);
-          setMenteeId(res.data.data.mentor.id);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    })();
+    // (async () => {
+    //   await axios
+    //     .post(`/chatrooms/${postId}`)
+    //     .then((res) => {
+    //       console.log(res.data.data);
+    //       setMentee(res.data.data.mentee.name);
+    //       setMentor(res.data.data.mentor.name);
+    //       setMenteeId(res.data.data.mentor.id);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // })();
   }, []);
 
-  useEffect(() => {
-    if (userId === menteeId) {
-      setPartner(mentor);
-    } else {
-      setPartner(mentee);
-    }
-  }, [menteeId]);
+  localStorage.getItem('partner');
+  const partner = localStorage.getItem('partner');
+  // useEffect(() => {
+  //   if (userId === menteeId) {
+  //     setPartner(mentor);
+  //   } else {
+  //     setPartner(mentee);
+  //   }
+  // }, []);
 
   return (
     // 배경색
