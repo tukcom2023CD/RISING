@@ -6,6 +6,9 @@ import com.rising.backend.domain.user.dto.UserDto;
 import com.rising.backend.domain.user.service.LoginService;
 import com.rising.backend.domain.user.service.UserService;
 import com.rising.backend.global.annotation.LoginRequired;
+import com.rising.backend.global.annotation.LoginUser;
+import com.rising.backend.global.result.ResultCode;
+import com.rising.backend.global.result.ResultResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,5 +68,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body("로그아웃 성공");
     }
+
+    @GetMapping("/info")
+    @LoginRequired
+    public ResponseEntity<ResultResponse> userInfo(@LoginUser User user) {
+
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_FIND_INFO_SUCCESS,userService.getUserInfo(user)));
+    }
+
+
 
 }
