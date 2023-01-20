@@ -31,7 +31,7 @@ function PrivateAnsPage() {
 
     (async () => {
       await axios
-        .post(`/chatrooms/${postId}`)
+        .post(`http://${process.env.REACT_APP_HOST}/api/v1/chatrooms/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           if (res.data.data === false) {
@@ -78,7 +78,7 @@ function PrivateAnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/posts/${postId}`)
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);

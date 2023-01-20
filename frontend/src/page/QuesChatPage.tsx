@@ -29,6 +29,8 @@ function QuesChatPage() {
   const [content, onChatInput, setContent] = useInput('');
   const [chatList, setChatList] = useState(DUMMY_CHAT);
 
+  const roomId = localStorage.getItem('roomId');
+
   const chatListRef = useRef<HTMLUListElement>(null);
   const client = useRef<Client>();
 
@@ -50,7 +52,7 @@ function QuesChatPage() {
       onConnect: () => {
         console.log('0 stomp onConnect : ');
         client.current?.subscribe(
-          `/exchange/rising.exchange/chat.${1}`,
+          `/exchange/rising.exchange/chat.${roomId}`,
           handleSub,
         ); // '/exchange/exchange명/패턴 code.*') - exchange큐와 code.*로 연결된 큐 구독
       },
@@ -73,7 +75,7 @@ function QuesChatPage() {
   const handlePub = () => {
     if (!client.current?.connected) return;
     client.current.publish({
-      destination: `/pub/chat.message.${1}`,
+      destination: `/pub/chat.message.${roomId}`,
       body: JSON.stringify({
         sender: `${sender}`,
         content: `${content}`,
@@ -114,7 +116,7 @@ function QuesChatPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/posts/${postId}`)
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);

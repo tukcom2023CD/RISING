@@ -19,7 +19,7 @@ interface CommentForm {
   parentId: null;
   content: string;
 }
-// 질문 답변 및 확인 페이지
+
 function AnsPage() {
   const [ansInfo, setAnsInfo] = useState([]);
 
@@ -46,24 +46,31 @@ function AnsPage() {
     console.log(CommentData);
     (async () => {
       await axios
-        .post('/comments', CommentData, {
-          headers: {
-            'Content-Type': 'application/json',
+        .post(
+          `http://${process.env.REACT_APP_HOST}/api/v1/comments`,
+          CommentData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-        })
+        )
         .then((res) => {
           console.log(res.data);
           console.log(comment);
+          console.log(createdDate);
+          console.log(createdTime);
         })
         .catch((error) => {
           console.log(error.response.data);
         });
     })();
   };
+
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/posts/${postId}`)
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -81,9 +88,13 @@ function AnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/comments/${postId}?postId=${postId}`)
+        .get(
+          `http://${process.env.REACT_APP_HOST}/api/v1/comments/${postId}?postId=${postId}`,
+        )
         .then((res) => {
           setAnsInfo(res.data.data);
+          setCreatedDate(res.data.data.createdDate);
+          setCreatedTime(res.data.data.createdTime);
           console.log(res.data.data);
         })
         .catch((error) => {
@@ -93,6 +104,7 @@ function AnsPage() {
   }, []);
 
   return (
+    // 배경색
     <div
       className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
@@ -114,7 +126,6 @@ function AnsPage() {
               </div>
             </div>
           </div>
-          {/* title index */}
           <TitleIndex />
           <span className="pl-3 text-text-color text-2xl">TITLE</span>
         </div>
