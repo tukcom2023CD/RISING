@@ -53,4 +53,26 @@ public class UserDto {
 
         private String profileUrl;
     }
+
+    @Builder
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
+    public static class UserInfoResponse {
+
+        @NotNull
+        private Long userId;
+
+        @NotEmpty
+        private String userName;
+
+        @NotEmpty
+        private String name;
+
+        private String profileUrl;
+
+
+    }
+
+
 }

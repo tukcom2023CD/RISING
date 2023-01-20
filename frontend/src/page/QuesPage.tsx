@@ -17,7 +17,6 @@ interface QuesForm {
   tags: string[];
   content: string | null;
 }
-
 function QuesPage() {
   const ref = useRef<any>(null);
   const navigate = useNavigate();
@@ -26,17 +25,14 @@ function QuesPage() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-
     const editorIns = ref?.current?.getInstance();
     const contentMark = editorIns.getMarkdown();
-
     const QuesData: QuesForm = {
       type: 'QUESTION',
       title: titletext,
       tags: keyWord,
       content: contentMark,
     };
-
     (async () => {
       await axios
         .post(`http://${process.env.REACT_APP_HOST}/api/v1/posts`, QuesData, {
@@ -95,7 +91,6 @@ function QuesPage() {
               <div className="pt-1 px-1">
                 <KeywordSelect onChange={onChangeKeyWord} />
               </div>
-            </div>
             <KeywordIndex />
             <span className="pl-3 text-text-color text-2xl">KEYWORD</span>
           </div>

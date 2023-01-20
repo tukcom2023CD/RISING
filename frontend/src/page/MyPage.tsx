@@ -57,6 +57,7 @@ function MyPage() {
             className="w-44 h-44 rounded-xl m-2"
             src={BasicProfile}
             alt="basicprofile"
+
           />
           <div className="flex flex-row justify-center item-center">
             <span className="text-lg mr-2">코린이</span>
@@ -74,13 +75,13 @@ function MyPage() {
                   textColor="secondary"
                   indicatorColor="secondary"
                 >
-                  <Tab label="유저 정보" value="1" />
+                  <Tab label="내 채팅방" value="1" />
                   <Tab label="내 질문" value="2" />
-                  <Tab label="내 채팅방" value="3" />
+                  <Tab label="유저 정보" value="3" />
                 </TabList>
               </Box>
               {/* 유저정보 */}
-              <TabPanel value="1">
+              <TabPanel value="3">
                 <div className="relative flex flex-col w-full">
                   <div className="flex flex-col rounded-xl h-64 w-full bg-white border-4 border-violet-300">
                     <div className="flex flex-col m-3 mb-4">
@@ -94,7 +95,8 @@ function MyPage() {
                     <div className="flex flex-row ml-1 mt-1">
                       <Tag text="Java" />
                       <Tag text="Spring" />
-                    </div>
+                    </div> */}
+                    추후 업데이트 될 예정입니다.
                   </div>
                 </div>
               </TabPanel>
@@ -116,7 +118,7 @@ function MyPage() {
                 </div>
               </TabPanel>
               {/* 멘토 채팅방 */}
-              <TabPanel value="3">
+              <TabPanel value="1">
                 <div className="w-full h-[32rem]">
                   <div
                     className="w-full h-[28rem] scrollbar-thin 
