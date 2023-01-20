@@ -22,7 +22,6 @@ function SignUpPage() {
         password,
       })
       .then((response) => {
-        // Handle success.
         console.log('회원가입 완료!');
         console.log('유저 이름 :', name);
         console.log('유저 이메일 :', username);
@@ -31,7 +30,6 @@ function SignUpPage() {
         navigate('/login');
       })
       .catch((error) => {
-        // Handle error.
         console.log('에러가 발생했어요!:', error.response);
         // eslint-disable-next-line no-alert
         alert('회원가입을 실패했어요.');
@@ -48,7 +46,6 @@ function SignUpPage() {
       {/* 회원가입 틀 */}
       <div className="mt-36 flex justify-center item-center my-8 h-[23rem]">
         <div className="w-3/5 flex flex-row bg-white drop-shadow-lg item-center pr-6">
-          {/* 유저 기본 사진 */}
           <div className="m-6 mt-8">
             <img src={BasicProfile} alt="기본사진" />
           </div>

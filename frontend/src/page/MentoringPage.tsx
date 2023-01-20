@@ -16,7 +16,6 @@ import axios from 'axios';
 // import screen from 'images/screen.png';
 // import record from 'images/record.png';
 
-// 과외 질문 멘토링 중인 페이지
 function MentoringPage() {
   document.documentElement.setAttribute('data-color-mode', 'light');
 
@@ -29,7 +28,6 @@ function MentoringPage() {
   };
 
   const [title, setTitle] = useState('');
-  const [userId, setUserId] = useState(0);
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
 
@@ -40,7 +38,6 @@ function MentoringPage() {
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
-          setUserId(res.data.data.userId);
           setTags(res.data.data.tags);
           setDate(res.data.data.created_at);
         })
@@ -59,16 +56,11 @@ function MentoringPage() {
   useEffect(() => {
     if (!client.current?.connected) return;
     client.current.publish({
-      // STOMP 서버에서 메시지를 받기 위해 @MessageMapping 으로 연결해둔 주소
-      destination: `/pub/code.message.${1}`,
-      // pub=전송 prefix, code.message.{postId}
-      // STOMP 서버에서 정의하고 있는 형식에 맞게 가공
+      destination: `/pub/code.message.${postId}`,
       body: JSON.stringify({
         text: `${codeList}`,
       }),
     });
-    // 메시지를 보내면 setContent('');을 통해 입력란을 초기화한다
-    // setContent('');
   }, [codeList]);
 
   // 바뀐코드 보내기
@@ -83,7 +75,7 @@ function MentoringPage() {
   // 웹소켓 클라이인트 생성
   const connect = () => {
     client.current = new Client({
-      // http 일경우 ws를 https일 경우 wss를 붙여서
+      // http 일경우 ws를 https일 경우 wss
       brokerURL: 'ws://localhost:8080/stomp',
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
@@ -95,9 +87,8 @@ function MentoringPage() {
       onConnect: () => {
         console.log('0 stomp onConnect : ');
         // 구독한 대상에 대해 메세지를 받기 위해 subscribe 메서드
-        // ${postId}
         client.current?.subscribe(
-          `/exchange/rising.exchange/code.${1}`,
+          `/exchange/rising.exchange/code.${postId}`,
           handleSub,
         );
       },
@@ -116,13 +107,11 @@ function MentoringPage() {
     });
   };
 
-  // 페이지가 렌더링 될 때 실행, 페이지 벗어나면 웹소켓 연결 종료
-  // 의존성을 []로 줘서 connect가 한번만 실행되도록 함
   useEffect(() => {
     connect();
-    client.current?.activate(); // 클라이언트 활성화
+    client.current?.activate();
     return () => {
-      client.current?.deactivate(); // 클라이언트 비활성화
+      client.current?.deactivate();
     };
   }, []);
 
@@ -137,7 +126,6 @@ function MentoringPage() {
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
-            {/* 질문 제목 텍스트로 가져와야함 */}
             <span className="text-text-color text-xl mt-4 mx-4">{title}</span>
             <div className="my-2 pl-2 flex flex-row relative">
               {tags.map((tag: any) => (
@@ -148,7 +136,6 @@ function MentoringPage() {
               </div>
             </div>
           </div>
-          {/* title index */}
           <TitleIndex />
           <span className="pl-3 text-text-color text-2xl">TITLE</span>
         </div>
@@ -192,12 +179,10 @@ function MentoringPage() {
               </div>
             </div>
           </div>
-          {/* contnet index */}
           <ContentIndex />
           <span className="pl-3 text-text-color text-2xl">CONTENT</span>
         </div>
       </div>
-      {/* finish button */}
       <div className="flex justify-center item-center my-8">
         <Btn text="FINISH" onClick={goToAnsCheckPage} />
       </div>

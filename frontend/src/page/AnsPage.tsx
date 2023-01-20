@@ -8,15 +8,14 @@ import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import AnswerIndex from 'components/Index/AnswerIndex';
 import Ans from 'components/Ans/Ans';
-import ReAns from 'components/Ans/ReAns';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import EditorViewer from 'components/Editor/EditorViewer';
 
 interface CommentForm {
   userId: string;
-  postId: number; // (대댓글이면 null)
+  postId: number;
   parentId: null;
   content: string;
 }
@@ -26,24 +25,22 @@ function AnsPage() {
 
   const location = useLocation();
   const state = location.state as { id: number };
-  // 내용 관련
+
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
 
-  // 댓글 관련
   const [userId, setUserId] = useState('');
   const postId = state.id;
   const [comment, setComment] = useState('');
-  const [parentComment, setParentComment] = useState();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const CommentData: CommentForm = {
       userId,
-      postId, // (대댓글이면 null)
-      parentId: null, // (대댓글 아니면 null)
+      postId,
+      parentId: null,
       content: comment,
     };
     console.log(CommentData);
@@ -63,12 +60,9 @@ function AnsPage() {
         });
     })();
   };
-  // 내용 관련 get
   useEffect(() => {
     (async () => {
       await axios
-        // 특정 게시글 조회
-        // 질문 게시글에서 질문 아이디 받아와야함.
         .get(`/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
@@ -84,14 +78,9 @@ function AnsPage() {
     })();
   }, []);
 
-  // 댓글 관련 get
-
   useEffect(() => {
     (async () => {
       await axios
-        // 특정 게시글 조회
-        // 질문 게시글에서 질문 아이디 받아와야함.
-        // 아래 postid --> name 으로 변경해야함.
         .get(`/comments/${postId}?postId=${postId}`)
         .then((res) => {
           setAnsInfo(res.data.data);
@@ -104,7 +93,6 @@ function AnsPage() {
   }, []);
 
   return (
-    // 배경색
     <div
       className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
@@ -189,10 +177,8 @@ function AnsPage() {
           {ansInfo.map((data: any) => (
             <Ans person={data.user} ans={data.content} date="2023-01-05" />
           ))}
-          {/* <Ans person="사람2" ans="비공개 답변입니다." date="2023-01-05" /> */}
         </div>
       </div>
-      {/* 답변 댓글 끝 */}
     </div>
   );
 }

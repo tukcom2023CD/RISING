@@ -18,7 +18,6 @@ interface privateQuesForm {
   content: string | null;
 }
 
-// 질문 작성 페이지
 function PrivateQuesPage() {
   const navigate = useNavigate();
 
@@ -46,7 +45,7 @@ function PrivateQuesPage() {
           },
         })
         .then((res) => {
-          navigate('/mainpage');
+          navigate('/');
           console.log(res.data);
           console.log(keyWord);
         })
@@ -62,7 +61,6 @@ function PrivateQuesPage() {
   };
 
   return (
-    // 배경색
     <div
       className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
@@ -74,7 +72,6 @@ function PrivateQuesPage() {
         <div className="flex justify-center item-center my-8">
           <div className="relative flex flex-col-reverse w-3/5">
             <div className="flex flex-col rounded-xl h-16 w-full mx-1 my-2 pr-4 pt-1 bg-white border-4 border-violet-300">
-              {/* 질문 제목 작성 */}
               <div className="relative">
                 <input
                   type="text"
@@ -86,7 +83,6 @@ function PrivateQuesPage() {
                 />
               </div>
             </div>
-            {/* title index */}
             <TitleIndex />
             <span className="pl-3 text-text-color text-2xl">TITLE</span>
           </div>
@@ -95,12 +91,10 @@ function PrivateQuesPage() {
         <div className="flex justify-center item-center my-8">
           <div className="relative flex flex-col-reverse w-3/5">
             <div className="flex flex-col rounded-xl h-14 w-full mx-1 my-2 bg-white border-4 border-violet-300">
-              {/* 키워드 작성 */}
               <div className="pt-1 px-1">
                 <KeywordSelect onChange={onChangeKeyWord} />
               </div>
             </div>
-            {/* keyword index */}
             <KeywordIndex />
             <span className="pl-3 text-text-color text-2xl">KEYWORD</span>
           </div>
@@ -108,16 +102,13 @@ function PrivateQuesPage() {
         {/* Content */}
         <div className="flex justify-center item-center my-8">
           <div className="relative flex flex-col-reverse w-3/5">
-            {/* Content */}
             <div className="flex justify-center item-center mb-8">
               <div className="relative flex flex-col-reverse w-full">
                 <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
-                  {/* 텍스트 편집기 */}
                   <ToastEditor editorRef={ref} />
                 </div>
               </div>
             </div>
-            {/* Record video index */}
             <ContentIndex />
             <span className="pl-3 text-text-color text-2xl">CONTENT</span>
           </div>
