@@ -42,7 +42,7 @@ function QuesChatPage() {
 
   const connect = () => {
     client.current = new Client({
-      brokerURL: 'ws://localhost:8080/stomp',
+      brokerURL: 'ws://www.rising-aha.net/stomp',
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
       heartbeatOutgoing: 16000,
