@@ -12,17 +12,20 @@ import PrivateAnsPage from 'page/PrivateAnsPage';
 import PrivateAnsCheckPage from 'page/PrivateAnsCheckPage';
 import QuesChatPage from 'page/QuesChatPage';
 import MentoringPage from 'page/MentoringPage';
-import MainPage from './page/MainPage';
+import AfterMainPage from 'page/AfterMainPage';
+import BeforeMainPage from 'page/BeforeMainPage';
+import MainPage2 from 'page/MainPage2';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<MainPage2 />} />
+        <Route path="/mainpage" element={<BeforeMainPage />} />
+        <Route path="/mainpage2" element={<AfterMainPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/mainpage" element={<MainPage />} />
         <Route path="/queslistpage" element={<QuesListPage />} />
         <Route path="/quespage" element={<QuesPage />} />
         <Route path="/anspage" element={<AnsPage />} />

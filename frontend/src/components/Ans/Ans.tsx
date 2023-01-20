@@ -16,8 +16,9 @@ function Ans({ ans, person, date, time }: Props) {
         <span className="text-xs">{ans}</span>
       </div>
       {/* 날짜 */}
-      <div className="absolute top-3 right-3 text-xs">{date} {time}</div>
-
+      <div className="absolute top-3 right-3 text-xs">
+        {date} {time}
+      </div>
     </div>
   );
 }

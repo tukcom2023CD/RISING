@@ -8,7 +8,7 @@ function QuesListNavBar() {
     navigate('/queslistpage');
   };
   const goToMain = () => {
-    navigate('/mainpage');
+    navigate('/');
   };
   const goToQues = () => {
     navigate('/quespage');

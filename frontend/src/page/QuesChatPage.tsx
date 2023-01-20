@@ -5,7 +5,7 @@ import NavBar from 'components/NavBar/NavBar';
 import Tag from 'components/Tags/Tag';
 import Date from 'components/Tags/Date';
 import send from 'images/send.png';
-import profile from 'images/profile.png';
+import BasicProfile from 'images/BasicProfile.png';
 import { Client, IMessage } from '@stomp/stompjs';
 import { useEffect, useRef, useState } from 'react';
 import OthersMessage from 'components/Chat/OthersMessage';
@@ -29,9 +29,10 @@ function QuesChatPage() {
   const [content, onChatInput, setContent] = useInput('');
   const [chatList, setChatList] = useState(DUMMY_CHAT);
 
+  const roomId = localStorage.getItem('roomId');
+
   const chatListRef = useRef<HTMLUListElement>(null);
   const client = useRef<Client>();
-  const [text, setText] = useState('');
 
   const handleSub = (body: IMessage) => {
     const jsonBody = JSON.parse(body.body);
@@ -51,7 +52,7 @@ function QuesChatPage() {
       onConnect: () => {
         console.log('0 stomp onConnect : ');
         client.current?.subscribe(
-          `/exchange/rising.exchange/chat.${1}`,
+          `/exchange/rising.exchange/chat.${roomId}`,
           handleSub,
         ); // '/exchange/exchange명/패턴 code.*') - exchange큐와 code.*로 연결된 큐 구독
       },
@@ -74,7 +75,7 @@ function QuesChatPage() {
   const handlePub = () => {
     if (!client.current?.connected) return;
     client.current.publish({
-      destination: `/pub/chat.message.${1}`,
+      destination: `/pub/chat.message.${roomId}`,
       body: JSON.stringify({
         sender: `${sender}`,
         content: `${content}`,
@@ -109,7 +110,6 @@ function QuesChatPage() {
   const postId = localStorage.getItem('postId');
 
   const [title, setTitle] = useState('');
-  const [userId, setUserId] = useState();
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
 
@@ -120,7 +120,6 @@ function QuesChatPage() {
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
-          setUserId(res.data.data.userId);
           setTags(res.data.data.tags);
           setDate(res.data.data.created_at);
         })
@@ -130,18 +129,9 @@ function QuesChatPage() {
     })();
   }, []);
 
-  localStorage.getItem('menteeId');
-  localStorage.getItem('mentorId');
-  const menteeId = localStorage.getItem('menteeId');
-  const mentorId = localStorage.getItem('mentorId');
-  const mentee = localStorage.getItem('mentee');
-  const mentor = localStorage.getItem('mentor');
-  const [partner, setPartner] = useState<any>('상대방');
-
   const sender = localStorage.getItem('sender');
 
   return (
-    // 배경색
     <div
       className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
@@ -152,7 +142,6 @@ function QuesChatPage() {
         {/* Title */}
         <div className="relative flex flex-col w-3/5">
           <div className="flex flex-col rounded-xl h-32 w-full mx-1 my-2 bg-white border-4 border-violet-300">
-            {/* 질문 제목 텍스트로 가져와야함 */}
             <span className="text-text-color text-xl m-4">{title}</span>
             <div className="flex flex-row relative ml-2">
               {tags.map((tag: any) => (
@@ -170,19 +159,12 @@ function QuesChatPage() {
         <div className="w-3/5 h-16 bg-white flex justify-center">
           <div className="">
             <img
-              // 이미지가 어떤지 확인이 잘 안되서 외곽선 만들어둠
-              className="object-cover w-12 h-12 m-2
-              rounded-full border-2 border-violet-300 
-              bg-white"
-              src={profile}
+              className="object-cover w-12 h-12 m-2 rounded-full bg-white"
+              src={BasicProfile}
               alt="profile"
             />
           </div>
           <span className="mt-4">{sender}</span>
-          {/* <input value={text} onChange={onChange} className="text-black" />
-          <button type="button" onClick={onReset}>
-            이름 설정
-          </button> */}
         </div>
       </div>
       {/* 채팅방 */}
