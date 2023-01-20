@@ -29,4 +29,13 @@ public class UserMapper {
                 .profileUrl(user.getProfileUrl())
                 .build();
     }
+
+    public UserDto.UserInfoResponse toUserInfoDto(User user) {
+        return UserDto.UserInfoResponse.builder()
+                .userId(user.getId())
+                .userName(user.getUsername())
+                .name(user.getName())
+                .profileUrl(user.getProfileUrl())
+                .build();
+    }
 }

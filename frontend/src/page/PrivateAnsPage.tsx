@@ -17,7 +17,6 @@ import axios from 'axios';
 import Overlay from 'react-bootstrap/Overlay';
 import Tooltip from 'react-bootstrap/Tooltip';
 
-// 과외 질문에 채팅과 링크 보낼 수 있는 페이지
 function PrivateAnsPage() {
   const location = useLocation();
   const state = location.state as {
@@ -32,11 +31,12 @@ function PrivateAnsPage() {
 
     (async () => {
       await axios
-        .post(`/chatrooms/${postId}`)
+        .post(`http://${process.env.REACT_APP_HOST}/api/v1/chatrooms/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           if (res.data.data === false) {
             alert('멘티입니다.');
+            navigate('/queslistpage');
           } else {
             setMentee(res.data.data.mentee.name);
             setMentor(res.data.data.mentor.name);
@@ -73,6 +73,7 @@ function PrivateAnsPage() {
   localStorage.setItem('menteeId', `${menteeId}`);
   localStorage.setItem('mentorId', `${mentorId}`);
   localStorage.setItem('sender', `${userId}`);
+  localStorage.setItem('roomId', `${roomId}`);
 
   useEffect(() => {
     (async () => {
@@ -105,7 +106,6 @@ function PrivateAnsPage() {
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
-            {/* 질문 제목 텍스트로 가져와야함 */}
             <span className="text-text-color text-xl mt-4 mx-4">{title}</span>
             <div className="my-2 pl-2 flex flex-row relative">
               {tags.map((tag: any) => (
@@ -116,7 +116,6 @@ function PrivateAnsPage() {
               </div>
             </div>
           </div>
-          {/* title index */}
           <TitleIndex />
           <span className="pl-3 text-text-color text-2xl">TITLE</span>
         </div>
@@ -134,7 +133,6 @@ function PrivateAnsPage() {
               </div>
             </div>
           </div>
-          {/* Record video index */}
           <ContentIndex />
           <span className="pl-3 text-text-color text-2xl">CONTENT</span>
         </div>
@@ -158,7 +156,7 @@ function PrivateAnsPage() {
               {(props) => (
                 <Tooltip id="overlay-example" {...props}>
                   <p className="text-violet-400">
-                    http://localhost:3000/mentoringpage
+                    http://localhost/mentoringpage
                   </p>
                 </Tooltip>
               )}

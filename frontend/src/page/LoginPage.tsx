@@ -28,7 +28,7 @@ function LoginPage() {
         alert('로그인 성공!');
         console.log(response.data);
         console.log('유저 아이디 :', username);
-        navigate('/mainpage');
+        navigate('/');
         sessionStorage.setItem('username', username);
       })
 

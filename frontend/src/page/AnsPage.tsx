@@ -15,23 +15,22 @@ import EditorViewer from 'components/Editor/EditorViewer';
 
 interface CommentForm {
   userId: string;
-  postId: number; // (대댓글이면 null)
+  postId: number;
   parentId: null;
   content: string;
 }
-// 질문 답변 및 확인 페이지
+
 function AnsPage() {
   const [ansInfo, setAnsInfo] = useState([]);
 
   const location = useLocation();
   const state = location.state as { id: number };
-  // 내용 관련
+
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
 
-  // 댓글 관련
   const [userId, setUserId] = useState('');
   const postId = state.id;
   const [comment, setComment] = useState('');
@@ -42,8 +41,8 @@ function AnsPage() {
     e.preventDefault();
     const CommentData: CommentForm = {
       userId,
-      postId, // (대댓글이면 null)
-      parentId: null, // (대댓글 아니면 null)
+      postId,
+      parentId: null,
       content: comment,
     };
     console.log(CommentData);
@@ -69,12 +68,10 @@ function AnsPage() {
         });
     })();
   };
-  // 내용 관련 get
+
   useEffect(() => {
     (async () => {
       await axios
-        // 특정 게시글 조회
-        // 질문 게시글에서 질문 아이디 받아와야함.
         .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
@@ -90,12 +87,9 @@ function AnsPage() {
     })();
   }, []);
 
-  // 댓글 관련 get
-
   useEffect(() => {
     (async () => {
       await axios
-        // 특정 게시글 조회
         .get(
           `http://${process.env.REACT_APP_HOST}/api/v1/comments/${postId}?postId=${postId}`,
         )
@@ -134,7 +128,6 @@ function AnsPage() {
               </div>
             </div>
           </div>
-          {/* title index */}
           <TitleIndex />
           <span className="pl-3 text-text-color text-2xl">TITLE</span>
         </div>

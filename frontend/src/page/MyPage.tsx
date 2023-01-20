@@ -2,7 +2,7 @@ import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import NavBar from 'components/NavBar/NavBar';
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -12,11 +12,10 @@ import BasicProfile from 'images/BasicProfile.png';
 import pencil from 'images/pencil.png';
 import Tag from 'components/Tags/Tag';
 import ChatBox from 'components/ChatBox';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function MyPage() {
-  const [value, setValue] = React.useState('1');
+  const [value, setValue] = useState('1');
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -57,7 +56,7 @@ function MyPage() {
           <img
             className="w-44 h-44 rounded-xl m-2"
             src={BasicProfile}
-            alt="profile"
+            alt="basicprofile"
           />
           <div className="flex flex-row justify-center item-center">
             <span className="text-lg mr-2">코린이</span>
@@ -84,8 +83,7 @@ function MyPage() {
               <TabPanel value="3">
                 <div className="relative flex flex-col w-full">
                   <div className="flex flex-col rounded-xl h-64 w-full bg-white border-4 border-violet-300">
-                    {/* 질문 제목 텍스트로 가져와야함 */}
-                    {/* <div className="flex flex-col m-3 mb-4">
+                    <div className="flex flex-col m-3 mb-4">
                       <span className="font-bold mb-3">학력</span>
                       <span>한국공학대학교</span>
                       <span>2020.03 ~ 2024.02</span>
@@ -96,12 +94,12 @@ function MyPage() {
                     <div className="flex flex-row ml-1 mt-1">
                       <Tag text="Java" />
                       <Tag text="Spring" />
-                    </div> */}
+                    </div>
                     추후 업데이트 될 예정입니다.
                   </div>
                 </div>
               </TabPanel>
-              {/* 내가 작성한 질문 -> api 받으면 수정할 예정 */}
+              {/* 내가 작성한 질문 */}
               <TabPanel value="2">
                 <div className="w-full h-[32rem]">
                   <div

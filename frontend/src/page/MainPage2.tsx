@@ -2,11 +2,10 @@ import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import NavBar from 'components/NavBar/NavBar';
-import ResentSlide from '../components/ResentSlide';
-import MainMenu from '../components/MainMenu';
+
 import MainImage from '../images/aha.png';
 
-function MainPage() {
+function MainPage2() {
   return (
     <div>
       <NavBar />
@@ -24,14 +23,12 @@ function MainPage() {
         <span className="mx-12 pl-6 font-bold text-text-color text-lg">
           분야별 멘토링
         </span>
-        <MainMenu />
         <span className="mx-12 pl-6 font-bold text-text-color text-lg">
           최근에 해결된 질문
         </span>
-        <ResentSlide />
       </div>
     </div>
   );
 }
 
-export default MainPage;
+export default MainPage2;
