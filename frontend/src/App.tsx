@@ -14,7 +14,6 @@ import QuesChatPage from 'page/QuesChatPage';
 import MentoringPage from 'page/MentoringPage';
 import AfterMainPage from 'page/AfterMainPage';
 import BeforeMainPage from 'page/BeforeMainPage';
-import MainPage2 from './page/MainPage2';
 
 function App() {
   return (
@@ -25,7 +24,6 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/mainpage2" element={<MainPage2 />} />
         <Route path="/queslistpage" element={<QuesListPage />} />
         <Route path="/quespage" element={<QuesPage />} />
         <Route path="/anspage" element={<AnsPage />} />
