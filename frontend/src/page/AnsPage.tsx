@@ -34,6 +34,8 @@ function AnsPage() {
   const [userId, setUserId] = useState('');
   const postId = state.id;
   const [comment, setComment] = useState('');
+  const [createdDate, setCreatedDate] = useState('');
+  const [createdTime, setCreatedTime] = useState('');
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -186,10 +188,16 @@ function AnsPage() {
       <div className="flex justify-center item-center mt-8">
         <div className="flex flex-col w-3/5">
           {ansInfo.map((data: any) => (
-            <Ans person={data.user} ans={data.content} date="2023-01-05" />
+            <Ans
+              person={data.user}
+              ans={data.content}
+              date={data.createdDate}
+              time={data.createdTime}
+            />
           ))}
         </div>
       </div>
+      {/* 답변 댓글 끝 */}
     </div>
   );
 }
