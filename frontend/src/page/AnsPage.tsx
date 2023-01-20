@@ -48,15 +48,11 @@ function AnsPage() {
     console.log(CommentData);
     (async () => {
       await axios
-        .post(
-          `http://${process.env.REACT_APP_HOST}/api/v1/comments`,
-          CommentData,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
+        .post(`/comments`, CommentData, {
+          headers: {
+            'Content-Type': 'application/json',
           },
-        )
+        })
         .then((res) => {
           console.log(res.data);
           console.log(comment);
@@ -72,7 +68,7 @@ function AnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
+        .get(`/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -90,9 +86,7 @@ function AnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(
-          `http://${process.env.REACT_APP_HOST}/api/v1/comments/${postId}?postId=${postId}`,
-        )
+        .get(`/comments/${postId}?postId=${postId}`)
         .then((res) => {
           setAnsInfo(res.data.data);
           setCreatedDate(res.data.data.createdDate);

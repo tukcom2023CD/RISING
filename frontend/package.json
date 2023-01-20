@@ -21,6 +21,7 @@
     "@uiw/react-textarea-code-editor": "^2.0.6",
     "axios": "^1.2.2",
     "chroma-js": "^2.4.2",
+    "cross-env": "^7.0.3",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
