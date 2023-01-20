@@ -91,8 +91,9 @@ function QuesPage() {
               <div className="pt-1 px-1">
                 <KeywordSelect onChange={onChangeKeyWord} />
               </div>
-            <KeywordIndex />
-            <span className="pl-3 text-text-color text-2xl">KEYWORD</span>
+              <KeywordIndex />
+              <span className="pl-3 text-text-color text-2xl">KEYWORD</span>
+            </div>
           </div>
         </div>
         {/* Content */}

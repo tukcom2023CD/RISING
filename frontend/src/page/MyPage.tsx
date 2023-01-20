@@ -57,7 +57,6 @@ function MyPage() {
             className="w-44 h-44 rounded-xl m-2"
             src={BasicProfile}
             alt="basicprofile"
-
           />
           <div className="flex flex-row justify-center item-center">
             <span className="text-lg mr-2">코린이</span>
@@ -95,7 +94,7 @@ function MyPage() {
                     <div className="flex flex-row ml-1 mt-1">
                       <Tag text="Java" />
                       <Tag text="Spring" />
-                    </div> */}
+                    </div>
                     추후 업데이트 될 예정입니다.
                   </div>
                 </div>
