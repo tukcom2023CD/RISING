@@ -33,7 +33,7 @@ function AfterMainPage() {
           <span className="text-6xl text-[#575757]">
             코딩, 누구에게 물어보지?
           </span>
-          <div className="rounded-full drop-shadow-lg bg-[#FFB0B0] w-52 h-14 flex justify-center items-center mt-8">
+          <div className="rounded-full drop-shadow-lg bg-[#FFB0B0] w-52 h-16 flex justify-center items-center mt-8">
             <span className="text-white text-5xl">A - HA !</span>
           </div>
           <div className="flex-row mt-24">
