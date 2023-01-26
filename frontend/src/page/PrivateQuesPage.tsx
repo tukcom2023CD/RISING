@@ -39,15 +39,11 @@ function PrivateQuesPage() {
     console.log(privateQuesData);
     (async () => {
       await axios
-        .post(
-          `http://${process.env.REACT_APP_HOST}/api/v1/posts`,
-          privateQuesData,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
+        .post(`/posts`, privateQuesData, {
+          headers: {
+            'Content-Type': 'application/json',
           },
-        )
+        })
         .then((res) => {
           navigate('/');
           console.log(res.data);
