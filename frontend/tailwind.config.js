@@ -22,11 +22,20 @@ module.exports = {
           '0%, 100%': { transform: 'translate(0, 0)' },
           '50%': { transform: 'translate(-50px, 50px)' },
         },
+        typingCursor: {
+          from: {
+            borderRight: '2px solid while',
+          },
+          to: {
+            borderRight: '2px solid black',
+          },
+        },
       },
       animation: {
         wiggle: 'wiggle 1s ease-in-out infinite',
         'move-right': 'move-right 2s linear forwards infinite',
         'move-left': 'move-left 2s linear forwards infinite',
+        typingCursor: 'typingCursor 1s ease-in-out 0ms infinite',
       },
     },
   },

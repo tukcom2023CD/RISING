@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
@@ -6,6 +7,7 @@ import icon2 from 'images/icon2.png';
 import mentee from 'images/mentee.png';
 import mentor from 'images/mentor.png';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function BeforeMainPage() {
   const navigate = useNavigate();
@@ -15,6 +17,31 @@ function BeforeMainPage() {
   const goToSignUp = () => {
     navigate('/signup');
   };
+
+  const completionWord = ', 누구에게 물어보지?';
+  const [title, setTitle] = useState('코딩');
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const typingInterval = setInterval(() => {
+      setTitle((preTitleValue) => {
+        let result = preTitleValue
+          ? preTitleValue + completionWord[count]
+          : completionWord[0];
+        setCount(count + 1);
+
+        if (count >= completionWord.length) {
+          setCount(0);
+          setTitle('코딩');
+        }
+        return result;
+      });
+    }, 200);
+
+    return () => {
+      clearInterval(typingInterval);
+    };
+  });
 
   return (
     <div
@@ -26,10 +53,10 @@ function BeforeMainPage() {
           <div className="animate-wiggle w-40 h-12 rounded-xl items-center drop-shadow-lg flex justify-center bg-[#E1E0FF] absolute top-36">
             <span className="text-2xl text-[#595959]">질문 리스트</span>
           </div>
-          <span className="text-6xl text-[#575757]">
-            코딩, 누구에게 물어보지?
+          <span className="text-6xl text-[#575757] animate-typingCursor">
+            {title}
           </span>
-          <div className="rounded-full drop-shadow-lg bg-[#FFB0B0] w-52 h-16 flex justify-center items-center mt-8">
+          <div className="rounded-full drop-shadow-lg bg-[#FFB0B0] w-52 h-16 flex justify-center items-center mt-8 animate-pulse">
             <span className="text-white text-5xl">A - HA !</span>
           </div>
           <div className="flex-row absolute bottom-36">
@@ -65,12 +92,12 @@ function BeforeMainPage() {
       <img
         src={mentee}
         alt="mentee"
-        className="absolute bottom-0 left-0 w-44 h-44 scaleup"
+        className="absolute bottom-0 left-0 w-44 h-44"
       />
       <img
         src={mentor}
         alt="mentor"
-        className="absolute bottom-0 right-0 w-44 h-44 scaleup"
+        className="absolute bottom-0 right-0 w-44 h-44"
       />
     </div>
   );

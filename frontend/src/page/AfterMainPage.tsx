@@ -61,7 +61,7 @@ function AfterMainPage() {
           <img
             src={icon3}
             alt="code"
-            className="absolute bottom-20 w-44 scaleup"
+            className="absolute bottom-20 w-44 scaleup animate-wiggle"
           />
         </div>
       </div>
@@ -78,12 +78,12 @@ function AfterMainPage() {
       <img
         src={mentee}
         alt="mentee"
-        className="absolute bottom-0 left-0 w-44 h-44 scaleup"
+        className="absolute bottom-0 left-0 w-44 h-44"
       />
       <img
         src={mentor}
         alt="mentor"
-        className="absolute bottom-0 right-0 w-44 h-44 scaleup"
+        className="absolute bottom-0 right-0 w-44 h-44"
       />
     </div>
   );
