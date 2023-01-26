@@ -41,7 +41,7 @@ function QuesPage() {
           },
         })
         .then((res) => {
-          navigate('/');
+          navigate('/mainpage');
           console.log(res.data);
           console.log(keyWord);
         })
