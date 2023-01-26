@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
@@ -7,6 +8,7 @@ import icon3 from 'images/icon3.png';
 import mentee from 'images/mentee.png';
 import mentor from 'images/mentor.png';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function AfterMainPage() {
   const navigate = useNavigate();
@@ -23,6 +25,31 @@ function AfterMainPage() {
     navigate('/mypage');
   };
 
+  const completionWord = ', 누구에게 물어보지?';
+  const [title, setTitle] = useState('코딩');
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const typingInterval = setInterval(() => {
+      setTitle((preTitleValue) => {
+        let result = preTitleValue
+          ? preTitleValue + completionWord[count]
+          : completionWord[0];
+        setCount(count + 1);
+
+        if (count >= completionWord.length) {
+          setCount(0);
+          setTitle('코딩');
+        }
+        return result;
+      });
+    }, 200);
+
+    return () => {
+      clearInterval(typingInterval);
+    };
+  });
+
   return (
     <div
       className="h-screen relative"
@@ -30,10 +57,10 @@ function AfterMainPage() {
     >
       <div className="flex justify-center items-center h-full">
         <div className="flex justify-center items-center flex-col">
-          <span className="text-6xl text-[#575757]">
-            코딩, 누구에게 물어보지?
+          <span className="animate-typingCursor text-6xl text-[#575757]">
+            {title}
           </span>
-          <div className="rounded-full drop-shadow-lg bg-[#FFB0B0] w-52 h-16 flex justify-center items-center mt-8">
+          <div className="animate-pulse rounded-full drop-shadow-lg bg-[#FFB0B0] w-52 h-16 flex justify-center items-center mt-8">
             <span className="text-white text-5xl">A - HA !</span>
           </div>
           <div className="flex-row mt-24">
@@ -68,12 +95,12 @@ function AfterMainPage() {
       <img
         src={icon1}
         alt="코딩말풍선"
-        className="absolute top-28 left-28 w-46 h-40 scaleup"
+        className="absolute top-28 left-28 w-46 h-40 scaleup animate-bounce"
       />
       <img
         src={icon2}
         alt="터미널"
-        className="absolute top-40 right-36 w-40 h-36 scaleup"
+        className="absolute top-40 right-36 w-40 h-36 scaleup animate-bounce"
       />
       <img
         src={mentee}
