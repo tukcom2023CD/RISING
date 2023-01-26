@@ -104,12 +104,12 @@ function BeforeMainPage() {
       <img
         src={mentee}
         alt="mentee"
-        className="absolute bottom-0 left-0 lg:w-44 lg:h-44 md:w-36 md:h-36 sm:w-32 sm:h-32 max-sm:w-28 max-sm:h-28"
+        className="absolute bottom-0 left-0 lg:w-44 lg:h-44 md:w-36 md:h-36 sm:w-28 sm:h-28 max-sm:w-20 max-sm:h-20"
       />
       <img
         src={mentor}
         alt="mentor"
-        className="absolute bottom-0 right-0 lg:w-44 lg:h-44 md:w-36 md:h-36 sm:w-32 sm:h-32 max-sm:w-28 max-sm:h-28"
+        className="absolute bottom-0 right-0 lg:w-44 lg:h-44 md:w-36 md:h-36 sm:w-28 sm:h-28 max-sm:w-28 max-sm:h-28"
       />
     </div>
   );
