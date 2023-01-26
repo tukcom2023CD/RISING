@@ -84,12 +84,12 @@ function BeforeMainPage() {
       <img
         src={icon1}
         alt="코딩말풍선"
-        className="absolute lg:top-28 lg:left-28 md:top-20 md:left-20 sm:top-20 sm:left-20 lg:w-48 lg:h-40 md:w-32 md:h-24 sm:w-20 sm:h-16"
+        className="animate-bounce absolute lg:top-28 lg:left-28 md:top-24 md:left-20 sm:top-20 sm:left-20 lg:w-48 lg:h-40 md:w-32 md:h-24 sm:w-24 sm:h-20"
       />
       <img
         src={icon2}
         alt="터미널"
-        className="absolute lg:top-40 lg:right-36 md:top-32 sm:top-20 sm:right-16 md:right-28 lg:w-40 lg:h-36 md:w-28 md:h-24 sm:w-20 sm:h-16"
+        className="animate-bounce absolute lg:top-40 lg:right-36 md:top-32 sm:top-20 sm:right-16 md:right-28 lg:w-40 lg:h-36 md:w-28 md:h-24 sm:w-24 sm:h-20"
       />
       <div className="animate-move-right absolute lg:bottom-[22rem] lg:left-36 md:bottom-72 md:left-20 sm:bottom-60 sm:left-16 lg:w-32 lg:h-12 md:w-28 md:h-10 sm:w-24 sm:h-8 rounded-xl items-center drop-shadow-lg flex justify-center bg-[#E1E0FF]">
         <span className="lg:text-2xl md:text-xl sm:text-lg text-[#595959]">
