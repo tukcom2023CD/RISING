@@ -36,7 +36,7 @@ function BeforeMainPage() {
         }
         return result;
       });
-    }, 200);
+    }, 300);
 
     return () => {
       clearInterval(typingInterval);
@@ -76,12 +76,12 @@ function BeforeMainPage() {
       <img
         src={icon1}
         alt="코딩말풍선"
-        className="absolute top-28 left-28 w-46 h-40 animate-bounce"
+        className="absolute top-28 left-28 w-46 h-40"
       />
       <img
         src={icon2}
         alt="터미널"
-        className="absolute top-40 right-36 w-40 h-36 animate-bounce"
+        className="absolute top-40 right-36 w-40 h-36"
       />
       <div className="animate-move-right w-32 h-12 rounded-xl items-center drop-shadow-lg flex justify-center bg-[#E1E0FF] absolute bottom-[22rem] left-36">
         <span className="text-2xl text-[#595959]">에러 해결</span>
