@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
@@ -33,7 +34,7 @@ function AfterMainPage() {
           <span className="text-6xl text-[#575757]">
             코딩, 누구에게 물어보지?
           </span>
-          <div className="rounded-full drop-shadow-lg bg-[#FFB0B0] w-52 h-14 flex justify-center items-center mt-8">
+          <div className="animate-pulse rounded-full drop-shadow-lg bg-[#FFB0B0] w-52 h-16 flex justify-center items-center mt-8">
             <span className="text-white text-5xl">A - HA !</span>
           </div>
           <div className="flex-row mt-24">
@@ -61,29 +62,29 @@ function AfterMainPage() {
           <img
             src={icon3}
             alt="code"
-            className="absolute bottom-20 w-44 scaleup"
+            className="absolute bottom-20 w-44 scaleup animate-wiggle"
           />
         </div>
       </div>
       <img
         src={icon1}
         alt="코딩말풍선"
-        className="absolute top-28 left-28 w-46 h-40 scaleup"
+        className="absolute top-28 left-28 w-46 h-40 scaleup animate-bounce"
       />
       <img
         src={icon2}
         alt="터미널"
-        className="absolute top-40 right-36 w-40 h-36 scaleup"
+        className="absolute top-40 right-36 w-40 h-36 scaleup animate-bounce"
       />
       <img
         src={mentee}
         alt="mentee"
-        className="absolute bottom-0 left-0 w-44 h-44 scaleup"
+        className="absolute bottom-0 left-0 w-44 h-44"
       />
       <img
         src={mentor}
         alt="mentor"
-        className="absolute bottom-0 right-0 w-44 h-44 scaleup"
+        className="absolute bottom-0 right-0 w-44 h-44"
       />
     </div>
   );
