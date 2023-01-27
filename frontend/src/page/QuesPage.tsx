@@ -35,7 +35,7 @@ function QuesPage() {
     };
     (async () => {
       await axios
-        .post(`/posts`, QuesData, {
+        .post(`http://${process.env.REACT_APP_HOST}/api/v1/posts`, QuesData, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -91,9 +91,9 @@ function QuesPage() {
               <div className="pt-1 px-1">
                 <KeywordSelect onChange={onChangeKeyWord} />
               </div>
-              <KeywordIndex />
-              <span className="pl-3 text-text-color text-2xl">KEYWORD</span>
-            </div>
+            </div>    
+            <KeywordIndex />
+            <span className="pl-3 text-text-color text-2xl">KEYWORD</span>
           </div>
         </div>
         {/* Content */}

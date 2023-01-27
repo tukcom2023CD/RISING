@@ -35,7 +35,7 @@ function Ques({ count, title, date, type, postId, tags }: Props) {
         </div>
         {/* 질문 제목 */}
         <div className="flex flex-col mt-3 items-start">
-          <span className="text-xl ml-5">{title}</span>
+          <span className="ml-5 sm:text-sm md:text-lg lg:text-xl">{title}</span>
           {/* 태그 */}
           <div className="flex flex-row ml-2">
             {tags.map((tag: any) => (
