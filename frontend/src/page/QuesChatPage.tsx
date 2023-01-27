@@ -42,7 +42,7 @@ function QuesChatPage() {
 
   const connect = () => {
     client.current = new Client({
-      brokerURL: `ws://${process.env.REACT_APP_HOST}/stomp`,
+      brokerURL: `ws://${process.env.REACT_APP_HOST}/api/stomp`,
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
       heartbeatOutgoing: 16000,
