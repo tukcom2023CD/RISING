@@ -112,7 +112,7 @@ function AnsPage() {
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
             {/* 질문 제목 텍스트로 가져와야함 */}
-            <span className="text-text-color text-xl mt-4 mx-4">{title}</span>
+            <span className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl">{title}</span>
             <div className="my-2 pl-2 flex flex-row relative">
               {tags.map((tag: any) => (
                 <Tag key={Math.random() * 500} text={tag} />
