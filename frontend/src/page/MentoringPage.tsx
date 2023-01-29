@@ -76,7 +76,7 @@ function MentoringPage() {
   const connect = () => {
     client.current = new Client({
       // http 일경우 ws를 https일 경우 wss
-      brokerURL: 'ws://localhost:8080/stomp',
+      brokerURL: 'ws://www.rising-aha.net/stomp',
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
       heartbeatOutgoing: 16000,
