@@ -22,7 +22,8 @@ interface CommentForm {
 
 function AnsPage() {
   const [ansInfo, setAnsInfo] = useState([]);
-
+  const [newansInfo, setNewAnsInfo] = useState([]);
+  
   const location = useLocation();
   const state = location.state as { id: number };
 
@@ -83,6 +84,7 @@ function AnsPage() {
     })();
   }, []);
 
+
   useEffect(() => {
     (async () => {
       await axios
@@ -92,12 +94,14 @@ function AnsPage() {
           setCreatedDate(res.data.data.createdDate);
           setCreatedTime(res.data.data.createdTime);
           console.log(res.data.data);
+          setNewAnsInfo(ansInfo)
         })
         .catch((error) => {
           console.log(error);
         });
     })();
-  }, []);
+  }, [newansInfo]);
+
 
   return (
     // 배경색
