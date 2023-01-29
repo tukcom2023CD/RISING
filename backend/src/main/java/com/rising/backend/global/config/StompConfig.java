@@ -13,7 +13,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/stomp").setAllowedOriginPatterns("*"); // 클라이언트에서 웹소켓 연결 경로
+        registry.addEndpoint("/api/stomp").setAllowedOriginPatterns("*"); // 클라이언트에서 웹소켓 연결 경로
     }
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
