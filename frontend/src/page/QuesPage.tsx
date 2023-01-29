@@ -35,7 +35,7 @@ function QuesPage() {
     };
     (async () => {
       await axios
-        .post(`http://${process.env.REACT_APP_HOST}/api/v1/posts`, QuesData, {
+        .post(`/posts`, QuesData, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -47,6 +47,8 @@ function QuesPage() {
         })
         .catch((error) => {
           console.log(error.response.data);
+          // eslint-disable-next-line no-alert
+          alert('제목 및 내용을 채워주세요!');
         });
     })();
   };
