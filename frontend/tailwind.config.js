@@ -4,7 +4,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      fontFamily: {},
+      fontFamily: {
+        myfont: ['Nanum Gothic', 'sans-serif'],
+      },
       colors: {
         'text-color': '#54547D',
         'scroll-bar': '#9D9CD2',
