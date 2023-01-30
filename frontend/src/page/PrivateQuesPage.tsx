@@ -51,6 +51,8 @@ function PrivateQuesPage() {
         })
         .catch((error) => {
           console.log(error.response.data);
+          // eslint-disable-next-line no-alert
+          alert('제목 및 내용을 채워주세요!');
         });
     })();
   };

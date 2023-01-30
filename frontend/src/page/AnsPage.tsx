@@ -62,6 +62,8 @@ function AnsPage() {
         })
         .catch((error) => {
           console.log(error.response.data);
+          // eslint-disable-next-line no-alert
+          alert("답변 내용을 입력하세요!")
         });
     })();
   };
