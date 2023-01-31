@@ -88,28 +88,44 @@
 
 <div align =center>
 
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> 
-  <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=amazon%20ec2&logoColor=black">
-  <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=amazon%20s3&logoColor=black">
-  <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=amazon%20rds&logoColor=black">
-  <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=black">
+ <h2> Frontend </h2>
   <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
-  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
-  <img src="https://img.shields.io/badge/django-528DD7?style=for-the-badge&logo=django&logoColor=white">
-  <img src="https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray">
-  <img src="https://img.shields.io/badge/gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=black">
-  <img src="https://img.shields.io/badge/yolov5-EE4C2C?style=for-the-badge&logo=yolov5&logoColor=black">
-  <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/tailwindcss-36B7F0?style=for-the-badge&logo=tailwindcss&logoColor=white">  
+  <img src="https://img.shields.io/badge/redux-7F42C3?style=for-the-badge&logo=redux&logoColor=white"> 
+
+  <img src="https://img.shields.io/badge/eslint-6161DA?style=for-the-badge&logo=eslint&logoColor=white">  
+  <img src="https://img.shields.io/badge/prettier-EC6F91?style=for-the-badge&logo=prettier&logoColor=white"> 
+
+<h2> Backend </h2>
   <img src="https://img.shields.io/badge/rabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white">
-  <img src="https://img.shields.io/badge/celery-37814A?style=for-the-badge&logo=celery&logoColor=black">
-  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
-  <img src="https://img.shields.io/badge/pytorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white">
+  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">   
+  <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+
+  <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=black"> 
+  <img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black">
+<h2> DevOps </h2>
+  <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=amazon%20ec2&logoColor=black">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+
+<h2> Logging & Monitoring </h2>
   <img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=black">
   <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=black">
-  <img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black">
-  <img src="https://img.shields.io/badge/Git-73398D?style=for-the-badge&logo=git&logoColor=white">
-   <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
-</div>
+  <img src="https://img.shields.io/badge/elasticsearch-02B9AD?style=for-the-badge&logo=elasticsearch&logoColor=white">
+
+  <img src="https://img.shields.io/badge/logstash-F6B802?style=for-the-badge&logo=logstash&logoColor=white">
+  <img src="https://img.shields.io/badge/kibana-E94B93?style=for-the-badge&logo=kibana&logoColor=white">
+  <img src="https://img.shields.io/badge/Filebeats-0273C6?style=for-the-badge&logo=beats&logoColor=black">
+
+
+   <h2> Others </h2>
+
+  <img src="https://img.shields.io/badge/Github-73398D?style=for-the-badge&logo=git&logoColor=white">
+  <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+  <img src="https://img.shields.io/badge/githubactions-2084F7?style=for-the-badge&logo=githubactions&logoColor=white">
+
+  <img src="https://img.shields.io/badge/postman-F56833?style=for-the-badge&logo=postman&logoColor=white">
+  <img src="https://img.shields.io/badge/slack-E01D5A?style=for-the-badge&logo=slack&logoColor=white">
+  
 <hr>
 
 ## **Database**
@@ -142,14 +158,158 @@
 <hr>
 
 ## **File Directory**
-
+</div>
 <details>
 <summary>FRONTEND</summary>
-<!-- 프론트 파일구조 -->
+
+```
+📦frontend
+ ┣ 📂public
+ ┃ ┣ 📜favicon.ico
+ ┃ ┣ 📜index.html
+ ┃ ┣ 📜logo192.png
+ ┃ ┣ 📜logo512.png
+ ┃ ┣ 📜manifest.json
+ ┃ ┗ 📜robots.txt
+ ┣ 📂src
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📂Ans
+ ┃ ┃ ┃ ┣ 📜Ans.tsx
+ ┃ ┃ ┃ ┗ 📜ReAns.tsx
+ ┃ ┃ ┣ 📂Chat
+ ┃ ┃ ┃ ┣ 📜MyMessage.tsx
+ ┃ ┃ ┃ ┗ 📜OthersMessage.tsx
+ ┃ ┃ ┣ 📂Editor
+ ┃ ┃ ┃ ┣ 📜EditorViewer.tsx
+ ┃ ┃ ┃ ┗ 📜ToastEditor.tsx
+ ┃ ┃ ┣ 📂Index
+ ┃ ┃ ┃ ┣ 📜AnsTitleIndex.tsx
+ ┃ ┃ ┃ ┣ 📜AnswerIndex.tsx
+ ┃ ┃ ┃ ┣ 📜ContentIndex.tsx
+ ┃ ┃ ┃ ┣ 📜EndIndex.tsx
+ ┃ ┃ ┃ ┣ 📜KeywordIndex.tsx
+ ┃ ┃ ┃ ┗ 📜QuesTitleIndex.tsx
+ ┃ ┃ ┣ 📂NavBar
+ ┃ ┃ ┃ ┣ 📜NavBar.tsx
+ ┃ ┃ ┃ ┣ 📜PrivateQuesNavBar.tsx
+ ┃ ┃ ┃ ┣ 📜QuesListNavBar.tsx
+ ┃ ┃ ┃ ┗ 📜QuesNavBar.tsx
+ ┃ ┃ ┣ 📂Select
+ ┃ ┃ ┃ ┣ 📜KeyWordOptionSelect.tsx
+ ┃ ┃ ┃ ┣ 📜KeywordData.ts
+ ┃ ┃ ┃ ┣ 📜KeywordSelect.tsx
+ ┃ ┃ ┃ ┣ 📜OptionSelect.tsx
+ ┃ ┃ ┃ ┗ 📜QuesData.ts
+ ┃ ┃ ┣ 📂Tags
+ ┃ ┃ ┃ ┣ 📜Date.tsx
+ ┃ ┃ ┃ ┗ 📜Tag.tsx
+ ┃ ┃ ┣ 📜Btn.tsx
+ ┃ ┃ ┣ 📜ChatBox.tsx
+ ┃ ┃ ┣ 📜LoginBtn.tsx
+ ┃ ┃ ┣ 📜Profile.tsx
+ ┃ ┃ ┣ 📜ProfileUpload.js
+ ┃ ┃ ┗ 📜Ques.tsx
+ ┃ ┣ 📂fonts
+ ┃ ┣ 📂images
+ ┃ ┣ 📂page
+ ┃ ┃ ┣ 📜AfterMainPage.tsx
+ ┃ ┃ ┣ 📜AnsPage.tsx
+ ┃ ┃ ┣ 📜BeforeMainPage.tsx
+ ┃ ┃ ┣ 📜LoginPage.tsx
+ ┃ ┃ ┣ 📜MainPage2.tsx
+ ┃ ┃ ┣ 📜MentoringPage.tsx
+ ┃ ┃ ┣ 📜MyPage.tsx
+ ┃ ┃ ┣ 📜PrivateAnsCheckPage.tsx
+ ┃ ┃ ┣ 📜PrivateAnsPage.tsx
+ ┃ ┃ ┣ 📜PrivateQuesPage.tsx
+ ┃ ┃ ┣ 📜QuesChatPage.tsx
+ ┃ ┃ ┣ 📜QuesListPage.tsx
+ ┃ ┃ ┣ 📜QuesPage.tsx
+ ┃ ┃ ┗ 📜SignUpPage.tsx
+ ┃ ┣ 📂utils
+ ┃ ┃ ┣ 📜ColorSystem.tsx
+ ┃ ┃ ┣ 📜pageStyle.css
+ ┃ ┃ ┣ 📜useCopyClipBoard.tsx
+ ┃ ┃ ┗ 📜useInput.ts
+ ┃ ┣ 📜App.tsx
+ ┃ ┣ 📜image.d.ts
+ ┃ ┣ 📜index.tsx
+ ┃ ┗ 📜tailwind.css
+ ┣ 📜.eslintrc.js
+ ┣ 📜.gitignore
+ ┣ 📜.prettierrc.js
+ ┣ 📜Dockerfile
+ ┣ 📜README.md
+ ┣ 📜nginx.conf
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜postcss.config.js
+ ┣ 📜tailwind.config.js
+ ┣ 📜tsconfig.json
+ ┗ 📜webpack.config.js
+ ```
 </details>
 <details>
 <summary>BACKEND</summary>
-<!-- 백엔드 파일구조 -->
+
+```
+📦backend
+ ┣ 📂gradle
+ ┣ 📂src
+ ┃ ┣ 📂main
+ ┃ ┃ ┣ 📂generated
+ ┃ ┃ ┣ 📂java
+ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┗ 📂rising
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂backend
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂chat
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂mapper
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂comment
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂mapper
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂post
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂mapper
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂sharecoding
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂user
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂mapper
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂global
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂annotation
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂constant
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂interceptor
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂resolver
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂result
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂util
+ ┃ ┃ ┗ 📂resources
+ ┃ ┃ ┃ ┣ 📜application.yml
+ ┃ ┃ ┃ ┣ 📜data.sql
+ ┃ ┃ ┃ ┗ 📜templates
+ ┃ 
+```
 </details>
 
 <hr>
