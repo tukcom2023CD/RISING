@@ -33,47 +33,44 @@
 
 ## **Features**
 
-<table  style="text-align: center; width=950px">
-    <tbody>
+<table  style="text-align: center; width=900px">
         <tr>
-          <th style="text-align: center;">메인 화면</th>
-          <th style="text-align: center;">로그인</th>
+          <th style="text-align: center;">로그인 전 메인 화면</th>
+          <th style="text-align: center;">로그인 후 메인 화면</th>
+        </tr>
+      <tbody>
+        <tr>
+        <th><img src="https://user-images.githubusercontent.com/86594108/215865531-1e598c9e-ea6c-4615-9d9e-d6f3c55a9632.gif" width="350px" height="350px"/></th>
+        <th><img src="https://user-images.githubusercontent.com/86594108/215863887-0e7cc063-bece-4b93-8a42-7f58730d8dfc.png"  width="350px" height="350px"/>
+        </th>
         </tr>
       </tbody>
       <tbody>
+          <th style="text-align: center;">회원인증</th>
+          <th style="text-align: center;">회원 페이지</th>
+      </tbody>
+      <tbody>
         <tr>
-          <th><img src="" width="350px" height="350px"/></th>
-          <th><img src=""  width="350px" height="350px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/86594108/215867590-3342f7d7-cfef-4447-805d-495345e21284.gif"  width="350px" height="350px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/86594108/215866799-2f8080e9-a0dd-4541-a66f-a4d0af6ee06f.png"  width="350px" height="350px"/></th>
         </tr>
       </tbody>
       <tbody>
       <tr>
-          <th style="text-align: center;">이미지 업로드 & 크롭</th>
-          <th style="text-align: center;">말풍선 입력</th>
+          <th style="text-align: center;">질문 작성</th>
+          <th style="text-align: center;">질문 답변</th>
         </tr>
       </tbody>
       <tbody>
         <tr>
-          <th><img src=""  width="350px" height="350px"/></th>
-          <th><img src=""  width="350px" height="350px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/86594108/215868252-6c006100-d805-48de-ab5a-7c022598220d.png"  width="350px" height="350px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/86594108/215870406-2c359ede-a485-4038-8e1d-46c2b7d476d4.gif"  width="350px" height="350px"/></th>
         </tr>
       </tbody>
       <tbody>
       <tr>
-          <th style="text-align: center;">옵션 선택</th>
-          <th style="text-align: center;">결과 이미지</th>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-          <th><img src=""  width="350px" height="350px"/></th>
-          <th><img src=""  width="350px" height="350px"/></th>
-        </tr>
-      </tbody>
-      <tbody>
-      <tr>
-          <th style="text-align: center;">카카오톡 공유</th>
-          <th style="text-align: center;">마이페이지</th>
+          <th style="text-align: center;">1대1 멘토링 채팅</th>
+          <th style="text-align: center;">1대1 멘토링 멘토링</th>
         </tr>
       </tbody>
       <tbody>
@@ -329,50 +326,35 @@
     <tr>
         <th>사진</th>
          <td width="100" align="center">
-            <!-- <a href="https://github.com/KoneJ">
+            <a href="https://github.com/KoneJ">
                 <img src="https://avatars.githubusercontent.com/u/86594108?v=4" width="60" height="60">
-            </a> -->
+            </a>
         </td>
         <td width="100" align="center">
-            <!-- <a href="https://github.com/alswlfl29">
-                <img src="https://avatars.githubusercontent.com/u/79428205?v=4" width="60" height="60">
-            </a> -->
+            <a href="https://github.com/kjeongh">
+                <img src="https://avatars.githubusercontent.com/u/88549117?v=4" width="60" height="60">
+            </a>
         </td>
         <td width="100" align="center">
-            <!-- <a href="https://github.com/bjo6300">
-                <img src="https://avatars.githubusercontent.com/u/70627982?v=4" width="60" height="60">
-            </a> -->
+            <a href="https://github.com/kimhalin">
+                <img src="https://avatars.githubusercontent.com/u/75435113?v=4" width="60" height="60">
+            </a>
         </td>
         <td width="100" align="center">
-            <!-- <a href="https://github.com/gmlrude">
-                <img src="https://avatars.githubusercontent.com/u/101381901?v=4" width="60" height="60">
-            </a> -->
+            <a href="https://github.com/suhyeon3484">
+                <img src="https://avatars.githubusercontent.com/u/105929978?v=4" width="60" height="60">
+            </a>
         </td>
-        <td width="100" align="center">
-            <!-- <a href="https://github.com/Haaein">
-                <img src="https://avatars.githubusercontent.com/u/103196409?v=4" width="60" height="60">
-            </a> -->
-        </td>
-        <td width="100" align="center">
-            <!-- <a href="https://github.com/changminkim-329">
-                <img src="https://avatars.githubusercontent.com/u/59727077?v=4" width="60" height="60">
-            </a> -->
     </tr>
     <tr>
         <th>이름</th>
-        <!-- <td width="100" align="center">고원준</td>
-        <td width="100" align="center">이민지</td>
-        <td width="100" align="center">배준일</td>
-        <td width="100" align="center">박희경</td>
-        <td width="100" align="center">라예진</td>
-        <td width="100" align="center">김창민</td> -->
+        <td width="100" align="center">고원준</td>
+        <td width="100" align="center">김정현</td>
+        <td width="100" align="center">김하린</td>
+        <td width="100" align="center">이수현</td>
     </tr>
     <tr>
         <th>역할</th>
-        <td width="150" align="center">
-            Team Leader<br>
-            frontend<br>
-        </td>
         <td width="150" align="center">
             frontend<br>
         </td>
@@ -381,48 +363,37 @@
             devops<br>
         </td>
         <td width="150" align="center">
-            backend<br>
-        </td>
-        <td width="150" align="center">
-            backend<br>
-        </td>
-        <td width="150" align="center">
-            AI<br>
             frontend<br>
             backend<br>
+            devops<br>
+        </td>
+        <td width="150" align="center">
+            frontend<br>
+            devops<br>
         </td>
     </tr>
     <tr>
         <th>GitHub</th>
         <td width="100" align="center">
-            <!-- <a href="https://github.com/KoneJ">
+            <a href="https://github.com/KoneJ">
                 <img src="http://img.shields.io/badge/KoneJ-green?style=social&logo=github"/>
             </a>
         </td>
         <td width="100" align="center">
-            <a href="https://github.com/alswlfl29">
-                <img src="http://img.shields.io/badge/alswlfl29-green?style=social&logo=github"/>
+            <a href="https://github.com/kjeongh">
+                <img src="http://img.shields.io/badge/kjeongh-green?style=social&logo=github"/>
             </a>
         </td>
         <td width="100" align="center">
-            <a href="https://github.com/bjo6300">  
-                <img src="http://img.shields.io/badge/bjo6300-green?style=social&logo=github"/>
+            <a href="https://github.com/kimhalin">  
+                <img src="http://img.shields.io/badge/kimhalin-green?style=social&logo=github"/>
             </a>
         </td>
         <td width="100" align="center">
-            <a href="https://github.com/gmlrude">
-                <img src="http://img.shields.io/badge/gmlrude-green?style=social&logo=github"/>
+            <a href="https://github.com/suhyeon3484">
+                <img src="http://img.shields.io/badge/suhyeon3484-green?style=social&logo=github"/>
             </a>
         </td>
-        <td width="100" align="center">
-            <a href="https://github.com/Haaein">
-                <img src="http://img.shields.io/badge/Haaein-green?style=social&logo=github"/>
-            </a>
-        </td>
-         <td width="100" align="center">
-            <a href="https://github.com/changminkim-329">
-                <img src="http://img.shields.io/badge/changminkim-329-green?style=social&logo=github"/>
-            </a> -->
     </tr>
     </tbody>
 </table>
