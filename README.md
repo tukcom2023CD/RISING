@@ -1,24 +1,24 @@
-
 <h1 align="center">
-    A
+    A - HA !
 </h1>
 
-
 <div align="center" style="font-size:18px">
-<b> 코딩, 누구에게 물어보지? 🤔  아하에게 물어봐!
+<b> 코딩, 누구에게 물어보지? 🤔 &nbsp; 아하에게 물어봐! 😲
 
 실시간 코드 공유 에디터를 제공하는 코딩 멘토링 플랫폼<br>
 </b>
+
 </div>
 <hr>
 
 ## 1. System Architecture
-<!-- ![image](https://user-images.githubusercontent.com/70627982/193271388-0d63f839-09d1-485c-af35-e7e94f6c19e0.png) -->
 
+![image](https://user-images.githubusercontent.com/105929978/215699453-4759adc2-2fe3-4fd1-9fc4-9bfa959a9847.png)
 
 <hr>
 
 ## 2. Tech Stack
+
 <div align =center>
 
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> 
@@ -49,32 +49,29 @@
 
 <hr>
 
-
 ## 4. ER Diagram
+
+![erd](https://user-images.githubusercontent.com/105929978/215703702-7f8e70f5-396c-4a90-8378-442d123b611b.png)
 
 <hr>
 
 ## 5. API
+
 <details>
 <summary>swagger</summary>
 <div markdown="1">
 
 <br>
-<!--   
-swagger 사진
-![image](https://user-images.githubusercontent.com/70627982/192964994-69bb23fe-e88b-4ced-8407-4483b51ee31c.png)
-![image](https://user-images.githubusercontent.com/70627982/192965084-34cf7975-cdaa-45a5-914d-79f723017cec.png)
-![image](https://user-images.githubusercontent.com/70627982/192965211-5c05658c-49ab-4023-a269-de090abb8f53.png)
-![image](https://user-images.githubusercontent.com/70627982/192965269-37d76d65-4cff-442b-9d6f-db60aac2319f.png)
-![image](https://user-images.githubusercontent.com/70627982/192965305-8e6b633e-661e-4926-b07c-dd203796fef3.png) -->
+
+![swagger](https://user-images.githubusercontent.com/105929978/215699854-664a9deb-0e97-4628-bcee-92c8ed03f0f9.png)
 
 </div>
 </details>
 
 <hr>
 
-
 ## 6. Features
+
 <table  style="text-align: center; width=950px">
     <tbody>
         <tr>
@@ -128,9 +125,8 @@ swagger 사진
 
 <hr>
 
-
-
 ## 7. Team Member
+
 <table width="950px">
     <thead>
     </thead>
@@ -240,12 +236,3 @@ swagger 사진
 ## 8. Demo
 
 <!-- - [데모영상](https://youtu.be/fSKvq28lOss) -->
-
-<hr>
-
-## 9. Reference
-
-
-<hr>
-
-## 10. Copyright
