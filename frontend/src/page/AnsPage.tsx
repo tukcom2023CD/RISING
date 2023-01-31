@@ -22,6 +22,7 @@ interface CommentForm {
 
 function AnsPage() {
   const [ansInfo, setAnsInfo] = useState([]);
+  const [newansInfo, setNewAnsInfo] = useState([]);
 
   const location = useLocation();
   const state = location.state as { id: number };
@@ -48,15 +49,11 @@ function AnsPage() {
     console.log(CommentData);
     (async () => {
       await axios
-        .post(
-          `http://${process.env.REACT_APP_HOST}/api/v1/comments`,
-          CommentData,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
+        .post(`/comments`, CommentData, {
+          headers: {
+            'Content-Type': 'application/json',
           },
-        )
+        })
         .then((res) => {
           console.log(res.data);
           console.log(comment);
@@ -65,6 +62,8 @@ function AnsPage() {
         })
         .catch((error) => {
           console.log(error.response.data);
+          // eslint-disable-next-line no-alert
+          alert("답변 내용을 입력하세요!")
         });
     })();
   };
@@ -72,7 +71,7 @@ function AnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
+        .get(`/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -90,9 +89,7 @@ function AnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(
-          `http://${process.env.REACT_APP_HOST}/api/v1/comments/${postId}?postId=${postId}`,
-        )
+        .get(`/comments/${postId}?postId=${postId}`)
         .then((res) => {
           setAnsInfo(res.data.data);
           setCreatedDate(res.data.data.createdDate);
@@ -118,7 +115,9 @@ function AnsPage() {
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
             {/* 질문 제목 텍스트로 가져와야함 */}
-            <span className="text-text-color text-xl mt-4 mx-4">{title}</span>
+            <span className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl">
+              {title}
+            </span>
             <div className="my-2 pl-2 flex flex-row relative">
               {tags.map((tag: any) => (
                 <Tag key={Math.random() * 500} text={tag} />

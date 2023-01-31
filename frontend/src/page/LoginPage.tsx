@@ -18,7 +18,7 @@ function LoginPage() {
       alert('아이디와 비밀번호를 입력해주세요!');
     }
     axios
-      .post(`http://${process.env.REACT_APP_HOST}/api/v1/users/login`, {
+      .post(`/users/login`, {
         username,
         password,
       })
@@ -28,7 +28,7 @@ function LoginPage() {
         alert('로그인 성공!');
         console.log(response.data);
         console.log('유저 아이디 :', username);
-        navigate('/');
+        navigate('/mainpage');
         sessionStorage.setItem('username', username);
       })
 

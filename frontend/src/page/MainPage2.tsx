@@ -2,7 +2,6 @@ import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import NavBar from 'components/NavBar/NavBar';
-
 import MainImage from '../images/aha.png';
 
 function MainPage2() {
