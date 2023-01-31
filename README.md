@@ -11,66 +11,27 @@
 </div>
 <hr>
 
-## 1. System Architecture
+## **Contents**
+
+- [System Architecture](#system-architecture)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Database](#database)
+- [API](#api)
+- [Monitoring Tools](#monitoring-tools)
+- [File Directory](#file-directory)
+- [Demo](#demo)
+- [Team Member](#team-member)
+
+<hr>
+
+## **System Architecture**
 
 ![image](https://user-images.githubusercontent.com/105929978/215699453-4759adc2-2fe3-4fd1-9fc4-9bfa959a9847.png)
 
 <hr>
 
-## 2. Tech Stack
-
-<div align =center>
-
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> 
-  <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=amazon%20ec2&logoColor=black">
-  <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=amazon%20s3&logoColor=black">
-  <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=amazon%20rds&logoColor=black">
-  <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=black">
-  <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
-  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
-  <img src="https://img.shields.io/badge/django-528DD7?style=for-the-badge&logo=django&logoColor=white">
-  <img src="https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray">
-  <img src="https://img.shields.io/badge/gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=black">
-  <img src="https://img.shields.io/badge/yolov5-EE4C2C?style=for-the-badge&logo=yolov5&logoColor=black">
-  <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
-  <img src="https://img.shields.io/badge/rabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white">
-  <img src="https://img.shields.io/badge/celery-37814A?style=for-the-badge&logo=celery&logoColor=black">
-  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
-  <img src="https://img.shields.io/badge/pytorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white">
-  <img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=black">
-  <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=black">
-  <img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black">
-  <img src="https://img.shields.io/badge/Git-73398D?style=for-the-badge&logo=git&logoColor=white">
-   <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
-</div>
-<hr>
-
-## 3. Installation
-
-<hr>
-
-## 4. ER Diagram
-
-![erd](https://user-images.githubusercontent.com/105929978/215703702-7f8e70f5-396c-4a90-8378-442d123b611b.png)
-
-<hr>
-
-## 5. API
-
-<details>
-<summary>swagger</summary>
-<div markdown="1">
-
-<br>
-
-![swagger](https://user-images.githubusercontent.com/105929978/215699854-664a9deb-0e97-4628-bcee-92c8ed03f0f9.png)
-
-</div>
-</details>
-
-<hr>
-
-## 6. Features
+## **Features**
 
 <table  style="text-align: center; width=950px">
     <tbody>
@@ -123,9 +84,83 @@
       </tbody>
     </table>
 
+## **Tech Stack**
+
+<div align =center>
+
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"> 
+  <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=amazon%20ec2&logoColor=black">
+  <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=amazon%20s3&logoColor=black">
+  <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=amazon%20rds&logoColor=black">
+  <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=black">
+  <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+  <img src="https://img.shields.io/badge/django-528DD7?style=for-the-badge&logo=django&logoColor=white">
+  <img src="https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray">
+  <img src="https://img.shields.io/badge/gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=black">
+  <img src="https://img.shields.io/badge/yolov5-EE4C2C?style=for-the-badge&logo=yolov5&logoColor=black">
+  <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/rabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white">
+  <img src="https://img.shields.io/badge/celery-37814A?style=for-the-badge&logo=celery&logoColor=black">
+  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+  <img src="https://img.shields.io/badge/pytorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white">
+  <img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=black">
+  <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=black">
+  <img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black">
+  <img src="https://img.shields.io/badge/Git-73398D?style=for-the-badge&logo=git&logoColor=white">
+   <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+</div>
 <hr>
 
-## 7. Team Member
+## **Database**
+
+![erd](https://user-images.githubusercontent.com/105929978/215703702-7f8e70f5-396c-4a90-8378-442d123b611b.png)
+
+<hr>
+
+## **API**
+
+<details>
+<summary>swagger</summary>
+<div markdown="1">
+
+<br>
+
+![swagger](https://user-images.githubusercontent.com/105929978/215699854-664a9deb-0e97-4628-bcee-92c8ed03f0f9.png)
+
+</div>
+</details>
+
+<hr>
+
+## **Monitoring Tools**
+
+### prometheus & grafana
+
+### elk
+
+<hr>
+
+## **File Directory**
+
+<details>
+<summary>FRONTEND</summary>
+<!-- 프론트 파일구조 -->
+</details>
+<details>
+<summary>BACKEND</summary>
+<!-- 백엔드 파일구조 -->
+</details>
+
+<hr>
+
+## **Demo**
+
+<!-- - [데모영상](https://youtu.be/fSKvq28lOss) -->
+
+<hr>
+
+## **Team Member**
 
 <table width="950px">
     <thead>
@@ -232,7 +267,3 @@
     </tbody>
 </table>
 <hr>
-
-## 8. Demo
-
-<!-- - [데모영상](https://youtu.be/fSKvq28lOss) -->
