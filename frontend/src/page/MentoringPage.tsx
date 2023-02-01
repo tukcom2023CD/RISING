@@ -34,7 +34,7 @@ function MentoringPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/posts/${postId}`)
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -126,7 +126,9 @@ function MentoringPage() {
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
-            <span className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl">{title}</span>
+            <span className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl">
+              {title}
+            </span>
             <div className="my-2 pl-2 flex flex-row relative">
               {tags.map((tag: any) => (
                 <Tag key={Math.random() * 500} text={tag} />

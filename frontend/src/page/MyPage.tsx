@@ -15,7 +15,6 @@ import ChatBox from 'components/ChatBox';
 import Profile from 'components/Profile';
 import axios from 'axios';
 
-
 function MyPage() {
   const [value, setValue] = useState('1');
 
@@ -33,7 +32,7 @@ function MyPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/chatrooms/mentee`)
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/chatrooms/mentee`)
         .then((res) => {
           console.log(res.data.data);
           console.log(res.data.data[0].mentor.name);
@@ -49,7 +48,7 @@ function MyPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/users/info`)
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/users/info`)
         .then((res) => {
           console.log(res.data.data);
           console.log(res.data.data.name);
@@ -60,7 +59,6 @@ function MyPage() {
         });
     })();
   }, []);
-
 
   return (
     <div
@@ -78,9 +76,7 @@ function MyPage() {
             alt="basicprofile"
           />
           <div className="flex flex-row justify-center item-center">
-              <Profile
-              name = {profileInfo}
-              />
+            <Profile name={profileInfo} />
             <img className="w-6 h-5 mt-1" src={pencil} alt="change" />
           </div>
         </div>

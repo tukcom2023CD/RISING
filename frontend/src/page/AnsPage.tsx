@@ -49,11 +49,15 @@ function AnsPage() {
     console.log(CommentData);
     (async () => {
       await axios
-        .post(`/comments`, CommentData, {
-          headers: {
-            'Content-Type': 'application/json',
+        .post(
+          `http://${process.env.REACT_APP_HOST}/api/v1/comments`,
+          CommentData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-        })
+        )
         .then((res) => {
           console.log(res.data);
           console.log(comment);
@@ -63,7 +67,7 @@ function AnsPage() {
         .catch((error) => {
           console.log(error.response.data);
           // eslint-disable-next-line no-alert
-          alert("답변 내용을 입력하세요!")
+          alert('답변 내용을 입력하세요!');
         });
     })();
   };
@@ -71,7 +75,7 @@ function AnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/posts/${postId}`)
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -89,7 +93,9 @@ function AnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/comments/${postId}?postId=${postId}`)
+        .get(
+          `http://${process.env.REACT_APP_HOST}/api/v1/comments/${postId}?postId=${postId}`,
+        )
         .then((res) => {
           setAnsInfo(res.data.data);
           setCreatedDate(res.data.data.createdDate);
