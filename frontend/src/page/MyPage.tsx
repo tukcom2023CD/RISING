@@ -12,6 +12,7 @@ import BasicProfile from 'images/BasicProfile.png';
 import pencil from 'images/pencil.png';
 import Tag from 'components/Tags/Tag';
 import ChatBox from 'components/ChatBox';
+import Profile from 'components/Profile';
 import axios from 'axios';
 
 function MyPage() {
@@ -23,6 +24,7 @@ function MyPage() {
 
   const [chatInfo, setChatInfo] = useState([]);
   const [mentor, setMentor] = useState('');
+  const [profileInfo, setProfileInfo] = useState('');
 
   window.localStorage.setItem('partner', `${mentor}`);
   localStorage.setItem('sender', '멘토');
@@ -36,6 +38,21 @@ function MyPage() {
           console.log(res.data.data[0].mentor.name);
           setChatInfo(res.data.data);
           setMentor(res.data.data[0].mentor.name);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      await axios
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/users/info`)
+        .then((res) => {
+          console.log(res.data.data);
+          console.log(res.data.data.name);
+          setProfileInfo(res.data.data.name);
         })
         .catch((error) => {
           console.log(error);
@@ -59,7 +76,7 @@ function MyPage() {
             alt="basicprofile"
           />
           <div className="flex flex-row justify-center item-center">
-            <span className="text-lg mr-2">코린이</span>
+            <Profile name={profileInfo} />
             <img className="w-6 h-5 mt-1" src={pencil} alt="change" />
           </div>
         </div>
