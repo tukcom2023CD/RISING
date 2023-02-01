@@ -40,6 +40,7 @@ function AnsPage() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    window.location.reload();
     const CommentData: CommentForm = {
       userId,
       postId,
@@ -111,7 +112,7 @@ function AnsPage() {
   return (
     // 배경색
     <div
-      className="h-screen"
+      className="h-full"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
