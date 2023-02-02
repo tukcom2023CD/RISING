@@ -23,10 +23,8 @@ function MyPage() {
   };
 
   const [chatInfo, setChatInfo] = useState([]);
-  const [mentor, setMentor] = useState('');
   const [profileInfo, setProfileInfo] = useState('');
 
-  window.localStorage.setItem('partner', `${mentor}`);
   localStorage.setItem('sender', '멘토');
 
   useEffect(() => {
@@ -35,9 +33,7 @@ function MyPage() {
         .get(`/api/v1/chatrooms/mentee`)
         .then((res) => {
           console.log(res.data.data);
-          console.log(res.data.data[0].mentor.name);
           setChatInfo(res.data.data);
-          setMentor(res.data.data[0].mentor.name);
         })
         .catch((error) => {
           console.log(error);
@@ -148,6 +144,8 @@ function MyPage() {
                           <ChatBox
                             key={Math.random() * 500}
                             person={data.mentor.name}
+                            postId={data.post.postId}
+                            roomId={data.roomId}
                           />
                         ))}
                       </div>

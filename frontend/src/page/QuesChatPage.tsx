@@ -18,18 +18,23 @@ interface ChatMessage {
   content: string;
 }
 
-const DUMMY_CHAT: ChatMessage[] = [
-  {
-    sender: '멘토',
-    content: '안녕하세요~~~!(예시 채팅)',
-  },
-];
-
 function QuesChatPage() {
+  localStorage.getItem('sender');
+  const sender = localStorage.getItem('sender');
+  console.log(sender);
+
+  const DUMMY_CHAT: ChatMessage[] = [
+    {
+      sender: '멘토',
+      content: '멘토는 페이지 새로고침 부탁드립니다!',
+    },
+  ];
+
   const [content, onChatInput, setContent] = useInput('');
   const [chatList, setChatList] = useState(DUMMY_CHAT);
-
+  localStorage.getItem('roomId');
   const roomId = localStorage.getItem('roomId');
+  console.log(roomId);
 
   const chatListRef = useRef<HTMLUListElement>(null);
   const client = useRef<Client>();
@@ -42,7 +47,7 @@ function QuesChatPage() {
 
   const connect = () => {
     client.current = new Client({
-      brokerURL: `ws://${process.env.REACT_APP_HOST}/stomp`,
+      brokerURL: 'ws://localhost:8080/stomp',
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
       heartbeatOutgoing: 16000,
@@ -74,6 +79,7 @@ function QuesChatPage() {
   /** 채팅 데이터를 destination에 publish */
   const handlePub = () => {
     if (!client.current?.connected) return;
+    console.log(chatList);
     client.current.publish({
       destination: `/pub/chat.message.${roomId}`,
       body: JSON.stringify({
@@ -128,8 +134,6 @@ function QuesChatPage() {
         });
     })();
   }, []);
-
-  const sender = localStorage.getItem('sender');
 
   return (
     <div

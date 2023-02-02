@@ -43,6 +43,8 @@ function PrivateAnsPage() {
             setMenteeId(res.data.data.mentee.id);
             setMentorId(res.data.data.mentor.id);
             setRoomId(res.data.data.id);
+            localStorage.setItem('roomId', `${res.data.data.id}`);
+            localStorage.setItem('sender', `${res.data.data.mentee.name}`);
           }
         })
         .catch((error) => {
@@ -72,8 +74,8 @@ function PrivateAnsPage() {
   localStorage.setItem('mentor', `${mentor}`);
   localStorage.setItem('menteeId', `${menteeId}`);
   localStorage.setItem('mentorId', `${mentorId}`);
-  localStorage.setItem('sender', `${userId}`);
-  localStorage.setItem('roomId', `${roomId}`);
+  // localStorage.setItem('sender', `${mentee}`);
+  // localStorage.setItem('roomId', `${roomId}`);
 
   useEffect(() => {
     (async () => {

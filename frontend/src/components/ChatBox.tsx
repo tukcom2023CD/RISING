@@ -3,10 +3,15 @@ import { useNavigate } from 'react-router-dom';
 interface Props {
   // chat: string;
   person: string;
+  postId: number;
+  roomId: number;
   // count: number;
 }
 
-function ChatBox({ person }: Props) {
+function ChatBox({ person, postId, roomId }: Props) {
+  localStorage.setItem('postId', `${postId}`);
+  localStorage.setItem('roomId', `${roomId}`);
+  console.log(postId);
   const navigate = useNavigate();
   const goToChat = () => {
     navigate('/queschatpage');
