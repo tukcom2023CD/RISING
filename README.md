@@ -74,7 +74,7 @@
       <tbody>
       <tr>
           <th style="text-align: center;">1대1 멘토링 채팅</th>
-          <th style="text-align: center;">1대1 멘토링 멘토링</th>
+          <th style="text-align: center;">1대1 멘토링 과외</th>
         </tr>
       </tbody>
       <tbody>
