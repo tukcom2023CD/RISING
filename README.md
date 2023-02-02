@@ -1,5 +1,5 @@
 <h1 align="center">
-    A - HA !
+<img src="https://user-images.githubusercontent.com/105929978/216260246-dbe4b0e1-d10b-4594-93e9-a0e4b50f59e0.png" width="150px"/>
 </h1>
 
 <div align="center" style="font-size:18px">
@@ -33,15 +33,15 @@
 
 ## **Features**
 
-<table  style="text-align: center; width=900px">
+<table  style="text-align: center; width=1000">
         <tr>
           <th style="text-align: center;">로그인 전 메인 화면</th>
           <th style="text-align: center;">로그인 후 메인 화면</th>
         </tr>
       <tbody>
         <tr>
-        <th><img src="https://user-images.githubusercontent.com/86594108/215865531-1e598c9e-ea6c-4615-9d9e-d6f3c55a9632.gif" width="350px" height="350px"/></th>
-        <th><img src="https://user-images.githubusercontent.com/86594108/215863887-0e7cc063-bece-4b93-8a42-7f58730d8dfc.png"  width="350px" height="350px"/>
+        <th><img src="https://user-images.githubusercontent.com/86594108/215865531-1e598c9e-ea6c-4615-9d9e-d6f3c55a9632.gif" /></th>
+        <th><img src="https://user-images.githubusercontent.com/86594108/215863887-0e7cc063-bece-4b93-8a42-7f58730d8dfc.png" />
         </th>
         </tr>
       </tbody>
@@ -51,8 +51,8 @@
       </tbody>
       <tbody>
         <tr>
-          <th><img src="https://user-images.githubusercontent.com/86594108/215867590-3342f7d7-cfef-4447-805d-495345e21284.gif"  width="350px" height="350px"/></th>
-          <th><img src="https://user-images.githubusercontent.com/86594108/215866799-2f8080e9-a0dd-4541-a66f-a4d0af6ee06f.png"  width="350px" height="350px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/86594108/215867590-3342f7d7-cfef-4447-805d-495345e21284.gif" /></th>
+          <th><img src="https://user-images.githubusercontent.com/86594108/215866799-2f8080e9-a0dd-4541-a66f-a4d0af6ee06f.png" /></th>
         </tr>
       </tbody>
       <tbody>
@@ -63,8 +63,8 @@
       </tbody>
       <tbody>
         <tr>
-          <th><img src="https://user-images.githubusercontent.com/86594108/215868252-6c006100-d805-48de-ab5a-7c022598220d.png"  width="350px" height="350px"/></th>
-          <th><img src="https://user-images.githubusercontent.com/86594108/215870406-2c359ede-a485-4038-8e1d-46c2b7d476d4.gif"  width="350px" height="350px"/></th>
+          <th><img src="https://user-images.githubusercontent.com/86594108/215868252-6c006100-d805-48de-ab5a-7c022598220d.png"/></th>
+          <th><img src="https://user-images.githubusercontent.com/86594108/215870406-2c359ede-a485-4038-8e1d-46c2b7d476d4.gif" /></th>
         </tr>
       </tbody>
       <tbody>
@@ -83,46 +83,13 @@
 
 ## **Tech Stack**
 
-<div align =center>
+<!-- <div align =center> -->
 
- <h2> Frontend </h2>
-  <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
-  <img src="https://img.shields.io/badge/tailwindcss-36B7F0?style=for-the-badge&logo=tailwindcss&logoColor=white">  
-  <img src="https://img.shields.io/badge/redux-7F42C3?style=for-the-badge&logo=redux&logoColor=white"> 
+|                                                                                                                                                                                                                                                                     Frontend                                                                                                                                                                                                                                                                      |                                                                                                                                                                                                                                                                 Backend                                                                                                                                                                                                                                                                  |                                                                                                                                                                                                                                                                                                                        Logging & Monitoring                                                                                                                                                                                                                                                                                                                        |                                                                                                                                                                                                                                                                  Others                                                                                                                                                                                                                                                                   |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"><img src="https://img.shields.io/badge/tailwindcss-36B7F0?style=for-the-badge&logo=tailwindcss&logoColor=white"><img src="https://img.shields.io/badge/redux-7F42C3?style=for-the-badge&logo=redux&logoColor=white"> <br><img src="https://img.shields.io/badge/eslint-6161DA?style=for-the-badge&logo=eslint&logoColor=white"><br><img src="https://img.shields.io/badge/prettier-EC6F91?style=for-the-badge&logo=prettier&logoColor=white"> | <img src="https://img.shields.io/badge/rabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white"><img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"><img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"><img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=black"><img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black"> | <img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=black"><img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=black"><img src="https://img.shields.io/badge/elasticsearch-02B9AD?style=for-the-badge&logo=elasticsearch&logoColor=white"><img src="https://img.shields.io/badge/logstash-F6B802?style=for-the-badge&logo=logstash&logoColor=white"><img src="https://img.shields.io/badge/kibana-E94B93?style=for-the-badge&logo=kibana&logoColor=white"><img src="https://img.shields.io/badge/Filebeats-0273C6?style=for-the-badge&logo=beats&logoColor=black"> | <img src="https://img.shields.io/badge/Github-73398D?style=for-the-badge&logo=git&logoColor=white"><img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"><img src="https://img.shields.io/badge/githubactions-2084F7?style=for-the-badge&logo=githubactions&logoColor=white"><img src="https://img.shields.io/badge/postman-F56833?style=for-the-badge&logo=postman&logoColor=white"><img src="https://img.shields.io/badge/slack-E01D5A?style=for-the-badge&logo=slack&logoColor=white"> |
 
-  <img src="https://img.shields.io/badge/eslint-6161DA?style=for-the-badge&logo=eslint&logoColor=white">  
-  <img src="https://img.shields.io/badge/prettier-EC6F91?style=for-the-badge&logo=prettier&logoColor=white"> 
-
-<h2> Backend </h2>
-  <img src="https://img.shields.io/badge/rabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white">
-  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">   
-  <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
-
-  <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=nginx&logoColor=black"> 
-  <img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black">
-<h2> DevOps </h2>
-  <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=amazon%20ec2&logoColor=black">
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
-
-<h2> Logging & Monitoring </h2>
-  <img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=black">
-  <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=black">
-  <img src="https://img.shields.io/badge/elasticsearch-02B9AD?style=for-the-badge&logo=elasticsearch&logoColor=white">
-
-  <img src="https://img.shields.io/badge/logstash-F6B802?style=for-the-badge&logo=logstash&logoColor=white">
-  <img src="https://img.shields.io/badge/kibana-E94B93?style=for-the-badge&logo=kibana&logoColor=white">
-  <img src="https://img.shields.io/badge/Filebeats-0273C6?style=for-the-badge&logo=beats&logoColor=black">
-
-
-   <h2> Others </h2>
-
-  <img src="https://img.shields.io/badge/Github-73398D?style=for-the-badge&logo=git&logoColor=white">
-  <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
-  <img src="https://img.shields.io/badge/githubactions-2084F7?style=for-the-badge&logo=githubactions&logoColor=white">
-
-  <img src="https://img.shields.io/badge/postman-F56833?style=for-the-badge&logo=postman&logoColor=white">
-  <img src="https://img.shields.io/badge/slack-E01D5A?style=for-the-badge&logo=slack&logoColor=white">
-  
+<br>
 <hr>
 
 ## **Database**
@@ -150,12 +117,15 @@
 
 ### prometheus & grafana
 
-### elk
+ <img src="https://user-images.githubusercontent.com/105929978/216255260-e67d2da6-4853-41f6-b517-1d2b31a2b18d.png">
+  <img src="https://user-images.githubusercontent.com/105929978/216255252-ef918bd5-e234-4140-8ace-79480c71acf8.png">
+
+</br>
 
 <hr>
 
 ## **File Directory**
-</div>
+
 <details>
 <summary>FRONTEND</summary>
 
@@ -244,7 +214,8 @@
  ┣ 📜tailwind.config.js
  ┣ 📜tsconfig.json
  ┗ 📜webpack.config.js
- ```
+```
+
 </details>
 <details>
 <summary>BACKEND</summary>
@@ -305,15 +276,16 @@
  ┃ ┃ ┃ ┣ 📜application.yml
  ┃ ┃ ┃ ┣ 📜data.sql
  ┃ ┃ ┃ ┗ 📜templates
- ┃ 
+ ┃
 ```
+
 </details>
 
 <hr>
 
 ## **Demo**
 
-<!-- - [데모영상](https://youtu.be/fSKvq28lOss) -->
+[A-HA! Demo](https://www.youtube.com/watch?v=fT_wYaRvEJY)
 
 <hr>
 
