@@ -98,7 +98,16 @@
 
 ## **Database**
 
+<details>
+<summary>ERD</summary>
+<div markdown="1">
+        
+<br>
+        
 ![erd](https://user-images.githubusercontent.com/105929978/215703702-7f8e70f5-396c-4a90-8378-442d123b611b.png)
+
+</div>
+</details>
 
 <hr>
 
@@ -119,12 +128,18 @@
 
 ## **Monitoring Tools**
 
-### prometheus & grafana
 
+<details>
+<summary>prometheus & grafana</summary>
+<div markdown="1">
+
+<br>
+        
  <img src="https://user-images.githubusercontent.com/105929978/216255260-e67d2da6-4853-41f6-b517-1d2b31a2b18d.png">
-  <img src="https://user-images.githubusercontent.com/105929978/216255252-ef918bd5-e234-4140-8ace-79480c71acf8.png">
+ <img src="https://user-images.githubusercontent.com/105929978/216255252-ef918bd5-e234-4140-8ace-79480c71acf8.png">
 
-</br>
+</div>
+</details>
 
 <hr>
 
