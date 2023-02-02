@@ -158,7 +158,7 @@ function PrivateAnsPage() {
               {(props) => (
                 <Tooltip id="overlay-example" {...props}>
                   <p className="text-violet-400">
-                    http://localhost/mentoringpage
+                    http://www.rising-aha.net/mentoringpage
                   </p>
                 </Tooltip>
               )}
