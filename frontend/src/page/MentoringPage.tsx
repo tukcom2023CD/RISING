@@ -49,7 +49,10 @@ function MentoringPage() {
   }, []);
 
   // code editor
-  const [codeList, setCodeList] = React.useState(`print(hello world)`);
+  const [codeList, setCodeList] = React.useState(
+    `# 영어로만 천천히 입력해주세요!
+# python만 가능합니다.`,
+  );
   const textRef = React.useRef(null);
 
   /** 코드 데이터를 destination에 publish(이벤트 발행, 전송) */

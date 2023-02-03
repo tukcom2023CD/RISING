@@ -27,7 +27,8 @@ function PrivateAnsPage() {
   const navigate = useNavigate();
   window.localStorage.setItem('postId', `${postId}`);
   const goToChatPage = () => {
-    navigate(`/queschatpage`);
+    // navigate(`/queschatpage`);
+    alert('배포환경에서의 안정화 진행중입니다.');
 
     (async () => {
       await axios
