@@ -9,7 +9,7 @@
 </br>
 [www.rising-aha.net](http://www.rising-aha.net)
 
-[A-HA! medium]()
+[A-HA! medium](https://medium.com/@hlkimup01/%EC%BD%94%EB%94%A9-%EB%88%84%EA%B5%AC%EC%97%90%EA%B2%8C-%EB%AC%BC%EC%96%B4%EB%B3%B4%EC%A7%80-%EC%95%84%ED%95%98-aha-%EC%97%90%EA%B2%8C-%EB%AC%BC%EC%96%B4%EB%B4%90-b4905ce49772)
 </b>
 
 </div>
