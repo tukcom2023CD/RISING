@@ -26,6 +26,8 @@ public enum ResultCode {
     //COMMENT
     COMMENT_CREATE_SUCCESS(201, "댓글 등록 성공"),
     COMMENT_GET_SUCCESS(200, "댓글 조회 성공"),
+    COMMENT_DELETE_SUCCESS(200, "댓글 삭제 성공"),
+
 
     //CHATROOM
     CHATROOM_CREATE_SUCCESS(201, "채팅방 생성 성공"),

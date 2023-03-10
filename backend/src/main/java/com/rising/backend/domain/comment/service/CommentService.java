@@ -21,6 +21,10 @@ public class CommentService {
         return commentRepository.save(entity);
     }
 
+    public Comment findByCommentId(Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow();
+    }
+
     public List<CommentDto.CommentListResponse> findByPostId(Long postId) {
         List<Comment> comments = commentRepository.findCommentsByPostId(postId);
         return comments.stream().map(c -> commentMapper.toCommentDto(c, findChildrenByParentId(c.getId())))
@@ -31,5 +35,13 @@ public class CommentService {
         List<Comment> comments = commentRepository.findByParentId(parentId);
         return comments.stream().map(c -> commentMapper.toCommentDto(c, null))
                 .collect(Collectors.toList());
+    }
+
+    public void deleteCommentById(Long commentId) {
+        List<Comment> comments = commentRepository.findByParentId(commentId);
+        if (comments != null) {
+            commentRepository.deleteAllByParentId(commentId);
+        }
+        commentRepository.deleteById(commentId);
     }
 }

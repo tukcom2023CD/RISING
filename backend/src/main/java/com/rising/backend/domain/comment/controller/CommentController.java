@@ -34,4 +34,10 @@ public class CommentController {
         List<CommentDto.CommentListResponse> comments = commentService.findByPostId(postId);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.COMMENT_CREATE_SUCCESS, comments));
     }
+
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<ResultResponse> delete(@RequestParam Long commentId) {
+        commentService.deleteCommentById(commentId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.COMMENT_CREATE_SUCCESS));
+    }
 }
