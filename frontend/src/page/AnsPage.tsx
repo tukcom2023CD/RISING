@@ -50,7 +50,7 @@ function AnsPage() {
     (async () => {
       await axios
         .post(
-          `http://${process.env.REACT_APP_HOST}/api/v1/comments`,
+          `/comments`,
           CommentData,
           {
             headers: {
@@ -75,7 +75,7 @@ function AnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
+        .get(`/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -94,7 +94,7 @@ function AnsPage() {
     (async () => {
       await axios
         .get(
-          `http://${process.env.REACT_APP_HOST}/api/v1/comments/${postId}?postId=${postId}`,
+          `/comments/${postId}?postId=${postId}`,
         )
         .then((res) => {
           setAnsInfo(res.data.data);
@@ -176,6 +176,7 @@ function AnsPage() {
                     <button
                       type="submit"
                       className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
+                      onClick={() => window.location.reload()}
                     >
                       <span className="text-white text-xs">SUBMIT</span>
                     </button>
