@@ -14,8 +14,7 @@ import Btn from 'components/Btn';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import Overlay from 'react-bootstrap/Overlay';
-import Tooltip from 'react-bootstrap/Tooltip';
+import useCopyClipBoard from 'utils/useCopyClipBoard';
 
 function PrivateAnsPage() {
   const location = useLocation();
@@ -93,8 +92,13 @@ function PrivateAnsPage() {
     })();
   }, []);
 
-  const [show, setShow] = useState(false);
-  const target = useRef(null);
+  const [isCopy, onCopy] = useCopyClipBoard();
+  const handleCopyClipBoard = (text: string) => {
+    onCopy(text);
+    console.log(isCopy);
+    // navigate(`/mentoringpage`);
+    window.localStorage.setItem('postId', `${postId}`);
+  };
 
   return (
     <div
@@ -148,21 +152,13 @@ function PrivateAnsPage() {
           <div className="mr-2">
             <button
               type="button"
-              className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
-              ref={target}
-              onClick={() => setShow(!show)}
+              className="h-8 w-16 rounded-lg bg-violet-200 hover:bg-violet-300"
+              onClick={() => {
+                handleCopyClipBoard(`http://localhost:3000/mentoringpage`);
+              }}
             >
               <span className="text-white text-sm mx-4">LINK</span>
             </button>
-            <Overlay target={target.current} show={show} placement="bottom">
-              {(props) => (
-                <Tooltip id="overlay-example" {...props}>
-                  <p className="text-violet-400">
-                    http://localhost/mentoringpage
-                  </p>
-                </Tooltip>
-              )}
-            </Overlay>
           </div>
           <div className="mr-2">
             <Btn text="CHAT" onClick={goToChatPage} />
