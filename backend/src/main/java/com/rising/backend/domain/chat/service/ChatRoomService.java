@@ -63,4 +63,8 @@ public class ChatRoomService {
         return Objects.equals(postUserId, userId);
     }
 
+    public void deleteChatRoom(Long chatRoomId) {
+        ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId).orElseThrow(() -> new IllegalArgumentException("해당 채팅방이 없습니다. id=" + chatRoomId));
+        chatRoomRepository.delete(chatRoom);
+    }
 }

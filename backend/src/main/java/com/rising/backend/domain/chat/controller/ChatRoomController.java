@@ -64,4 +64,10 @@ public class ChatRoomController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_FIND_BY_MENTOR, mentorChatRoom));
     }
 
+    @LoginRequired
+    @DeleteMapping("/{id}")
+    public void deleteChatRoom (@PathVariable Long id) {
+        chatRoomService.deleteChatRoom(id);
+    }
+
 }
