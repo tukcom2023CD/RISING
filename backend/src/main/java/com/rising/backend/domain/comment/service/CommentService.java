@@ -40,7 +40,9 @@ public class CommentService {
     public void deleteCommentById(Long commentId) {
         List<Comment> comments = commentRepository.findByParentId(commentId);
         if (comments != null) {
-            commentRepository.deleteAllByParentId(commentId);
+            for (Comment comment : comments) {
+                commentRepository.deleteById(comment.getId());
+            }
         }
         commentRepository.deleteById(commentId);
     }

@@ -12,8 +12,8 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Entity
-@Where(clause = "is_deleted IS FALSE")
-@SQLDelete(sql = "UPDATE comment SET is_deleted = TRUE where id = ?")
+@Where(clause = "is_deleted=false")
+@SQLDelete(sql = "UPDATE comment SET is_deleted = true WHERE id=?")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
