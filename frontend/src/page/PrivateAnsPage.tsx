@@ -30,7 +30,7 @@ function PrivateAnsPage() {
 
     (async () => {
       await axios
-        .post(`http://${process.env.REACT_APP_HOST}/api/v1/chatrooms/${postId}`)
+        .post(`/chatrooms/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           if (res.data.data === false) {
@@ -77,7 +77,7 @@ function PrivateAnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
+        .get(`/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -132,8 +132,8 @@ function PrivateAnsPage() {
           {/* 코드 에디터 */}
           <div className="flex justify-center item-center mb-8">
             <div className="relative flex flex-col-reverse w-full">
-              <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
-                <div className="pl-3 pt-2">
+              <div className="flex flex-col rounded-xl h-full w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
+                <div className="pl-3">
                   <EditorViewer content={content} />
                 </div>
               </div>
