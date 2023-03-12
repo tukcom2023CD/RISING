@@ -76,6 +76,12 @@ public class UserController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_FIND_INFO_SUCCESS,userService.getUserInfo(user)));
     }
 
+    @DeleteMapping()
+    @LoginRequired
+    public void deleteUser(@LoginUser User user) {
+        userService.deleteUser(user);
+    }
+
 
 
 }
