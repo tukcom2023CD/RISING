@@ -32,7 +32,7 @@ function MyPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`http://${process.env.REACT_APP_HOST}/api/v1/chatrooms/mentee`)
+        .get(`/chatrooms/mentee`)
         .then((res) => {
           console.log(res.data.data);
           console.log(res.data.data[0].mentor.name);
@@ -48,7 +48,7 @@ function MyPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`http://${process.env.REACT_APP_HOST}/api/v1/users/info`)
+        .get(`/users/info`)
         .then((res) => {
           console.log(res.data.data);
           console.log(res.data.data.name);
