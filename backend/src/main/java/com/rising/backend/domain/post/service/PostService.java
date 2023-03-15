@@ -59,7 +59,6 @@ public class PostService {
         return post.getSessionUrl();
     }
 
-
     public PostDto.PostDetailResponse getPostDtoById(Long postId) {
         Post post = findPostById(postId);
         List<String> tags = postMapper.TagtoString(post.getTag());
@@ -75,4 +74,7 @@ public class PostService {
         return tagRepository.findByContent(content);
     }
 
+    public void deletePostById(Long postId) {
+        postRepository.deleteById(postId);
+    }
 }
