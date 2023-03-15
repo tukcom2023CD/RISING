@@ -8,6 +8,7 @@ import com.rising.backend.global.annotation.LoginRequired;
 import com.rising.backend.global.annotation.LoginUser;
 import com.rising.backend.global.result.ResultCode;
 import com.rising.backend.global.result.ResultResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -64,10 +65,12 @@ public class ChatRoomController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_FIND_BY_MENTOR, mentorChatRoom));
     }
 
+    @Operation(summary = "채팅방 삭제", description = "채팅방 id로 채팅방 soft delete")
+    @DeleteMapping("/{chatRoomId}")
     @LoginRequired
-    @DeleteMapping("/{id}")
-    public void deleteChatRoom (@PathVariable Long id) {
-        chatRoomService.deleteChatRoom(id);
+    public ResponseEntity<ResultResponse> deleteChatRoom(@PathVariable Long chatRoomId) {
+        chatRoomService.deleteChatRoom(chatRoomId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.CHATROOM_DELETE_SUCCESS));
     }
 
 }
