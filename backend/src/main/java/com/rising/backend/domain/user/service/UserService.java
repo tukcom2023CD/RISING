@@ -38,4 +38,8 @@ public class UserService {
     public UserDto.UserInfoResponse getUserInfo(User user) {
         return userMapper.toUserInfoDto(user);
     }
+
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
 }

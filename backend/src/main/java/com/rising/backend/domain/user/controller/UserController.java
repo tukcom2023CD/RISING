@@ -9,6 +9,8 @@ import com.rising.backend.global.annotation.LoginRequired;
 import com.rising.backend.global.annotation.LoginUser;
 import com.rising.backend.global.result.ResultCode;
 import com.rising.backend.global.result.ResultResponse;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -75,7 +77,11 @@ public class UserController {
 
         return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_FIND_INFO_SUCCESS,userService.getUserInfo(user)));
     }
-
-
-
+    @Operation(summary = "회원 삭제", description = "현재 로그인된 user 정보 soft delete")
+    @DeleteMapping()
+    @LoginRequired
+    public ResponseEntity<ResultResponse> deleteUser(@LoginUser User user) {
+        userService.deleteUser(user);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_DELETE_SUCCESS));
+    }
 }

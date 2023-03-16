@@ -11,6 +11,8 @@ public enum ResultCode {
     USER_NOT_LOGIN(201, "로그인 필요"),
     USER_LOGIN_SUCCESS(200, "로그인 성공"),
     USER_FIND_INFO_SUCCESS(200, "유저 정보 조회 성공"),
+    USER_DELETE_SUCCESS(200, "유저 삭제 성공"),
+
 
     //POST
     POST_CREATE_SUCCESS(201, "게시글 등록 성공"),
@@ -35,8 +37,7 @@ public enum ResultCode {
     CHATROOM_CREATE_SUCCESS(201, "채팅방 생성 성공"),
     CHATROOM_FIND_BY_MENTEE(200, "로그인된 유저가 멘티인 채팅방 조회 성공"),
     CHATROOM_FIND_BY_MENTOR(200, "로그인된 유저가 멘토인 채팅방 조회 성공"),
-
-
+    CHATROOM_DELETE_SUCCESS(200, "채팅방 삭제 성공"),
 
     //CHATMESSAGE
     CHATMESSAGE_FIND_SUCCESS(200, "채팅 메시지 반환 성공");
