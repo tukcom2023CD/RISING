@@ -52,7 +52,7 @@ public class UserController {
             log.info("로그인 정보 일치하지 않음");
             throw new RuntimeException(); //추후 에러 처리 수정
         }
-        loginService.login(member.getId(), request.getSession());
+        loginService.login(member.getId(), request.getSession()); //세션에 로그인 정보 저장
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body("로그인 성공");

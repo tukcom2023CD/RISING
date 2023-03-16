@@ -13,6 +13,10 @@ spring:
     hibernate:
       ddl-auto: update
       globally_quoted_identifiers: true
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
 
     properties:
       hibernate:

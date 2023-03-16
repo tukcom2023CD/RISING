@@ -1,6 +1,8 @@
 package com.rising.backend.domain.user.service;
 
 import com.rising.backend.domain.user.domain.User;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,11 +14,14 @@ import static com.rising.backend.global.constant.Attribute.USER_ID;
 @Service
 @RequiredArgsConstructor
 public class LoginService {
+
     private final UserService userService;
 
     private final PasswordEncoder passwordEncoder;
 
     public void login(Long id, HttpSession session) {
+
+        session.removeAttribute(USER_ID);
         session.setAttribute(USER_ID, id);
     }
 
