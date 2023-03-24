@@ -1,4 +1,3 @@
-// 컴포넌트에서 JSESSION ID 가져오기
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
@@ -7,16 +6,16 @@ import Button from 'components/LoginBtn';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { setSessionId } from '../components/redux/sessionSlice';
-import { setUserId } from '../components/redux/userSlice';
+import { setUserEmail } from '../components/redux/userSlice';
 
-function LoginPage() {
+function LoginPage(): JSX.Element {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const sessionId = useSelector((state) => state.session.sessionId);
+
 
   const checkUser = () => {
     if (username === '' || password === '') {
@@ -37,7 +36,7 @@ function LoginPage() {
         navigate('/mainpage');
         sessionStorage.setItem('username', username);
         dispatch(setSessionId(response.data.JSESSIONID));
-        dispatch(setUserId(username));
+        dispatch(setUserEmail(username));
       })
 
       .catch((error) => {
