@@ -1,7 +1,7 @@
 version: "3"
 services:
   db:
-    container_name: mysql
+    container_name: mysql_con
     image: mysql:8.0
     #    volumes:
     #      - ./volume/mysql/data:/var/lib/mysql
@@ -22,7 +22,8 @@ services:
 
   backend:
     container_name: backend_con
-    image: ${JIB_IMAGE}
+    build:
+      context: ./backend
     restart: on-failure
     ports:
       - "8080:8080"
