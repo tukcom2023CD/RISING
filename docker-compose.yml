@@ -99,7 +99,7 @@ services:
   certbot:
     container_name: certbot-con
     image: certbot/certbot:latest
-    command: certonly --webroot --webroot-path=/var/www/certbot --email deca3248@gmail.com --agree-tos --no-eff-email -d rising-aha.net
+    command: certonly --webroot --webroot-path=/var/www/certbot --email wellsy001012@gmail.com --agree-tos --no-eff-email -d rising-aha.net
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot

@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(rising-aha.net) // 각자 등록한 도메인
+domains=rising-aha.net // 각자 등록한 도메인
 rsa_key_size=4096
 data_path="./data/certbot"
 email="wellsy001012@gamil.com" # Adding a valid address is strongly recommended
