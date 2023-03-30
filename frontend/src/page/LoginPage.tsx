@@ -6,11 +6,15 @@ import Button from 'components/LoginBtn';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch} from 'react-redux';
+import { setUserEmail } from '../components/redux/userSlice';
 
-function LoginPage() {
+
+function LoginPage(): JSX.Element {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const checkUser = () => {
     if (username === '' || password === '') {
@@ -21,13 +25,14 @@ function LoginPage() {
       .post(`http://${process.env.REACT_APP_HOST}/api/v1/users/login`, {
         username,
         password,
-      })
+      },{ withCredentials: true })
 
       .then((response) => {
         // eslint-disable-next-line no-alert
         alert('로그인 성공!');
         console.log(response.data);
         console.log('유저 아이디 :', username);
+        dispatch(setUserEmail(username));
         navigate('/mainpage');
         sessionStorage.setItem('username', username);
       })
