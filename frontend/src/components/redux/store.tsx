@@ -1,9 +1,9 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import sessionReducer from './sessionSlice';
+// import sessionReducer from './sessionSlice';
 import userReducer from './userSlice';
 
 const rootReducer = combineReducers({
-  session: sessionReducer,
+  // session: sessionReducer,
   userEmail: userReducer,
 });
 
