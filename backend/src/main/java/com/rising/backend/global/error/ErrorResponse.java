@@ -1,5 +1,6 @@
 package com.rising.backend.global.error;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,19 +15,21 @@ import java.util.stream.Collectors;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ErrorResponse {
-  private String businessCode;
-  private String errorMessage;
+  private String code;
+  private String message;
+
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
   private List<FieldError> errors;
 
   private ErrorResponse(ErrorCode code, List<FieldError> fieldErrors) {
-    this.businessCode = code.getCode();
-    this.errorMessage = code.getMessage();
+    this.code = code.getErrorCode();
+    this.message = code.getMessage();
     this.errors = fieldErrors;
   }
 
   private ErrorResponse(ErrorCode code) {
-    this.businessCode = code.getCode();
-    this.errorMessage = code.getMessage();
+    this.code = code.getErrorCode();
+    this.message = code.getMessage();
     this.errors = new ArrayList<>();
   }
 
@@ -45,17 +48,17 @@ public class ErrorResponse {
     private String value;
     private String reason;
 
-    private static List<FieldError> of(final BindingResult bindingResult) {
+    public static List<FieldError> of(final BindingResult bindingResult) {
       final List<org.springframework.validation.FieldError> fieldErrors =
-          bindingResult.getFieldErrors();
+              bindingResult.getFieldErrors();
       return fieldErrors.stream()
-          .map(
-              error ->
-                  new FieldError(
-                      error.getField(),
-                      error.getRejectedValue() == null ? "" : error.getRejectedValue().toString(),
-                      error.getDefaultMessage()))
-          .collect(Collectors.toList());
+              .map(
+                      error ->
+                              new FieldError(
+                                      error.getField(),
+                                      error.getRejectedValue() == null ? "" : error.getRejectedValue().toString(),
+                                      error.getDefaultMessage()))
+              .collect(Collectors.toList());
     }
   }
 }

@@ -2,21 +2,21 @@ package com.rising.backend.global.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 /** {주체}_{이유} message 는 동사 명사형으로 마무리 */
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
   // Global
-  INTERNAL_SERVER_ERROR(500, "G001", "서버 오류"),
-  INPUT_INVALID_VALUE(400, "G002", "잘못된 입력"),
+  INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "G001", "서버 오류"),
+  INPUT_INVALID_VALUE(HttpStatus.BAD_REQUEST, "G002", "잘못된 입력"),
 
   // 예시
-  // User 도메인
-  EXAMPLE_USER_ERROR(400, "U001", "테스트용 예시 에러코드"),
+  EMAIL_DUPLICATION(HttpStatus.BAD_REQUEST, "U001", "테스트용 예시 에러코드"),
   ;
 
-  private final int status;
-  private final String code;
+  private final HttpStatus status;
+  private final String errorCode;
   private final String message;
 }

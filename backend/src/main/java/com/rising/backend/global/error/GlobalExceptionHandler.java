@@ -2,17 +2,19 @@ package com.rising.backend.global.error;
 
 import com.rising.backend.global.error.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @Slf4j
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(Exception.class)
   protected ResponseEntity<ErrorResponse> handleException(Exception e) {
@@ -24,21 +26,44 @@ public class GlobalExceptionHandler {
   @ExceptionHandler
   protected ResponseEntity<ErrorResponse> handleRuntimeException(BusinessException e) {
     final ErrorCode errorCode = e.getErrorCode();
-    final ErrorResponse response =
-        ErrorResponse.builder()
-            .errorMessage(errorCode.getMessage())
-            .businessCode(errorCode.getCode())
-            .build();
+    final ErrorResponse response = makeErrorResponse(errorCode);
     log.warn(e.getMessage());
-    return ResponseEntity.status(errorCode.getStatus()).body(response);
+    return new ResponseEntity<>(response, errorCode.getStatus());
   }
 
-  @ExceptionHandler
-  protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(
-      MethodArgumentNotValidException e) {
-    final ErrorResponse response =
-        ErrorResponse.of(ErrorCode.INPUT_INVALID_VALUE, e.getBindingResult());
+  @Override
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e, HttpHeaders headers, HttpStatus status, WebRequest request) {
     log.warn(e.getMessage());
-    return new ResponseEntity<>(response, BAD_REQUEST);
+    return handleExceptionInternal(e, ErrorCode.INPUT_INVALID_VALUE, e.getBindingResult(),request);
+  }
+
+
+  private ResponseEntity<Object> handleExceptionInternal(
+          Exception e, ErrorCode errorCode, WebRequest request) {
+    log.error(e.getMessage(), e);
+    return super.handleExceptionInternal(e, ErrorResponse.of(errorCode), HttpHeaders.EMPTY, errorCode.getStatus(), request);
+  }
+
+  private ResponseEntity<Object> handleExceptionInternal(
+          Exception e, ErrorCode errorCode, BindingResult bindingResult, WebRequest request) {
+    log.error(e.getMessage(), e);
+    ErrorResponse errorResponse = makeErrorResponse(errorCode,bindingResult);
+    return super.handleExceptionInternal(e, errorResponse, HttpHeaders.EMPTY, errorCode.getStatus(), request);
+  }
+
+
+  private ErrorResponse makeErrorResponse(ErrorCode errorCode, BindingResult bindingResult) {
+    return ErrorResponse.builder()
+            .message(errorCode.getMessage())
+            .code(errorCode.getErrorCode())
+            .errors(ErrorResponse.FieldError.of(bindingResult))
+            .build();
+  }
+
+  private ErrorResponse makeErrorResponse(ErrorCode errorCode) {
+    return ErrorResponse.builder()
+            .message(errorCode.getMessage())
+            .code(errorCode.getErrorCode())
+            .build();
   }
 }
