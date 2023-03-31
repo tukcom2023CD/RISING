@@ -9,15 +9,11 @@ spring:
     web:
       pageable:
         one-indexed-parameters: true
+
   jpa:
     hibernate:
       ddl-auto: update
       globally_quoted_identifiers: true
-  session:
-    store-type: jdbc
-    jdbc:
-      initialize-schema: always
-
     properties:
       hibernate:
         show_sql: true
@@ -25,6 +21,11 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
     generate-ddl: false
     defer-datasource-initialization: true
+
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
 
   sql:
     init:
