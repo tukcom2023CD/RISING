@@ -3,8 +3,10 @@ package com.rising.backend.global.error.exception;
 import com.rising.backend.global.error.ErrorCode;
 import lombok.Getter;
 
+import java.util.NoSuchElementException;
+
 @Getter
-public class NotFoundException extends RuntimeException {
+public class NotFoundException extends NoSuchElementException {
 
     private final ErrorCode errorCode;
 

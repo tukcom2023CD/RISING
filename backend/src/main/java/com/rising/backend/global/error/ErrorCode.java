@@ -15,6 +15,9 @@ public enum ErrorCode {
 
   // 도메인 - Post
   POST_NOT_FOUND(HttpStatus.NOT_FOUND, "P001", "해당 게시글 찾을 수 없음"),
+
+  // 도메인 - Comment
+  COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "P001", "해당 댓글 찾을 수 없음"),
   ;
 
   private final HttpStatus status;

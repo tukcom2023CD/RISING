@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NotFoundException.class)
-    protected ResponseEntity<ErrorResponse> handleEmptyResultException(NotFoundException e) {
+    protected ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e) {
         final ErrorCode errorCode = e.getErrorCode();
         final ErrorResponse response = makeErrorResponse(errorCode);
         log.warn(e.getMessage());

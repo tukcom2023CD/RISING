@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import static com.rising.backend.domain.post.dto.PostDto.PostCreateRequest;
@@ -39,7 +40,11 @@ public class PostService {
     }
 
     public Post findPostById(Long postId) {
-        return postRepository.findById(postId).orElseThrow();
+        try {
+            return postRepository.findById(postId).orElseThrow();
+        } catch (NoSuchElementException e) {
+            throw new NotFoundException(ErrorCode.POST_NOT_FOUND);
+        }
     }
 
     public boolean checkIsAuthor(Post post, User user) {
@@ -63,9 +68,7 @@ public class PostService {
 
     public PostDto.PostDetailResponse getPostDtoById(Long postId) {
         Post post = findPostById(postId);
-        if (post == null) {
-            throw new NotFoundException(ErrorCode.POST_NOT_FOUND);
-        }
+
         List<String> tags = postMapper.TagtoString(post.getTag());
         return postMapper.toPostDto(post, tags);
     }
