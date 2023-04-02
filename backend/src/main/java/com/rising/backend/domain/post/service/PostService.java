@@ -7,6 +7,8 @@ import com.rising.backend.domain.post.mapper.PostMapper;
 import com.rising.backend.domain.post.repository.PostRepository;
 import com.rising.backend.domain.post.repository.TagRepository;
 import com.rising.backend.domain.user.domain.User;
+import com.rising.backend.global.error.ErrorCode;
+import com.rising.backend.global.error.exception.NotFoundException;
 import com.rising.backend.global.util.UuidConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -61,6 +63,9 @@ public class PostService {
 
     public PostDto.PostDetailResponse getPostDtoById(Long postId) {
         Post post = findPostById(postId);
+        if (post == null) {
+            throw new NotFoundException(ErrorCode.POST_NOT_FOUND);
+        }
         List<String> tags = postMapper.TagtoString(post.getTag());
         return postMapper.toPostDto(post, tags);
     }
