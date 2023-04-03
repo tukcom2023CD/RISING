@@ -9,11 +9,10 @@ spring:
     web:
       pageable:
         one-indexed-parameters: true
-
   jpa:
     hibernate:
       ddl-auto: update
-      globally_quoted_identifiers: true
+
     properties:
       hibernate:
         show_sql: true
@@ -26,6 +25,7 @@ spring:
     store-type: jdbc
     jdbc:
       initialize-schema: always
+
 
   sql:
     init:
