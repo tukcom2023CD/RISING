@@ -16,6 +16,7 @@ function SignUpPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const dispatch = useDispatch();
   const user = () => {
     axios
       .post(`/api/v1/users`, {
@@ -27,6 +28,7 @@ function SignUpPage() {
         console.log('회원가입 완료!');
         console.log('유저 이름 :', name);
         console.log('유저 이메일 :', username);
+        dispatch(setUserName(name));
         // eslint-disable-next-line no-alert
         alert('회원가입 성공!');
         navigate('/login');
