@@ -7,6 +7,8 @@ import { useState } from 'react';
 import BasicProfile from 'images/BasicProfile.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUserName } from '../components/redux/userSlice';
 
 function SignUpPage() {
   const navigate = useNavigate();

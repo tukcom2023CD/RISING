@@ -6,7 +6,7 @@ import Button from 'components/LoginBtn';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUserEmail } from '../components/redux/userSlice';
 
 

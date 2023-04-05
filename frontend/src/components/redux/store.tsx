@@ -4,7 +4,7 @@ import userReducer from './userSlice';
 
 const rootReducer = combineReducers({
   // session: sessionReducer,
-  userEmail: userReducer,
+  user: userReducer,
 });
 
 const store = configureStore({
