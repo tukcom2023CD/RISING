@@ -14,8 +14,7 @@ import Btn from 'components/Btn';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import Overlay from 'react-bootstrap/Overlay';
-import Tooltip from 'react-bootstrap/Tooltip';
+import useCopyClipBoard from 'utils/useCopyClipBoard';
 
 function PrivateAnsPage() {
   const location = useLocation();
@@ -94,8 +93,13 @@ function PrivateAnsPage() {
     })();
   }, []);
 
-  const [show, setShow] = useState(false);
-  const target = useRef(null);
+  const [isCopy, onCopy] = useCopyClipBoard();
+  const handleCopyClipBoard = (text: string) => {
+    onCopy(text);
+    console.log(isCopy);
+    // navigate(`/mentoringpage`);
+    window.localStorage.setItem('postId', `${postId}`);
+  };
 
   return (
     <div
@@ -129,8 +133,8 @@ function PrivateAnsPage() {
           {/* 코드 에디터 */}
           <div className="flex justify-center item-center mb-8">
             <div className="relative flex flex-col-reverse w-full">
-              <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
-                <div className="pl-3 pt-2">
+              <div className="flex flex-col rounded-xl h-full w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
+                <div className="pl-3">
                   <EditorViewer content={content} />
                 </div>
               </div>
@@ -149,21 +153,13 @@ function PrivateAnsPage() {
           <div className="mr-2">
             <button
               type="button"
-              className="h-8 w-20 rounded-lg bg-violet-200 hover:bg-violet-300"
-              ref={target}
-              onClick={() => setShow(!show)}
+              className="h-8 w-16 rounded-lg bg-violet-200 hover:bg-violet-300"
+              onClick={() => {
+                handleCopyClipBoard(`http://${process.env.REACT_APP_HOST}/mentoringpage`);
+              }}
             >
               <span className="text-white text-sm mx-4">LINK</span>
             </button>
-            <Overlay target={target.current} show={show} placement="bottom">
-              {(props) => (
-                <Tooltip id="overlay-example" {...props}>
-                  <p className="text-violet-400">
-                    http://www.rising-aha.net/mentoringpage
-                  </p>
-                </Tooltip>
-              )}
-            </Overlay>
           </div>
           <div className="mr-2">
             <Btn text="CHAT" onClick={goToChatPage} />

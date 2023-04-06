@@ -23,6 +23,17 @@ function QuesPage() {
   const [titletext, setTitletext] = useState('');
   const [keyWord, setKeyWord] = useState([]);
 
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // eslint-disable-next-line prefer-destructuring
+    const value = e.target.value;
+    if (value.length <= 20) {
+      setTitletext(value);
+    } else {
+      setTitletext(value.slice(0, 20));
+    }
+  };
+  
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const editorIns = ref?.current?.getInstance();
@@ -72,14 +83,13 @@ function QuesPage() {
           <div className="relative flex flex-col-reverse w-3/5">
             <div className="flex flex-col rounded-xl h-16 w-full mx-1 my-2 pr-4 pt-1 bg-white border-4 border-violet-300">
               <div className="relative">
-                <input
-                  type="text"
-                  className="absolute top-1 left-2 w-full h-10 rounded-lg focus:shadow focus:outline-none"
-                  placeholder="Title.."
-                  onChange={(e) => {
-                    setTitletext(e.target.value);
-                  }}
-                />
+              <input
+              type="text"
+              className="absolute top-1 left-2 w-full h-10 rounded-lg focus:shadow focus:outline-none"
+              placeholder="Title.."
+              value={titletext}
+              onChange={handleTitleChange}
+            />
               </div>
             </div>
             <TitleIndex />

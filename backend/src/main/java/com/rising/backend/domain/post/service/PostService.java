@@ -7,6 +7,8 @@ import com.rising.backend.domain.post.mapper.PostMapper;
 import com.rising.backend.domain.post.repository.PostRepository;
 import com.rising.backend.domain.post.repository.TagRepository;
 import com.rising.backend.domain.user.domain.User;
+import com.rising.backend.global.error.ErrorCode;
+import com.rising.backend.global.error.exception.NotFoundException;
 import com.rising.backend.global.util.UuidConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import static com.rising.backend.domain.post.dto.PostDto.PostCreateRequest;
@@ -37,7 +40,11 @@ public class PostService {
     }
 
     public Post findPostById(Long postId) {
-        return postRepository.findById(postId).orElseThrow();
+        try {
+            return postRepository.findById(postId).orElseThrow();
+        } catch (NoSuchElementException e) {
+            throw new NotFoundException(ErrorCode.POST_NOT_FOUND);
+        }
     }
 
     public boolean checkIsAuthor(Post post, User user) {
@@ -59,9 +66,9 @@ public class PostService {
         return post.getSessionUrl();
     }
 
-
     public PostDto.PostDetailResponse getPostDtoById(Long postId) {
         Post post = findPostById(postId);
+
         List<String> tags = postMapper.TagtoString(post.getTag());
         return postMapper.toPostDto(post, tags);
     }
@@ -75,4 +82,7 @@ public class PostService {
         return tagRepository.findByContent(content);
     }
 
+    public void deletePostById(Long postId) {
+        postRepository.deleteById(postId);
+    }
 }

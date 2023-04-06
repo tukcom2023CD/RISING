@@ -1,6 +1,7 @@
 package com.rising.backend.domain.user.service;
 
 import com.rising.backend.domain.user.domain.User;
+import com.rising.backend.domain.user.exception.UserNotFoundException;
 import com.rising.backend.domain.user.mapper.UserMapper;
 import com.rising.backend.domain.user.dto.UserDto;
 import com.rising.backend.domain.user.repository.UserRepository;
@@ -27,15 +28,18 @@ public class UserService {
         return userRepository.save(user);
     }
     public User findUserById(Long userId) {
-        return userRepository.findById(userId).orElseThrow();
+        return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
     public User findUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(() ->
-                new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+        return userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
     }
 
     public UserDto.UserInfoResponse getUserInfo(User user) {
         return userMapper.toUserInfoDto(user);
+    }
+
+    public void deleteUser(User user) {
+        userRepository.delete(user);
     }
 }

@@ -69,9 +69,17 @@ public class PostController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_FIND_SUCCESS, post));
     }
 
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<ResultResponse> delete(@PathVariable Long postId) {
+        postService.deletePostById(postId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_DELETE_SUCCESS));
+    }
+
     @GetMapping("/mypages/{userId}")
     public ResponseEntity<ResultResponse> getPostListByUserId(@PathVariable Long userId) {
         List<PostDto.PostGetListResponse> postList = postService.getPostListByUserId(userId);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POSTLIST_FIND_BY_USERID_SUCCESS, postList));
     }
+
+
 }

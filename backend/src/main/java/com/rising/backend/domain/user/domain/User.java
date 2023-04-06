@@ -2,6 +2,8 @@ package com.rising.backend.domain.user.domain;
 
 import com.rising.backend.global.domain.BaseEntity;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,6 +13,8 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SQLDelete(sql = "UPDATE user SET is_deleted = true WHERE id = ?")
+@Where(clause = "is_deleted = false")
 public class User extends BaseEntity {
 
     @Id

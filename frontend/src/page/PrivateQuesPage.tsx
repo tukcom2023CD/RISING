@@ -26,6 +26,16 @@ function PrivateQuesPage() {
   const [text, setText] = useState('');
   const [keyWord, setKeyWord] = useState([]);
 
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // eslint-disable-next-line prefer-destructuring
+    const value = e.target.value;
+    if (value.length <= 20) {
+      setText(value);
+    } else {
+      setText(value.slice(0, 20));
+    }
+  };
+  
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const editorIns = ref?.current?.getInstance();
@@ -83,9 +93,8 @@ function PrivateQuesPage() {
                   type="text"
                   className="absolute top-1 left-2 w-full h-10 rounded-lg focus:shadow focus:outline-none"
                   placeholder="Title.."
-                  onChange={(e) => {
-                    setText(e.target.value);
-                  }}
+                  value={text}
+                  onChange={handleTitleChange}
                 />
               </div>
             </div>

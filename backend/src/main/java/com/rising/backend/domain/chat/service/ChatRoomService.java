@@ -2,6 +2,8 @@ package com.rising.backend.domain.chat.service;
 
 import com.rising.backend.domain.chat.domain.ChatRoom;
 import com.rising.backend.domain.chat.dto.ChatRoomDto;
+import com.rising.backend.domain.chat.exception.ChatRoomCreationFailedException;
+import com.rising.backend.domain.chat.exception.ChatRoomNotFoundException;
 import com.rising.backend.domain.chat.mapper.ChatRoomMapper;
 import com.rising.backend.domain.chat.repository.ChatRoomRepository;
 import com.rising.backend.domain.post.domain.Post;
@@ -13,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 
 @Service
@@ -35,14 +36,14 @@ public class ChatRoomService {
         }
         
         if(isUserPostCreated(mentor.getId(), post.getUser().getId())) {
-            log.error("자신의 글에서 채팅방 생성 불가능");
-            return null;
+            throw new ChatRoomCreationFailedException();
         }
 
         return chatRoomRepository.save(chatRoomMapper.toChatRoomEntity(post, mentor));
     }
 
     public List<ChatRoomDto.ChatRoomResponse> findMenteeChatRoom(Long menteeId) {
+        //TODO: 예외처리 필요 없는지 확인
         List<ChatRoom> chatRooms = chatRoomRepository.findByMentee_Id(menteeId);
         List<ChatRoomDto.ChatRoomResponse> chatRoomsDto = chatRoomMapper.toChatRoomDtoList(chatRooms);
         return chatRoomsDto;
@@ -51,16 +52,22 @@ public class ChatRoomService {
 
     public List<ChatRoomDto.ChatRoomResponse> findMentorChatRoom(Long mentorId) {
         List<ChatRoom> chatRooms = chatRoomRepository.findByMentor_Id(mentorId);
+        //if(chatRooms.isEmpty()) throw new ChatRoomNotFoundException();
         List<ChatRoomDto.ChatRoomResponse> chatRoomsDto = chatRoomMapper.toChatRoomDtoList(chatRooms);
         return chatRoomsDto;
     }
 
     public boolean isUserChatted(Long userId) {
-        return false; // 수정
+        return false; // 이후 리팩토링시 수정
     }
 
+    //TODO: 리팩토링시 함께 수정
     public boolean isUserPostCreated(Long userId, Long postUserId) {
         return Objects.equals(postUserId, userId);
     }
 
+    public void deleteChatRoom(Long chatRoomId) {
+        ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId).orElseThrow(ChatRoomNotFoundException::new);
+        chatRoomRepository.delete(chatRoom);
+    }
 }
