@@ -1,5 +1,6 @@
 package com.rising.backend.global.interceptor;
 
+import com.rising.backend.domain.user.exception.LoginRequiredException;
 import com.rising.backend.domain.user.service.LoginService;
 import com.rising.backend.global.annotation.LoginRequired;
 import lombok.RequiredArgsConstructor;
@@ -11,9 +12,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import static com.rising.backend.global.constant.Attribute.USER_ID;
 
 @Slf4j
 @Component
@@ -27,8 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             throws HttpClientErrorException.Unauthorized {
 
         if (isLoginRequiredMethod(handler) && !loginService.isUserLogin(request.getSession())) {
-            log.info("로그인 필요한데 id 없음");
-            throw new RuntimeException(); //추후 수정
+            throw new LoginRequiredException(); //추후 수정
         }
         return true; //다음 interceptor나 Controller로 넘어감
     }

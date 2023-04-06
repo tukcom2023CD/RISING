@@ -3,13 +3,14 @@ package com.rising.backend.domain.user.controller;
 
 import com.rising.backend.domain.user.domain.User;
 import com.rising.backend.domain.user.dto.UserDto;
+import com.rising.backend.domain.user.exception.DuplicatedUsernameException;
+import com.rising.backend.domain.user.exception.InvalidPasswordException;
 import com.rising.backend.domain.user.service.LoginService;
 import com.rising.backend.domain.user.service.UserService;
 import com.rising.backend.global.annotation.LoginRequired;
 import com.rising.backend.global.annotation.LoginUser;
 import com.rising.backend.global.result.ResultCode;
 import com.rising.backend.global.result.ResultResponse;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +36,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<String> registration(@RequestBody @Valid UserDto.UserCreateRequest createRequest) {
         if (userService.isDuplicatedUsername(createRequest.getUsername())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("회원 아이디 중복");
+            throw new DuplicatedUsernameException();
         }
 
         User entity = userService.register(createRequest);
@@ -51,8 +51,7 @@ public class UserController {
         User member = userService.findUserByUsername(loginRequest.getUsername());
 
         if (!loginService.checkPassword(member.getUsername(), loginRequest.getPassword())) {
-            log.info("로그인 정보 일치하지 않음");
-            throw new RuntimeException(); //추후 에러 처리 수정
+            throw new InvalidPasswordException(); //추후 에러 처리 수정
         }
         loginService.login(member.getId(), request.getSession()); //세션에 로그인 정보 저장
 
