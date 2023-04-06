@@ -21,13 +21,13 @@ public enum ErrorCode {
 
   //ChatRoom, ChatMessage 도메인
   CHATROOM_NOT_FOUND(404, "CR001", "채팅방이 존재하지 않음"),
-  CHATROOM_CREATION_FAILED(409, "CR002", "자신의 글에서 채팅방 생성 불가능");
+  CHATROOM_CREATION_FAILED(409, "CR002", "자신의 글에서 채팅방 생성 불가능"),
 
   // 도메인 - Post
   POST_NOT_FOUND(HttpStatus.NOT_FOUND, "P001", "해당 게시글 찾을 수 없음"),
 
   // 도메인 - Comment
-  COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "P001", "해당 댓글 찾을 수 없음"),
+  COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "P001", "해당 댓글 찾을 수 없음");
 
   private final HttpStatus status;
   private final String code;
