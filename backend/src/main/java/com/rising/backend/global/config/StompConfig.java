@@ -13,12 +13,13 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/api/stomp").setAllowedOriginPatterns("*"); // 클라이언트에서 웹소켓 연결 경로
+        registry.addEndpoint("/stomp").setAllowedOriginPatterns("*");//클라이언트에서 웹소켓 연결 경로
     }
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.setApplicationDestinationPrefixes("/pub"); // 메세지 전송시 prefix
+        config.setApplicationDestinationPrefixes("/pub");//메세지 전송시 prefix
         config.setPathMatcher(new AntPathMatcher("."));
-        config.enableStompBrokerRelay("/queue", "/topic", "/exchange", "/amq/queue");
+        config.enableStompBrokerRelay("/queue", "/topic", "/exchange", "/amq/queue").setRelayHost("rabbitmq")
+                .setClientLogin("rising").setClientPasscode("user").setSystemLogin("rising").setSystemPasscode("user");
     }
 }

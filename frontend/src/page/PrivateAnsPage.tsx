@@ -26,7 +26,8 @@ function PrivateAnsPage() {
   const navigate = useNavigate();
   window.localStorage.setItem('postId', `${postId}`);
   const goToChatPage = () => {
-    navigate(`/queschatpage`);
+    // navigate(`/queschatpage`);
+    alert('배포환경에서의 안정화 진행중입니다.');
 
     (async () => {
       await axios
@@ -154,7 +155,7 @@ function PrivateAnsPage() {
               type="button"
               className="h-8 w-16 rounded-lg bg-violet-200 hover:bg-violet-300"
               onClick={() => {
-                handleCopyClipBoard(`http://localhost:3000/mentoringpage`);
+                handleCopyClipBoard(`http://${process.env.REACT_APP_HOST}/mentoringpage`);
               }}
             >
               <span className="text-white text-sm mx-4">LINK</span>
