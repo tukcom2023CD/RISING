@@ -32,7 +32,7 @@ function MentoringPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/posts/${postId}`)
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -77,7 +77,7 @@ function MentoringPage() {
   const connect = () => {
     client.current = new Client({
       // http 일경우 ws를 https일 경우 wss
-      brokerURL: 'ws://localhost:8080/stomp',
+      brokerURL: `ws://${process.env.REACT_APP_HOST}/stomp`,
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
       heartbeatOutgoing: 16000,

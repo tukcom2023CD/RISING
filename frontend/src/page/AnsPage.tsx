@@ -50,7 +50,7 @@ function AnsPage() {
     (async () => {
       await axios
         .post(
-          `/comments`,
+          `http://${process.env.REACT_APP_HOST}/api/v1/comments`,
           CommentData,
           {
             headers: {
@@ -75,7 +75,7 @@ function AnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/posts/${postId}`)
+        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -94,7 +94,7 @@ function AnsPage() {
     (async () => {
       await axios
         .get(
-          `/comments/${postId}?postId=${postId}`,
+          `http://${process.env.REACT_APP_HOST}/api/v1/comments/${postId}?postId=${postId}`,
         )
         .then((res) => {
           setAnsInfo(res.data.data);

@@ -16,7 +16,7 @@ function SignUpPage() {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const user = () => {
     axios
-      .post(`/users`, {
+      .post(`http://${process.env.REACT_APP_HOST}/api/v1/users`, {
         name,
         username,
         password,
