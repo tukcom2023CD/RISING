@@ -40,7 +40,7 @@ function PrivateQuesPage() {
     (async () => {
       await axios
         .post(
-          `http://${process.env.REACT_APP_HOST}/api/v1/posts`,
+          `/api/v1/posts`,
           privateQuesData,
           {
             headers: {
