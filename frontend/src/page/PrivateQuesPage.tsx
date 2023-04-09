@@ -50,7 +50,7 @@ function PrivateQuesPage() {
     (async () => {
       await axios
         .post(
-          `/posts`,
+          `/api/v1/posts`,
           privateQuesData,
           {
             headers: {

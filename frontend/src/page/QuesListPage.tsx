@@ -19,7 +19,7 @@ function QuesListPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/posts?page=0`)
+        .get(`/api/v1/posts?page=0`)
         .then((res) => {
           setSumId(res.data.data[0].id);
           setPageCount(Math.ceil(sumId / 10));
@@ -32,7 +32,7 @@ function QuesListPage() {
     (async () => {
       await axios
         .get(
-          `/posts?page=${pageNumber}`,
+          `/api/v1/posts?page=${pageNumber}`,
         )
         .then((res) => {
           setQuesInfo(res.data.data);
@@ -46,7 +46,7 @@ function QuesListPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`/posts?page=1`)
+        .get(`/api/v1/posts?page=1`)
         .then((res) => {
           setPageCount(Math.ceil(sumId / 10));
         })

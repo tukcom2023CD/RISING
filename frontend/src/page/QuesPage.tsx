@@ -46,7 +46,7 @@ function QuesPage() {
     };
     (async () => {
       await axios
-        .post(`/posts`, QuesData, {
+        .post(`/api/v1/posts`, QuesData, {
           headers: {
             'Content-Type': 'application/json',
           },
