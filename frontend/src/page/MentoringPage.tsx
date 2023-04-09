@@ -12,7 +12,7 @@ import CodeEditor from '@uiw/react-textarea-code-editor';
 import React, { useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
 import axios from 'axios';
-
+import { debounce } from 'lodash';
 
 function MentoringPage() {
   document.documentElement.setAttribute('data-color-mode', 'light');
@@ -56,7 +56,7 @@ function MentoringPage() {
   };
   
   // 코드 에디터의 onChange 이벤트에서 웹소켓을 통해 코드를 전송
-  const handleEditorChange = (evn: {
+ const handleEditorChange = debounce((evn: {
     target: { value: React.SetStateAction<string> };
   }) => {
     setCodeList(evn.target.value);
@@ -68,8 +68,7 @@ function MentoringPage() {
         text: `${evn.target.value}`,
       }),
     });
-  };
-
+  }, 100);
 
   const client = useRef<Client>();
 
