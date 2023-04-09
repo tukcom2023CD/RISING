@@ -46,7 +46,7 @@ function QuesPage() {
     };
     (async () => {
       await axios
-        .post(`http://${process.env.REACT_APP_HOST}/api/v1/posts`, QuesData, {
+        .post(`/api/v1/posts`, QuesData, {
           headers: {
             'Content-Type': 'application/json',
           },

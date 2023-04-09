@@ -12,7 +12,7 @@ import CodeEditor from '@uiw/react-textarea-code-editor';
 import React, { useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
 import axios from 'axios';
-
+import { debounce } from 'lodash';
 
 function MentoringPage() {
   document.documentElement.setAttribute('data-color-mode', 'light');
@@ -32,7 +32,7 @@ function MentoringPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(`http://${process.env.REACT_APP_HOST}/api/v1/posts/${postId}`)
+        .get(`/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
           setTitle(res.data.data.title);
@@ -56,7 +56,7 @@ function MentoringPage() {
   };
   
   // 코드 에디터의 onChange 이벤트에서 웹소켓을 통해 코드를 전송
-  const handleEditorChange = (evn: {
+  const handleEditorChange = debounce((evn: {
     target: { value: React.SetStateAction<string> };
   }) => {
     setCodeList(evn.target.value);
@@ -68,7 +68,7 @@ function MentoringPage() {
         text: `${evn.target.value}`,
       }),
     });
-  };
+  }, 100);
 
 
   const client = useRef<Client>();
@@ -77,7 +77,7 @@ function MentoringPage() {
   const connect = () => {
     client.current = new Client({
       // http 일경우 ws를 https일 경우 wss
-      brokerURL: `ws://${process.env.REACT_APP_HOST}/stomp`,
+      brokerURL: `ws://localhost:8080/stomp`,
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
       heartbeatOutgoing: 16000,

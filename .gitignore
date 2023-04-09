@@ -240,3 +240,6 @@ $RECYCLE.BIN/
 
 .env
 ./volume/*
+
+nginx/data
+./data
