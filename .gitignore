@@ -242,3 +242,4 @@ $RECYCLE.BIN/
 ./volume/*
 
 nginx/data
+./data
