@@ -242,4 +242,5 @@ $RECYCLE.BIN/
 ./volume/*
 
 nginx/data
-./data
+data/
+init-letsencrypt.sh
