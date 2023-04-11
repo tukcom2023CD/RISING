@@ -56,7 +56,7 @@ public class UserController {
         loginService.login(member.getId(), request.getSession()); //세션에 로그인 정보 저장
 
         return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_LOGIN_SUCCESS,
-                UserDto.UserLoginResponse.builder().username(member.getUsername()).build()));
+                UserDto.UserLoginResponse.builder().name(member.getName()).build()));
     }
 
     @GetMapping("/logout")

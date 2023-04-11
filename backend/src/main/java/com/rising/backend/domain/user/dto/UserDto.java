@@ -46,7 +46,7 @@ public class UserDto {
     public static class UserLoginResponse {
 
         @NotNull
-        private String username;
+        private String name;
     }
 
     @Builder
