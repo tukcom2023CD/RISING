@@ -22,15 +22,16 @@ function PrivateAnsPage() {
   const location = useLocation();
   const state = location.state as {
     id: number;
+    roomId: number;
   };
   const postId = state.id;
+  // eslint-disable-next-line prefer-destructuring
+  const roomId = state.roomId;
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const goToChatPage = () => {
-    navigate(`/queschatpage`, { state: { id: postId } });
-
     (async () => {
       await axios
         .post(`/api/v1/chatrooms/${postId}`)
@@ -42,9 +43,13 @@ function PrivateAnsPage() {
           } else {
             setMentee(res.data.data.mentee.name);
             setMentor(res.data.data.mentor.name);
-            dispatch(setUserName(res.data.data.mentee.name));
+            // setRoomId(res.data.data.id);
+            dispatch(setUserName(res.data.data.mentor.name));
             localStorage.setItem('roomId', `${res.data.data.id}`);
             localStorage.setItem('sender', `${res.data.data.mentee.name}`);
+            navigate(`/queschatpage`, {
+              state: { id: postId, roomId: `${res.data.data.id}` },
+            });
           }
         })
         .catch((error) => {
