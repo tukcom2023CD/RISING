@@ -10,12 +10,16 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import BasicProfile from 'images/BasicProfile.png';
 import pencil from 'images/pencil.png';
-import Tag from 'components/Tags/Tag';
+// import Tag from 'components/Tags/Tag';
 import ChatBox from 'components/ChatBox';
 import Profile from 'components/Profile';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function MyPage() {
+  const user = useSelector((state: any) => state.user.userName);
+  console.log(user);
+
   const [value, setValue] = useState('1');
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -94,7 +98,7 @@ function MyPage() {
               </Box>
               {/* 유저정보 */}
               <TabPanel value="3">
-                <div className="relative flex flex-col w-full">
+                {/* <div className="relative flex flex-col w-full">
                   <div className="flex flex-col rounded-xl h-64 w-full bg-white border-4 border-violet-300">
                     <div className="flex flex-col m-3 mb-4">
                       <span className="font-bold mb-3">학력</span>
@@ -107,10 +111,10 @@ function MyPage() {
                     <div className="flex flex-row ml-1 mt-1">
                       <Tag text="Java" />
                       <Tag text="Spring" />
-                    </div>
-                    추후 업데이트 될 예정입니다.
-                  </div>
-                </div>
+                    </div> */}
+                {/* </div> */}
+                {/* </div> */}
+                추후 업데이트 될 예정입니다.
               </TabPanel>
               {/* 내가 작성한 질문 */}
               <TabPanel value="2">

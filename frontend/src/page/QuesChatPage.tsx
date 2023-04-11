@@ -12,6 +12,8 @@ import OthersMessage from 'components/Chat/OthersMessage';
 import MyMessage from 'components/Chat/MyMessage';
 import useInput from 'utils/useInput';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 interface ChatMessage {
   sender: string;
@@ -19,22 +21,24 @@ interface ChatMessage {
 }
 
 function QuesChatPage() {
+  const location = useLocation();
+  const state = location.state as { id: number };
+
+  const postId = state.id;
+
   localStorage.getItem('sender');
   const sender = localStorage.getItem('sender');
-  console.log(sender);
+  // console.log(sender);
 
-  const DUMMY_CHAT: ChatMessage[] = [
-    {
-      sender: '멘토',
-      content: '멘토는 페이지 새로고침 부탁드립니다!',
-    },
-  ];
+  // const sender = useSelector((state: any) => state.user.userName);
+  console.log(sender);
+  // localStorage.setItem('sender', sender);
+  // localStorage.getItem('sender');
 
   const [content, onChatInput, setContent] = useInput('');
-  const [chatList, setChatList] = useState(DUMMY_CHAT);
+  const [chatList, setChatList] = useState<ChatMessage[]>([]);
   localStorage.getItem('roomId');
   const roomId = localStorage.getItem('roomId');
-  console.log(roomId);
 
   const chatListRef = useRef<HTMLUListElement>(null);
   const client = useRef<Client>();
@@ -111,9 +115,6 @@ function QuesChatPage() {
       client.current?.deactivate();
     };
   }, []);
-
-  localStorage.getItem('postId');
-  const postId = localStorage.getItem('postId');
 
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);

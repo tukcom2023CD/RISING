@@ -14,7 +14,7 @@ function ChatBox({ person, postId, roomId }: Props) {
   console.log(postId);
   const navigate = useNavigate();
   const goToChat = () => {
-    navigate('/queschatpage');
+    navigate('/queschatpage', { state: { id: postId } });
   };
   return (
     <button type="button" onClick={goToChat}>
