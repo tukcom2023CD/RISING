@@ -43,6 +43,16 @@ public class UserDto {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     @Getter
+    public static class UserLoginResponse {
+
+        @NotNull
+        private String username;
+    }
+
+    @Builder
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @Getter
     public static class UserChatRoomResponse {
 
         @NotNull
