@@ -2,16 +2,16 @@ import { useNavigate } from 'react-router-dom';
 
 interface Props {
   // chat: string;
-  person: string;
+  mentor: string;
   postId: number;
   roomId: number;
   // count: number;
 }
 
-function ChatBox({ person, postId, roomId }: Props) {
-  localStorage.setItem('postId', `${postId}`);
+function ChatBox({ mentor, postId, roomId }: Props) {
   localStorage.setItem('roomId', `${roomId}`);
-  console.log(postId);
+  localStorage.setItem('sender', `${mentor}`);
+
   const navigate = useNavigate();
   const goToChat = () => {
     navigate('/queschatpage', { state: { id: postId } });
@@ -23,7 +23,7 @@ function ChatBox({ person, postId, roomId }: Props) {
         <div className="h-9 w-9 m-2 rounded-lg bg-violet-100" />
         {/* 상대방이름과 채팅 내용 */}
         <div className="flex flex-col">
-          <span className="font-bold text-xs mb-3">{person}</span>
+          <span className="font-bold text-xs mb-3">{mentor}</span>
           {/* <span className="text-xs">{chat}</span> */}
         </div>
         {/* 채팅 수 */}

@@ -14,12 +14,10 @@ import pencil from 'images/pencil.png';
 import ChatBox from 'components/ChatBox';
 import Profile from 'components/Profile';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setUserName } from '../components/redux/userSlice';
 
 function MyPage() {
-  const user = useSelector((state: any) => state.user.userName);
-  console.log(user);
-
   const [value, setValue] = useState('1');
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -29,7 +27,7 @@ function MyPage() {
   const [chatInfo, setChatInfo] = useState([]);
   const [profileInfo, setProfileInfo] = useState('');
 
-  localStorage.setItem('sender', '멘토');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -50,9 +48,8 @@ function MyPage() {
       await axios
         .get(`/api/v1/users/info`)
         .then((res) => {
-          console.log(res.data.data);
-          console.log(res.data.data.name);
           setProfileInfo(res.data.data.name);
+          dispatch(setUserName(res.data.data.name));
         })
         .catch((error) => {
           console.log(error);
@@ -147,7 +144,7 @@ function MyPage() {
                         {chatInfo.map((data: any) => (
                           <ChatBox
                             key={Math.random() * 500}
-                            person={data.mentor.name}
+                            mentor={data.mentor.name}
                             postId={data.post.postId}
                             roomId={data.roomId}
                           />

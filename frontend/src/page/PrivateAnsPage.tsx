@@ -12,7 +12,7 @@ import ContentIndex from 'components/Index/ContentIndex';
 import EditorViewer from 'components/Editor/EditorViewer';
 import Btn from 'components/Btn';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import useCopyClipBoard from 'utils/useCopyClipBoard';
 import { useDispatch } from 'react-redux';
@@ -42,9 +42,6 @@ function PrivateAnsPage() {
           } else {
             setMentee(res.data.data.mentee.name);
             setMentor(res.data.data.mentor.name);
-            setMenteeId(res.data.data.mentee.id);
-            setMentorId(res.data.data.mentor.id);
-            setRoomId(res.data.data.id);
             dispatch(setUserName(res.data.data.mentee.name));
             localStorage.setItem('roomId', `${res.data.data.id}`);
             localStorage.setItem('sender', `${res.data.data.mentee.name}`);
@@ -62,22 +59,14 @@ function PrivateAnsPage() {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [userId, setUserId] = useState(0);
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
 
   const [mentee, setMentee] = useState('');
   const [mentor, setMentor] = useState('');
-  const [menteeId, setMenteeId] = useState(0);
-  const [mentorId, setMentorId] = useState(0);
-  const [roomId, setRoomId] = useState(0);
 
   localStorage.setItem('mentee', `${mentee}`);
   localStorage.setItem('mentor', `${mentor}`);
-  localStorage.setItem('menteeId', `${menteeId}`);
-  localStorage.setItem('mentorId', `${mentorId}`);
-  // localStorage.setItem('sender', `${mentee}`);
-  // localStorage.setItem('roomId', `${roomId}`);
 
   useEffect(() => {
     (async () => {
@@ -87,7 +76,6 @@ function PrivateAnsPage() {
           console.log(res.data.data);
           setTitle(res.data.data.title);
           setContent(res.data.data.content);
-          setUserId(res.data.data.userId);
           setTags(res.data.data.tags);
           setDate(res.data.data.created_at);
         })

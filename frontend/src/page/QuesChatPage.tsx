@@ -27,18 +27,17 @@ function QuesChatPage() {
   const postId = state.id;
 
   localStorage.getItem('sender');
-  const sender = localStorage.getItem('sender');
-  // console.log(sender);
+  const other = localStorage.getItem('sender');
+  console.log(other);
 
-  // const sender = useSelector((state: any) => state.user.userName);
+  const sender = useSelector((state: any) => state.user.userName);
   console.log(sender);
-  // localStorage.setItem('sender', sender);
-  // localStorage.getItem('sender');
 
   const [content, onChatInput, setContent] = useInput('');
   const [chatList, setChatList] = useState<ChatMessage[]>([]);
   localStorage.getItem('roomId');
   const roomId = localStorage.getItem('roomId');
+  console.log(roomId);
 
   const chatListRef = useRef<HTMLUListElement>(null);
   const client = useRef<Client>();
@@ -169,7 +168,7 @@ function QuesChatPage() {
               alt="profile"
             />
           </div>
-          <span className="mt-4">{sender}</span>
+          <span className="mt-4">{other}</span>
         </div>
       </div>
       {/* 채팅방 */}
