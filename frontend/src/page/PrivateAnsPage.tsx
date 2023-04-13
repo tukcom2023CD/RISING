@@ -25,8 +25,6 @@ function PrivateAnsPage() {
     roomId: number;
   };
   const postId = state.id;
-  // eslint-disable-next-line prefer-destructuring
-  const roomId = state.roomId;
 
   const dispatch = useDispatch();
 
@@ -36,24 +34,19 @@ function PrivateAnsPage() {
       await axios
         .post(`/api/v1/chatrooms/${postId}`)
         .then((res) => {
-          console.log(res.data.data);
-          if (res.data.data === false) {
-            alert('멘티입니다.');
-            navigate('/queslistpage');
-          } else {
-            setMentee(res.data.data.mentee.name);
-            setMentor(res.data.data.mentor.name);
-            // setRoomId(res.data.data.id);
-            dispatch(setUserName(res.data.data.mentor.name));
-            localStorage.setItem('roomId', `${res.data.data.id}`);
-            localStorage.setItem('sender', `${res.data.data.mentee.name}`);
-            navigate(`/queschatpage`, {
-              state: { id: postId, roomId: `${res.data.data.id}` },
-            });
-          }
+          setMentee(res.data.data.mentee.name);
+          setMentor(res.data.data.mentor.name);
+          dispatch(setUserName(res.data.data.mentor.name));
+          localStorage.setItem('roomId', `${res.data.data.id}`);
+          localStorage.setItem('sender', `${res.data.data.mentee.name}`);
+          navigate(`/queschatpage`, {
+            state: { id: postId, roomId: `${res.data.data.id}` },
+          });
         })
         .catch((error) => {
           console.log(error);
+          alert('질문자는 마이페이지의 채팅방을 이용해주세요:)');
+          navigate('/mypage');
         });
     })();
   };
