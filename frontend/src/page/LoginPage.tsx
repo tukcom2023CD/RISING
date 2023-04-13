@@ -6,9 +6,8 @@ import Button from 'components/LoginBtn';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch} from 'react-redux';
-import { setUserEmail } from '../components/redux/userSlice';
-
+import { useDispatch } from 'react-redux';
+import { setUserEmail, setUserName } from '../components/redux/userSlice';
 
 function LoginPage(): JSX.Element {
   const [username, setUsername] = useState('');
@@ -22,17 +21,22 @@ function LoginPage(): JSX.Element {
       alert('아이디와 비밀번호를 입력해주세요!');
     }
     axios
-      .post(`/api/v1/users/login`, {
-        username,
-        password,
-      },{ withCredentials: true })
+      .post(
+        `/api/v1/users/login`,
+        {
+          username,
+          password,
+        },
+        { withCredentials: true },
+      )
 
-      .then((response) => {
+      .then((res) => {
         // eslint-disable-next-line no-alert
         alert('로그인 성공!');
-        console.log(response.data);
+        console.log(res.data);
         console.log('유저 아이디 :', username);
         dispatch(setUserEmail(username));
+        dispatch(setUserName(res.data.data.name));
         navigate('/mainpage');
         sessionStorage.setItem('username', username);
       })

@@ -14,6 +14,7 @@ function SignUpPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+
   const user = () => {
     axios
       .post(`/api/v1/users`, {
