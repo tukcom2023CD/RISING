@@ -13,10 +13,14 @@ import EditorViewer from 'components/Editor/EditorViewer';
 import Btn from 'components/Btn';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { Axios, AxiosError } from 'axios';
 import useCopyClipBoard from 'utils/useCopyClipBoard';
 import { useDispatch } from 'react-redux';
 import { setUserName } from '../components/redux/userSlice';
+
+export type ChatError = {
+  errorMessage: string;
+};
 
 function PrivateAnsPage() {
   const location = useLocation();
@@ -44,9 +48,13 @@ function PrivateAnsPage() {
           });
         })
         .catch((error) => {
-          console.log(error);
-          alert('질문자는 마이페이지의 채팅방을 이용해주세요:)');
-          navigate('/mypage');
+          if (
+            (error as AxiosError<ChatError, undefined>).response?.data
+              .errorMessage !== null
+          ) {
+            alert('질문자는 마이페이지의 채팅방을 이용해주세요:)');
+            navigate('/mypage');
+          }
         });
     })();
   };
