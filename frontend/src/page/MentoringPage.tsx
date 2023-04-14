@@ -8,11 +8,11 @@ import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import Btn from 'components/Btn';
 import { useNavigate } from 'react-router-dom';
-import CodeEditor from '@uiw/react-textarea-code-editor';
 import React, { useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
 import axios from 'axios';
 import { debounce } from 'lodash';
+import MonacoEditor from 'react-monaco-editor';
 
 function MentoringPage() {
   document.documentElement.setAttribute('data-color-mode', 'light');
@@ -46,7 +46,8 @@ function MentoringPage() {
     })();
   }, []);
 
-  const [codeList, setCodeList] = React.useState(`print(hello world)`);
+  const [codeList, setCodeList] = React.useState(``);
+  const [selectedLanguage, setSelectedLanguage] = useState('python');
   // const textRef = React.useRef<HTMLInputElement>(null);
   
   const handleSub = (body: IMessage) => {
@@ -56,19 +57,23 @@ function MentoringPage() {
   };
   
   // 코드 에디터의 onChange 이벤트에서 웹소켓을 통해 코드를 전송
-  const handleEditorChange = debounce((evn: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setCodeList(evn.target.value);
-  
+
+  const handleEditorChange = debounce((value: string) => {
+    setCodeList(value);
+
     if (!client.current?.connected) return;
     client.current.publish({
       destination: `/pub/code.message.${postId}`,
       body: JSON.stringify({
-        text: `${evn.target.value}`,
+        text: `${value}`,
       }),
     });
-  }, 100);
+  }, 300);
+  
+
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedLanguage(e.target.value);
+  };
 
 
   const client = useRef<Client>();
@@ -149,18 +154,31 @@ function MentoringPage() {
           <div className="flex justify-center item-center mb-8">
             <div className="relative flex flex-col-reverse w-full">
               <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
-                <CodeEditor
+              <select
+  value={selectedLanguage}
+  onChange={handleLanguageChange}
+  className="absolute top-4 right-6 border-2 border-gray-300 rounded-md bg-white z-10"
+>
+  <option value="python">Python</option>
+  <option value="javascript">JavaScript</option>
+  <option value="java">Java</option>
+  <option value="c">C</option>
+</select>
+                <MonacoEditor
                   value={codeList}
-                  language="py"
-                  placeholder="Please enter Python code."
+                  language={selectedLanguage}
+                  theme="vs-light"
+                  width="100%"
+                  height="100%"
                   onChange={handleEditorChange}
-                  padding={15}
-                  style={{
+                  options={{
+                    selectOnLineNumbers: true,
                     fontFamily:
                       'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
                     fontSize: 12,
                   }}
                 />
+
               </div>
             </div>
           </div>
