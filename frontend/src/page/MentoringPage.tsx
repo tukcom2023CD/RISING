@@ -13,6 +13,12 @@ import { Client, IMessage } from '@stomp/stompjs';
 import axios from 'axios';
 import { debounce } from 'lodash';
 import MonacoEditor from 'react-monaco-editor';
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import 'monaco-editor/esm/vs/basic-languages/python/python.contribution';
+import 'monaco-editor/esm/vs/basic-languages/java/java.contribution';
+import 'monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution';
+import 'monaco-editor/esm/vs/basic-languages/cpp/cpp.contribution';
+import 'monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution';
 
 function MentoringPage() {
   document.documentElement.setAttribute('data-color-mode', 'light');
@@ -155,15 +161,15 @@ function MentoringPage() {
             <div className="relative flex flex-col-reverse w-full">
               <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
               <select
-  value={selectedLanguage}
-  onChange={handleLanguageChange}
-  className="absolute top-4 right-6 border-2 border-gray-300 rounded-md bg-white z-10"
->
-  <option value="python">Python</option>
-  <option value="javascript">JavaScript</option>
-  <option value="java">Java</option>
-  <option value="c">C</option>
-</select>
+                value={selectedLanguage}
+                onChange={handleLanguageChange}
+                className="absolute top-4 right-6 border-2 border-gray-300 rounded-md bg-white z-10"
+              >
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+                <option value="java">Java</option>
+                <option value="c">C</option>
+              </select>
                 <MonacoEditor
                   value={codeList}
                   language={selectedLanguage}
