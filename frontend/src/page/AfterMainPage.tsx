@@ -22,9 +22,7 @@ function AfterMainPage() {
     navigate('/queslistpage');
   };
   const goToMyChatlist = () => {
-    // navigate('/mypage');
-    alert('배포환경에서의 안정화 진행중입니다.');
-    navigate(`/mainpage`);
+    navigate('/mypage');
   };
 
   return (

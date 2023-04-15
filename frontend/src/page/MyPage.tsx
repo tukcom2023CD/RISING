@@ -10,10 +10,12 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import BasicProfile from 'images/BasicProfile.png';
 import pencil from 'images/pencil.png';
-import Tag from 'components/Tags/Tag';
+// import Tag from 'components/Tags/Tag';
 import ChatBox from 'components/ChatBox';
 import Profile from 'components/Profile';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setUserName } from '../components/redux/userSlice';
 
 function MyPage() {
   const [value, setValue] = useState('1');
@@ -23,11 +25,9 @@ function MyPage() {
   };
 
   const [chatInfo, setChatInfo] = useState([]);
-  const [mentor, setMentor] = useState('');
   const [profileInfo, setProfileInfo] = useState('');
 
-  window.localStorage.setItem('partner', `${mentor}`);
-  localStorage.setItem('sender', '멘토');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
@@ -35,9 +35,7 @@ function MyPage() {
         .get(`/api/v1/chatrooms/mentee`)
         .then((res) => {
           console.log(res.data.data);
-          console.log(res.data.data[0].mentor.name);
           setChatInfo(res.data.data);
-          setMentor(res.data.data[0].mentor.name);
         })
         .catch((error) => {
           console.log(error);
@@ -50,9 +48,8 @@ function MyPage() {
       await axios
         .get(`/api/v1/users/info`)
         .then((res) => {
-          console.log(res.data.data);
-          console.log(res.data.data.name);
           setProfileInfo(res.data.data.name);
+          dispatch(setUserName(res.data.data.name));
         })
         .catch((error) => {
           console.log(error);
@@ -98,7 +95,7 @@ function MyPage() {
               </Box>
               {/* 유저정보 */}
               <TabPanel value="3">
-                <div className="relative flex flex-col w-full">
+                {/* <div className="relative flex flex-col w-full">
                   <div className="flex flex-col rounded-xl h-64 w-full bg-white border-4 border-violet-300">
                     <div className="flex flex-col m-3 mb-4">
                       <span className="font-bold mb-3">학력</span>
@@ -111,10 +108,10 @@ function MyPage() {
                     <div className="flex flex-row ml-1 mt-1">
                       <Tag text="Java" />
                       <Tag text="Spring" />
-                    </div>
-                    추후 업데이트 될 예정입니다.
-                  </div>
-                </div>
+                    </div> */}
+                {/* </div> */}
+                {/* </div> */}
+                추후 업데이트 될 예정입니다.
               </TabPanel>
               {/* 내가 작성한 질문 */}
               <TabPanel value="2">
@@ -147,7 +144,9 @@ function MyPage() {
                         {chatInfo.map((data: any) => (
                           <ChatBox
                             key={Math.random() * 500}
-                            person={data.mentor.name}
+                            mentor={data.mentor.name}
+                            postId={data.post.postId}
+                            roomId={data.roomId}
                           />
                         ))}
                       </div>
