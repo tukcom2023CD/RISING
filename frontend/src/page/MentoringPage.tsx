@@ -45,7 +45,7 @@ function MentoringPage() {
           setDate(res.data.data.created_at);
   
           // 언어 태그를 찾아 초기값으로 설정하기
-          const languageTags = ['Python', 'Java', 'JavaScript', 'TypeScript', 'Spring', 'React'];
+          const languageTags = ['Python', 'Java', 'JavaScript', 'TypeScript'];
           const language = res.data.data.tags.find((tag: string) => languageTags.includes(tag));
           if (language) {
             setSelectedLanguage(language.toLowerCase());
@@ -84,7 +84,15 @@ function MentoringPage() {
   
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedLanguage(e.target.value);
+    const { value } = e.target;
+  
+    if (value === 'spring') {
+      setSelectedLanguage('java');
+    } else if (value === 'react') {
+      setSelectedLanguage('javascript');
+    } else {
+      setSelectedLanguage(value);
+    }
   };
 
 
@@ -175,8 +183,8 @@ function MentoringPage() {
                 <option value="python">Python</option>
                 <option value="javascript">JavaScript</option>
                 <option value="typescript">TypeScript</option>
-                <option value="java">Spring</option>
-                <option value="typescript">React</option>
+                <option value="spring">Spring</option>
+                <option value="react">React</option>
               </select>
                 <MonacoEditor
                   value={codeList}
@@ -192,7 +200,6 @@ function MentoringPage() {
                     fontSize: 12,
                   }}
                 />
-
               </div>
             </div>
           </div>
