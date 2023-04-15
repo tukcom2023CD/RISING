@@ -28,8 +28,11 @@ function PrivateAnsPage() {
     id: number;
     roomId: number;
   };
-  const postId = state.id;
+  const [postId, setPostId] = useState<number>(state.id);
 
+  useEffect(() => {
+    setPostId(state.id);
+  }, [state.id]);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -84,12 +87,13 @@ function PrivateAnsPage() {
           setContent(res.data.data.content);
           setTags(res.data.data.tags);
           setDate(res.data.data.created_at);
+          localStorage.setItem('postId', `${postId}`);
         })
         .catch((error) => {
           console.log(error);
         });
     })();
-  }, []);
+  }, [postId]);
 
   const [isCopy, onCopy] = useCopyClipBoard();
   const handleCopyClipBoard = (text: string) => {
@@ -171,3 +175,4 @@ function PrivateAnsPage() {
 }
 
 export default PrivateAnsPage;
+
