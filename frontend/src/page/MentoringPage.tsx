@@ -8,15 +8,20 @@ import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import Btn from 'components/Btn';
 import { useNavigate } from 'react-router-dom';
-import CodeEditor from '@uiw/react-textarea-code-editor';
 import React, { useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
 import axios from 'axios';
 import { debounce } from 'lodash';
+import MonacoEditor from 'react-monaco-editor';
+import 'monaco-editor/esm/vs/basic-languages/python/python.contribution';
+import 'monaco-editor/esm/vs/basic-languages/java/java.contribution';
+import 'monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution';
+import 'monaco-editor/esm/vs/basic-languages/cpp/cpp.contribution';
+import 'monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution';
 
 function MentoringPage() {
   document.documentElement.setAttribute('data-color-mode', 'light');
-
+  
   localStorage.getItem('postId');
   const postId = localStorage.getItem('postId');
 
@@ -38,6 +43,13 @@ function MentoringPage() {
           setTitle(res.data.data.title);
           setTags(res.data.data.tags);
           setDate(res.data.data.created_at);
+  
+          // 언어 태그를 찾아 초기값으로 설정하기
+          const languageTags = ['Python', 'Java', 'JavaScript', 'TypeScript'];
+          const language = res.data.data.tags.find((tag: string) => languageTags.includes(tag));
+          if (language) {
+            setSelectedLanguage(language.toLowerCase());
+          }
         })
         .catch((error) => {
           console.log(tags);
@@ -46,7 +58,8 @@ function MentoringPage() {
     })();
   }, []);
 
-  const [codeList, setCodeList] = React.useState(`print(hello world)`);
+  const [codeList, setCodeList] = React.useState(``);
+  const [selectedLanguage, setSelectedLanguage] = useState('python');
   // const textRef = React.useRef<HTMLInputElement>(null);
   
   const handleSub = (body: IMessage) => {
@@ -56,19 +69,31 @@ function MentoringPage() {
   };
   
   // 코드 에디터의 onChange 이벤트에서 웹소켓을 통해 코드를 전송
-  const handleEditorChange = debounce((evn: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setCodeList(evn.target.value);
-  
+
+  const handleEditorChange = debounce((value: string) => {
+    setCodeList(value);
+
     if (!client.current?.connected) return;
     client.current.publish({
       destination: `/pub/code.message.${postId}`,
       body: JSON.stringify({
-        text: `${evn.target.value}`,
+        text: `${value}`,
       }),
     });
-  }, 100);
+  }, 300);
+  
+
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+  
+    if (value === 'spring') {
+      setSelectedLanguage('java');
+    } else if (value === 'react') {
+      setSelectedLanguage('javascript');
+    } else {
+      setSelectedLanguage(value);
+    }
+  };
 
 
   const client = useRef<Client>();
@@ -149,13 +174,27 @@ function MentoringPage() {
           <div className="flex justify-center item-center mb-8">
             <div className="relative flex flex-col-reverse w-full">
               <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
-                <CodeEditor
+              <select
+                value={selectedLanguage}
+                onChange={handleLanguageChange}
+                className="absolute top-4 right-6 border-2 border-gray-300 rounded-md bg-white z-10"
+              >
+                <option value="java">Java</option>
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+                <option value="typescript">TypeScript</option>
+                <option value="spring">Spring</option>
+                <option value="react">React</option>
+              </select>
+                <MonacoEditor
                   value={codeList}
-                  language="py"
-                  placeholder="Please enter Python code."
+                  language={selectedLanguage}
+                  theme="vs-light"
+                  width="100%"
+                  height="100%"
                   onChange={handleEditorChange}
-                  padding={15}
-                  style={{
+                  options={{
+                    selectOnLineNumbers: true,
                     fontFamily:
                       'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
                     fontSize: 12,
