@@ -165,9 +165,10 @@ function MentoringPage() {
                 onChange={handleLanguageChange}
                 className="absolute top-4 right-6 border-2 border-gray-300 rounded-md bg-white z-10"
               >
+                <option value="java">Java</option>
                 <option value="python">Python</option>
                 <option value="javascript">JavaScript</option>
-                <option value="java">Java</option>
+                <option value="typescript">TypeScript</option>
                 <option value="c">C</option>
               </select>
                 <MonacoEditor
