@@ -13,7 +13,6 @@ import { Client, IMessage } from '@stomp/stompjs';
 import axios from 'axios';
 import { debounce } from 'lodash';
 import MonacoEditor from 'react-monaco-editor';
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import 'monaco-editor/esm/vs/basic-languages/python/python.contribution';
 import 'monaco-editor/esm/vs/basic-languages/java/java.contribution';
 import 'monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution';
@@ -22,7 +21,7 @@ import 'monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution'
 
 function MentoringPage() {
   document.documentElement.setAttribute('data-color-mode', 'light');
-
+  
   localStorage.getItem('postId');
   const postId = localStorage.getItem('postId');
 
@@ -44,6 +43,13 @@ function MentoringPage() {
           setTitle(res.data.data.title);
           setTags(res.data.data.tags);
           setDate(res.data.data.created_at);
+  
+          // 언어 태그를 찾아 초기값으로 설정하기
+          const languageTags = ['Python', 'Java', 'JavaScript', 'TypeScript', 'Spring', 'React'];
+          const language = res.data.data.tags.find((tag: string) => languageTags.includes(tag));
+          if (language) {
+            setSelectedLanguage(language.toLowerCase());
+          }
         })
         .catch((error) => {
           console.log(tags);
@@ -169,7 +175,8 @@ function MentoringPage() {
                 <option value="python">Python</option>
                 <option value="javascript">JavaScript</option>
                 <option value="typescript">TypeScript</option>
-                <option value="c">C</option>
+                <option value="java">Spring</option>
+                <option value="typescript">React</option>
               </select>
                 <MonacoEditor
                   value={codeList}
