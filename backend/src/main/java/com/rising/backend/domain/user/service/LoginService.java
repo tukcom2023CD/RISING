@@ -1,8 +1,7 @@
 package com.rising.backend.domain.user.service;
 
 import com.rising.backend.domain.user.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.rising.backend.domain.user.exception.LoginRequiredException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,9 +22,11 @@ public class LoginService {
 
         session.removeAttribute(USER_ID);
         session.setAttribute(USER_ID, id);
+        //TODO: 해당 user가 존재하는지 확인
     }
 
     public void logout(HttpSession session) {
+        if(session.getAttribute(USER_ID) == null) throw new LoginRequiredException();
         session.removeAttribute(USER_ID);
         session.invalidate();
     }
@@ -38,6 +39,9 @@ public class LoginService {
 
     public User getLoginUser(HttpSession session) {
         Long memberId = (Long) session.getAttribute(USER_ID);
+        if(memberId == null) {
+            throw new LoginRequiredException();
+        }
         return userService.findUserById(memberId);
     }
 

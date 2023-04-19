@@ -14,7 +14,7 @@ public enum ErrorCode {
 
   // User 도메인
   EXAMPLE_USER_ERROR(HttpStatus.BAD_REQUEST, "U001", "테스트용 예시 에러코드"),
-  USER_LOGIN_REQURED(HttpStatus.UNAUTHORIZED,"U002","로그인 필요"),
+  USER_LOGIN_REQUIRED(HttpStatus.UNAUTHORIZED,"U002","로그인 필요"),
   USER_NOT_FOUND(HttpStatus.NOT_FOUND, "U003","해당 유저를 찾을 수 없음"),
   USER_INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "U004","로그인 정보가 일치하지 않음"),
   USER_NAME_DUPLICATED(HttpStatus.CONFLICT, "U005", "이미 해당 username을 가진 유저가 존재함" ),
