@@ -10,26 +10,37 @@ import { Client, IMessage } from '@stomp/stompjs';
 import { useEffect, useRef, useState } from 'react';
 import OthersMessage from 'components/Chat/OthersMessage';
 import MyMessage from 'components/Chat/MyMessage';
-import useInput from 'utils/useInput';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 interface ChatMessage {
   sender: string;
   content: string;
 }
 
-const DUMMY_CHAT: ChatMessage[] = [
-  {
-    sender: '멘토',
-    content: '안녕하세요~~~!(예시 채팅)',
-  },
-];
-
 function QuesChatPage() {
-  const [content, onChatInput, setContent] = useInput('');
-  const [chatList, setChatList] = useState(DUMMY_CHAT);
+  const location = useLocation();
+  const state = location.state as { id: number; roomId: number };
 
-  const roomId = localStorage.getItem('roomId');
+  const postId = state.id;
+  // eslint-disable-next-line prefer-destructuring
+  const roomId = state.roomId;
+
+  localStorage.getItem('sender');
+  const other = localStorage.getItem('sender');
+  console.log(other);
+
+  const sender = useSelector((state: any) => state.user.userName);
+  console.log(sender);
+
+  const [chatText, setChatText] = useState('');
+  const onChatInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setChatText(e.currentTarget.value);
+  };
+
+  const [chatList, setChatList] = useState<ChatMessage[]>([]);
+  console.log(roomId);
 
   const chatListRef = useRef<HTMLUListElement>(null);
   const client = useRef<Client>();
@@ -42,7 +53,7 @@ function QuesChatPage() {
 
   const connect = () => {
     client.current = new Client({
-      brokerURL: `ws://${process.env.REACT_APP_HOST}/stomp`,
+      brokerURL: `wss://${process.env.REACT_APP_HOST}/stomp`,
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
       heartbeatOutgoing: 16000,
@@ -72,28 +83,30 @@ function QuesChatPage() {
   };
 
   /** 채팅 데이터를 destination에 publish */
-  const handlePub = () => {
+  const handlePub = (chat: string) => {
+    console.log(sender);
     if (!client.current?.connected) return;
+    console.log(chatList);
     client.current.publish({
       destination: `/pub/chat.message.${roomId}`,
       body: JSON.stringify({
         sender: `${sender}`,
-        content: `${content}`,
+        content: chat,
       }),
     });
-    setContent('');
+    setChatText('');
   };
 
   /** 엔터 버튼을 통한 채팅 보내기 함수 */
   const onKeyDownEnter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (
-      e.currentTarget.value.length !== 0 &&
+      e.currentTarget.value.trim() !== '' &&
       e.key === 'Enter' &&
       !e.shiftKey &&
       e.nativeEvent.isComposing === false
     ) {
       e.preventDefault();
-      handlePub();
+      handlePub(chatText);
       console.log(chatList);
     }
   };
@@ -104,10 +117,7 @@ function QuesChatPage() {
     return () => {
       client.current?.deactivate();
     };
-  }, []);
-
-  localStorage.getItem('postId');
-  const postId = localStorage.getItem('postId');
+  }, [roomId]);
 
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);
@@ -128,8 +138,6 @@ function QuesChatPage() {
         });
     })();
   }, []);
-
-  const sender = localStorage.getItem('sender');
 
   return (
     <div
@@ -164,7 +172,7 @@ function QuesChatPage() {
               alt="profile"
             />
           </div>
-          <span className="mt-4">{sender}</span>
+          <span className="mt-4">{other}</span>
         </div>
       </div>
       {/* 채팅방 */}
@@ -184,13 +192,13 @@ function QuesChatPage() {
           <div className="absolute bottom-1 left-1 w-11/12">
             <textarea
               className="absolute bottom-0 left-0 w-full h-8 text-lg rounded-lg focus:outline-none"
-              value={content}
+              value={chatText}
               onChange={onChatInput}
               onKeyDown={onKeyDownEnter}
               placeholder="Chat.."
             />
           </div>
-          <button type="button" onClick={handlePub}>
+          <button type="button" onClick={() => handlePub(chatText)}>
             <img
               className="w-9 absolute bottom-1 right-0"
               src={send}

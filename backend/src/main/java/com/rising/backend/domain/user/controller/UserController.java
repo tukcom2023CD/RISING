@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @Valid UserDto.UserLoginRequest loginRequest, HttpServletRequest request) {
+    public ResponseEntity<ResultResponse> login(@RequestBody @Valid UserDto.UserLoginRequest loginRequest, HttpServletRequest request) {
 
         User member = userService.findUserByUsername(loginRequest.getUsername());
 
@@ -55,8 +55,8 @@ public class UserController {
         }
         loginService.login(member.getId(), request.getSession()); //세션에 로그인 정보 저장
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body("로그인 성공");
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.USER_LOGIN_SUCCESS,
+                UserDto.UserLoginResponse.builder().name(member.getName()).build()));
     }
 
     @GetMapping("/logout")

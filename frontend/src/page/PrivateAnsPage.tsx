@@ -12,41 +12,52 @@ import ContentIndex from 'components/Index/ContentIndex';
 import EditorViewer from 'components/Editor/EditorViewer';
 import Btn from 'components/Btn';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
+import axios, { Axios, AxiosError } from 'axios';
 import useCopyClipBoard from 'utils/useCopyClipBoard';
+import { useDispatch } from 'react-redux';
+import { setUserName } from '../components/redux/userSlice';
+
+export type ChatError = {
+  errorMessage: string;
+};
 
 function PrivateAnsPage() {
   const location = useLocation();
   const state = location.state as {
     id: number;
+    roomId: number;
   };
-  const postId = state.id;
+  const [postId, setPostId] = useState<number>(state.id);
+
+  useEffect(() => {
+    setPostId(state.id);
+  }, [state.id]);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
-  window.localStorage.setItem('postId', `${postId}`);
   const goToChatPage = () => {
-    // navigate(`/queschatpage`);
-    alert('배포환경에서의 안정화 진행중입니다.');
-
     (async () => {
       await axios
         .post(`/api/v1/chatrooms/${postId}`)
         .then((res) => {
-          console.log(res.data.data);
-          if (res.data.data === false) {
-            alert('멘티입니다.');
-            navigate('/queslistpage');
-          } else {
-            setMentee(res.data.data.mentee.name);
-            setMentor(res.data.data.mentor.name);
-            setMenteeId(res.data.data.mentee.id);
-            setMentorId(res.data.data.mentor.id);
-            setRoomId(res.data.data.id);
-          }
+          setMentee(res.data.data.mentee.name);
+          setMentor(res.data.data.mentor.name);
+          dispatch(setUserName(res.data.data.mentor.name));
+          localStorage.setItem('roomId', `${res.data.data.id}`);
+          localStorage.setItem('sender', `${res.data.data.mentee.name}`);
+          navigate(`/queschatpage`, {
+            state: { id: postId, roomId: `${res.data.data.id}` },
+          });
         })
         .catch((error) => {
-          console.log(error);
+          if (
+            (error as AxiosError<ChatError, undefined>).response?.data
+              .errorMessage !== null
+          ) {
+            alert('질문자는 마이페이지의 채팅방을 이용해주세요:)');
+            navigate('/mypage');
+          }
         });
     })();
   };
@@ -57,23 +68,14 @@ function PrivateAnsPage() {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [userId, setUserId] = useState(0);
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
 
   const [mentee, setMentee] = useState('');
   const [mentor, setMentor] = useState('');
-  const [menteeId, setMenteeId] = useState(0);
-  const [mentorId, setMentorId] = useState(0);
-  const [roomId, setRoomId] = useState(0);
 
-  console.log(mentee);
   localStorage.setItem('mentee', `${mentee}`);
   localStorage.setItem('mentor', `${mentor}`);
-  localStorage.setItem('menteeId', `${menteeId}`);
-  localStorage.setItem('mentorId', `${mentorId}`);
-  localStorage.setItem('sender', `${userId}`);
-  localStorage.setItem('roomId', `${roomId}`);
 
   useEffect(() => {
     (async () => {
@@ -83,15 +85,15 @@ function PrivateAnsPage() {
           console.log(res.data.data);
           setTitle(res.data.data.title);
           setContent(res.data.data.content);
-          setUserId(res.data.data.userId);
           setTags(res.data.data.tags);
           setDate(res.data.data.created_at);
+          localStorage.setItem('postId', `${postId}`);
         })
         .catch((error) => {
           console.log(error);
         });
     })();
-  }, []);
+  }, [postId]);
 
   const [isCopy, onCopy] = useCopyClipBoard();
   const handleCopyClipBoard = (text: string) => {
@@ -155,7 +157,9 @@ function PrivateAnsPage() {
               type="button"
               className="h-8 w-16 rounded-lg bg-violet-200 hover:bg-violet-300"
               onClick={() => {
-                handleCopyClipBoard(`http://${process.env.REACT_APP_HOST}/mentoringpage`);
+                handleCopyClipBoard(
+                  `http://${process.env.REACT_APP_HOST}/mentoringpage`,
+                );
               }}
             >
               <span className="text-white text-sm mx-4">LINK</span>
@@ -171,3 +175,4 @@ function PrivateAnsPage() {
 }
 
 export default PrivateAnsPage;
+
