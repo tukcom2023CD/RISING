@@ -102,7 +102,7 @@ function MentoringPage() {
   const connect = () => {
     client.current = new Client({
       // http 일경우 ws를 https일 경우 wss
-      brokerURL: `ws://${process.env.REACT_APP_HOST}/stomp`,
+      brokerURL: `wss://${process.env.REACT_APP_HOST}/stomp`,
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
       heartbeatOutgoing: 16000,
