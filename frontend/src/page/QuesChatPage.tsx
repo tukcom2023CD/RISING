@@ -193,34 +193,31 @@ function QuesChatPage() {
       {/* 채팅방 */}
       <div className="flex justify-center item-center">
         <div className="relative flex-row w-3/5 h-[40rem] rounded-b-xl bg-white">
-          {!prevChatList ? (
-            <ul ref={chatListRef}>
-              {chatList.map((chat) => (
+          <ul>
+            {prevChatList
+              .slice(0)
+              .reverse()
+              .map((chat) => (
                 <li>
                   {chat.sender === sender ? (
-                    <MyMessage content={chat.content} />
+                    <MyMessage content={chat.message} />
                   ) : (
-                    <OthersMessage content={chat.content} />
+                    <OthersMessage content={chat.message} />
                   )}
                 </li>
               ))}
-            </ul>
-          ) : (
-            <ul>
-              {prevChatList
-                .slice(0)
-                .reverse()
-                .map((chat) => (
-                  <li>
-                    {chat.sender === sender ? (
-                      <MyMessage content={chat.message} />
-                    ) : (
-                      <OthersMessage content={chat.message} />
-                    )}
-                  </li>
-                ))}
-            </ul>
-          )}
+          </ul>
+          <ul ref={chatListRef}>
+            {chatList.map((chat) => (
+              <li>
+                {chat.sender === sender ? (
+                  <MyMessage content={chat.content} />
+                ) : (
+                  <OthersMessage content={chat.content} />
+                )}
+              </li>
+            ))}
+          </ul>
           <div className="absolute bottom-1 left-1 w-11/12">
             <textarea
               className="absolute bottom-0 left-0 w-full h-8 text-lg rounded-lg focus:outline-none"
