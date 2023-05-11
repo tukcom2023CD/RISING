@@ -24,7 +24,8 @@ function MyPage() {
     setValue(newValue);
   };
 
-  const [chatInfo, setChatInfo] = useState([]);
+  const [menteeChatInfo, setMenteeChatInfo] = useState([]);
+  const [mentorCharInfo, setMentorChatInfo] = useState([]);
   const [profileInfo, setProfileInfo] = useState('');
 
   const dispatch = useDispatch();
@@ -35,7 +36,21 @@ function MyPage() {
         .get(`/api/v1/chatrooms/mentee`)
         .then((res) => {
           console.log(res.data.data);
-          setChatInfo(res.data.data);
+          setMenteeChatInfo(res.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      await axios
+        .get(`/api/v1/chatrooms/mentor`)
+        .then((res) => {
+          console.log(res.data.data);
+          setMentorChatInfo(res.data.data);
         })
         .catch((error) => {
           console.log(error);
@@ -88,13 +103,14 @@ function MyPage() {
                   textColor="secondary"
                   indicatorColor="secondary"
                 >
-                  <Tab label="내 채팅방" value="1" />
-                  <Tab label="내 질문" value="2" />
-                  <Tab label="유저 정보" value="3" />
+                  <Tab label="내 질문 채팅방" value="1" />
+                  <Tab label="멘토 채팅방" value="2" />
+                  <Tab label="내 질문" value="3" />
+                  <Tab label="유저 정보" value="4" />
                 </TabList>
               </Box>
               {/* 유저정보 */}
-              <TabPanel value="3">
+              <TabPanel value="4">
                 {/* <div className="relative flex flex-col w-full">
                   <div className="flex flex-col rounded-xl h-64 w-full bg-white border-4 border-violet-300">
                     <div className="flex flex-col m-3 mb-4">
@@ -114,7 +130,7 @@ function MyPage() {
                 추후 업데이트 될 예정입니다.
               </TabPanel>
               {/* 내가 작성한 질문 */}
-              <TabPanel value="2">
+              <TabPanel value="3">
                 <div className="w-full h-[32rem]">
                   <div
                     className="w-full h-[28rem] scrollbar-thin 
@@ -141,7 +157,30 @@ function MyPage() {
                   >
                     <div className="h-64">
                       <div className="flex flex-col p-1">
-                        {chatInfo.map((data: any) => (
+                        {menteeChatInfo.map((data: any) => (
+                          <ChatBox
+                            key={Math.random() * 500}
+                            mentor={data.mentor.name}
+                            postId={data.post.postId}
+                            roomId={data.roomId}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </TabPanel>
+              <TabPanel value="2">
+                <div className="w-full h-[32rem]">
+                  <div
+                    className="w-full h-[28rem] scrollbar-thin 
+                    scrollbar-thumb-scroll-bar scrollbar-track-slate-100
+                    scrollbar-thumb-rounded-full scrollbar-track-rounded-full
+                    overflow-y-scroll"
+                  >
+                    <div className="h-64">
+                      <div className="flex flex-col p-1">
+                        {mentorCharInfo.map((data: any) => (
                           <ChatBox
                             key={Math.random() * 500}
                             mentor={data.mentor.name}
