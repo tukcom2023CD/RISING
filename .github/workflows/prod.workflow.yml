@@ -35,7 +35,7 @@ jobs:
           script_stop: true
           script: | #ec2에 접속해서 실행할 커맨
             cd ~/RISING
-						echo "test" > test
+	    echo "test" > test
 
       - name: Remove Github Actions IP From Security Group
         run: |
