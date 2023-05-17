@@ -34,8 +34,8 @@ jobs:
           port: ${{ secrets.AWS_SSH_PORT }}
           script_stop: true
           script: |
-            echo -e "\x03"
-            docker-compose down
+            cd ~/RISING
+            git pull
             docker-compose up --build
 
       - name: Remove Github Actions IP From Security Group
