@@ -33,7 +33,7 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           port: ${{ secrets.AWS_SSH_PORT }}
           script_stop: true
-	    script: |
+	  script: |
 	      echo "test" > test
 
       - name: Remove Github Actions IP From Security Group
