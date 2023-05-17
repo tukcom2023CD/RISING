@@ -33,9 +33,8 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
           port: ${{ secrets.AWS_SSH_PORT }}
           script_stop: true
-          script: | #ec2에 접속해서 실행할 커맨
-            cd ~/RISING
-	    echo "test" > test
+	    script: |
+	      echo "test" > test
 
       - name: Remove Github Actions IP From Security Group
         run: |
