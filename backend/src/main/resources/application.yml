@@ -26,6 +26,8 @@ spring:
     jdbc:
       initialize-schema: always
 
+
+
   sql:
     init:
       mode: always
