@@ -207,7 +207,7 @@ function QuesChatPage() {
       <div className="flex justify-center item-center">
         <div
           ref={chatContainerRef}
-          className="relative flex-row w-3/5 h-[40rem] rounded-b-xl bg-white
+          className="relative flex-row w-3/5 h-[34rem] rounded-b-xl bg-white
           scrollbar-thin scrollbar-thumb-scroll-bar scrollbar-track-slate-100
           scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll"
         >
@@ -236,9 +236,11 @@ function QuesChatPage() {
               </li>
             ))}
           </ul>
-          <div className="absolute bottom-1 left-1 w-11/12">
+        </div>
+        <div className="flex justify-center item-center">
+          <div className="absolute bottom-3 left-1 w-3/5">
             <textarea
-              className="absolute bottom-0 left-0 w-full h-8 text-lg rounded-lg focus:outline-none"
+              className="absolute bottom-2 left-0 w-full h-8 text-lg rounded-lg focus:outline-none"
               value={chatText}
               onChange={onChatInput}
               onKeyDown={onKeyDownEnter}
@@ -247,7 +249,7 @@ function QuesChatPage() {
           </div>
           <button type="button" onClick={() => handlePub(chatText)}>
             <img
-              className="w-9 absolute bottom-1 right-0"
+              className="w-9 absolute bottom-3 right-0"
               src={send}
               alt="send"
             />
