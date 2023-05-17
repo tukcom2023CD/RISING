@@ -13,6 +13,7 @@ import MyMessage from 'components/Chat/MyMessage';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 
 interface ChatMessage {
   sender: string;
@@ -122,6 +123,19 @@ function QuesChatPage() {
     };
   }, [roomId]);
 
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    chatContainerRef.current?.scrollTo({
+      top: chatContainerRef.current.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatList]);
+
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
@@ -192,7 +206,10 @@ function QuesChatPage() {
       </div>
       {/* 채팅방 */}
       <div className="flex justify-center item-center">
-        <div className="relative flex-row w-3/5 h-[40rem] rounded-b-xl bg-white">
+        <Container
+          ref={chatContainerRef}
+          className="relative flex-row w-3/5 h-[40rem] rounded-b-xl bg-white"
+        >
           <ul>
             {prevChatList
               .slice(0)
@@ -234,7 +251,7 @@ function QuesChatPage() {
               alt="send"
             />
           </button>
-        </div>
+        </Container>
       </div>
     </div>
   );
