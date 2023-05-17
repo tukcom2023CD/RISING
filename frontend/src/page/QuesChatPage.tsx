@@ -13,7 +13,6 @@ import MyMessage from 'components/Chat/MyMessage';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 
 interface ChatMessage {
   sender: string;
@@ -206,9 +205,11 @@ function QuesChatPage() {
       </div>
       {/* 채팅방 */}
       <div className="flex justify-center item-center">
-        <Container
+        <div
           ref={chatContainerRef}
-          className="relative flex-row w-3/5 h-[40rem] rounded-b-xl bg-white"
+          className="relative flex-row w-3/5 h-[40rem] rounded-b-xl bg-white
+          scrollbar-thin scrollbar-thumb-scroll-bar scrollbar-track-slate-100
+          scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll"
         >
           <ul>
             {prevChatList
@@ -251,7 +252,7 @@ function QuesChatPage() {
               alt="send"
             />
           </button>
-        </Container>
+        </div>
       </div>
     </div>
   );
