@@ -205,55 +205,57 @@ function QuesChatPage() {
       </div>
       {/* 채팅방 */}
       <div className="flex justify-center item-center">
-        <div
-          ref={chatContainerRef}
-          className="relative flex-row w-3/5 h-[34rem] rounded-b-xl bg-white
+        <div className="flex flex-col w-3/5">
+          <div
+            ref={chatContainerRef}
+            className="relative flex-row w-full h-[34rem] rounded-b-xl bg-white
           scrollbar-thin scrollbar-thumb-scroll-bar scrollbar-track-slate-100
           scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll"
-        >
-          <ul>
-            {prevChatList
-              .slice(0)
-              .reverse()
-              .map((chat) => (
+          >
+            <ul>
+              {prevChatList
+                .slice(0)
+                .reverse()
+                .map((chat) => (
+                  <li>
+                    {chat.sender === sender ? (
+                      <MyMessage content={chat.message} />
+                    ) : (
+                      <OthersMessage content={chat.message} />
+                    )}
+                  </li>
+                ))}
+            </ul>
+            <ul ref={chatListRef}>
+              {chatList.map((chat) => (
                 <li>
                   {chat.sender === sender ? (
-                    <MyMessage content={chat.message} />
+                    <MyMessage content={chat.content} />
                   ) : (
-                    <OthersMessage content={chat.message} />
+                    <OthersMessage content={chat.content} />
                   )}
                 </li>
               ))}
-          </ul>
-          <ul ref={chatListRef}>
-            {chatList.map((chat) => (
-              <li>
-                {chat.sender === sender ? (
-                  <MyMessage content={chat.content} />
-                ) : (
-                  <OthersMessage content={chat.content} />
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="flex justify-center item-center">
-          <div className="absolute bottom-3 left-1 w-3/5">
-            <textarea
-              className="absolute bottom-2 left-0 w-full h-8 text-lg rounded-lg focus:outline-none"
-              value={chatText}
-              onChange={onChatInput}
-              onKeyDown={onKeyDownEnter}
-              placeholder="Chat.."
-            />
+            </ul>
           </div>
-          <button type="button" onClick={() => handlePub(chatText)}>
-            <img
-              className="w-9 absolute bottom-3 right-0"
-              src={send}
-              alt="send"
-            />
-          </button>
+          <div className="flex justify-center item-center w-full">
+            <div className="w-full">
+              <textarea
+                className="w-full h-8 text-lg rounded-lg focus:outline-none"
+                value={chatText}
+                onChange={onChatInput}
+                onKeyDown={onKeyDownEnter}
+                placeholder="Chat.."
+              />
+            </div>
+            <button type="button" onClick={() => handlePub(chatText)}>
+              <img
+                className="w-9 absolute bottom-3 right-0"
+                src={send}
+                alt="send"
+              />
+            </button>
+          </div>
         </div>
       </div>
     </div>
