@@ -133,7 +133,7 @@ function QuesChatPage() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [chatList]);
+  });
 
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);
