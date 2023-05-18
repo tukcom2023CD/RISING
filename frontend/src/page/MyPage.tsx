@@ -106,29 +106,8 @@ function MyPage() {
                   <Tab label="내 질문 채팅방" value="1" />
                   <Tab label="멘토 채팅방" value="2" />
                   <Tab label="내 질문" value="3" />
-                  <Tab label="유저 정보" value="4" />
                 </TabList>
               </Box>
-              {/* 유저정보 */}
-              <TabPanel value="4">
-                {/* <div className="relative flex flex-col w-full">
-                  <div className="flex flex-col rounded-xl h-64 w-full bg-white border-4 border-violet-300">
-                    <div className="flex flex-col m-3 mb-4">
-                      <span className="font-bold mb-3">학력</span>
-                      <span>한국공학대학교</span>
-                      <span>2020.03 ~ 2024.02</span>
-                    </div>
-                    <div className="mx-3 mt-3">
-                      <span className="font-bold">주요 사용 언어</span>
-                    </div>
-                    <div className="flex flex-row ml-1 mt-1">
-                      <Tag text="Java" />
-                      <Tag text="Spring" />
-                    </div> */}
-                {/* </div> */}
-                {/* </div> */}
-                추후 업데이트 될 예정입니다.
-              </TabPanel>
               {/* 내가 작성한 질문 */}
               <TabPanel value="3">
                 <div className="w-full h-[32rem]">
