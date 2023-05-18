@@ -249,11 +249,7 @@ function QuesChatPage() {
               />
             </div>
             <button type="button" onClick={() => handlePub(chatText)}>
-              <img
-                className="w-9 absolute bottom-3 right-0"
-                src={send}
-                alt="send"
-              />
+              <img className="w-9" src={send} alt="send" />
             </button>
           </div>
         </div>
