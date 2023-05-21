@@ -13,7 +13,7 @@ import EditorViewer from 'components/Editor/EditorViewer';
 import Btn from 'components/Btn';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios, { Axios, AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import useCopyClipBoard from 'utils/useCopyClipBoard';
 import { useDispatch } from 'react-redux';
 import { setUserName } from '../components/redux/userSlice';
@@ -175,4 +175,3 @@ function PrivateAnsPage() {
 }
 
 export default PrivateAnsPage;
-

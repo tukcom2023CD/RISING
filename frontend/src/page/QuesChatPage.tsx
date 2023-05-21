@@ -17,6 +17,7 @@ import { useLocation } from 'react-router-dom';
 interface ChatMessage {
   sender: string;
   content: string;
+  message: string;
 }
 
 function QuesChatPage() {
@@ -39,8 +40,10 @@ function QuesChatPage() {
     setChatText(e.currentTarget.value);
   };
 
-  const [chatList, setChatList] = useState<ChatMessage[]>([]);
   console.log(roomId);
+
+  const [chatList, setChatList] = useState<ChatMessage[]>([]);
+  const [prevChatList, setPrevChatList] = useState<ChatMessage[]>([]);
 
   const chatListRef = useRef<HTMLUListElement>(null);
   const client = useRef<Client>();
@@ -53,7 +56,7 @@ function QuesChatPage() {
 
   const connect = () => {
     client.current = new Client({
-      brokerURL: `wss://${process.env.REACT_APP_HOST}/stomp`,
+      brokerURL: `ws://${process.env.REACT_APP_HOST}/stomp`,
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
       heartbeatOutgoing: 16000,
@@ -119,6 +122,19 @@ function QuesChatPage() {
     };
   }, [roomId]);
 
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    chatContainerRef.current?.scrollTo({
+      top: chatContainerRef.current.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  });
+
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
@@ -132,6 +148,18 @@ function QuesChatPage() {
           setTitle(res.data.data.title);
           setTags(res.data.data.tags);
           setDate(res.data.data.created_at);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })();
+
+    (async () => {
+      await axios
+        .get(`/api/v1/chatmessages/${roomId}`)
+        .then((res) => {
+          console.log(res.data.data);
+          setPrevChatList(res.data.data);
         })
         .catch((error) => {
           console.log(error);
@@ -177,34 +205,53 @@ function QuesChatPage() {
       </div>
       {/* 채팅방 */}
       <div className="flex justify-center item-center">
-        <div className="relative flex-row w-3/5 h-[40rem] rounded-b-xl bg-white">
-          <ul ref={chatListRef} className="">
-            {chatList.map((chat) => (
-              <li>
-                {chat.sender === sender ? (
-                  <MyMessage content={chat.content} />
-                ) : (
-                  <OthersMessage content={chat.content} />
-                )}
-              </li>
-            ))}
-          </ul>
-          <div className="absolute bottom-1 left-1 w-11/12">
-            <textarea
-              className="absolute bottom-0 left-0 w-full h-8 text-lg rounded-lg focus:outline-none"
-              value={chatText}
-              onChange={onChatInput}
-              onKeyDown={onKeyDownEnter}
-              placeholder="Chat.."
-            />
+        <div className="flex flex-col w-3/5">
+          <div
+            ref={chatContainerRef}
+            className="relative flex-row w-full h-[34rem] rounded-b-xl bg-white
+          scrollbar-thin scrollbar-thumb-scroll-bar scrollbar-track-slate-100
+          scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll"
+          >
+            <ul>
+              {prevChatList
+                .slice(0)
+                .reverse()
+                .map((chat) => (
+                  <li>
+                    {chat.sender === sender ? (
+                      <MyMessage content={chat.message} />
+                    ) : (
+                      <OthersMessage content={chat.message} />
+                    )}
+                  </li>
+                ))}
+            </ul>
+            <ul ref={chatListRef}>
+              {chatList.map((chat) => (
+                <li>
+                  {chat.sender === sender ? (
+                    <MyMessage content={chat.content} />
+                  ) : (
+                    <OthersMessage content={chat.content} />
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
-          <button type="button" onClick={() => handlePub(chatText)}>
-            <img
-              className="w-9 absolute bottom-1 right-0"
-              src={send}
-              alt="send"
-            />
-          </button>
+          <div className="flex justify-center item-center w-full">
+            <div className="w-full">
+              <textarea
+                className="w-full h-8 text-lg rounded-lg focus:outline-none"
+                value={chatText}
+                onChange={onChatInput}
+                onKeyDown={onKeyDownEnter}
+                placeholder="Chat.."
+              />
+            </div>
+            <button type="button" onClick={() => handlePub(chatText)}>
+              <img className="w-9" src={send} alt="send" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
