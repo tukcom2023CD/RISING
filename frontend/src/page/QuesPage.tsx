@@ -32,7 +32,6 @@ function QuesPage() {
       setTitletext(value.slice(0, 20));
     }
   };
-  
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -83,13 +82,13 @@ function QuesPage() {
           <div className="relative flex flex-col-reverse w-3/5">
             <div className="flex flex-col rounded-xl h-16 w-full mx-1 my-2 pr-4 pt-1 bg-white border-4 border-violet-300">
               <div className="relative">
-              <input
-              type="text"
-              className="absolute top-1 left-2 w-full h-10 rounded-lg focus:shadow focus:outline-none"
-              placeholder="Title.."
-              value={titletext}
-              onChange={handleTitleChange}
-            />
+                <input
+                  type="text"
+                  className="absolute top-1 left-2 w-full h-10 rounded-lg focus:shadow focus:outline-none"
+                  placeholder="Title.."
+                  value={titletext}
+                  onChange={handleTitleChange}
+                />
               </div>
             </div>
             <TitleIndex />
