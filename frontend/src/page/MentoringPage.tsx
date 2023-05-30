@@ -18,6 +18,7 @@ import 'monaco-editor/esm/vs/basic-languages/java/java.contribution';
 import 'monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution';
 import 'monaco-editor/esm/vs/basic-languages/cpp/cpp.contribution';
 import 'monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution';
+import EndIndex from 'components/Index/EndIndex';
 
 function MentoringPage() {
   document.documentElement.setAttribute('data-color-mode', 'light');
@@ -143,7 +144,7 @@ function MentoringPage() {
 
   return (
     <div
-      className="h-screen"
+      className="min-h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
@@ -207,7 +208,25 @@ function MentoringPage() {
           <span className="pl-3 text-text-color text-2xl">CONTENT</span>
         </div>
       </div>
+      {/* 컴파일러 실행 버튼 */}
+      <div className="flex justify-center item-center my-2">
+        {/* FIXME : 컴파일러 api 호출하는 함수 구현 */}
+        <Btn text="RUN" onClick={goToAnsCheckPage} />
+      </div>
+      {/* 컴파일러 결과 */}
       <div className="flex justify-center item-center my-8">
+        <div className="relative flex flex-col-reverse w-3/5">
+          <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 bg-white border-4 border-violet-300">
+            {/* 추후 구현 예정 */}
+            <span className="text-text-color text-xl mt-4 mx-4">
+              컴파일러 결과
+            </span>
+          </div>
+          <EndIndex />
+          <span className="pl-3 text-text-color text-2xl">RESULT</span>
+        </div>
+      </div>
+      <div className="flex justify-center item-center my-4">
         <Btn text="FINISH" onClick={goToAnsCheckPage} />
       </div>
     </div>
