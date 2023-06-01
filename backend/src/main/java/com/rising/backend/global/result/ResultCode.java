@@ -27,6 +27,9 @@ public enum ResultCode {
     USER_NOT_POST_AUTHOR(400, "사용자가 게시글의 작성자가 아님"),
 
 
+    // CODE EDITOR
+    GET_COMPILE_RESULT(200, "컴파일 결과 반환 성공"),
+
     //COMMENT
     COMMENT_CREATE_SUCCESS(201, "댓글 등록 성공"),
     COMMENT_GET_SUCCESS(200, "댓글 조회 성공"),
