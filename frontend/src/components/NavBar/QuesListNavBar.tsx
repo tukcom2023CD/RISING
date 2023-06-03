@@ -50,13 +50,13 @@ function QuesListNavBar() {
         >
           질문게시판
         </button>
-        {/* <button
+        <button
           type="button"
           className="lg:text-2xl md:text-xl max-sm:text-sm lg:pl-10 lg:pr-8 lg:py-8 lg:my-2 md:pl-8 md:pr-6 md:my-1 sm:pl-6 sm:pr-4 max-sm:pl-6 max-sm:pr-4 max-sm:py-3"
           onClick={goToMypage}
         >
           마이페이지
-        </button> */}
+        </button>
       </div>
     </div>
   );
