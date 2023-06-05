@@ -7,7 +7,7 @@ function NavBar() {
     navigate('/queslistpage');
   };
   const goToMain = () => {
-    navigate('/mainpage');
+    navigate('/');
   };
   const goToQues = () => {
     navigate('/quespage');
