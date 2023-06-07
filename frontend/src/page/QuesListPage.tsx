@@ -44,6 +44,20 @@ function QuesListPage() {
       try {
         const res = await axios.get(`/api/v1/posts?page=${pageNumber}`);
         setQuesInfo(res.data.data);
+
+        // 필터링된 데이터를 업데이트합니다.
+        const selectedOption = searchParams.get('option');
+        let filteredData = [];
+
+        if (selectedOption === 'QUESTION') {
+          filteredData = res.data.data.filter((data: { type: string; }) => data.type === 'QUESTION');
+        } else if (selectedOption === 'MENTORING') {
+          filteredData = res.data.data.filter((data: { type: string; }) => data.type === 'MENTORING');
+        } else {
+          filteredData = res.data.data;
+        }
+
+        setFilteredQuesInfo(filteredData);
       } catch (error) {
         console.log(error);
       }
@@ -52,26 +66,18 @@ function QuesListPage() {
 
   useEffect(() => {
     const selectedOption = searchParams.get('option');
-    if (selectedOption === 'QUESTION') {
-      setFilteredQuesInfo(quesInfo.filter((data) => data.type === 'QUESTION'));
-    } else if (selectedOption === 'MENTORING') {
-      setFilteredQuesInfo(quesInfo.filter((data) => data.type === 'MENTORING'));
-    } else {
-      setFilteredQuesInfo(quesInfo);
-    }
-  }, [quesInfo, searchParams]);
+    let filteredData = [];
 
-  useEffect(() => {
-    setFilteredQuesInfo(quesInfo);
-    (async () => {
-      try {
-        const res = await axios.get(`/api/v1/posts?page=1`);
-        setPageCount(Math.ceil(res.data.data[0].id / 10));
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [quesInfo]);
+    if (selectedOption === 'QUESTION') {
+      filteredData = quesInfo.filter((data) => data.type === 'QUESTION');
+    } else if (selectedOption === 'MENTORING') {
+      filteredData = quesInfo.filter((data) => data.type === 'MENTORING');
+    } else {
+      filteredData = quesInfo;
+    }
+
+    setFilteredQuesInfo(filteredData);
+  }, [quesInfo, searchParams]);
 
   return (
     <div className="h-screen" style={{ backgroundColor: ColorSystem.MainColor.Primary }}>
