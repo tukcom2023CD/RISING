@@ -14,6 +14,6 @@ export const KeyWordOptions: readonly SelectOption[] = [
 ];
 
 export const Options: readonly SelectOption[] = [
-  { value: 'QUESTION', color: '#835FEE', label: 'OnlyText' },
-  { value: 'MENTORING', color: '#835FEE', label: 'Mentoring' },
+  { value: 'QUESTION', color: '#835FEE', label: 'QUESTION' },
+  { value: 'MENTORING', color: '#835FEE', label: 'MENTORING' },
 ];

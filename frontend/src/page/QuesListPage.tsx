@@ -10,55 +10,71 @@ import axios from 'axios';
 import { Pagination } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 
+interface QuesData {
+  id: number;
+  commentCount: number;
+  title: string;
+  type: string;
+  tags: string[];
+  created_at: string;
+}
+
 function QuesListPage() {
-  const [quesInfo, setQuesInfo] = useState([]);
-  const [sumId, setSumId] = useState(0);
-  const [pageCount, setPageCount] = useState(1);
+  const [quesInfo, setQuesInfo] = useState<QuesData[]>([]);
+  const [filteredQuesInfo, setFilteredQuesInfo] = useState<QuesData[]>([]);
+  const [sumId, setSumId] = useState<number>(0);
+  const [pageCount, setPageCount] = useState<number>(1);
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     (async () => {
-      await axios
-        .get(`/api/v1/posts?page=0`)
-        .then((res) => {
-          setSumId(res.data.data[0].id);
-          setPageCount(Math.ceil(sumId / 10));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    })();
-    const pageNumber = searchParams.get('page');
-    (async () => {
-      await axios
-        .get(`/api/v1/posts?page=${pageNumber}`)
-        .then((res) => {
-          setQuesInfo(res.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      try {
+        const res = await axios.get(`/api/v1/posts?page=0`);
+        setSumId(res.data.data[0].id);
+        setPageCount(Math.ceil(res.data.data[0].id / 10));
+      } catch (error) {
+        console.log(error);
+      }
     })();
   }, []);
 
   useEffect(() => {
+    const pageNumber = searchParams.get('page');
     (async () => {
-      await axios
-        .get(`/api/v1/posts?page=1`)
-        .then((res) => {
-          setPageCount(Math.ceil(sumId / 10));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      try {
+        const res = await axios.get(`/api/v1/posts?page=${pageNumber}`);
+        setQuesInfo(res.data.data);
+      } catch (error) {
+        console.log(error);
+      }
     })();
-  }, [sumId]);
+  }, [searchParams]);
+
+  useEffect(() => {
+    const selectedOption = searchParams.get('option');
+    if (selectedOption === 'QUESTION') {
+      setFilteredQuesInfo(quesInfo.filter((data) => data.type === 'QUESTION'));
+    } else if (selectedOption === 'MENTORING') {
+      setFilteredQuesInfo(quesInfo.filter((data) => data.type === 'MENTORING'));
+    } else {
+      setFilteredQuesInfo(quesInfo);
+    }
+  }, [quesInfo, searchParams]);
+
+  useEffect(() => {
+    setFilteredQuesInfo(quesInfo);
+    (async () => {
+      try {
+        const res = await axios.get(`/api/v1/posts?page=1`);
+        setPageCount(Math.ceil(res.data.data[0].id / 10));
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [quesInfo]);
 
   return (
-    <div
-      className="h-screen"
-      style={{ backgroundColor: ColorSystem.MainColor.Primary }}
-    >
+    <div className="h-screen" style={{ backgroundColor: ColorSystem.MainColor.Primary }}>
       {/* 상단바 */}
       <QuesListNavBar />
       <div className="flex justify-center my-8 pt-3">
@@ -72,17 +88,15 @@ function QuesListPage() {
           </div>
           {/* 질문 리스트 */}
           <div className="my-4 w-full h-[35rem]">
-            <div
-              className="w-full h-[32rem] scrollbar-thin 
+            <div className="w-full h-[32rem] scrollbar-thin 
             scrollbar-thumb-scroll-bar scrollbar-track-slate-100
             scrollbar-thumb-rounded-full scrollbar-track-rounded-full
-            overflow-y-scroll"
-            >
+            overflow-y-scroll">
               <div className="h-64">
                 <div className="flex flex-col p-1">
-                  {quesInfo.map((data: any) => (
+                  {filteredQuesInfo.map((data) => (
                     <Ques
-                      key={Math.random() * 500}
+                      key={data.id}
                       count={data.commentCount}
                       title={data.title}
                       type={data.type}
@@ -104,7 +118,9 @@ function QuesListPage() {
               size="large"
               onChange={(e, value) => {
                 e.preventDefault();
-                window.location.href = `/queslistpage?page=${value}`;
+                window.location.href = `/queslistpage?page=${value}&option=${searchParams.get(
+                  'option'
+                )}`;
               }}
               showFirstButton
               showLastButton

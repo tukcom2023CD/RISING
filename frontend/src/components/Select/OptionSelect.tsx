@@ -1,6 +1,7 @@
-import Select, { StylesConfig } from 'react-select';
+import Select, { StylesConfig, MultiValue, ActionMeta } from 'react-select';
 import chroma from 'chroma-js';
 import { SelectOption, Options } from 'components/Select/QuesData';
+import { useSearchParams } from 'react-router-dom';
 
 const colourStyles: StylesConfig<SelectOption, true> = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
@@ -26,6 +27,16 @@ const colourStyles: StylesConfig<SelectOption, true> = {
 };
 
 export default function OptionSelect() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleOptionChange = (
+    newValue: MultiValue<SelectOption>,
+    actionMeta: ActionMeta<SelectOption>
+  ) => {
+    const selectedOptionValues = newValue.map((option) => option.value);
+    setSearchParams({ option: selectedOptionValues.join(',') });
+  };
+
   return (
     <Select
       closeMenuOnSelect={false}
@@ -33,6 +44,7 @@ export default function OptionSelect() {
       options={Options}
       styles={colourStyles}
       placeholder="Option.."
+      onChange={handleOptionChange}
     />
   );
 }
