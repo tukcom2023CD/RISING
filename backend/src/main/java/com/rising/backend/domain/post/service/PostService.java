@@ -13,6 +13,7 @@ import com.rising.backend.global.util.UuidConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,6 +56,16 @@ public class PostService {
     public List<PostGetListResponse> pageList(Pageable pageable) {
         Page<Post> postList = postRepository.findAll(pageable);
         return postMapper.toDtoPageList(postList).getContent();
+    }
+
+    public List<PostGetListResponse> getPosts(PostDto.PostGetFilteredListRequest dto, Pageable pageable) {
+        if (dto == null) {
+            return pageList(pageable);
+        }
+
+        Specification postSpecification = PostSpecification.searchWith(dto.getTags(), dto.getType());
+        Page<Post> posts = postRepository.findAll(postSpecification, pageable);
+        return postMapper.toDtoPageList(posts).getContent();
     }
 
     public String getSessionUrl(Long postId, User user) {

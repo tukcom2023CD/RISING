@@ -47,7 +47,13 @@ public class PostController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_PAGINATION_SUCCESS, list));
     }
 
+    @PostMapping("/search")
+    public ResponseEntity<ResultResponse> getProjects(PostDto.PostGetFilteredListRequest dto,
+                                                      @PageableDefault(sort = {"createdAt"}, direction = Sort.Direction.DESC) Pageable page) {
 
+        List<PostDto.PostGetListResponse> result = postService.getPosts(dto, page);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_PAGINATION_SUCCESS, result));
+    }
 
     @LoginRequired
     @GetMapping("/{postId}/session")

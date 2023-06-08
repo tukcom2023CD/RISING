@@ -30,6 +30,17 @@ public class PostDto {
         private List<String> tags = new ArrayList<>();
     }
 
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access =  AccessLevel.PRIVATE)
+    @Getter
+    public static class PostGetFilteredListRequest {
+
+        private PostType type;
+
+        private List<String> tags = new ArrayList<>();
+    }
+
+
     @Builder
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @NoArgsConstructor(access =  AccessLevel.PRIVATE)
