@@ -45,7 +45,7 @@ public class Post extends BaseEntity {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private PostType type;
+    private PostType postType;
 
     @ManyToMany
     @JoinTable(name = "POST_TAG",
