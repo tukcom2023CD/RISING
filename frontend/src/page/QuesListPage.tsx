@@ -31,9 +31,7 @@ function QuesListPage() {
     const pageNumber = searchParams.get('page');
     (async () => {
       await axios
-        .get(
-          `/api/v1/posts?page=${pageNumber}`,
-        )
+        .get(`/api/v1/posts?page=${pageNumber}`)
         .then((res) => {
           setQuesInfo(res.data.data);
         })
