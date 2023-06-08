@@ -40,6 +40,8 @@ public class PostMapper {
                 .content(post.getContent())
                 .videoUrl(post.getVideoUrl())
                 .type(post.getType())
+                .isSolved(post.isSolved())
+                .solvedCode(post.getSolvedCode())
                 .tags(tags)
                 .created_at(post.getCreatedAt().toLocalDate())
                 .build();

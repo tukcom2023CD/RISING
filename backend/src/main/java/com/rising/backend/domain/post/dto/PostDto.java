@@ -85,6 +85,10 @@ public class PostDto {
 
         private LocalDate created_at;
 
+        private boolean isSolved;
+
+        private String solvedCode;
+
         private List<String> tags;
     }
 
