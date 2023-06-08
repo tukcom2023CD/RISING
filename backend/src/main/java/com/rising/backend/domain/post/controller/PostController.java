@@ -1,5 +1,6 @@
 package com.rising.backend.domain.post.controller;
 
+import com.rising.backend.domain.post.domain.PostType;
 import com.rising.backend.domain.post.dto.PostDto;
 import com.rising.backend.domain.post.service.PostService;
 import com.rising.backend.domain.user.domain.User;
@@ -42,16 +43,12 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<ResultResponse> getList(@PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) final Pageable pageable) {
-        List<PostDto.PostGetListResponse> list = postService.pageList(pageable);
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_PAGINATION_SUCCESS, list));
-    }
-
-    @PostMapping("/search")
-    public ResponseEntity<ResultResponse> getProjects(PostDto.PostGetFilteredListRequest dto,
-                                                      @PageableDefault(sort = {"createdAt"}, direction = Sort.Direction.DESC) Pageable page) {
-
-        List<PostDto.PostGetListResponse> result = postService.getPosts(dto, page);
+    public ResponseEntity<ResultResponse> getList(@RequestParam("enumValue") PostType postType, @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) final Pageable pageable) {
+        List<PostDto.PostGetListResponse> result = null;
+        if (postType == null)
+            result = postService.pageList(pageable);
+        else
+            result = postService.getPostsByType(postType, pageable);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_PAGINATION_SUCCESS, result));
     }
 
