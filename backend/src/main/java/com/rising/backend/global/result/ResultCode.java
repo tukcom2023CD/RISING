@@ -16,7 +16,7 @@ public enum ResultCode {
 
     //POST
     POST_CREATE_SUCCESS(201, "게시글 등록 성공"),
-
+    POST_UPDATE_SUCCESS(200, "게시글 수정 성공"),
     POST_DELETE_SUCCESS(200, "게시글 삭제 성공"),
     POST_PAGINATION_SUCCESS(200, "게시글 리스트 조회 성공"),
     POST_FIND_SUCCESS(200, "게시글 id로 단일 게시글 조회 성공"),

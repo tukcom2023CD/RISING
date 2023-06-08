@@ -85,4 +85,15 @@ public class PostService {
     public void deletePostById(Long postId) {
         postRepository.deleteById(postId);
     }
+
+    public void updatePost(Long postId, PostDto.PostUpdateRequest updateRequest) {
+        Post post = findPostById(postId);
+
+        List<Tag> tags = updateRequest.getTags().stream().map(t -> getTagByContent(t))
+                .collect(Collectors.toList());
+
+        post.setTitle(updateRequest.getTitle());
+        post.setContent(updateRequest.getContent());
+        post.setTags(tags);
+    }
 }
