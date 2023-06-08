@@ -21,6 +21,7 @@ public enum ResultCode {
     POST_PAGINATION_SUCCESS(200, "게시글 리스트 조회 성공"),
     POST_FIND_SUCCESS(200, "게시글 id로 단일 게시글 조회 성공"),
     POSTLIST_FIND_BY_USERID_SUCCESS(200, "유저 id로 게시글 리스트 조회 성공"),
+    POST_SOLVED(200, "질문 해결"),
 
     //SESSION
     SESSION_GET_SUCCESS(201, "세션 반환 성공"),

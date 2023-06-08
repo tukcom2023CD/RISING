@@ -96,4 +96,10 @@ public class PostService {
         post.setContent(updateRequest.getContent());
         post.setTags(tags);
     }
+
+    public void solve(Long postId, String solvedCode) {
+        Post post = findPostById(postId);
+        post.setSolved(); //멘토링 완료
+        post.setSolvedCode(solvedCode);
+    }
 }

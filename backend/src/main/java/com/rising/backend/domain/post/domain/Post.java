@@ -40,7 +40,6 @@ public class Post extends BaseEntity {
     @Setter
     private String content;
 
-    @Setter
     private boolean isSolved = false;
 
     @Column(length = 255)
@@ -48,6 +47,10 @@ public class Post extends BaseEntity {
 
     @Column(length = 255)
     private String sessionUrl;
+
+    @Column(length = 1000)
+    @Setter
+    private String solvedCode;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -65,6 +68,10 @@ public class Post extends BaseEntity {
 
     public void setTags(List<Tag> tags) {
         this.tag = tags;
+    }
+
+    public void setSolved() {
+        this.isSolved = true;
     }
 
 }
