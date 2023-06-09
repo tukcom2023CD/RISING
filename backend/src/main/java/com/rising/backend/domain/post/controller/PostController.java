@@ -43,7 +43,7 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<ResultResponse> getList(@RequestParam("enumValue") PostType postType, @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) final Pageable pageable) {
+    public ResponseEntity<ResultResponse> getList(@RequestParam(value = "type", required = false) PostType postType, @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) final Pageable pageable) {
         List<PostDto.PostGetListResponse> result = null;
         if (postType == null)
             result = postService.pageList(pageable);
