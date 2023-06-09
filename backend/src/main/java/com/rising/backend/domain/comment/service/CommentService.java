@@ -23,7 +23,6 @@ public class CommentService {
     private final CommentMapper commentMapper;
 
     public Comment createComment(CommentDto.CommentCreateRequest dto, Long userId) {
-        findByCommentId(dto.getParentId());
         Comment entity = commentMapper.toCommentEntity(dto, userId);
         return commentRepository.save(entity);
     }
