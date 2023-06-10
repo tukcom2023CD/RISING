@@ -2,6 +2,7 @@ package com.rising.backend.domain.post.controller;
 
 import com.rising.backend.domain.post.domain.PostType;
 import com.rising.backend.domain.post.dto.PostDto;
+import com.rising.backend.domain.post.dto.PostDto.PostUpdateRequest;
 import com.rising.backend.domain.post.service.PostService;
 import com.rising.backend.domain.user.domain.User;
 import com.rising.backend.global.annotation.LoginRequired;
@@ -83,6 +84,26 @@ public class PostController {
         List<PostDto.PostGetListResponse> postList = postService.getPostListByUserId(userId);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POSTLIST_FIND_BY_USERID_SUCCESS, postList));
     }
+
+    @PutMapping("/{postId}")
+    public ResponseEntity<ResultResponse> update(
+            @PathVariable Long postId,
+            @RequestBody PostUpdateRequest updateRequest) {
+            postService.updatePost(postId, updateRequest);
+            return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_UPDATE_SUCCESS));
+
+    }
+
+    //멘토링 종료
+    @PutMapping("/{postId}/solve")
+    public ResponseEntity<ResultResponse> solve(
+            @PathVariable Long postId,
+            @RequestBody String solvedCode) {
+        postService.solve(postId, solvedCode);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_SOLVED));
+
+    }
+
 
 
 }

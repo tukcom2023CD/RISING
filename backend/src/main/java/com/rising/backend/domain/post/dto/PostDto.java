@@ -30,6 +30,15 @@ public class PostDto {
         private List<String> tags = new ArrayList<>();
     }
 
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access =  AccessLevel.PRIVATE)
+    @Getter
+    public static class PostUpdateRequest {
+        private String title;
+        private String content;
+        private List<String> tags = new ArrayList<>();
+    }
+
     @Builder
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @NoArgsConstructor(access =  AccessLevel.PRIVATE)
@@ -75,6 +84,10 @@ public class PostDto {
         private PostType type;
 
         private LocalDate created_at;
+
+        private boolean isSolved;
+
+        private String solvedCode;
 
         private List<String> tags;
     }
