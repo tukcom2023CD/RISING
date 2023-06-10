@@ -7,7 +7,11 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUserEmail, setUserName } from '../components/redux/userSlice';
+import {
+  setUserEmail,
+  setUserName,
+  setUserId,
+} from '../components/redux/userSlice';
 
 function LoginPage(): JSX.Element {
   const [username, setUsername] = useState('');
@@ -37,6 +41,7 @@ function LoginPage(): JSX.Element {
         console.log('유저 아이디 :', username);
         dispatch(setUserEmail(username));
         dispatch(setUserName(res.data.data.name));
+        // dispatch(setUserId(res.data.data.id));
         navigate('/mainpage');
         sessionStorage.setItem('username', username);
       })

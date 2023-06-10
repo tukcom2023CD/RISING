@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
@@ -12,6 +13,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import EditorViewer from 'components/Editor/EditorViewer';
+import Btn from 'components/Btn';
 
 interface CommentForm {
   userId: string;
@@ -103,6 +105,16 @@ function AnsPage() {
     })();
   }, []);
 
+  const currUserId = 1;
+
+  const modifyPost = () => {
+    alert('글이 수정되었습니다.');
+  };
+
+  const deletePost = () => {
+    alert('글이 삭제되었습니다.');
+  };
+
   return (
     // 배경색
     <div
@@ -111,6 +123,19 @@ function AnsPage() {
     >
       {/* 상단바 */}
       <QuesNavBar />
+      {/* 수정, 삭제 버튼 */}
+      {userId && (
+        <div className="flex justify-center item-center mt-4">
+          <div className="w-3/5">
+            <div className="flex flex-row w-fit ml-auto">
+              <div className="mr-4">
+                <Btn text="수정" onClick={modifyPost} />
+              </div>
+              <Btn text="삭제" onClick={deletePost} />
+            </div>
+          </div>
+        </div>
+      )}
       {/* Title */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
