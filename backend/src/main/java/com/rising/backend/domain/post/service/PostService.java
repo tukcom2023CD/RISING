@@ -4,6 +4,7 @@ import com.rising.backend.domain.post.domain.Post;
 import com.rising.backend.domain.post.domain.PostType;
 import com.rising.backend.domain.post.domain.Tag;
 import com.rising.backend.domain.post.dto.PostDto;
+import com.rising.backend.domain.post.dto.PostDto.SolvedCodeRequest;
 import com.rising.backend.domain.post.mapper.PostMapper;
 import com.rising.backend.domain.post.repository.PostRepository;
 import com.rising.backend.domain.post.repository.TagRepository;
@@ -103,9 +104,9 @@ public class PostService {
         post.setTags(tags);
     }
 
-    public void solve(Long postId, String solvedCode) {
+    public void solve(Long postId, PostDto.SolvedCodeRequest codeRequest) {
         Post post = findPostById(postId);
         post.setSolved(); //멘토링 완료
-        post.setSolvedCode(solvedCode);
+        post.setSolvedCode(codeRequest.getSolvedCode());
     }
 }
