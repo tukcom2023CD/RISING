@@ -9,17 +9,21 @@ interface Props {
   type: string;
   postId: number;
   tags: string[];
+  solved: string;
 }
 
-function Ques({ count, title, date, type, postId, tags }: Props) {
+function Ques({ count, title, date, type, postId, tags, solved }: Props) {
   const navigate = useNavigate();
   const goToAnsPage = () => {
     if (type === 'QUESTION') {
       navigate('/anspage', { state: { id: postId } });
+    } else if (solved === 'true') {
+      navigate('/privateanscheckpage', { state: { id: postId } });
     } else {
       navigate('/privateanspage', { state: { id: postId } });
     }
   };
+  console.log(solved);
 
   return (
     <button type="button" onClick={goToAnsPage}>
@@ -34,7 +38,11 @@ function Ques({ count, title, date, type, postId, tags }: Props) {
               </div>
             ) : (
               <div className="flex-col m-1.5">
-                <p className="m-0.5 text-sm">멘토링 예정</p>
+                {solved === 'true' ? (
+                  <p className="m-0.5 text-sm">멘토링 완료</p>
+                ) : (
+                  <p className="m-0.5 text-sm">멘토링 예정</p>
+                )}
               </div>
             )}
           </div>

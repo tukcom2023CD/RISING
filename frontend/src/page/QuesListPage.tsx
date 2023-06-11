@@ -89,6 +89,8 @@ function QuesListPage() {
                       postId={data.id}
                       tags={data.tags}
                       date={data.created_at}
+                      // solved={data.solved}
+                      solved="true"
                     />
                   ))}
                 </div>
