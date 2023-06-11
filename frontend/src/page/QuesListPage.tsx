@@ -3,7 +3,7 @@ import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import QuesListNavBar from 'components/NavBar/QuesListNavBar';
 import Ques from 'components/Ques';
-import KeyWordOptionSelect from 'components/Select/KeyWordOptionSelect';
+// import KeyWordOptionSelect from 'components/Select/KeyWordOptionSelect';
 import OptionSelect from 'components/Select/OptionSelect';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -73,9 +73,9 @@ function QuesListPage() {
       <div className="flex justify-center my-8 pt-3">
         <div className="relative flex flex-col my-6 w-4/5 h-[33rem]">
           <div className="absolute flex flex-row -top-11 right-1 mx-1 p-1 h-10">
-            <div className="mr-3">
+            {/* <div className="mr-3">
               <KeyWordOptionSelect />
-            </div>
+            </div> */}
             <OptionSelect setOption={setOption} />
           </div>
           <div className="my-4 w-full h-[35rem]">
