@@ -68,6 +68,8 @@ public class PostDto {
         @NotEmpty
         private Long commentCount;
 
+        private boolean isSolved;
+
         private List<String> tags;
     }
 

@@ -100,9 +100,9 @@ public class PostController {
     public ResponseEntity<ResultResponse> solve(
             @PathVariable Long postId,
             @RequestBody SolvedCodeRequest solvedCode) {
+        System.out.println(solvedCode);
         postService.solve(postId, solvedCode);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_SOLVED));
-
     }
 
 

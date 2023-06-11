@@ -39,7 +39,7 @@ public class PostMapper {
                 .title(post.getTitle())
                 .content(post.getContent())
                 .videoUrl(post.getVideoUrl())
-                .type(post.getType())
+                .type(post.getPostType())
                 .isSolved(post.isSolved())
                 .solvedCode(post.getSolvedCode())
                 .tags(tags)
@@ -72,6 +72,7 @@ public class PostMapper {
                 .title(post.getTitle())
                 .type(post.getPostType())
                 .tags(TagtoString(post.getTag()))
+                .isSolved(post.isSolved())
                 .commentCount(commentRepository.countByPost_Id(post.getId()))
                 .build();
     }
