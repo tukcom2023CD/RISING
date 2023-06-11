@@ -33,17 +33,23 @@ function QuesListPage() {
   }, []);
 
   useEffect(() => {
-    (async () => {
-      await axios
-        .get(`/api/v1/posts?page=${page}`)
-        .then((res) => {
-          setQuesInfo(res.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    })();
-  }, [page]);
+    const fetchQuesInfo = async () => {
+      try {
+        let url = `/api/v1/posts?page=${page}&size=10`;
+
+        if (option) {
+          url += `&type=${option}`;
+        }
+
+        const res = await axios.get(url);
+        setQuesInfo(res.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchQuesInfo();
+  }, [option, page]);
 
   useEffect(() => {
     (async () => {
@@ -57,16 +63,6 @@ function QuesListPage() {
         });
     })();
   }, [sumId]);
-
-  useEffect(() => {
-    if (option) {
-      axios.get(`/api/v1/posts?type=${option}&page=${page}&size=10`)
-        .then(res => {
-          setQuesInfo(res.data.data);
-        })
-        .catch(error => console.error(error));
-    }
-  }, [option, page]);
 
   return (
     <div
@@ -107,23 +103,22 @@ function QuesListPage() {
             </div>
           </div>
           <div className="m-2 flex justify-center item-center">
-          <Pagination
-  variant="outlined"
-  color="primary"
-  page={page}
-  count={pageCount}
-  size="large"
-  onChange={(e, value) => {
-    e.preventDefault();
-    setPage(value);
-    setSearchParams((prevParams) => {
-      return { ...prevParams, page: value.toString(), option: option || undefined };
-    });
-  }}
-  showFirstButton
-  showLastButton
-/>
-
+            <Pagination
+              variant="outlined"
+              color="primary"
+              page={page}
+              count={pageCount}
+              size="large"
+              onChange={(e, value) => {
+                e.preventDefault();
+                setPage(value);
+                setSearchParams((prevParams) => {
+                  return { ...prevParams, page: value.toString(), option: option || undefined };
+                });
+              }}
+              showFirstButton
+              showLastButton
+            />
           </div>
         </div>
       </div>
