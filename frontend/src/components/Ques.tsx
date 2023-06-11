@@ -9,7 +9,7 @@ interface Props {
   type: string;
   postId: number;
   tags: string[];
-  solved: string;
+  solved: boolean;
 }
 
 function Ques({ count, title, date, type, postId, tags, solved }: Props) {
@@ -17,13 +17,12 @@ function Ques({ count, title, date, type, postId, tags, solved }: Props) {
   const goToAnsPage = () => {
     if (type === 'QUESTION') {
       navigate('/anspage', { state: { id: postId } });
-    } else if (solved === 'true') {
+    } else if (solved === true) {
       navigate('/privateanscheckpage', { state: { id: postId } });
     } else {
       navigate('/privateanspage', { state: { id: postId } });
     }
   };
-  console.log(solved);
 
   return (
     <button type="button" onClick={goToAnsPage}>
@@ -38,7 +37,7 @@ function Ques({ count, title, date, type, postId, tags, solved }: Props) {
               </div>
             ) : (
               <div className="flex-col m-1.5">
-                {solved === 'true' ? (
+                {solved === true ? (
                   <p className="m-0.5 text-sm">멘토링 완료</p>
                 ) : (
                   <p className="m-0.5 text-sm">멘토링 예정</p>
