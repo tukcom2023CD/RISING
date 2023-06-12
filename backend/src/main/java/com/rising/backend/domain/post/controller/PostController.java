@@ -2,6 +2,7 @@ package com.rising.backend.domain.post.controller;
 
 import com.rising.backend.domain.post.domain.PostType;
 import com.rising.backend.domain.post.dto.PostDto;
+import com.rising.backend.domain.post.dto.PostDto.SolvedCodeRequest;
 import com.rising.backend.domain.post.dto.PostDto.PostUpdateRequest;
 import com.rising.backend.domain.post.service.PostService;
 import com.rising.backend.domain.user.domain.User;
@@ -98,10 +99,10 @@ public class PostController {
     @PutMapping("/{postId}/solve")
     public ResponseEntity<ResultResponse> solve(
             @PathVariable Long postId,
-            @RequestBody String solvedCode) {
+            @RequestBody SolvedCodeRequest solvedCode) {
+        System.out.println(solvedCode);
         postService.solve(postId, solvedCode);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_SOLVED));
-
     }
 
 

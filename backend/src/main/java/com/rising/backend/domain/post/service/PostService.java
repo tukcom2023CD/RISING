@@ -4,6 +4,7 @@ import com.rising.backend.domain.post.domain.Post;
 import com.rising.backend.domain.post.domain.PostType;
 import com.rising.backend.domain.post.domain.Tag;
 import com.rising.backend.domain.post.dto.PostDto;
+import com.rising.backend.domain.post.dto.PostDto.SolvedCodeRequest;
 import com.rising.backend.domain.post.mapper.PostMapper;
 import com.rising.backend.domain.post.repository.PostRepository;
 import com.rising.backend.domain.post.repository.TagRepository;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -81,7 +83,11 @@ public class PostService {
 
     public List<PostDto.PostGetListResponse> getPostListByUserId(Long userId) {
         List<Post> postList = postRepository.findByUserId(userId);
-        return postMapper.toDtoList(postList);
+
+        List<Post> sortedList = postList.stream()
+                .sorted(Comparator.comparing(Post::getCreatedAt).reversed())
+                .collect(Collectors.toList());
+        return postMapper.toDtoList(sortedList);
     }
 
     public Tag getTagByContent(String content) {
@@ -103,9 +109,9 @@ public class PostService {
         post.setTags(tags);
     }
 
-    public void solve(Long postId, String solvedCode) {
+    public void solve(Long postId, PostDto.SolvedCodeRequest codeRequest) {
         Post post = findPostById(postId);
         post.setSolved(); //멘토링 완료
-        post.setSolvedCode(solvedCode);
+        post.setSolvedCode(codeRequest.getSolvedCode());
     }
 }
