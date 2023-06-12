@@ -53,14 +53,14 @@ public class PostService {
         return userofPost.getId().equals(user.getId());
     }
 
-    public List<PostGetListResponse> pageList(Pageable pageable) {
+    public Page<PostGetListResponse> pageList(Pageable pageable) {
         Page<Post> postList = postRepository.findAll(pageable);
-        return postMapper.toDtoPageList(postList).getContent();
+        return postMapper.toDtoPageList(postList);
     }
 
-    public List<PostGetListResponse> getPostsByType(PostType postType, Pageable pageable) {
+    public Page<PostGetListResponse> getPostsByType(PostType postType, Pageable pageable) {
         Page<Post> posts = postRepository.findByPostType(postType, pageable);
-        return postMapper.toDtoPageList(posts).getContent();
+        return postMapper.toDtoPageList(posts);
     }
 
     public String getSessionUrl(Long postId, User user) {

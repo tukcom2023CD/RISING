@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -44,7 +45,7 @@ public class PostController {
 
     @GetMapping
     public ResponseEntity<ResultResponse> getList(@RequestParam(value = "type", required = false) PostType postType, @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) final Pageable pageable) {
-        List<PostDto.PostGetListResponse> result = null;
+        Page<PostDto.PostGetListResponse> result = null;
         if (postType == null)
             result = postService.pageList(pageable);
         else
