@@ -1,8 +1,10 @@
 package com.rising.backend.domain.post.domain;
 
+import com.rising.backend.domain.post.dto.PostDto.PostUpdateRequest;
 import com.rising.backend.domain.user.domain.User;
 import com.rising.backend.global.domain.BaseEntity;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -31,17 +33,27 @@ public class Post extends BaseEntity {
 
     @NotBlank
     @Column(length = 100)
+    @Setter
     private String title;
 
     @NotBlank
     @Column(columnDefinition = "TEXT")
+    @Setter
     private String content;
+
 
     @Column(length = 255)
     private String videoUrl;
 
     @Column(length = 255)
     private String sessionUrl;
+
+    @ColumnDefault("false")
+    private boolean isSolved;
+
+    @Column(length = 1000)
+    @Setter
+    private String solvedCode;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -52,10 +64,17 @@ public class Post extends BaseEntity {
             joinColumns = @JoinColumn(name = "POST_ID"),
             inverseJoinColumns = @JoinColumn(name = "TAG_ID")
     )
+
+    @Setter
     private List<Tag> tag = new ArrayList<>();
 
 
     public void setTags(List<Tag> tags) {
         this.tag = tags;
     }
+
+    public void setSolved() {
+        this.isSolved = true;
+    }
+
 }

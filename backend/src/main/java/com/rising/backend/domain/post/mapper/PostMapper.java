@@ -40,6 +40,8 @@ public class PostMapper {
                 .content(post.getContent())
                 .videoUrl(post.getVideoUrl())
                 .type(post.getPostType())
+                .isSolved(post.isSolved())
+                .solvedCode(post.getSolvedCode())
                 .tags(tags)
                 .created_at(post.getCreatedAt().toLocalDate())
                 .build();
@@ -70,6 +72,7 @@ public class PostMapper {
                 .title(post.getTitle())
                 .type(post.getPostType())
                 .tags(TagtoString(post.getTag()))
+                .isSolved(post.isSolved())
                 .commentCount(commentRepository.countByPost_Id(post.getId()))
                 .build();
     }

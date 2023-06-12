@@ -5,6 +5,7 @@ import com.rising.backend.domain.sharecoding.dto.CodingDto;
 import com.rising.backend.domain.sharecoding.service.CodeService;
 import com.rising.backend.global.result.ResultCode;
 import com.rising.backend.global.result.ResultResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -15,13 +16,15 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import static com.rising.backend.global.constant.RabbitMQ.CODE_QUEUE_NAME;
 import static com.rising.backend.global.constant.RabbitMQ.EXCHANGE_NAME;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "SHARE CODE API")
 public class CodeController {
 
     private final RabbitTemplate rabbitTemplate;
