@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import QuesNavBar from 'components/NavBar/QuesNavBar';
+import QuesNavBar from 'components/NavBar/QuesListNavBar';
 import Tag from 'components/Tags/Tag';
 import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
@@ -50,15 +50,11 @@ function AnsPage() {
     console.log(CommentData);
     (async () => {
       await axios
-        .post(
-          `/api/v1/comments`,
-          CommentData,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
+        .post(`/api/v1/comments`, CommentData, {
+          headers: {
+            'Content-Type': 'application/json',
           },
-        )
+        })
         .then((res) => {
           console.log(res.data);
           console.log(comment);
@@ -94,9 +90,7 @@ function AnsPage() {
   useEffect(() => {
     (async () => {
       await axios
-        .get(
-          `/api/v1/comments/${postId}?postId=${postId}`,
-        )
+        .get(`/api/v1/comments/${postId}?postId=${postId}`)
         .then((res) => {
           setAnsInfo(res.data.data);
           setCreatedDate(res.data.data.createdDate);

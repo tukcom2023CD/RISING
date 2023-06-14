@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import NavBar from 'components/NavBar/NavBar';
+import NavBar from 'components/NavBar/QuesListNavBar';
 import Tag from 'components/Tags/Tag';
 import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
@@ -28,6 +28,18 @@ function MentoringPage() {
 
   const navigate = useNavigate();
   const goToAnsCheckPage = () => {
+    axios
+      .put(`/api/v1/posts/${postId}/solve`, {
+        solvedCode,
+      })
+      .then((res) => {
+        console.log(solvedCode);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(tags);
+        console.log(error);
+      });
     navigate('/privateanscheckpage');
   };
 
@@ -61,20 +73,20 @@ function MentoringPage() {
     })();
   }, []);
 
-  const [codeList, setCodeList] = React.useState(``);
+  const [solvedCode, setSolvedCode] = React.useState(``);
   const [selectedLanguage, setSelectedLanguage] = useState('python');
   // const textRef = React.useRef<HTMLInputElement>(null);
 
   const handleSub = (body: IMessage) => {
     const jsonBody = JSON.parse(body.body);
     console.log(jsonBody.text);
-    setCodeList(jsonBody.text);
+    setSolvedCode(jsonBody.text);
   };
 
   // 코드 에디터의 onChange 이벤트에서 웹소켓을 통해 코드를 전송
 
   const handleEditorChange = debounce((value: string) => {
-    setCodeList(value);
+    setSolvedCode(value);
 
     if (!client.current?.connected) return;
     client.current.publish({
@@ -188,7 +200,7 @@ function MentoringPage() {
                   <option value="react">React</option>
                 </select>
                 <MonacoEditor
-                  value={codeList}
+                  value={solvedCode}
                   language={selectedLanguage}
                   theme="vs-light"
                   width="100%"

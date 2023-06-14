@@ -4,7 +4,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import QuesNavBar from 'components/NavBar/QuesNavBar';
+import QuesNavBar from 'components/NavBar/QuesListNavBar';
 import Tag from 'components/Tags/Tag';
 import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
@@ -70,6 +70,7 @@ function PrivateAnsPage() {
   const [content, setContent] = useState('');
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
+  const [solvedCode, setSolvedCode] = useState('');
 
   const [mentee, setMentee] = useState('');
   const [mentor, setMentor] = useState('');
@@ -87,6 +88,7 @@ function PrivateAnsPage() {
           setContent(res.data.data.content);
           setTags(res.data.data.tags);
           setDate(res.data.data.created_at);
+          setSolvedCode(res.data.data.solvedCode);
           localStorage.setItem('postId', `${postId}`);
         })
         .catch((error) => {
