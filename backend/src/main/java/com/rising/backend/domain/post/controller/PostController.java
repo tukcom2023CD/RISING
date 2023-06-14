@@ -2,8 +2,6 @@ package com.rising.backend.domain.post.controller;
 
 import com.rising.backend.domain.post.domain.PostType;
 import com.rising.backend.domain.post.dto.PostDto;
-import com.rising.backend.domain.post.dto.PostDto.SolvedCodeRequest;
-import com.rising.backend.domain.post.dto.PostDto.PostUpdateRequest;
 import com.rising.backend.domain.post.service.PostService;
 import com.rising.backend.domain.user.domain.User;
 import com.rising.backend.global.annotation.LoginRequired;
@@ -14,7 +12,6 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -47,7 +44,7 @@ public class PostController {
 
     @GetMapping
     public ResponseEntity<ResultResponse> getList(@RequestParam(value = "type", required = false) PostType postType, @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) final Pageable pageable) {
-        Page<PostDto.PostGetListResponse> result = null;
+        List<PostDto.PostGetListResponse> result = null;
         if (postType == null)
             result = postService.pageList(pageable);
         else
@@ -86,26 +83,6 @@ public class PostController {
         List<PostDto.PostGetListResponse> postList = postService.getPostListByUserId(userId);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POSTLIST_FIND_BY_USERID_SUCCESS, postList));
     }
-
-    @PutMapping("/{postId}")
-    public ResponseEntity<ResultResponse> update(
-            @PathVariable Long postId,
-            @RequestBody PostUpdateRequest updateRequest) {
-            postService.updatePost(postId, updateRequest);
-            return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_UPDATE_SUCCESS));
-
-    }
-
-    //멘토링 종료
-    @PutMapping("/{postId}/solve")
-    public ResponseEntity<ResultResponse> solve(
-            @PathVariable Long postId,
-            @RequestBody SolvedCodeRequest solvedCode) {
-        System.out.println(solvedCode);
-        postService.solve(postId, solvedCode);
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_SOLVED));
-    }
-
 
 
 }
