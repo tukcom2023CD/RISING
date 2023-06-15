@@ -17,7 +17,13 @@ import 'monaco-editor/esm/vs/basic-languages/python/python.contribution';
 import 'monaco-editor/esm/vs/basic-languages/java/java.contribution';
 import 'monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution';
 import 'monaco-editor/esm/vs/basic-languages/cpp/cpp.contribution';
+import 'monaco-editor/esm/vs/basic-languages/csharp/csharp.contribution';
+import 'monaco-editor/esm/vs/basic-languages/go/go.contribution';
+import 'monaco-editor/esm/vs/basic-languages/kotlin/kotlin.contribution';
 import 'monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution';
+import 'monaco-editor/esm/vs/basic-languages/ruby/ruby.contribution';
+import 'monaco-editor/esm/vs/basic-languages/swift/swift.contribution';
+import 'monaco-editor/esm/vs/basic-languages/scala/scala.contribution';
 import EndIndex from 'components/Index/EndIndex';
 
 function MentoringPage() {
@@ -88,10 +94,8 @@ function MentoringPage() {
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
 
-    if (value === 'spring') {
-      setSelectedLanguage('java');
-    } else if (value === 'react') {
-      setSelectedLanguage('javascript');
+    if (value === "python") {
+      setSelectedLanguage("python3");
     } else {
       setSelectedLanguage(value);
     }
@@ -146,14 +150,14 @@ function MentoringPage() {
 
   const compileCode = async () => {
     const codeData = {
-      language: "python3",
+      language: selectedLanguage,  // selectedLanguage를 사용
       version: "string",  // version을 string으로 고정
       code: codeList,  // 에디터의 코드
       input: null  // input을 null로 고정
     };
     
     try {
-      const response = await axios.post('/api/v1/codes', codeData);
+        const response = await axios.post('/api/v1/codes', codeData);
       console.log(response.data);  // 응답값을 콘솔로그에 출력
       setCompileResult(response.data.data.output);
     } catch (error) {
@@ -199,12 +203,18 @@ function MentoringPage() {
                   onChange={handleLanguageChange}
                   className="absolute top-4 right-6 border-2 border-gray-300 rounded-md bg-white z-10"
                 >
+                  <option value="cpp">C</option>
+                  <option value="cpp">C++</option>
+                  <option value="csharp">C#</option>
+                  <option value="go">GO</option>
                   <option value="java">Java</option>
-                  <option value="python">Python</option>
                   <option value="javascript">JavaScript</option>
                   <option value="typescript">TypeScript</option>
-                  <option value="spring">Spring</option>
-                  <option value="react">React</option>
+                  <option value="kotlin">Kotlin</option>
+                  <option value="python">Python3</option>
+                  <option value="ruby">Ruby</option>
+                  <option value="scala">Scala</option>
+                  <option value="swift">Swift</option>
                 </select>
                 <MonacoEditor
                   value={codeList}
