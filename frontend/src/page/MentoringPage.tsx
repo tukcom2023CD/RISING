@@ -94,6 +94,11 @@ function MentoringPage() {
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
 
+    if (value === 'javascript' || value === 'typescript') {
+      // eslint-disable-next-line no-alert
+      alert('해당 언어의 컴파일 기능 개발 중입니다!');
+      return;
+    }
     if (value === "python") {
       setSelectedLanguage("python3");
     } else {
@@ -150,7 +155,7 @@ function MentoringPage() {
 
   const compileCode = async () => {
     const codeData = {
-      language: selectedLanguage,  // selectedLanguage를 사용
+      language: selectedLanguage === 'python' ? 'python3' : selectedLanguage,  // python 선택시 'python3'로 설정
       version: "string",  // version을 string으로 고정
       code: codeList,  // 에디터의 코드
       input: null  // input을 null로 고정
@@ -162,6 +167,8 @@ function MentoringPage() {
       setCompileResult(response.data.data.output);
     } catch (error) {
       console.error(error);
+      // eslint-disable-next-line no-alert
+      alert("언어 선택 및 코드 내용을 다시 한 번 확인하세요!");  // 에러가 발생했을 시 알림 창
     }
   };
 
@@ -203,7 +210,7 @@ function MentoringPage() {
                   onChange={handleLanguageChange}
                   className="absolute top-4 right-6 border-2 border-gray-300 rounded-md bg-white z-10"
                 >
-                  <option value="cpp">C</option>
+                  <option value="c">C</option>
                   <option value="cpp">C++</option>
                   <option value="csharp">C#</option>
                   <option value="go">GO</option>
