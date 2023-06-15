@@ -245,11 +245,11 @@ function MentoringPage() {
       {/* 컴파일러 결과 */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
-          <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 bg-white border-4 border-violet-300">
-            {/* 추후 구현 예정 */}
-            <span className="text-text-color text-xl mt-4 mx-4">
-              컴파일 결과: {compileResult}
-            </span>
+          <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 border-4 border-violet-300 overflow-y-auto" 
+          style={{ backgroundColor: ColorSystem.MainColor.Primary }}>
+            <pre className="text-black font-mono whitespace-pre-wrap">
+              {compileResult}
+            </pre>
           </div>
           <EndIndex />
           <span className="pl-3 text-text-color text-2xl">RESULT</span>
