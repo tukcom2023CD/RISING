@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import NavBar from 'components/NavBar/QuesListNavBar';
+import NavBar from 'components/NavBar/NavBar';
 import Tag from 'components/Tags/Tag';
 import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
@@ -28,18 +28,6 @@ function MentoringPage() {
 
   const navigate = useNavigate();
   const goToAnsCheckPage = () => {
-    axios
-      .put(`/api/v1/posts/${postId}/solve`, {
-        solvedCode,
-      })
-      .then((res) => {
-        console.log(solvedCode);
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(tags);
-        console.log(error);
-      });
     navigate('/privateanscheckpage');
   };
 
@@ -73,20 +61,20 @@ function MentoringPage() {
     })();
   }, []);
 
-  const [solvedCode, setSolvedCode] = React.useState(``);
+  const [codeList, setCodeList] = React.useState(``);
   const [selectedLanguage, setSelectedLanguage] = useState('python');
   // const textRef = React.useRef<HTMLInputElement>(null);
 
   const handleSub = (body: IMessage) => {
     const jsonBody = JSON.parse(body.body);
     console.log(jsonBody.text);
-    setSolvedCode(jsonBody.text);
+    setCodeList(jsonBody.text);
   };
 
   // 코드 에디터의 onChange 이벤트에서 웹소켓을 통해 코드를 전송
 
   const handleEditorChange = debounce((value: string) => {
-    setSolvedCode(value);
+    setCodeList(value);
 
     if (!client.current?.connected) return;
     client.current.publish({
@@ -154,6 +142,25 @@ function MentoringPage() {
     };
   }, []);
 
+  const [compileResult, setCompileResult] = useState('');
+
+  const compileCode = async () => {
+    const codeData = {
+      language: "python3",
+      version: "string",  // version을 string으로 고정
+      code: codeList,  // 에디터의 코드
+      input: null  // input을 null로 고정
+    };
+    
+    try {
+      const response = await axios.post('/api/v1/codes', codeData);
+      console.log(response.data);  // 응답값을 콘솔로그에 출력
+      setCompileResult(response.data.data.output);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div
       className="min-h-screen"
@@ -200,7 +207,7 @@ function MentoringPage() {
                   <option value="react">React</option>
                 </select>
                 <MonacoEditor
-                  value={solvedCode}
+                  value={codeList}
                   language={selectedLanguage}
                   theme="vs-light"
                   width="100%"
@@ -223,7 +230,7 @@ function MentoringPage() {
       {/* 컴파일러 실행 버튼 */}
       <div className="flex justify-center item-center my-2">
         {/* FIXME : 컴파일러 api 호출하는 함수 구현 */}
-        <Btn text="RUN" onClick={goToAnsCheckPage} />
+        <Btn text="RUN" onClick={compileCode} />
       </div>
       {/* 컴파일러 결과 */}
       <div className="flex justify-center item-center my-8">
@@ -231,7 +238,7 @@ function MentoringPage() {
           <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 bg-white border-4 border-violet-300">
             {/* 추후 구현 예정 */}
             <span className="text-text-color text-xl mt-4 mx-4">
-              컴파일러 결과
+              컴파일 결과: {compileResult}
             </span>
           </div>
           <EndIndex />
@@ -246,3 +253,4 @@ function MentoringPage() {
 }
 
 export default MentoringPage;
+
