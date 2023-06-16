@@ -11,7 +11,7 @@ import AnswerIndex from 'components/Index/AnswerIndex';
 import Ans from 'components/Ans/Ans';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import EditorViewer from 'components/Editor/EditorViewer';
 import Btn from 'components/Btn';
 
@@ -106,13 +106,29 @@ function AnsPage() {
   }, []);
 
   const currUserId = 1;
+  const navigate = useNavigate();
 
   const modifyPost = () => {
     alert('글이 수정되었습니다.');
   };
 
   const deletePost = () => {
+    (async () => {
+      await axios
+        .delete(`/api/v1/posts/${postId}`, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    })();
     alert('글이 삭제되었습니다.');
+    navigate('/queslistpage');
   };
 
   return (
@@ -124,7 +140,7 @@ function AnsPage() {
       {/* 상단바 */}
       <QuesNavBar />
       {/* 수정, 삭제 버튼 */}
-      {userId && (
+      {Number(userId) === currUserId && (
         <div className="flex justify-center item-center mt-4">
           <div className="w-3/5">
             <div className="flex flex-row w-fit ml-auto">

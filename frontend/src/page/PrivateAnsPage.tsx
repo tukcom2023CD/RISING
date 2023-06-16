@@ -66,6 +66,7 @@ function PrivateAnsPage() {
     navigate(`/mentoringpage`);
   };
 
+  const [userId, setUserId] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tags, setTags] = useState([]);
@@ -83,6 +84,7 @@ function PrivateAnsPage() {
         .get(`/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data.data);
+          setUserId(res.data.data.userId);
           setTitle(res.data.data.title);
           setContent(res.data.data.content);
           setTags(res.data.data.tags);
@@ -103,12 +105,50 @@ function PrivateAnsPage() {
     window.localStorage.setItem('postId', `${postId}`);
   };
 
+  const currUserId = 1;
+
+  const modifyPost = () => {
+    alert('글이 수정되었습니다.');
+  };
+
+  const deletePost = () => {
+    (async () => {
+      await axios
+        .delete(`/api/v1/posts/${postId}`, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    })();
+    alert('글이 삭제되었습니다.');
+    navigate('/queslistpage');
+  };
+
   return (
     <div
       className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       <QuesNavBar />
+      {/* 수정, 삭제 버튼 */}
+      {Number(userId) === currUserId && (
+        <div className="flex justify-center item-center mt-4">
+          <div className="w-3/5">
+            <div className="flex flex-row w-fit ml-auto">
+              <div className="mr-4">
+                <Btn text="수정" onClick={modifyPost} />
+              </div>
+              <Btn text="삭제" onClick={deletePost} />
+            </div>
+          </div>
+        </div>
+      )}
       {/* Title */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
