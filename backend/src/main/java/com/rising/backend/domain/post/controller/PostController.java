@@ -18,6 +18,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 import static com.rising.backend.domain.post.dto.PostDto.PostCreateRequest;
@@ -84,5 +85,23 @@ public class PostController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POSTLIST_FIND_BY_USERID_SUCCESS, postList));
     }
 
+    @PutMapping("/{postId}")
+    public ResponseEntity<ResultResponse> update(
+            @PathVariable Long postId,
+            @RequestBody PostDto.PostUpdateRequest updateRequest) {
+        postService.updatePost(postId, updateRequest);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_UPDATE_SUCCESS));
+
+    }
+
+    //멘토링 종료
+    @PutMapping("/{postId}/solve")
+    public ResponseEntity<ResultResponse> solve(
+            @PathVariable Long postId,
+            @RequestBody String solvedCode) {
+        postService.solve(postId, solvedCode);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_SOLVED));
+
+    }
 
 }

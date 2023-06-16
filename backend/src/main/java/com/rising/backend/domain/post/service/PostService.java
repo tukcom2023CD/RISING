@@ -95,4 +95,21 @@ public class PostService {
     public void deletePostById(Long postId) {
         postRepository.deleteById(postId);
     }
+
+    public void updatePost(Long postId, PostDto.PostUpdateRequest updateRequest) {
+        Post post = findPostById(postId);
+
+        List<Tag> tags = updateRequest.getTags().stream().map(t -> getTagByContent(t))
+                .collect(Collectors.toList());
+
+        post.setTitle(updateRequest.getTitle());
+        post.setContent(updateRequest.getContent());
+        post.setTags(tags);
+    }
+
+    public void solve(Long postId, String solvedCode) {
+        Post post = findPostById(postId);
+        post.setSolved(); //멘토링 완료
+        post.setSolvedCode(solvedCode);
+    }
 }
