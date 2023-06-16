@@ -47,6 +47,8 @@ public class UserDto {
 
         @NotNull
         private String name;
+
+        private Long id;
     }
 
     @Builder
