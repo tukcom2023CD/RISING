@@ -12,11 +12,18 @@ import ContentIndex from 'components/Index/ContentIndex';
 import EditorViewer from 'components/Editor/EditorViewer';
 import Btn from 'components/Btn';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import useCopyClipBoard from 'utils/useCopyClipBoard';
 import { useDispatch } from 'react-redux';
+import ToastEditor from 'components/Editor/ToastEditor';
 import { setUserName } from '../components/redux/userSlice';
+
+interface QuesForm {
+  type: string;
+  title: string;
+  content: string | null;
+}
 
 export type ChatError = {
   businessCode: string;
@@ -72,6 +79,8 @@ function PrivateAnsPage() {
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
 
+  const [isEditing, setIsEditing] = useState(false);
+
   const [mentee, setMentee] = useState('');
   const [mentor, setMentor] = useState('');
 
@@ -105,10 +114,53 @@ function PrivateAnsPage() {
     window.localStorage.setItem('postId', `${postId}`);
   };
 
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // eslint-disable-next-line prefer-destructuring
+    const value = e.target.value;
+    if (value.length <= 20) {
+      setTitle(value);
+    } else {
+      setTitle(value.slice(0, 20));
+    }
+  };
+
+  const ref = useRef<any>(null);
+
+  const handleEditorChange = () => {
+    setContent(ref.current.getInstance().getMarkdown());
+  };
+
   const currUserId = 1;
 
   const modifyPost = () => {
+    setIsEditing(true);
+  };
+
+  const putPost = () => {
+    // e.preventDefault();
+    const editorIns = ref?.current?.getInstance();
+    const contentMark = editorIns.getMarkdown();
+    const QuesData: QuesForm = {
+      type: 'QUESTION',
+      title,
+      content: contentMark,
+    };
+    (async () => {
+      await axios
+        .put(`/api/v1/posts/${postId}`, QuesData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    })();
     alert('글이 수정되었습니다.');
+    setIsEditing(false);
   };
 
   const deletePost = () => {
@@ -144,7 +196,11 @@ function PrivateAnsPage() {
               <div className="mr-4">
                 <Btn text="수정" onClick={modifyPost} />
               </div>
-              <Btn text="삭제" onClick={deletePost} />
+              {isEditing ? (
+                <Btn text="완료" onClick={putPost} />
+              ) : (
+                <Btn text="삭제" onClick={deletePost} />
+              )}
             </div>
           </div>
         </div>
@@ -153,9 +209,14 @@ function PrivateAnsPage() {
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
-            <span className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl">
-              {title}
-            </span>
+            <input
+              disabled={!isEditing}
+              type="text"
+              className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl rounded-lg focus:shadow focus:outline-none"
+              placeholder="Title.."
+              value={title}
+              onChange={handleTitleChange}
+            />
             <div className="my-2 pl-2 flex flex-row relative">
               {tags.map((tag: any) => (
                 <Tag key={Math.random() * 500} text={tag} />
@@ -177,7 +238,15 @@ function PrivateAnsPage() {
             <div className="relative flex flex-col-reverse w-full">
               <div className="flex flex-col rounded-xl h-full w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
                 <div className="pl-3">
-                  <EditorViewer content={content} />
+                  {isEditing ? (
+                    <ToastEditor
+                      content={content}
+                      editorRef={ref}
+                      handleEditorChange={handleEditorChange}
+                    />
+                  ) : (
+                    <EditorViewer content={content} />
+                  )}
                 </div>
               </div>
             </div>
