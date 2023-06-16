@@ -41,7 +41,7 @@ function LoginPage(): JSX.Element {
         console.log('유저 아이디 :', username);
         dispatch(setUserEmail(username));
         dispatch(setUserName(res.data.data.name));
-        // dispatch(setUserId(res.data.data.id));
+        dispatch(setUserId(res.data.data.id));
         navigate('/mainpage');
         sessionStorage.setItem('username', username);
       })

@@ -15,7 +15,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import useCopyClipBoard from 'utils/useCopyClipBoard';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ToastEditor from 'components/Editor/ToastEditor';
 import { setUserName } from '../components/redux/userSlice';
 
@@ -110,7 +110,6 @@ function PrivateAnsPage() {
   const handleCopyClipBoard = (text: string) => {
     onCopy(text);
     console.log(isCopy);
-    // navigate(`/mentoringpage`);
     window.localStorage.setItem('postId', `${postId}`);
   };
 
@@ -130,14 +129,13 @@ function PrivateAnsPage() {
     setContent(ref.current.getInstance().getMarkdown());
   };
 
-  const currUserId = 1;
+  const currUserId = useSelector((state: any) => state.user.userId);
 
   const modifyPost = () => {
     setIsEditing(true);
   };
 
   const putPost = () => {
-    // e.preventDefault();
     const editorIns = ref?.current?.getInstance();
     const contentMark = editorIns.getMarkdown();
     const QuesData: QuesForm = {
@@ -212,7 +210,7 @@ function PrivateAnsPage() {
             <input
               disabled={!isEditing}
               type="text"
-              className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl rounded-lg focus:shadow focus:outline-none"
+              className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl rounded-lg bg-white focus:shadow focus:outline-none"
               placeholder="Title.."
               value={title}
               onChange={handleTitleChange}

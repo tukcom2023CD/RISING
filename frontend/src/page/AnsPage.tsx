@@ -15,6 +15,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import EditorViewer from 'components/Editor/EditorViewer';
 import Btn from 'components/Btn';
 import ToastEditor from 'components/Editor/ToastEditor';
+import { useSelector } from 'react-redux';
 
 interface CommentForm {
   userId: string;
@@ -129,7 +130,7 @@ function AnsPage() {
     setContent(ref.current.getInstance().getMarkdown());
   };
 
-  const currUserId = 1;
+  const currUserId = useSelector((state: any) => state.user.userId);
   const navigate = useNavigate();
 
   const modifyPost = (e: any) => {
@@ -215,7 +216,7 @@ function AnsPage() {
             <input
               disabled={!isEditing}
               type="text"
-              className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl rounded-lg focus:shadow focus:outline-none"
+              className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl rounded-lg bg-white focus:shadow focus:outline-none"
               placeholder="Title.."
               value={title}
               onChange={handleTitleChange}
