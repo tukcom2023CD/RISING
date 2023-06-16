@@ -24,8 +24,8 @@ function SignUpPage() {
       })
       .then((response) => {
         console.log('회원가입 완료!');
-        console.log('유저 이름 :', name);
-        console.log('유저 이메일 :', username);
+        console.log('유저 이름:', name);
+        console.log('유저 이메일:', username);
         // eslint-disable-next-line no-alert
         alert('회원가입 성공!');
         navigate('/login');
@@ -38,10 +38,7 @@ function SignUpPage() {
   };
 
   return (
-    <div
-      className="h-screen"
-      style={{ backgroundColor: ColorSystem.MainColor.Primary }}
-    >
+    <div className="h-screen" style={{ backgroundColor: ColorSystem.MainColor.Primary }}>
       {/* 상단바 */}
       <NavBar />
       {/* 회원가입 틀 */}
@@ -100,14 +97,20 @@ function SignUpPage() {
                 required
               />
             </div>
-            <div className="mt-4 mb-2 grid absolute bottom-4 right-0">
-              <div className="mt-2 h-12 w-full pr-2 mx-1 my-3 text-xs text-text-color">
-                {password !== passwordConfirm && (
-                  <div>비밀번호가 일치하지 않습니다!</div>
-                )}
-                {password === passwordConfirm && <div>비밀번호 일치!</div>}
-              </div>
+            <div className="mt-4 mb-2 relative">
+              {password !== passwordConfirm && (
+                <div className="pointer-events-none absolute top-0 right-0 mt-2 mr-2 text-xs  text-text-color">
+                  비밀번호가 일치하지 않습니다!
+                </div>
+              )}
+              {password === passwordConfirm && (
+                <div className="pointer-events-none absolute top-0 right-0 mt-2 mr-2 text-xs  text-text-color">
+                  비밀번호 일치!
+                </div>
+              )}
+              <div className='flex justify-center'>
               <Button text="다음" onClick={user} />
+              </div>
             </div>
           </div>
         </div>
