@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import NavBar from 'components/NavBar/QuesListNavBar';
+import NavBar from 'components/NavBar/NavBar';
 import Tag from 'components/Tags/Tag';
 import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
@@ -17,7 +17,13 @@ import 'monaco-editor/esm/vs/basic-languages/python/python.contribution';
 import 'monaco-editor/esm/vs/basic-languages/java/java.contribution';
 import 'monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution';
 import 'monaco-editor/esm/vs/basic-languages/cpp/cpp.contribution';
+import 'monaco-editor/esm/vs/basic-languages/csharp/csharp.contribution';
+import 'monaco-editor/esm/vs/basic-languages/go/go.contribution';
+import 'monaco-editor/esm/vs/basic-languages/kotlin/kotlin.contribution';
 import 'monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution';
+import 'monaco-editor/esm/vs/basic-languages/ruby/ruby.contribution';
+import 'monaco-editor/esm/vs/basic-languages/swift/swift.contribution';
+import 'monaco-editor/esm/vs/basic-languages/scala/scala.contribution';
 import EndIndex from 'components/Index/EndIndex';
 
 function MentoringPage() {
@@ -37,7 +43,6 @@ function MentoringPage() {
         console.log(res.data);
       })
       .catch((error) => {
-        console.log(tags);
         console.log(error);
       });
     navigate('/privateanscheckpage');
@@ -100,10 +105,13 @@ function MentoringPage() {
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
 
-    if (value === 'spring') {
-      setSelectedLanguage('java');
-    } else if (value === 'react') {
-      setSelectedLanguage('javascript');
+    if (value === 'javascript' || value === 'typescript') {
+      // eslint-disable-next-line no-alert
+      alert('해당 언어의 컴파일 기능 개발 중입니다!');
+      return;
+    }
+    if (value === 'python') {
+      setSelectedLanguage('python3');
     } else {
       setSelectedLanguage(value);
     }
@@ -154,6 +162,27 @@ function MentoringPage() {
     };
   }, []);
 
+  const [compileResult, setCompileResult] = useState('');
+
+  const compileCode = async () => {
+    const codeData = {
+      language: selectedLanguage === 'python' ? 'python3' : selectedLanguage, // python 선택시 'python3'로 설정
+      version: 'string', // version을 string으로 고정
+      code: solvedCode, // 에디터의 코드
+      input: null, // input을 null로 고정
+    };
+
+    try {
+      const response = await axios.post('/api/v1/codes', codeData);
+      console.log(response.data); // 응답값을 콘솔로그에 출력
+      setCompileResult(response.data.data.output);
+    } catch (error) {
+      console.error(error);
+      // eslint-disable-next-line no-alert
+      alert('언어 선택 및 코드 내용을 다시 한 번 확인하세요!'); // 에러가 발생했을 시 알림 창
+    }
+  };
+
   return (
     <div
       className="min-h-screen"
@@ -192,12 +221,18 @@ function MentoringPage() {
                   onChange={handleLanguageChange}
                   className="absolute top-4 right-6 border-2 border-gray-300 rounded-md bg-white z-10"
                 >
+                  <option value="c">C</option>
+                  <option value="cpp">C++</option>
+                  <option value="csharp">C#</option>
+                  <option value="go">GO</option>
                   <option value="java">Java</option>
-                  <option value="python">Python</option>
                   <option value="javascript">JavaScript</option>
                   <option value="typescript">TypeScript</option>
-                  <option value="spring">Spring</option>
-                  <option value="react">React</option>
+                  <option value="kotlin">Kotlin</option>
+                  <option value="python">Python3</option>
+                  <option value="ruby">Ruby</option>
+                  <option value="scala">Scala</option>
+                  <option value="swift">Swift</option>
                 </select>
                 <MonacoEditor
                   value={solvedCode}
@@ -222,17 +257,18 @@ function MentoringPage() {
       </div>
       {/* 컴파일러 실행 버튼 */}
       <div className="flex justify-center item-center my-2">
-        {/* FIXME : 컴파일러 api 호출하는 함수 구현 */}
-        <Btn text="RUN" onClick={goToAnsCheckPage} />
+        <Btn text="RUN" onClick={compileCode} />
       </div>
       {/* 컴파일러 결과 */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
-          <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 bg-white border-4 border-violet-300">
-            {/* 추후 구현 예정 */}
-            <span className="text-text-color text-xl mt-4 mx-4">
-              컴파일러 결과
-            </span>
+          <div
+            className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 border-4 border-violet-300 overflow-y-auto"
+            style={{ backgroundColor: ColorSystem.MainColor.Primary }}
+          >
+            <pre className="text-black font-mono whitespace-pre-wrap">
+              {compileResult}
+            </pre>
           </div>
           <EndIndex />
           <span className="pl-3 text-text-color text-2xl">RESULT</span>
