@@ -70,7 +70,6 @@ function PrivateAnsPage() {
   const [content, setContent] = useState('');
   const [tags, setTags] = useState([]);
   const [date, setDate] = useState('');
-  const [solvedCode, setSolvedCode] = useState('');
 
   const [mentee, setMentee] = useState('');
   const [mentor, setMentor] = useState('');
@@ -88,7 +87,6 @@ function PrivateAnsPage() {
           setContent(res.data.data.content);
           setTags(res.data.data.tags);
           setDate(res.data.data.created_at);
-          setSolvedCode(res.data.data.solvedCode);
           localStorage.setItem('postId', `${postId}`);
         })
         .catch((error) => {

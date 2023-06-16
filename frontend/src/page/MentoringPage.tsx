@@ -34,6 +34,17 @@ function MentoringPage() {
 
   const navigate = useNavigate();
   const goToAnsCheckPage = () => {
+    axios
+      .put(`/api/v1/posts/${postId}/solve`, {
+        solvedCode,
+      })
+      .then((res) => {
+        console.log(solvedCode);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     navigate('/privateanscheckpage');
   };
 
@@ -67,20 +78,20 @@ function MentoringPage() {
     })();
   }, []);
 
-  const [codeList, setCodeList] = React.useState(``);
+  const [solvedCode, setSolvedCode] = React.useState(``);
   const [selectedLanguage, setSelectedLanguage] = useState('python');
   // const textRef = React.useRef<HTMLInputElement>(null);
 
   const handleSub = (body: IMessage) => {
     const jsonBody = JSON.parse(body.body);
     console.log(jsonBody.text);
-    setCodeList(jsonBody.text);
+    setSolvedCode(jsonBody.text);
   };
 
   // 코드 에디터의 onChange 이벤트에서 웹소켓을 통해 코드를 전송
 
   const handleEditorChange = debounce((value: string) => {
-    setCodeList(value);
+    setSolvedCode(value);
 
     if (!client.current?.connected) return;
     client.current.publish({
@@ -99,8 +110,8 @@ function MentoringPage() {
       alert('해당 언어의 컴파일 기능 개발 중입니다!');
       return;
     }
-    if (value === "python") {
-      setSelectedLanguage("python3");
+    if (value === 'python') {
+      setSelectedLanguage('python3');
     } else {
       setSelectedLanguage(value);
     }
@@ -155,20 +166,20 @@ function MentoringPage() {
 
   const compileCode = async () => {
     const codeData = {
-      language: selectedLanguage === 'python' ? 'python3' : selectedLanguage,  // python 선택시 'python3'로 설정
-      version: "string",  // version을 string으로 고정
-      code: codeList,  // 에디터의 코드
-      input: null  // input을 null로 고정
+      language: selectedLanguage === 'python' ? 'python3' : selectedLanguage, // python 선택시 'python3'로 설정
+      version: 'string', // version을 string으로 고정
+      code: solvedCode, // 에디터의 코드
+      input: null, // input을 null로 고정
     };
-    
+
     try {
-        const response = await axios.post('/api/v1/codes', codeData);
-      console.log(response.data);  // 응답값을 콘솔로그에 출력
+      const response = await axios.post('/api/v1/codes', codeData);
+      console.log(response.data); // 응답값을 콘솔로그에 출력
       setCompileResult(response.data.data.output);
     } catch (error) {
       console.error(error);
       // eslint-disable-next-line no-alert
-      alert("언어 선택 및 코드 내용을 다시 한 번 확인하세요!");  // 에러가 발생했을 시 알림 창
+      alert('언어 선택 및 코드 내용을 다시 한 번 확인하세요!'); // 에러가 발생했을 시 알림 창
     }
   };
 
@@ -224,7 +235,7 @@ function MentoringPage() {
                   <option value="swift">Swift</option>
                 </select>
                 <MonacoEditor
-                  value={codeList}
+                  value={solvedCode}
                   language={selectedLanguage}
                   theme="vs-light"
                   width="100%"
@@ -246,14 +257,15 @@ function MentoringPage() {
       </div>
       {/* 컴파일러 실행 버튼 */}
       <div className="flex justify-center item-center my-2">
-        {/* FIXME : 컴파일러 api 호출하는 함수 구현 */}
         <Btn text="RUN" onClick={compileCode} />
       </div>
       {/* 컴파일러 결과 */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
-          <div className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 border-4 border-violet-300 overflow-y-auto" 
-          style={{ backgroundColor: ColorSystem.MainColor.Primary }}>
+          <div
+            className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 border-4 border-violet-300 overflow-y-auto"
+            style={{ backgroundColor: ColorSystem.MainColor.Primary }}
+          >
             <pre className="text-black font-mono whitespace-pre-wrap">
               {compileResult}
             </pre>
@@ -270,4 +282,3 @@ function MentoringPage() {
 }
 
 export default MentoringPage;
-
