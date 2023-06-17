@@ -85,4 +85,16 @@ public class PostController {
     }
 
 
+    }
+
+    //멘토링 종료
+    @PutMapping("/{postId}/solve")
+    public ResponseEntity<ResultResponse> solve(
+            @PathVariable Long postId,
+            @RequestBody PostDto.SolvedCodeRequest solvedCode) {
+        postService.solve(postId, solvedCode.getSolvedCode());
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_SOLVED));
+
+    }
+
 }
