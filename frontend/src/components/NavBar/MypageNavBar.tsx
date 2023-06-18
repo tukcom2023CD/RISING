@@ -1,7 +1,7 @@
 import logo from 'images/logo.png';
 import { useNavigate } from 'react-router-dom';
 
-function PrivateQuesNavBar() {
+function QuesNavBar() {
   const navigate = useNavigate();
   const goToQueslistPage = () => {
     navigate('/queslistpage');
@@ -38,7 +38,7 @@ function PrivateQuesNavBar() {
         </button>
         <button
           type="button"
-          className="lg:text-2xl md:text-xl max-sm:text-sm lg:pl-10 lg:pr-8 lg:py-8 lg:my-2 md:pl-8 md:pr-6 md:my-1 sm:pl-6 sm:pr-4 max-sm:pl-6 max-sm:pr-4 max-sm:py-3 font-bold text-purple-600"
+          className="lg:text-2xl md:text-xl max-sm:text-sm lg:pl-10 lg:pr-8 lg:py-8 lg:my-2 md:pl-8 md:pr-6 md:my-1 sm:pl-6 sm:pr-4 max-sm:pl-6 max-sm:pr-4 max-sm:py-3"
           onClick={goToPrivateQues}
         >
           멘토링 질문 작성
@@ -52,7 +52,7 @@ function PrivateQuesNavBar() {
         </button>
         <button
           type="button"
-          className="lg:text-2xl md:text-xl max-sm:text-sm lg:pl-10 lg:pr-8 lg:py-8 lg:my-2 md:pl-8 md:pr-6 md:my-1 sm:pl-6 sm:pr-4 max-sm:pl-6 max-sm:pr-4 max-sm:py-3"
+          className="lg:text-2xl md:text-xl max-sm:text-sm lg:pl-10 lg:pr-8 lg:py-8 lg:my-2 md:pl-8 md:pr-6 md:my-1 sm:pl-6 sm:pr-4 max-sm:pl-6 max-sm:pr-4 max-sm:py-3 font-bold text-purple-600"
           onClick={goToMypage}
         >
           마이페이지
@@ -62,4 +62,4 @@ function PrivateQuesNavBar() {
   );
 }
 
-export default PrivateQuesNavBar;
+export default QuesNavBar;

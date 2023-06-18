@@ -4,7 +4,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import QuesNavBar from 'components/NavBar/QuesNavBar';
+import QuesNavBar from 'components/NavBar/QuesListNavBar';
 import Tag from 'components/Tags/Tag';
 import Date from 'components/Tags/Date';
 import TitleIndex from 'components/Index/AnsTitleIndex';
@@ -19,7 +19,7 @@ import { useDispatch } from 'react-redux';
 import { setUserName } from '../components/redux/userSlice';
 
 export type ChatError = {
-  errorMessage: string;
+  businessCode: string;
 };
 
 function PrivateAnsPage() {
@@ -53,7 +53,7 @@ function PrivateAnsPage() {
         .catch((error) => {
           if (
             (error as AxiosError<ChatError, undefined>).response?.data
-              .errorMessage !== null
+              .businessCode === 'CR002'
           ) {
             alert('질문자는 마이페이지의 채팅방을 이용해주세요:)');
             navigate('/mypage');

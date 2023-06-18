@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
-import NavBar from 'components/NavBar/NavBar';
+import MypageNavBar from 'components/NavBar/MypageNavBar';
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -10,11 +10,11 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import BasicProfile from 'images/BasicProfile.png';
 import pencil from 'images/pencil.png';
-// import Tag from 'components/Tags/Tag';
 import ChatBox from 'components/ChatBox';
 import Profile from 'components/Profile';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import Ques from 'components/Ques';
 import { setUserName } from '../components/redux/userSlice';
 
 function MyPage() {
@@ -27,6 +27,8 @@ function MyPage() {
   const [menteeChatInfo, setMenteeChatInfo] = useState([]);
   const [mentorCharInfo, setMentorChatInfo] = useState([]);
   const [profileInfo, setProfileInfo] = useState('');
+  const [userId, setUserId] = useState(0);
+  const [userPostInfo, setUserPostInfo] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -64,6 +66,7 @@ function MyPage() {
         .get(`/api/v1/users/info`)
         .then((res) => {
           setProfileInfo(res.data.data.name);
+          setUserId(res.data.data.userId);
           dispatch(setUserName(res.data.data.name));
         })
         .catch((error) => {
@@ -72,13 +75,27 @@ function MyPage() {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      await axios
+        .get(`/api/v1/posts/mypages/${userId}`)
+        .then((res) => {
+          console.log(res.data.data);
+          setUserPostInfo(res.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })();
+  }, [userId]);
+
   return (
     <div
       className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
       {/* 상단바 */}
-      <NavBar />
+      <MypageNavBar />
       {/* 유저 이름과 프로필 사진 */}
       <div className="flex justify-center item-center my-8">
         <div className="m-2">
@@ -119,7 +136,18 @@ function MyPage() {
                   >
                     <div className="h-64">
                       <div className="flex flex-col p-1">
-                        추후 업데이트 될 예정입니다.
+                        {userPostInfo.map((data: any) => (
+                          <Ques
+                            key={Math.random() * 500}
+                            count={data.commentCount}
+                            title={data.title}
+                            type={data.type}
+                            postId={data.id}
+                            tags={data.tags}
+                            date={data.created_at}
+                            solved={data.solved}
+                          />
+                        ))}
                       </div>
                     </div>
                   </div>

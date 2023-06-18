@@ -1,6 +1,7 @@
 package com.rising.backend.domain.post.service;
 
 import com.rising.backend.domain.post.domain.Post;
+import com.rising.backend.domain.post.domain.PostType;
 import com.rising.backend.domain.post.domain.Tag;
 import com.rising.backend.domain.post.dto.PostDto;
 import com.rising.backend.domain.post.mapper.PostMapper;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -57,6 +59,11 @@ public class PostService {
         return postMapper.toDtoPageList(postList).getContent();
     }
 
+    public List<PostGetListResponse> getPostsByType(PostType postType, Pageable pageable) {
+        Page<Post> posts = postRepository.findByPostType(postType, pageable);
+        return postMapper.toDtoPageList(posts).getContent();
+    }
+
     public String getSessionUrl(Long postId, User user) {
         Post post = findPostById(postId);
         if (!checkIsAuthor(post, user)) {
@@ -75,7 +82,10 @@ public class PostService {
 
     public List<PostDto.PostGetListResponse> getPostListByUserId(Long userId) {
         List<Post> postList = postRepository.findByUserId(userId);
-        return postMapper.toDtoList(postList);
+        List<Post> sortedList = postList.stream()
+                .sorted(Comparator.comparing(Post::getCreatedAt).reversed())
+                .collect(Collectors.toList());
+        return postMapper.toDtoList(sortedList);
     }
 
     public Tag getTagByContent(String content) {
@@ -84,5 +94,22 @@ public class PostService {
 
     public void deletePostById(Long postId) {
         postRepository.deleteById(postId);
+    }
+
+    public void updatePost(Long postId, PostDto.PostUpdateRequest updateRequest) {
+        Post post = findPostById(postId);
+
+        List<Tag> tags = updateRequest.getTags().stream().map(t -> getTagByContent(t))
+                .collect(Collectors.toList());
+
+        post.setTitle(updateRequest.getTitle());
+        post.setContent(updateRequest.getContent());
+        post.setTags(tags);
+    }
+
+    public void solve(Long postId, String solvedCode) {
+        Post post = findPostById(postId);
+        post.setSolved(); //멘토링 완료
+        post.setSolvedCode(solvedCode);
     }
 }

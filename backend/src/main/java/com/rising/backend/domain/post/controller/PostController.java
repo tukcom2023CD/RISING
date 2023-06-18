@@ -1,5 +1,6 @@
 package com.rising.backend.domain.post.controller;
 
+import com.rising.backend.domain.post.domain.PostType;
 import com.rising.backend.domain.post.dto.PostDto;
 import com.rising.backend.domain.post.service.PostService;
 import com.rising.backend.domain.user.domain.User;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -42,12 +44,14 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<ResultResponse> getList(@PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) final Pageable pageable) {
-        List<PostDto.PostGetListResponse> list = postService.pageList(pageable);
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_PAGINATION_SUCCESS, list));
+    public ResponseEntity<ResultResponse> getList(@RequestParam(value = "type", required = false) PostType postType, @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) final Pageable pageable) {
+        List<PostDto.PostGetListResponse> result = null;
+        if (postType == null)
+            result = postService.pageList(pageable);
+        else
+            result = postService.getPostsByType(postType, pageable);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_PAGINATION_SUCCESS, result));
     }
-
-
 
     @LoginRequired
     @GetMapping("/{postId}/session")
@@ -81,5 +85,23 @@ public class PostController {
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POSTLIST_FIND_BY_USERID_SUCCESS, postList));
     }
 
+    @PutMapping("/{postId}")
+    public ResponseEntity<ResultResponse> update(
+            @PathVariable Long postId,
+            @RequestBody PostDto.PostUpdateRequest updateRequest) {
+        postService.updatePost(postId, updateRequest);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_UPDATE_SUCCESS));
+
+    }
+
+    //멘토링 종료
+    @PutMapping("/{postId}/solve")
+    public ResponseEntity<ResultResponse> solve(
+            @PathVariable Long postId,
+            @RequestBody PostDto.SolvedCodeRequest solvedCode) {
+        postService.solve(postId, solvedCode.getSolvedCode());
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_SOLVED));
+
+    }
 
 }

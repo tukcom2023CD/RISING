@@ -3,7 +3,7 @@ import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
 import QuesListNavBar from 'components/NavBar/QuesListNavBar';
 import Ques from 'components/Ques';
-import KeyWordOptionSelect from 'components/Select/KeyWordOptionSelect';
+// import KeyWordOptionSelect from 'components/Select/KeyWordOptionSelect';
 import OptionSelect from 'components/Select/OptionSelect';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -15,6 +15,8 @@ function QuesListPage() {
   const [sumId, setSumId] = useState(0);
   const [pageCount, setPageCount] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [option, setOption] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     (async () => {
@@ -28,20 +30,26 @@ function QuesListPage() {
           console.log(error);
         });
     })();
-    const pageNumber = searchParams.get('page');
-    (async () => {
-      await axios
-        .get(
-          `/api/v1/posts?page=${pageNumber}`,
-        )
-        .then((res) => {
-          setQuesInfo(res.data.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    })();
   }, []);
+
+  useEffect(() => {
+    const fetchQuesInfo = async () => {
+      try {
+        let url = `/api/v1/posts?page=${page}&size=10`;
+
+        if (option) {
+          url += `&type=${option}`;
+        }
+
+        const res = await axios.get(url);
+        setQuesInfo(res.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchQuesInfo();
+  }, [option, page]);
 
   useEffect(() => {
     (async () => {
@@ -61,18 +69,15 @@ function QuesListPage() {
       className="h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
-      {/* 상단바 */}
       <QuesListNavBar />
       <div className="flex justify-center my-8 pt-3">
         <div className="relative flex flex-col my-6 w-4/5 h-[33rem]">
-          {/* 필터 */}
           <div className="absolute flex flex-row -top-11 right-1 mx-1 p-1 h-10">
-            <div className="mr-3">
+            {/* <div className="mr-3">
               <KeyWordOptionSelect />
-            </div>
-            <OptionSelect />
+            </div> */}
+            <OptionSelect setOption={setOption} />
           </div>
-          {/* 질문 리스트 */}
           <div className="my-4 w-full h-[35rem]">
             <div
               className="w-full h-[32rem] scrollbar-thin 
@@ -91,6 +96,7 @@ function QuesListPage() {
                       postId={data.id}
                       tags={data.tags}
                       date={data.created_at}
+                      solved={data.solved}
                     />
                   ))}
                 </div>
@@ -101,12 +107,15 @@ function QuesListPage() {
             <Pagination
               variant="outlined"
               color="primary"
-              page={Number(searchParams.get('page'))}
+              page={page}
               count={pageCount}
               size="large"
               onChange={(e, value) => {
                 e.preventDefault();
-                window.location.href = `/queslistpage?page=${value}`;
+                setPage(value);
+                setSearchParams((prevParams) => {
+                  return { ...prevParams, page: value.toString(), option: option || undefined };
+                });
               }}
               showFirstButton
               showLastButton

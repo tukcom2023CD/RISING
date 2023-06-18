@@ -9,13 +9,16 @@ interface Props {
   type: string;
   postId: number;
   tags: string[];
+  solved: boolean;
 }
 
-function Ques({ count, title, date, type, postId, tags }: Props) {
+function Ques({ count, title, date, type, postId, tags, solved }: Props) {
   const navigate = useNavigate();
   const goToAnsPage = () => {
     if (type === 'QUESTION') {
       navigate('/anspage', { state: { id: postId } });
+    } else if (solved === true) {
+      navigate('/privateanscheckpage', { state: { id: postId } });
     } else {
       navigate('/privateanspage', { state: { id: postId } });
     }
@@ -27,10 +30,20 @@ function Ques({ count, title, date, type, postId, tags }: Props) {
         {/* 답변 수 */}
         <div className="h-14 w-14 my-4 ml-4 mr-2 rounded-lg bg-violet-100">
           <div className="flex justify-center item-center">
-            <div className="flex-col m-1">
-              <p className="m-0.5 mx-2 px-0.5 text-sm">{count}</p>
-              <p className="m-0.5 text-sm">답변</p>
-            </div>
+            {type === 'QUESTION' ? (
+              <div className="flex-col m-0.5">
+                <p className="m-0.5 mx-2 px-0.5 text-sm">{count}</p>
+                <p className="m-0.5 text-sm">답변</p>
+              </div>
+            ) : (
+              <div className="flex-col m-1.5">
+                {solved === true ? (
+                  <p className="m-0.5 text-sm">멘토링 완료</p>
+                ) : (
+                  <p className="m-0.5 text-sm">멘토링 예정</p>
+                )}
+              </div>
+            )}
           </div>
         </div>
         {/* 질문 제목 */}

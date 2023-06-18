@@ -30,7 +30,7 @@ public class PostMapper {
                 .title(postCreate.getTitle())
                 .videoUrl(null)
                 .sessionUrl(uuidConverter.toBase64(UUID.randomUUID()))
-                .type(postCreate.getType()).build();
+                .postType(postCreate.getType()).build();
     }
 
     public PostDto.PostDetailResponse toPostDto(Post post, List<String> tags) {
@@ -39,7 +39,9 @@ public class PostMapper {
                 .title(post.getTitle())
                 .content(post.getContent())
                 .videoUrl(post.getVideoUrl())
-                .type(post.getType())
+                .type(post.getPostType())
+                .isSolved(post.isSolved())
+                .solvedCode(post.getSolvedCode())
                 .tags(tags)
                 .created_at(post.getCreatedAt().toLocalDate())
                 .build();
@@ -68,8 +70,9 @@ public class PostMapper {
                 .content(post.getContent())
                 .created_at(post.getCreatedAt().toLocalDate())
                 .title(post.getTitle())
-                .type(post.getType())
+                .type(post.getPostType())
                 .tags(TagtoString(post.getTag()))
+                .isSolved(post.isSolved())
                 .commentCount(commentRepository.countByPost_Id(post.getId()))
                 .build();
     }
