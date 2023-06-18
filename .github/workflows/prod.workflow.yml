@@ -32,10 +32,11 @@ jobs:
           username: ${{ secrets.AWS_SSH_USERNAME }}
           key: ${{ secrets.AWS_SSH_KEY }}
           port: ${{ secrets.AWS_SSH_PORT }}
-	  script_stop: true
-	  script: | #ec2에 접속해서 실행할 커맨
+          script_stop: true
+          script: |
             cd ~/RISING
-	    echo "test" > test
+            git pull
+            docker-compose up --build
 
       - name: Remove Github Actions IP From Security Group
         run: |
