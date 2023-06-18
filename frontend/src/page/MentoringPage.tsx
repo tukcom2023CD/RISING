@@ -102,20 +102,6 @@ function MentoringPage() {
     });
   }, 300);
 
-  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-
-    if (value === 'javascript' || value === 'typescript') {
-      // eslint-disable-next-line no-alert
-      alert('해당 언어의 컴파일 기능 개발 중입니다!');
-      return;
-    }
-    if (value === 'python') {
-      setSelectedLanguage('python3');
-    } else {
-      setSelectedLanguage(value);
-    }
-  };
 
   const client = useRef<Client>();
 
@@ -123,7 +109,7 @@ function MentoringPage() {
   const connect = () => {
     client.current = new Client({
       // http 일경우 ws를 https일 경우 wss
-      brokerURL: `wss://${process.env.REACT_APP_HOST}/stomp`,
+      brokerURL: `ws://${process.env.REACT_APP_HOST}/stomp`,
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
       heartbeatOutgoing: 16000,
@@ -161,6 +147,21 @@ function MentoringPage() {
       client.current?.deactivate();
     };
   }, []);
+
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+
+    if (value === 'javascript' || value === 'typescript') {
+      // eslint-disable-next-line no-alert
+      alert('해당 언어의 컴파일 기능 개발 중입니다!');
+      return;
+    }
+    if (value === 'python') {
+      setSelectedLanguage('python3');
+    } else {
+      setSelectedLanguage(value);
+    }
+  };
 
   const [compileResult, setCompileResult] = useState('');
 
@@ -217,7 +218,7 @@ function MentoringPage() {
             <div className="relative flex flex-col-reverse w-full">
               <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
                 <select
-                  value={selectedLanguage}
+                  value={selectedLanguage === 'python3' ? 'python' : selectedLanguage}
                   onChange={handleLanguageChange}
                   className="absolute top-4 right-6 border-2 border-gray-300 rounded-md bg-white z-10"
                 >
@@ -236,7 +237,7 @@ function MentoringPage() {
                 </select>
                 <MonacoEditor
                   value={solvedCode}
-                  language={selectedLanguage}
+                  language={selectedLanguage === 'python3' ? 'python' : selectedLanguage}
                   theme="vs-light"
                   width="100%"
                   height="100%"
