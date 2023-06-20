@@ -81,7 +81,7 @@ function AfterMainPage() {
             >
               <div className="scaleup lg:w-36 lg:h-12 md:w-32 md:h-10 sm:w-28 sm:h-8 rounded-xl items-center drop-shadow-lg flex justify-center bg-[#FFDDDD]">
                 <span className="lg:text-2xl md:text-xl sm:text-lg text-[#595959]">
-                  내 채팅방
+                  마이페이지
                 </span>
               </div>
             </button>

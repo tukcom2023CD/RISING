@@ -45,7 +45,7 @@ function MentoringPage() {
       .catch((error) => {
         console.log(error);
       });
-    navigate('/privateanscheckpage');
+    navigate('/privateanscheckpage', { state: { id: postId } });
   };
 
   const [title, setTitle] = useState('');
@@ -89,7 +89,6 @@ function MentoringPage() {
   };
 
   // 코드 에디터의 onChange 이벤트에서 웹소켓을 통해 코드를 전송
-
   const handleEditorChange = debounce((value: string) => {
     setSolvedCode(value);
 

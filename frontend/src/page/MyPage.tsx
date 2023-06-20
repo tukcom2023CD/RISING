@@ -120,13 +120,13 @@ function MyPage() {
                   textColor="secondary"
                   indicatorColor="secondary"
                 >
-                  <Tab label="내 질문 채팅방" value="1" />
-                  <Tab label="멘토 채팅방" value="2" />
-                  <Tab label="내 질문" value="3" />
+                  <Tab label="내 질문" value="1" />
+                  <Tab label="내 질문 채팅방" value="2" />
+                  <Tab label="멘토 채팅방" value="3" />
                 </TabList>
               </Box>
               {/* 내가 작성한 질문 */}
-              <TabPanel value="3">
+              <TabPanel value="1">
                 <div className="w-full h-[32rem]">
                   <div
                     className="w-full h-[28rem] scrollbar-thin 
@@ -153,8 +153,8 @@ function MyPage() {
                   </div>
                 </div>
               </TabPanel>
-              {/* 멘토 채팅방 */}
-              <TabPanel value="1">
+              {/* 내 질문 채팅방 */}
+              <TabPanel value="2">
                 <div className="w-full h-[32rem]">
                   <div
                     className="w-full h-[28rem] scrollbar-thin 
@@ -177,7 +177,8 @@ function MyPage() {
                   </div>
                 </div>
               </TabPanel>
-              <TabPanel value="2">
+              {/* 내가 멘토인 채팅방 */}
+              <TabPanel value="3">
                 <div className="w-full h-[32rem]">
                   <div
                     className="w-full h-[28rem] scrollbar-thin 
@@ -190,7 +191,7 @@ function MyPage() {
                         {mentorCharInfo.map((data: any) => (
                           <ChatBox
                             key={Math.random() * 500}
-                            mentor={data.mentor.name}
+                            mentor={data.mentee.name}
                             postId={data.post.postId}
                             roomId={data.roomId}
                           />

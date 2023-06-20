@@ -47,7 +47,6 @@ function PrivateAnsCheckPage() {
           setTags(res.data.data.tags);
           setDate(res.data.data.created_at);
           setCode(res.data.data.solvedCode);
-
           // 언어 태그를 찾아 초기값으로 설정하기
           const languageTags = ['Python', 'Java', 'JavaScript', 'TypeScript'];
           const language = res.data.data.tags.find((tag: string) =>
@@ -125,7 +124,6 @@ function PrivateAnsCheckPage() {
         <div className="relative flex flex-col-reverse w-3/5">
           {/* rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto */}
           <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
-            {/* 추후 구현 예정 */}
             <select
               value={selectedLanguage}
               onChange={handleLanguageChange}
