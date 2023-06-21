@@ -80,6 +80,7 @@ function MentoringPage() {
 
   const [solvedCode, setSolvedCode] = React.useState(``);
   const [selectedLanguage, setSelectedLanguage] = useState('python');
+  const [isTyping, setIsTyping] = useState(false); // 입력 중 여부 추적 변수
 
   const handleSub = (body: IMessage) => {
     const jsonBody = JSON.parse(body.body);
@@ -87,9 +88,10 @@ function MentoringPage() {
     setSolvedCode(jsonBody.text);
   };
 
-  const handleEditorChange = debounce((value: string) => {
+const handleEditorChange = debounce((value: string) => {
+  if (solvedCode !== value) {
     setSolvedCode(value);
-
+    setIsTyping(true); // 입력 중 상태로 설정
     if (!client.current?.connected) return;
     client.current.publish({
       destination: `/pub/code.message.${postId}`,
@@ -97,7 +99,21 @@ function MentoringPage() {
         text: `${value}`,
       }),
     });
+  } else {
+    setIsTyping(false); // 입력 중이 아닌 상태로 설정
+  }
+}, 100);
+
+useEffect(() => {
+  const timeoutId = setTimeout(() => {
+    setIsTyping(false); // 디바운스 시간이 지나도 입력 중이 아닌 상태로 설정
   }, 300);
+
+  return () => {
+    clearTimeout(timeoutId); // cleanup 함수에서 timeout을 clear
+  };
+}, [solvedCode]); // solvedCode가 변경될 때마다 호출
+
 
   const client = useRef<Client>();
 
@@ -197,8 +213,14 @@ function MentoringPage() {
             </div>
           </div>
           <TitleIndex />
+          
           <span className="pl-3 text-text-color text-2xl">TITLE</span>
         </div>
+        {isTyping && (
+  <div className="text-text-color absolute top-0 right-0 px-2 py-1 bg-gray-300 text-sm">
+    입력중입니다...
+  </div>
+)}
       </div>
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
