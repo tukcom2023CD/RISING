@@ -45,7 +45,7 @@ function MentoringPage() {
       .catch((error) => {
         console.log(error);
       });
-navigate('/privateanscheckpage', { state: { id: postId } });
+    navigate('/privateanscheckpage', { state: { id: postId } });
   };
 
   const [title, setTitle] = useState('');

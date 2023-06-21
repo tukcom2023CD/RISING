@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
@@ -8,16 +9,25 @@ import TitleIndex from 'components/Index/AnsTitleIndex';
 import ContentIndex from 'components/Index/ContentIndex';
 import AnswerIndex from 'components/Index/AnswerIndex';
 import Ans from 'components/Ans/Ans';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import EditorViewer from 'components/Editor/EditorViewer';
+import Btn from 'components/Btn';
+import ToastEditor from 'components/Editor/ToastEditor';
+import { useSelector } from 'react-redux';
 
 interface CommentForm {
   userId: string;
   postId: number;
   parentId: null;
   content: string;
+}
+
+interface QuesForm {
+  type: string;
+  title: string;
+  content: string | null;
 }
 
 function AnsPage() {
@@ -37,6 +47,7 @@ function AnsPage() {
   const [comment, setComment] = useState('');
   const [createdDate, setCreatedDate] = useState('');
   const [createdTime, setCreatedTime] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -103,6 +114,75 @@ function AnsPage() {
     })();
   }, []);
 
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // eslint-disable-next-line prefer-destructuring
+    const value = e.target.value;
+    if (value.length <= 20) {
+      setTitle(value);
+    } else {
+      setTitle(value.slice(0, 20));
+    }
+  };
+
+  const ref = useRef<any>(null);
+
+  const handleEditorChange = () => {
+    setContent(ref.current.getInstance().getMarkdown());
+  };
+
+  const currUserId = useSelector((state: any) => state.user.userId);
+  const navigate = useNavigate();
+
+  const modifyPost = (e: any) => {
+    setIsEditing(true);
+  };
+
+  const putPost = () => {
+    // e.preventDefault();
+    const editorIns = ref?.current?.getInstance();
+    const contentMark = editorIns.getMarkdown();
+    const QuesData: QuesForm = {
+      type: 'QUESTION',
+      title,
+      content: contentMark,
+    };
+    (async () => {
+      await axios
+        .put(`/api/v1/posts/${postId}`, QuesData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    })();
+    alert('글이 수정되었습니다.');
+    setIsEditing(false);
+  };
+
+  const deletePost = () => {
+    (async () => {
+      await axios
+        .delete(`/api/v1/posts/${postId}`, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    })();
+    alert('글이 삭제되었습니다.');
+    navigate('/queslistpage');
+  };
+
   return (
     // 배경색
     <div
@@ -111,14 +191,36 @@ function AnsPage() {
     >
       {/* 상단바 */}
       <QuesNavBar />
+      {/* 수정, 삭제 버튼 */}
+      {Number(userId) === currUserId && (
+        <div className="flex justify-center item-center mt-4">
+          <div className="w-3/5">
+            <div className="flex flex-row w-fit ml-auto">
+              <div className="mr-4">
+                <Btn text="수정" onClick={modifyPost} />
+              </div>
+              {isEditing ? (
+                <Btn text="완료" onClick={putPost} />
+              ) : (
+                <Btn text="삭제" onClick={deletePost} />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
       {/* Title */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
-            {/* 질문 제목 텍스트로 가져와야함 */}
-            <span className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl">
-              {title}
-            </span>
+            {/* 질문 제목 */}
+            <input
+              disabled={!isEditing}
+              type="text"
+              className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl rounded-lg bg-white focus:shadow focus:outline-none"
+              placeholder="Title.."
+              value={title}
+              onChange={handleTitleChange}
+            />
             <div className="my-2 pl-2 flex flex-row relative">
               {tags.map((tag: any) => (
                 <Tag key={Math.random() * 500} text={tag} />
@@ -140,7 +242,15 @@ function AnsPage() {
             <div className="relative flex flex-col-reverse w-full">
               <div className="flex flex-col rounded-xl h-full w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300">
                 <div className="pl-3 ">
-                  <EditorViewer content={content} />
+                  {isEditing ? (
+                    <ToastEditor
+                      content={content}
+                      editorRef={ref}
+                      handleEditorChange={handleEditorChange}
+                    />
+                  ) : (
+                    <EditorViewer content={content} />
+                  )}
                 </div>
               </div>
             </div>

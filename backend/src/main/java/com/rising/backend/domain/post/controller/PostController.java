@@ -98,8 +98,8 @@ public class PostController {
     @PutMapping("/{postId}/solve")
     public ResponseEntity<ResultResponse> solve(
             @PathVariable Long postId,
-            @RequestBody String solvedCode) {
-        postService.solve(postId, solvedCode);
+            @RequestBody PostDto.SolvedCodeRequest solvedCode) {
+        postService.solve(postId, solvedCode.getSolvedCode());
         return ResponseEntity.ok(ResultResponse.of(ResultCode.POST_SOLVED));
 
     }
