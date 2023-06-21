@@ -119,8 +119,7 @@ useEffect(() => {
 
   const connect = () => {
     client.current = new Client({
-      brokerURL: `ws://172.30.1.22:8080/stomp`,
-
+      brokerURL: `wss://${process.env.REACT_APP_HOST}/stomp`,
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
       heartbeatOutgoing: 16000,
@@ -161,6 +160,7 @@ useEffect(() => {
     const { value } = e.target;
 
     if (value === 'javascript' || value === 'typescript') {
+      // eslint-disable-next-line no-alert
       alert('해당 언어의 컴파일 기능 개발 중입니다!');
       return;
     }
@@ -187,6 +187,7 @@ useEffect(() => {
       setCompileResult(response.data.data.output);
     } catch (error) {
       console.error(error);
+      // eslint-disable-next-line no-alert
       alert('언어 선택 및 코드 내용을 다시 한 번 확인하세요!');
     }
   };
