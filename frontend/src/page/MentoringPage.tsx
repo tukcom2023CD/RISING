@@ -45,7 +45,7 @@ function MentoringPage() {
       .catch((error) => {
         console.log(error);
       });
-    navigate('/privateanscheckpage');
+navigate('/privateanscheckpage', { state: { id: postId } });
   };
 
   const [title, setTitle] = useState('');
@@ -102,7 +102,7 @@ const handleEditorChange = debounce((value: string) => {
   } else {
     setIsTyping(false); // 입력 중이 아닌 상태로 설정
   }
-}, 100);
+}, 300);
 
 useEffect(() => {
   const timeoutId = setTimeout(() => {
@@ -192,12 +192,9 @@ useEffect(() => {
   };
 
   return (
-    <div
-      className="min-h-screen"
-      style={{ backgroundColor: ColorSystem.MainColor.Primary }}
-    >
+    <div className="min-h-screen" style={{ backgroundColor: ColorSystem.MainColor.Primary }}>
       <NavBar />
-      <div className="flex justify-center item-center my-8">
+      <div className="flex justify-center item-center my-2">
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
             <span className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl">
@@ -213,21 +210,15 @@ useEffect(() => {
             </div>
           </div>
           <TitleIndex />
-          
-          <span className="pl-3 text-text-color text-2xl">TITLE</span>
+          <span className="mt-4 pl-3 text-text-color text-2xl">TITLE</span>
         </div>
-        {isTyping && (
-  <div className="text-text-color absolute top-0 right-0 px-2 py-1 bg-gray-300 text-sm">
-    입력중입니다...
-  </div>
-)}
       </div>
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex justify-between">
             {/* First Code Editor */}
-            <div className="relative flex flex-col-reverse w-1/2">
-              <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
+            <div className="relative flex flex-col-reverse w-1/2 mx-1">
+              <div className="rounded-xl h-[25rem] w-full my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
                 <select
                   value={selectedLanguage === 'python3' ? 'python' : selectedLanguage}
                   onChange={handleLanguageChange}
@@ -261,10 +252,11 @@ useEffect(() => {
                   }}
                 />
               </div>
+              <span className="text-center text-text-color mt-2 pl-3 text-2xl">Mentee Editor</span>
             </div>
             {/* Second Code Editor */}
-            <div className="relative flex flex-col-reverse w-1/2">
-              <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
+            <div className="relative flex flex-col-reverse w-1/2 mx-1">
+              <div className="rounded-xl h-[25rem] w-full my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
                 <select
                   value={selectedLanguage === 'python3' ? 'python' : selectedLanguage}
                   onChange={handleLanguageChange}
@@ -298,12 +290,16 @@ useEffect(() => {
                   }}
                 />
               </div>
+              <span className="text-center text-text-color mt-2 text-2xl">Mentor Editor</span>
             </div>
           </div>
-          <ContentIndex />
-          <span className="pl-3 text-text-color text-2xl">CONTENT</span>
         </div>
       </div>
+      {isTyping && (
+        <div className=" flex justify-center mb-4 text-text-color text-xl">
+          입력중입니다...
+        </div>
+      )}
       <div className="flex justify-center item-center my-2">
         <Btn text="RUN" onClick={compileCode} />
       </div>
@@ -313,9 +309,7 @@ useEffect(() => {
             className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 border-4 border-violet-300 overflow-y-auto"
             style={{ backgroundColor: ColorSystem.MainColor.Primary }}
           >
-            <pre className="text-black font-mono whitespace-pre-wrap">
-              {compileResult}
-            </pre>
+            <pre className="text-black font-mono whitespace-pre-wrap">{compileResult}</pre>
           </div>
           <EndIndex />
           <span className="pl-3 text-text-color text-2xl">RESULT</span>
@@ -329,3 +323,4 @@ useEffect(() => {
 }
 
 export default MentoringPage;
+
