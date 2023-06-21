@@ -80,15 +80,12 @@ function MentoringPage() {
 
   const [solvedCode, setSolvedCode] = React.useState(``);
   const [selectedLanguage, setSelectedLanguage] = useState('python');
-  // const textRef = React.useRef<HTMLInputElement>(null);
 
   const handleSub = (body: IMessage) => {
     const jsonBody = JSON.parse(body.body);
     console.log(jsonBody.text);
     setSolvedCode(jsonBody.text);
   };
-
-  // 코드 에디터의 onChange 이벤트에서 웹소켓을 통해 코드를 전송
 
   const handleEditorChange = debounce((value: string) => {
     setSolvedCode(value);
@@ -102,24 +99,20 @@ function MentoringPage() {
     });
   }, 300);
 
-
   const client = useRef<Client>();
 
-  // 웹소켓 클라이인트 생성
   const connect = () => {
     client.current = new Client({
-      // http 일경우 ws를 https일 경우 wss
-      brokerURL: `ws://${process.env.REACT_APP_HOST}/stomp`,
+      brokerURL: `ws://172.30.1.22:8080/stomp`,
+
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
       heartbeatOutgoing: 16000,
       debug: (str) => {
         console.log(str);
       },
-      // 연결 성공 시 구독하는 로직 실행
       onConnect: () => {
         console.log('0 stomp onConnect : ');
-        // 구독한 대상에 대해 메세지를 받기 위해 subscribe 메서드
         client.current?.subscribe(
           `/exchange/rising.exchange/code.${postId}`,
           handleSub,
@@ -152,7 +145,6 @@ function MentoringPage() {
     const { value } = e.target;
 
     if (value === 'javascript' || value === 'typescript') {
-      // eslint-disable-next-line no-alert
       alert('해당 언어의 컴파일 기능 개발 중입니다!');
       return;
     }
@@ -167,20 +159,19 @@ function MentoringPage() {
 
   const compileCode = async () => {
     const codeData = {
-      language: selectedLanguage === 'python' ? 'python3' : selectedLanguage, // python 선택시 'python3'로 설정
-      version: 'string', // version을 string으로 고정
-      code: solvedCode, // 에디터의 코드
-      input: null, // input을 null로 고정
+      language: selectedLanguage === 'python' ? 'python3' : selectedLanguage,
+      version: 'string',
+      code: solvedCode,
+      input: null,
     };
 
     try {
       const response = await axios.post('/api/v1/codes', codeData);
-      console.log(response.data); // 응답값을 콘솔로그에 출력
+      console.log(response.data);
       setCompileResult(response.data.data.output);
     } catch (error) {
       console.error(error);
-      // eslint-disable-next-line no-alert
-      alert('언어 선택 및 코드 내용을 다시 한 번 확인하세요!'); // 에러가 발생했을 시 알림 창
+      alert('언어 선택 및 코드 내용을 다시 한 번 확인하세요!');
     }
   };
 
@@ -189,9 +180,7 @@ function MentoringPage() {
       className="min-h-screen"
       style={{ backgroundColor: ColorSystem.MainColor.Primary }}
     >
-      {/* 상단바 */}
       <NavBar />
-      {/* Title */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
@@ -213,9 +202,46 @@ function MentoringPage() {
       </div>
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
-          {/* 코드 에디터 */}
-          <div className="flex justify-center item-center mb-8">
-            <div className="relative flex flex-col-reverse w-full">
+          <div className="flex justify-between">
+            {/* First Code Editor */}
+            <div className="relative flex flex-col-reverse w-1/2">
+              <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
+                <select
+                  value={selectedLanguage === 'python3' ? 'python' : selectedLanguage}
+                  onChange={handleLanguageChange}
+                  className="absolute top-4 right-6 border-2 border-gray-300 rounded-md bg-white z-10"
+                >
+                  <option value="c">C</option>
+                  <option value="cpp">C++</option>
+                  <option value="csharp">C#</option>
+                  <option value="go">GO</option>
+                  <option value="java">Java</option>
+                  <option value="javascript">JavaScript</option>
+                  <option value="typescript">TypeScript</option>
+                  <option value="kotlin">Kotlin</option>
+                  <option value="python">Python3</option>
+                  <option value="ruby">Ruby</option>
+                  <option value="scala">Scala</option>
+                  <option value="swift">Swift</option>
+                </select>
+                <MonacoEditor
+                  value={solvedCode}
+                  language={selectedLanguage === 'python3' ? 'python' : selectedLanguage}
+                  theme="vs-light"
+                  width="100%"
+                  height="100%"
+                  onChange={handleEditorChange}
+                  options={{
+                    selectOnLineNumbers: true,
+                    fontFamily:
+                      'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+                    fontSize: 12,
+                  }}
+                />
+              </div>
+            </div>
+            {/* Second Code Editor */}
+            <div className="relative flex flex-col-reverse w-1/2">
               <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
                 <select
                   value={selectedLanguage === 'python3' ? 'python' : selectedLanguage}
@@ -256,11 +282,9 @@ function MentoringPage() {
           <span className="pl-3 text-text-color text-2xl">CONTENT</span>
         </div>
       </div>
-      {/* 컴파일러 실행 버튼 */}
       <div className="flex justify-center item-center my-2">
         <Btn text="RUN" onClick={compileCode} />
       </div>
-      {/* 컴파일러 결과 */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
           <div
