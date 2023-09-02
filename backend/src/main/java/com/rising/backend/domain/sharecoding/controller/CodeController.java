@@ -13,7 +13,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,12 +28,11 @@ public class CodeController {
 
     private final RabbitTemplate rabbitTemplate;
     private final CodeService codeService;
-
     @MessageMapping("code.message.{postId}")
     public void send(@RequestBody Operation operation, @DestinationVariable Long postId) {
-
         log.info("postId = {}", postId);
-        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "code."+ postId, operation); //code.*로 바인딩된 큐로 보냄
+        // 코드 변경 메시지 전송
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "code." + postId, operation);
     }
 
     @RabbitListener(queues = CODE_QUEUE_NAME)
@@ -49,5 +47,5 @@ public class CodeController {
         CodingDto.CompilerResponse response = codeService.getCompileResponse(request);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.GET_COMPILE_RESULT, response));
     }
-
 }
+

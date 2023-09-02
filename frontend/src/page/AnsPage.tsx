@@ -167,11 +167,7 @@ function AnsPage() {
   const deletePost = () => {
     (async () => {
       await axios
-        .delete(`/api/v1/posts/${postId}`, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
+        .delete(`/api/v1/posts/${postId}`)
         .then((res) => {
           console.log(res.data);
         })
