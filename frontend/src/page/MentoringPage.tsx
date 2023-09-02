@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import 'tailwindcss/tailwind.css';
 import 'utils/pageStyle.css';
 import ColorSystem from 'utils/ColorSystem';
@@ -45,7 +46,7 @@ function MentoringPage() {
       .catch((error) => {
         console.log(error);
       });
-    navigate('/privateanscheckpage', { state: { id: postId } });
+    navigate('/privateanscheckpage');
   };
 
   const [title, setTitle] = useState('');
@@ -78,47 +79,74 @@ function MentoringPage() {
     })();
   }, []);
 
+
+
   const [solvedCode, setSolvedCode] = React.useState(``);
   const [selectedLanguage, setSelectedLanguage] = useState('python');
-  const [isTyping, setIsTyping] = useState(false); // 입력 중 여부 추적 변수
+  // const textRef = React.useRef<HTMLInputElement>(null);
 
   const handleSub = (body: IMessage) => {
     const jsonBody = JSON.parse(body.body);
-    console.log(jsonBody.text);
+    console.log("Received text:", jsonBody.text);
+    console.log("Received typing status:", jsonBody.typing);
+
+    setReadOnly(jsonBody.typing);
     setSolvedCode(jsonBody.text);
   };
 
-const handleEditorChange = debounce((value: string) => {
-  if (solvedCode !== value) {
+
+  // 코드 에디터의 onChange 이벤트에서 웹소켓을 통해 코드를 전송
+
+  const [typing, setTyping] = useState(false);
+  const [readOnly, setReadOnly] = useState(false);
+
+
+  const typingTimeout = useRef<any>(null);
+
+  const handleEditorChange = debounce((value: string) => {
     setSolvedCode(value);
-    setIsTyping(true); // 입력 중 상태로 설정
-    if (!client.current?.connected) return;
-    client.current.publish({
-      destination: `/pub/code.message.${postId}`,
-      body: JSON.stringify({
-        text: `${value}`,
-      }),
-    });
-  } else {
-    setIsTyping(false); // 입력 중이 아닌 상태로 설정
-  }
-}, 300);
 
-useEffect(() => {
-  const timeoutId = setTimeout(() => {
-    setIsTyping(false); // 디바운스 시간이 지나도 입력 중이 아닌 상태로 설정
-  }, 300);
+    if (typingTimeout.current) {
+      clearTimeout(typingTimeout.current);
+    }
 
-  return () => {
-    clearTimeout(timeoutId); // cleanup 함수에서 timeout을 clear
-  };
-}, [solvedCode]); // solvedCode가 변경될 때마다 호출
+    if (!typing) {
+      setTyping(true);
+      // 서버에 타이핑 시작 알림
+      client.current?.publish({
+        destination: `/pub/code.message.${postId}`,
+        body: JSON.stringify({
+          text: `${value}`,
+          typing: true,
+        }),
+      });
+    }
+
+    // 1초 후에 타이핑 상태 종료 처리
+    typingTimeout.current = setTimeout(() => {
+      setTyping(false);
+      // 서버에 타이핑 완료 알림
+      client.current?.publish({
+        destination: `/pub/code.message.${postId}`,
+        body: JSON.stringify({
+          text: value,
+          typing: false,
+        }),
+      });
+    }, 3000);
+  });
+
+  useEffect(() => {
+    console.log('Typing state changed to: ', typing);
+  }, [typing]);
 
 
   const client = useRef<Client>();
 
+  // 웹소켓 클라이인트 생성
   const connect = () => {
     client.current = new Client({
+      // http 일경우 ws를 https일 경우 wss
       brokerURL: `wss://${process.env.REACT_APP_HOST}/stomp`,
       reconnectDelay: 200000,
       heartbeatIncoming: 16000,
@@ -126,8 +154,10 @@ useEffect(() => {
       debug: (str) => {
         console.log(str);
       },
+      // 연결 성공 시 구독하는 로직 실행
       onConnect: () => {
         console.log('0 stomp onConnect : ');
+        // 구독한 대상에 대해 메세지를 받기 위해 subscribe 메서드
         client.current?.subscribe(
           `/exchange/rising.exchange/code.${postId}`,
           handleSub,
@@ -156,6 +186,8 @@ useEffect(() => {
     };
   }, []);
 
+
+
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
 
@@ -175,27 +207,32 @@ useEffect(() => {
 
   const compileCode = async () => {
     const codeData = {
-      language: selectedLanguage === 'python' ? 'python3' : selectedLanguage,
-      version: 'string',
-      code: solvedCode,
-      input: null,
+      language: selectedLanguage === 'python' ? 'python3' : selectedLanguage, // python 선택시 'python3'로 설정
+      version: 'string', // version을 string으로 고정
+      code: solvedCode, // 에디터의 코드
+      input: null, // input을 null로 고정
     };
 
     try {
       const response = await axios.post('/api/v1/codes', codeData);
-      console.log(response.data);
+      console.log(response.data); // 응답값을 콘솔로그에 출력
       setCompileResult(response.data.data.output);
     } catch (error) {
       console.error(error);
       // eslint-disable-next-line no-alert
-      alert('언어 선택 및 코드 내용을 다시 한 번 확인하세요!');
+      alert('언어 선택 및 코드 내용을 다시 한 번 확인하세요!'); // 에러가 발생했을 시 알림 창
     }
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: ColorSystem.MainColor.Primary }}>
+    <div
+      className="min-h-screen"
+      style={{ backgroundColor: ColorSystem.MainColor.Primary }}
+    >
+      {/* 상단바 */}
       <NavBar />
-      <div className="flex justify-center item-center my-2">
+      {/* Title */}
+      <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
           <div className="flex flex-col rounded-xl h-28 w-full mx-1 my-2 bg-white border-4 border-violet-300">
             <span className="text-text-color text-xl mt-4 mx-4 sm:text-sm md:text-lg lg:text-xl">
@@ -211,15 +248,15 @@ useEffect(() => {
             </div>
           </div>
           <TitleIndex />
-          <span className="mt-4 pl-3 text-text-color text-2xl">TITLE</span>
+          <span className="pl-3 text-text-color text-2xl">TITLE</span>
         </div>
       </div>
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
-          <div className="flex justify-between">
-            {/* First Code Editor */}
-            <div className="relative flex flex-col-reverse w-1/2 mx-1">
-              <div className="rounded-xl h-[25rem] w-full my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
+          {/* 코드 에디터 */}
+          <div className="flex justify-center item-center mb-8">
+            <div className="relative flex flex-col-reverse w-full">
+              <div className="rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
                 <select
                   value={selectedLanguage === 'python3' ? 'python' : selectedLanguage}
                   onChange={handleLanguageChange}
@@ -238,79 +275,63 @@ useEffect(() => {
                   <option value="scala">Scala</option>
                   <option value="swift">Swift</option>
                 </select>
-                <MonacoEditor
-                  value={solvedCode}
-                  language={selectedLanguage === 'python3' ? 'python' : selectedLanguage}
-                  theme="vs-light"
-                  width="100%"
-                  height="100%"
-                  onChange={handleEditorChange}
-                  options={{
-                    selectOnLineNumbers: true,
-                    fontFamily:
-                      'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-                    fontSize: 12,
-                  }}
-                />
+                <div className="relative w-full h-[20rem]">
+                  <div className={`absolute inset-0 ${!typing && readOnly ? 'pointer-events-none' : ''}`}>
+                    <div className="w-full h-full">
+                      <MonacoEditor
+                        value={solvedCode}
+                        language={selectedLanguage === 'python3' ? 'python' : selectedLanguage}
+                        theme="vs-light"
+                        width="100%"
+                        height="100%"
+                        onChange={handleEditorChange}
+                        options={{
+                          selectOnLineNumbers: true,
+                          fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+                          fontSize: 12,
+                          readOnly: !typing && readOnly
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <span className="text-center text-text-color mt-2 pl-3 text-2xl">Mentee Editor</span>
-            </div>
-            {/* Second Code Editor */}
-            <div className="relative flex flex-col-reverse w-1/2 mx-1">
-              <div className="rounded-xl h-[25rem] w-full my-2 pt-1.5 px-1 bg-white border-4 border-violet-300 overflow-y-auto">
-                <select
-                  value={selectedLanguage === 'python3' ? 'python' : selectedLanguage}
-                  onChange={handleLanguageChange}
-                  className="absolute top-4 right-6 border-2 border-gray-300 rounded-md bg-white z-10"
-                >
-                  <option value="c">C</option>
-                  <option value="cpp">C++</option>
-                  <option value="csharp">C#</option>
-                  <option value="go">GO</option>
-                  <option value="java">Java</option>
-                  <option value="javascript">JavaScript</option>
-                  <option value="typescript">TypeScript</option>
-                  <option value="kotlin">Kotlin</option>
-                  <option value="python">Python3</option>
-                  <option value="ruby">Ruby</option>
-                  <option value="scala">Scala</option>
-                  <option value="swift">Swift</option>
-                </select>
-                <MonacoEditor
-                  value={solvedCode}
-                  language={selectedLanguage === 'python3' ? 'python' : selectedLanguage}
-                  theme="vs-light"
-                  width="100%"
-                  height="100%"
-                  onChange={handleEditorChange}
-                  options={{
-                    selectOnLineNumbers: true,
-                    fontFamily:
-                      'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-                    fontSize: 12,
-                  }}
-                />
-              </div>
-              <span className="text-center text-text-color mt-2 text-2xl">Mentor Editor</span>
+              {
+                // eslint-disable-next-line no-nested-ternary
+                typing ? (
+                  <div className="text-green-500 text-center mt-2">
+                    코드 입력중입니다!
+                  </div>
+                ) : readOnly ? (
+                  <div className="text-red-500 text-center mt-2">
+                    상대방이 입력 중입니다!
+                  </div>
+                ) : (
+                  <div className="text-blue-500 text-center mt-2">
+                    코드를 입력해주세요!
+                  </div>
+                )
+              }
             </div>
           </div>
+          <ContentIndex />
+          <span className="pl-3 text-text-color text-2xl">CONTENT</span>
         </div>
       </div>
-      {isTyping && (
-        <div className=" flex justify-center mb-4 text-text-color text-xl">
-          입력중입니다...
-        </div>
-      )}
+      {/* 컴파일러 실행 버튼 */}
       <div className="flex justify-center item-center my-2">
         <Btn text="RUN" onClick={compileCode} />
       </div>
+      {/* 컴파일러 결과 */}
       <div className="flex justify-center item-center my-8">
         <div className="relative flex flex-col-reverse w-3/5">
           <div
             className="flex flex-col rounded-xl h-[20rem] w-full mx-1 my-2 pt-1.5 px-1 border-4 border-violet-300 overflow-y-auto"
             style={{ backgroundColor: ColorSystem.MainColor.Primary }}
           >
-            <pre className="text-black font-mono whitespace-pre-wrap">{compileResult}</pre>
+            <pre className="text-black font-mono whitespace-pre-wrap">
+              {compileResult}
+            </pre>
           </div>
           <EndIndex />
           <span className="pl-3 text-text-color text-2xl">RESULT</span>
@@ -324,4 +345,8 @@ useEffect(() => {
 }
 
 export default MentoringPage;
+
+
+
+
 
